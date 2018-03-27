@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Dashboard</a>
-      <button type="button"
+      <a class="navbar-brand" href="#">{{routeName}}</a>
+      <!-- <button type="button"
               class="navbar-toggler navbar-toggler-right"
               :class="{toggled: $sidebar.showSidebar}"
               aria-controls="navigation-index"
@@ -12,15 +12,15 @@
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
-      </button>
+      </button> -->
       <div class="collapse navbar-collapse justify-content-end">
-        <ul class="nav navbar-nav mr-auto">
-          <li class="nav-item">
+        <ul class="nav navbar-nav mx-auto">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#" data-toggle="dropdown">
               <i class="nc-icon nc-palette"></i>
             </a>
-          </li>
-          <drop-down tag="li">
+          </li> -->
+          <!-- <drop-down tag="li">
             <template slot="title">
               <i class="nc-icon nc-planet"></i>
               <b class="caret"></b>
@@ -31,21 +31,64 @@
             <a class="dropdown-item" href="#">Notification 3</a>
             <a class="dropdown-item" href="#">Notification 4</a>
             <a class="dropdown-item" href="#">Another notification</a>
-          </drop-down>
-          <li class="nav-item">
+          </drop-down> -->
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nc-icon nc-zoom-split"></i>
               <span class="d-lg-block">&nbsp;Search</span>
             </a>
-          </li>
-        </ul>
+          </li> -->
+          <!-- <drop-down title="Stations">
+            <a class="dropdown-item" href="#">VISN 1 Station 1</a>
+            <a class="dropdown-item" href="#">VISN 1 Station 2</a>
+            <a class="dropdown-item" href="#">VISN 1 Station 3</a>
+            <a class="dropdown-item" href="#">VISN 1 Station 4</a>
+            <a class="dropdown-item" href="#">VISN 1 Station 5</a>
+            <div class="divider">Visn 2</div>
+            <a class="dropdown-item" href="#">VISN 2</a>
+          </drop-down>
+          <drop-down title="Date Range">
+            <a class="dropdown-item" href="#">Last Month</a>
+            <a class="dropdown-item" href="#">Last 3 Months</a>
+            <a class="dropdown-item" href="#">Last 6 Months</a>
+            <div class="divider"></div>
+            <a class="dropdown-item" href="#">Last Year</a>
+          </drop-down> -->
+          
+          <form class="form-inline">
+            <div class="form-group pt-1">
+              <label for="station">
+                <span class="h4 pr-3 mb-4"><strong>Station</strong></span>
+                <select class="form-control" id="station">
+                  <option>Select ...</option>
+                  <option>V1 (234) VA WhereEver City California</option>
+                  <option>3 Months</option>
+                </select>
+              </label>
+            </div>
+          </form>
+          <form class="form-inline">
+            <div class="form-group pt-1 pl-3 ml-4">
+              <label for="dataRange">
+                <span class="h4 pr-3 mb-4"><strong>Date Range</strong></span>
+              <select class="form-control" id="dateRange">
+                <option>Select ...</option>
+                <option>2 Months</option>
+                <option>3 Months</option>
+              </select>
+              </label>
+            </div>
+          </form>
+          </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <!-- <a class="nav-link" href="#">
               Account
-            </a>
+            </a> -->
           </li>
-          <drop-down title="Dropdown">
+          <li class="nav-item">
+          </li>
+          <!-- <drop-down title="Dropdown">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
             <a class="dropdown-item" href="#">Something</a>
@@ -53,11 +96,11 @@
             <a class="dropdown-item" href="#">Something</a>
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
-          </drop-down>
+          </drop-down> -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <!-- <a href="#" class="nav-link">
               Log out
-            </a>
+            </a> -->
           </li>
         </ul>
       </div>

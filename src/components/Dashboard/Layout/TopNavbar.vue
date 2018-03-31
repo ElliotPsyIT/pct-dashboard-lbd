@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">{{routeName}}</a>
-      <!-- <button type="button"
+      <!-- <a class="navbar-brand" href="#">{{routeName}}</a> -->
+      <button type="button"
               class="navbar-toggler navbar-toggler-right"
               :class="{toggled: $sidebar.showSidebar}"
               aria-controls="navigation-index"
@@ -12,8 +12,8 @@
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
-      </button> -->
-      <div class="collapse navbar-collapse justify-content-end">
+      </button>
+      <div class="collapse navbar-collapse ">
         <ul class="nav navbar-nav mx-auto">
           <!-- <li class="nav-item">
             <a class="nav-link" href="#" data-toggle="dropdown">
@@ -54,7 +54,7 @@
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Last Year</a>
           </drop-down> -->
-          
+          <li class="nav-item">
           <form class="form-inline">
             <div class="form-group pt-1">
               <label for="station">
@@ -67,6 +67,8 @@
               </label>
             </div>
           </form>
+          </li>
+          <li class="nav-item">
           <form class="form-inline">
             <div class="form-group pt-1 pl-3 ml-4">
               <label for="dataRange">
@@ -79,6 +81,7 @@
               </label>
             </div>
           </form>
+          </li>
           </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">

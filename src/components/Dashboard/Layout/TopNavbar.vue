@@ -13,7 +13,7 @@
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
       </button> -->
-      <div class="collapse navbar-collapse justify-content-end">
+      <div class="collapse navbar-collapse "> <!-- removed justify-content-end -->
         <ul class="nav navbar-nav mx-auto">
           <!-- <li class="nav-item">
             <a class="nav-link" href="#" data-toggle="dropdown">
@@ -60,9 +60,9 @@
               <label for="station">
                 <span class="h4 pr-3 mb-4"><strong>Station</strong></span>
                 <select class="form-control" id="station">
-                  <option>Select ...</option>
+                  <option>Select Medical Center...</option>
                   <option>V1 (234) VA WhereEver City California</option>
-                  <option>3 Months</option>
+                  <option>V1 (456) VA Another City California</option>
                 </select>
               </label>
             </div>
@@ -72,9 +72,12 @@
               <label for="dataRange">
                 <span class="h4 pr-3 mb-4"><strong>Date Range</strong></span>
               <select class="form-control" id="dateRange">
-                <option>Select ...</option>
-                <option>2 Months</option>
+                <option>Select Date Range ...</option>
+                <option>1 Week</option>
+                <option>1 Month</option>
                 <option>3 Months</option>
+                <option>6 Months</option>
+                <option>1 Year</option>
               </select>
               </label>
             </div>

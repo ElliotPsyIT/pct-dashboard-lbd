@@ -8,11 +8,26 @@
               <i class="nc-icon nc-chart text-warning"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Capacity</p>
-              <h4 class="card-title">105GB</h4>
+              <p class="card-category">Total Consults</p>
+              <h4 class="card-title">154</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>Updated now
+              <i class="fa fa-refresh"></i>VA MAINE HCS
+            </div>
+          </stats-card>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+          <stats-card>
+            <div slot="header" class="icon-warning">
+              <i class="nc-icon nc-chart text-warning"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Active</p>
+              <h4 class="card-title">34</h4>
+            </div>
+            <div slot="footer">
+              <i class="fa fa-refresh"></i>VA MAINE HCS
             </div>
           </stats-card>
         </div>
@@ -23,11 +38,11 @@
               <i class="nc-icon nc-light-3 text-success"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Revenue</p>
-              <h4 class="card-title">$1,345</h4>
+              <p class="card-category">Cancelled</p>
+              <h4 class="card-title">1</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-calendar-o"></i>Last day
+              <i class="fa fa-calendar-o"></i>VA MAINE HCS
             </div>
           </stats-card>
         </div>
@@ -38,11 +53,44 @@
               <i class="nc-icon nc-vector text-danger"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Errors</p>
-              <h4 class="card-title">23</h4>
+              <p class="card-category">Complete</p>
+              <h4 class="card-title">35</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-clock-o"></i>Last day
+              <i class="fa fa-clock-o"></i>VA MAINE HCS
+            </div>
+          </stats-card>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-3 col-md-6">
+          <stats-card>
+            <div slot="header" class="icon-info">
+              <i class="nc-icon nc-favourite-28 text-primary"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Discontinued</p>
+              <h4 class="card-title">+45</h4>
+            </div>
+            <div slot="footer">
+              <i class="fa fa-refresh"></i>VA MAINE HCS
+            </div>
+          </stats-card>
+        </div>
+
+      
+        <div class="col-xl-3 col-md-6">
+          <stats-card>
+            <div slot="header" class="icon-info">
+              <i class="nc-icon nc-favourite-28 text-primary"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Partial Results</p>
+              <h4 class="card-title">1</h4>
+            </div>
+            <div slot="footer">
+              <i class="fa fa-refresh"></i>VA MAINE HCS
             </div>
           </stats-card>
         </div>
@@ -53,17 +101,32 @@
               <i class="nc-icon nc-favourite-28 text-primary"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Followers</p>
-              <h4 class="card-title">+45</h4>
+              <p class="card-category">Pending</p>
+              <h4 class="card-title">5</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>Updated now
+              <i class="fa fa-refresh"></i>VA MAINE HCS
             </div>
           </stats-card>
         </div>
 
+        <div class="col-xl-3 col-md-6">
+          <stats-card>
+            <div slot="header" class="icon-info">
+              <i class="nc-icon nc-favourite-28 text-primary"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Scheduled</p>
+              <h4 class="card-title">73</h4>
+            </div>
+            <div slot="footer">
+              <i class="fa fa-refresh"></i>VA MAINE HCS
+            </div>
+          </stats-card>
+        </div>
       </div>
-      <div class="row">
+
+      <!-- <div class="row">
         <div class="col-md-8">
           <chart-card :chart-data="lineChart.data"
                       :chart-options="lineChart.options"
@@ -84,9 +147,9 @@
               </div>
             </template>
           </chart-card>
-        </div>
+        </div> -->
 
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <chart-card :chart-data="pieChart.data" chart-type="Pie">
             <template slot="header">
               <h4 class="card-title">Email Statistics</h4>
@@ -105,10 +168,10 @@
             </template>
           </chart-card>
         </div>
-      </div>
+      </div> -->
 
       <div class="row">
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <chart-card
             :chart-data="barChart.data"
             :chart-options="barChart.options"
@@ -129,9 +192,9 @@
               </div>
             </template>
           </chart-card>
-        </div>
+        </div> -->
 
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <card>
             <template slot="header">
               <h5 class="title">Tasks</h5>
@@ -164,7 +227,7 @@
             </div>
           </card>
 
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -275,3 +338,4 @@
 <style>
 
 </style>
+

@@ -59,10 +59,11 @@
             <div class="form-group pt-1">
               <label for="station">
                 <span class="h4 pr-3 mb-4"><strong>Station</strong></span>
-                <select class="form-control" id="station">
-                  <option>Select Medical Center...</option>
-                  <option>V1 (234) VA WhereEver City California</option>
-                  <option>V1 (456) VA Another City California</option>
+                <select v-model="selectedSite" class="form-control" id="station">
+                  <option value="">Select Medical Center...</option>
+                  <option v-for="site in sites" :value="site.StaPa" :key="site.StaPa">
+                    {{ site.InstitutionNameLong}}
+                  </option>
                 </select>
               </label>
             </div>
@@ -73,13 +74,11 @@
             <div class="form-group pt-1 pl-3 ml-4">
               <label for="dataRange">
                 <span class="h4 pr-3 mb-4"><strong>Date Range</strong></span>
-              <select class="form-control" id="dateRange">
-                <option>Select Date Range ...</option>
-                <option>1 Week</option>
-                <option>1 Month</option>
-                <option>3 Months</option>
-                <option>6 Months</option>
-                <option>1 Year</option>
+              <select v-model="selectedRange" class="form-control" id="dateRange">
+                <option value="">Select Date Range ...</option>
+                <option v-for="range in dates" :value="range.name" :key="range.name">
+                    {{ range.dateRange }}
+                  </option>
               </select>
               </label>
             </div>
@@ -88,9 +87,9 @@
           </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <!-- <a class="nav-link" href="#">
-              Account
-            </a> -->
+            <a class="nav-link" href="#">
+              {{ selectedSite }}
+            </a>
           </li>
           <li class="nav-item">
           </li>
@@ -114,16 +113,23 @@
   </nav>
 </template>
 <script>
+  import siteNames from '../../../../static/sites.json'
+  import dateRange from '../../../../static/dateRange.json'
+
   export default {
     computed: {
       routeName () {
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
-      }
+      },
     },
     data () {
       return {
-        activeNotifications: false
+        activeNotifications: false,
+        sites: siteNames,
+        dates: dateRange,
+        selectedSite: '',
+        selectedRange: ''
       }
     },
     methods: {
@@ -141,6 +147,16 @@
       },
       hideSidebar () {
         this.$sidebar.displaySidebar(false)
+      }
+    },
+    watch: {
+      selectedSite : function(val, oldVal){
+        console.log('val: ', val)
+        console.log('oldVal: ', oldVal)
+      },
+      selectedRange : function(val, oldVal){
+        console.log('val: ', val)
+        console.log('oldVal: ', oldVal)
       }
     }
   }

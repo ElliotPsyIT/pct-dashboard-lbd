@@ -239,6 +239,8 @@
   import LTable from 'src/components/UIComponents/Table.vue'
   import Checkbox from 'src/components/UIComponents/Inputs/Checkbox.vue'
 
+  import { mapGetters } from 'vuex'
+
   export default {
     components: {
       Checkbox,
@@ -246,6 +248,9 @@
       LTable,
       ChartCard,
       StatsCard
+    },
+    computed: {
+        ...mapGetters(['selectedSite'])
     },
     data () {
       return {

@@ -63,8 +63,16 @@
         </div>
 
       </div>
+      
       <div class="row">
-        <div class="col-md-8">
+      
+      <div class="col-md-8">
+        <template>
+            <vue-highcharts :options="lineOptions" ref="lineChart"></vue-highcharts>
+          </template>
+      </div>
+       
+        <!-- <div class="col-md-8">
           <chart-card :chart-data="lineChart.data"
                       :chart-options="lineChart.options"
                       :responsive-options="lineChart.responsiveOptions">
@@ -84,9 +92,15 @@
               </div>
             </template>
           </chart-card>
-        </div>
+        </div> -->
 
         <div class="col-md-4">
+          <template>
+            <vue-highcharts :options="pieOptions" ref="pieChart"></vue-highcharts>
+          </template>
+        </div>
+
+        <!-- <div class="col-md-4">
           <chart-card :chart-data="pieChart.data" chart-type="Pie">
             <template slot="header">
               <h4 class="card-title">Email Statistics</h4>
@@ -104,7 +118,8 @@
               </div>
             </template>
           </chart-card>
-        </div>
+        </div> -->
+
       </div>
 
       <div class="row">
@@ -176,18 +191,128 @@
   import LTable from 'src/components/UIComponents/Table.vue'
   import Checkbox from 'src/components/UIComponents/Inputs/Checkbox.vue'
 
+  import VueHighcharts from 'vue2-highcharts'
+
   export default {
     components: {
       Checkbox,
       Card,
       LTable,
       ChartCard,
-      StatsCard
+      StatsCard,
+      VueHighcharts
     },
     data () {
       return {
         editTooltip: 'Edit Task',
         deleteTooltip: 'Remove',
+        pieOptions: {
+          chart: {
+              type: "pie",
+              options3d: {
+                enabled: true,
+                alpha: 45
+              }
+            },
+            title: {
+              text: "Consult Statuses"
+            },
+            subtitle: {
+              text: "Hover Over Section to Display Data"
+            },
+            credits: {
+              enabled: false
+            },
+            plotOptions: {
+              pie: {
+                innerSize: 100,
+                depth: 45
+              }
+            },
+            series: [
+              {
+                name: "Delivered amount",
+                data: [
+                  ["Active", 5966],
+                  ["Pending", 1065],
+                  ["Discontinued", 87261],
+                  ["Complete", 155588],
+                  ["Partial Results", 231],
+                  ["Cancelled", 5572],
+                  ["Scheduled", 12789]
+                ]
+              }
+            ]
+          },
+        lineOptions: {
+          chart: {
+              type: "spline"
+            },
+            title: {
+              text: "Consult Totals"
+            },
+            subtitle: {
+              text: "Monthly Consults Over the Last Year"
+            },
+            xAxis: {
+              categories: [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+              ]
+            },
+            yAxis: {
+              title: {
+                text: "Monthly Consults"
+              },
+              labels: {
+                formatter: function() {
+                  return this.value;
+                }
+              }
+            },
+            tooltip: {
+              crosshairs: true,
+              shared: true
+            },
+            credits: {
+              enabled: false
+            },
+            plotOptions: {
+              spline: {
+                marker: {
+                  radius: 4,
+                  lineColor: "#666666",
+                  lineWidth: 1
+                }
+              }
+            },
+            series: [{
+              name: 'One Year Consults',
+              data: [
+22361,
+              20777,
+              23470,
+              16856,
+              22840,
+              23383,
+              21351,
+              25153,
+              21758,
+              23523,
+              21599,
+              19590
+            ]}]
+        },
         pieChart: {
           data: {
             labels: ['40%', '20%', '40%'],

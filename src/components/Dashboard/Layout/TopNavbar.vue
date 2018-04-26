@@ -115,6 +115,8 @@
 <script>
   import siteNames from '../../../../static/sites.json'
   import dateRange from '../../../../static/dateRange.json'
+  
+  import { mapActions} from 'vuex'
 
   export default {
     computed: {
@@ -150,13 +152,14 @@
       }
     },
     watch: {
-      selectedSite : function(val, oldVal){
-        console.log('val: ', val)
-        console.log('oldVal: ', oldVal)
+      selectedSite : function(site, oldSite){
+        console.log('oldVal: ', oldSite)
+        console.log('val: ', site)
+        this.$store.dispatch('SET_SELECTED_SITE', site)
       },
       selectedRange : function(val, oldVal){
-        console.log('val: ', val)
         console.log('oldVal: ', oldVal)
+        console.log('val: ', val)
       }
     }
   }

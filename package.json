@@ -24,10 +24,7 @@
     "vue-notifyjs": "^0.2.0",
     "vue-router": "^3.0.1",
     "vue2-google-maps": "^0.8.4",
-<<<<<<< HEAD
     "vue2-highcharts": "^1.1.9",
-=======
->>>>>>> lbd-dev
     "vuex": "^3.0.1"
   },
   "devDependencies": {

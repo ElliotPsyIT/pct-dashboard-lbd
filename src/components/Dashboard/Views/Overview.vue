@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-warning">
@@ -62,7 +62,7 @@
           </stats-card>
         </div>
 
-      </div>
+      </div> -->
       
       <div class="row">
       

@@ -65,14 +65,8 @@
       </div> -->
       
       <div class="row">
-      
-      <div class="col-md-8">
-        <template>
-            <vue-highcharts :options="lineOptions" ref="lineChart"></vue-highcharts>
-          </template>
-      </div>
-       
-        <!-- <div class="col-md-8">
+
+        <div class="col-md-8">
           <chart-card :chart-data="lineChart.data"
                       :chart-options="lineChart.options"
                       :responsive-options="lineChart.responsiveOptions">
@@ -92,15 +86,10 @@
               </div>
             </template>
           </chart-card>
-        </div> -->
-
-        <div class="col-md-4">
-          <template>
-            <vue-highcharts :options="pieOptions" ref="pieChart"></vue-highcharts>
-          </template>
         </div>
 
-        <!-- <div class="col-md-4">
+        
+        <div class="col-md-4">
           <chart-card :chart-data="pieChart.data" chart-type="Pie">
             <template slot="header">
               <h4 class="card-title">Email Statistics</h4>
@@ -118,9 +107,35 @@
               </div>
             </template>
           </chart-card>
-        </div> -->
+        </div>
 
       </div>
+
+      <div class="row">
+      
+      <div class="col-md-8">
+        <template>
+            <vue-highcharts :options="lineOptions" ref="lineChart"></vue-highcharts>
+          </template>
+      </div>
+       
+       <div class="col-md-4">
+          <template>
+            <vue-highcharts :options="pieOptions" ref="pieChart"></vue-highcharts>
+          </template>
+        </div>
+
+      </div>
+
+
+      <!-- <div class="row">
+
+          <div class="col-md-6">
+            hello there!!!!!!!!!!!!!!!!!!!!!!!
+            {{ pieOptions.title.text }}
+          </div>
+  
+      </div> -->
 
       <div class="row">
         <div class="col-md-6">
@@ -193,6 +208,8 @@
 
   import VueHighcharts from 'vue2-highcharts'
 
+  import { mapState } from 'vuex'
+
   export default {
     components: {
       Checkbox,
@@ -202,10 +219,61 @@
       StatsCard,
       VueHighcharts
     },
+    computed: {
+      ...mapState([
+        'selectedSite'
+      ])
+    },
+    methods: {
+      update () {
+        let PieChart = this.$refs.pieChart
+        alert(PieChart.chart.type)
+        PieChart.update({
+            series: {
+              name: 'WHAT!!'
+              // data: [
+              //     ["Active", 5966],
+              //     ["Pending", 1065],
+              //     ["Discontinued", 87261],
+              //     ["Complete", 155588],
+              //     ["Partial Results", 231],
+              //     ["Cancelled", 5572],
+              //     ["Scheduled", 12789]
+              //   ]
+            }
+        })
+      }
+    },
+    watch: {
+      selectedSite : function(site, oldSite){
+        this.update()  
+      }
+    },
     data () {
       return {
         editTooltip: 'Edit Task',
         deleteTooltip: 'Remove',
+        pieData: {
+          'national': [
+            ["Active", 5966],
+            ["Pending", 1065],
+            ["Discontinued", 87261],
+            ["Complete", 155588],
+            ["Partial Results", 231],
+            ["Cancelled", 5572],
+            ["Scheduled", 12789]
+          ],
+          '402': [
+            ["Active", 39],
+            ["Pending", 4],
+            ["Discontinued", 694],
+            ["Complete", 1638],
+            ["Partial Results", 4],
+            ["Cancelled", 25],
+            ["Scheduled", 112]
+          ]
+
+        },
         pieOptions: {
           chart: {
               type: "pie",
@@ -231,16 +299,26 @@
             },
             series: [
               {
-                name: "Delivered amount",
-                data: [
-                  ["Active", 5966],
-                  ["Pending", 1065],
-                  ["Discontinued", 87261],
-                  ["Complete", 155588],
-                  ["Partial Results", 231],
-                  ["Cancelled", 5572],
-                  ["Scheduled", 12789]
-                ]
+                name: "consults statuses",
+                data: //Vue.nexttick(() => this.pieComputed() ) 
+                [
+            ["Active", 39],
+            ["Pending", 4],
+            ["Discontinued", 694],
+            ["Complete", 1638],
+            ["Partial Results", 4],
+            ["Cancelled", 25],
+            ["Scheduled", 112]
+          ]
+                // [
+                //   ["Active", 5966],
+                //   ["Pending", 1065],
+                //   ["Discontinued", 87261],
+                //   ["Complete", 155588],
+                //   ["Partial Results", 231],
+                //   ["Cancelled", 5572],
+                //   ["Scheduled", 12789]
+                // ]
               }
             ]
           },
@@ -299,7 +377,7 @@
             series: [{
               name: 'One Year Consults',
               data: [
-22361,
+              22361,
               20777,
               23470,
               16856,

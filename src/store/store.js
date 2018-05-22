@@ -9,7 +9,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     selectedSite: '',
-    selectedRange: ''
+    selectedRange: '',
+    siteNames: siteNames,
+    dateRange: dateRange
   },
   getters: {
     selectedSite (state) {

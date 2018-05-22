@@ -65,6 +65,23 @@
       </div> -->
       
       <div class="row">
+      
+        <div class="col-md-6">
+          <template>
+              <vue-highcharts :options="lineOptions" :Highcharts="Highcharts" ref="lineChart"></vue-highcharts>
+            </template>
+        </div>
+        
+        <div class="col-md-6">
+            <template>
+              <vue-highcharts :options="pieOptions" :Highcharts="Highcharts" ref="pieChart"></vue-highcharts>
+            </template>
+          </div>
+
+      </div>
+
+
+      <div class="row">
 
         <div class="col-md-8">
           <chart-card :chart-data="lineChart.data"
@@ -110,23 +127,6 @@
         </div>
 
       </div>
-
-      <div class="row">
-      
-      <div class="col-md-8">
-        <template>
-            <vue-highcharts :options="lineOptions" ref="lineChart"></vue-highcharts>
-          </template>
-      </div>
-       
-       <div class="col-md-4">
-          <template>
-            <vue-highcharts :options="pieOptions" ref="pieChart"></vue-highcharts>
-          </template>
-        </div>
-
-      </div>
-
 
       <!-- <div class="row">
 
@@ -207,6 +207,7 @@
   import Checkbox from 'src/components/UIComponents/Inputs/Checkbox.vue'
 
   import VueHighcharts from 'vue2-highcharts'
+  import Highcharts from 'highcharts'
 
   import { mapState } from 'vuex'
 
@@ -226,21 +227,17 @@
     },
     methods: {
       update () {
-        let PieChart = this.$refs.pieChart
-        alert(PieChart.chart.type)
-        PieChart.update({
-            series: {
-              name: 'WHAT!!'
-              // data: [
-              //     ["Active", 5966],
-              //     ["Pending", 1065],
-              //     ["Discontinued", 87261],
-              //     ["Complete", 155588],
-              //     ["Partial Results", 231],
-              //     ["Cancelled", 5572],
-              //     ["Scheduled", 12789]
-              //   ]
-            }
+        this.$refs.pieChart.removeSeries()
+        this.$refs.pieChart.addSeries({
+              data: [
+                  ["Active", 5966],
+                  ["Pending", 1065],
+                  ["Discontinued", 87261],
+                  ["Complete", 155588],
+                  ["Partial Results", 231],
+                  ["Cancelled", 5572],
+                  ["Scheduled", 12789]
+                ]
         })
       }
     },
@@ -253,27 +250,6 @@
       return {
         editTooltip: 'Edit Task',
         deleteTooltip: 'Remove',
-        pieData: {
-          'national': [
-            ["Active", 5966],
-            ["Pending", 1065],
-            ["Discontinued", 87261],
-            ["Complete", 155588],
-            ["Partial Results", 231],
-            ["Cancelled", 5572],
-            ["Scheduled", 12789]
-          ],
-          '402': [
-            ["Active", 39],
-            ["Pending", 4],
-            ["Discontinued", 694],
-            ["Complete", 1638],
-            ["Partial Results", 4],
-            ["Cancelled", 25],
-            ["Scheduled", 112]
-          ]
-
-        },
         pieOptions: {
           chart: {
               type: "pie",
@@ -300,25 +276,16 @@
             series: [
               {
                 name: "consults statuses",
-                data: //Vue.nexttick(() => this.pieComputed() ) 
+                data: 
                 [
-            ["Active", 39],
-            ["Pending", 4],
-            ["Discontinued", 694],
-            ["Complete", 1638],
-            ["Partial Results", 4],
-            ["Cancelled", 25],
-            ["Scheduled", 112]
-          ]
-                // [
-                //   ["Active", 5966],
-                //   ["Pending", 1065],
-                //   ["Discontinued", 87261],
-                //   ["Complete", 155588],
-                //   ["Partial Results", 231],
-                //   ["Cancelled", 5572],
-                //   ["Scheduled", 12789]
-                // ]
+                  ["Active", 39],
+                  ["Pending", 4],
+                  ["Discontinued", 694],
+                  ["Complete", 1638],
+                  ["Partial Results", 4],
+                  ["Cancelled", 25],
+                  ["Scheduled", 112]
+                ]
               }
             ]
           },

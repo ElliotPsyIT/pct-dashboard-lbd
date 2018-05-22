@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import siteNames from '../../static/sites.json'
+import dateRange from '../../static/dateRange.json'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({

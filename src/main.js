@@ -2,6 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 
+//css
+import "../node_modules/ag-grid/dist/styles/ag-grid.css"
+import "../node_modules/ag-grid/dist/styles/ag-theme-bootstrap.css"
+
 // store
 import store from './store/store'
 

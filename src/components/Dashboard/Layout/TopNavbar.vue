@@ -14,7 +14,7 @@
         <span class="navbar-toggler-bar burger-lines"></span>
       </button>
       <div class="collapse navbar-collapse ">
-        <ul class="nav navbar-nav mx-auto">
+        <ul class="nav navbar-nav mx-auto py-0">
           <!-- <li class="nav-item">
             <a class="nav-link" href="#" data-toggle="dropdown">
               <i class="nc-icon nc-palette"></i>
@@ -54,32 +54,40 @@
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Last Year</a>
           </drop-down> -->
-          <li class="nav-item">
+          <li class="nav-item py-0 mr-2">
           <form class="form-inline">
-            <div class="form-group pt-1">
+            <div class="form-group">  <!--  pt-1 py-0 -->
               <label for="station">
-                <span class="h4 pr-3 mb-4"><strong>Station</strong></span>
-                <select v-model="selectedSite" class="form-control" id="station">
-                  <option value="">Select Medical Center...</option>
-                  <option v-for="site in sites" :value="site.StaPa" :key="site.StaPa">
+                <div class="px-2">
+                  <span class="h5 "><strong>Station</strong></span>  <!-- pr-3 mb-4 -->
+                </div>
+                <div>
+                <select v-model="siteSelected" class="form-control" id="station">
+                  <option value="" disabled>Select Medical Center...</option>
+                  <option v-for="site in siteNames" :value="site.StaPa" :key="site.StaPa">
                     {{ site.InstitutionNameLong}}
                   </option>
                 </select>
+                </div>
               </label>
             </div>
           </form>
           </li>
-          <li class="nav-item">
+          <li class="nav-item py-0">
           <form class="form-inline">
-            <div class="form-group pt-1 pl-3 ml-4">
+            <div class="form-group "> <!-- pt-1 pl-3 ml-4 -->
               <label for="dataRange">
-                <span class="h4 pr-3 mb-4"><strong>Date Range</strong></span>
-              <select v-model="selectedRange" class="form-control" id="dateRange">
-                <option value="">Select Date Range ...</option>
-                <option v-for="range in dates" :value="range.name" :key="range.name">
-                    {{ range.dateRange }}
-                  </option>
-              </select>
+                <div class="px-2">
+                  <span class="h5 "><strong>Date Range</strong></span> <!-- pr-3 mb-4 -->
+                </div>
+                <div>
+                  <select v-model="rangeSelected" class="form-control" id="dateRange">
+                    <option value="" disabled>Select Date Range ...</option>
+                    <option v-for="range in dateRanges" :value="range.name" :key="range.name">
+                        {{ range.dateRange }}
+                      </option>
+                  </select>
+                </div>
               </label>
             </div>
           </form>
@@ -88,7 +96,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="#">
-              {{ selectedSite }}
+              <!-- {{ selectedSite }}   {{ selectedRange }} -->
             </a>
           </li>
           <li class="nav-item">
@@ -113,28 +121,71 @@
   </nav>
 </template>
 <script>
-  import siteNames from '../../../../static/sites.json'
-  import dateRange from '../../../../static/dateRange.json'
-  
-  import { mapActions} from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
+    // beforeMount  () {
+    //   console.log('topnav beforeMount, selectedSite is: ', this.selectedSite)
+    // },
+    // watch: {
+    //   selectedSite : function(site, oldSite){
+    //     console.log('oldVal: ', oldSite)
+    //     console.log('val: ', site)
+    //     this.setSelectedSite(site)
+    //   },
+    //   selectedRange : function(range, oldRange){
+    //     // console.log('oldVal: ', oldRange)
+    //     // console.log('val: ', range)
+    //     this.setSelectedRange(range)
+    //   }
+    // },
+    // created () {
+    //   console.log('topnav created siteSelected: ', this.selectedSite)
+    //   if (this.selectedSite ) { 
+
+    //   }
+    //   if (this.selectedRange) {
+
+    //   }
+    // },
     computed: {
       routeName () {
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
       },
+      ...mapState(['siteNames','dateRanges','selectedSite','selectedRange']),
+      siteSelected: {
+        get () {
+          // return this.$store.selectedSite
+          return this.selectedSite
+        },
+        set (site) {
+          // this.$store.dispatch('setSelectedSite', site)
+          this.setSelectedSite(site)
+        }   
+      },
+      rangeSelected: {
+        get () {
+          // return this.$store.selectedRange
+          return this.selectedRange
+        },
+        set (range) {
+          // this.$store.dispatch('setSelectedRange', range)
+          this.setSelectedRange(range)
+        }   
+      }
     },
     data () {
       return {
         activeNotifications: false,
-        sites: siteNames,
-        dates: dateRange,
-        selectedSite: '',
-        selectedRange: ''
+        // selectedSite: '',
+        // selectedRange: ''
       }
     },
     methods: {
+      ...mapActions(
+        ['setSelectedSite','setSelectedRange']
+      ),
       capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
       },
@@ -150,21 +201,10 @@
       hideSidebar () {
         this.$sidebar.displaySidebar(false)
       }
-    },
-    watch: {
-      selectedSite : function(site, oldSite){
-        console.log('oldVal: ', oldSite)
-        console.log('val: ', site)
-        this.$store.dispatch('SET_SELECTED_SITE', site)
-      },
-      selectedRange : function(val, oldVal){
-        console.log('oldVal: ', oldVal)
-        console.log('val: ', val)
-      }
     }
   }
 
 </script>
-<style>
+<style >
 
 </style>

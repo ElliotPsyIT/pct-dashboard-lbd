@@ -3,11 +3,30 @@
     <div class="container-fluid">
 
       <div class="row justify-content-md-center">
-        <div class="col-md-8 ">
+        <div class="col-md-11 ">
           <card>
             <template slot="header">
-              <h5 class="title">PCT PTSD Dashboard</h5>
-              <p class="category">Getting Started</p>
+              <h4 class="title text-center">Welcome to PCT PTSD Dashboard!</h4>
+              <p class="category text-center"><b>Select Your Site <i class="bold nc-icon nc-stre-up text-primary"></i></b> From Drop Down Above </p>
+              <p class="category text-center"><b>Then Use Left <i class="bold nc-icon nc-stre-left text-primary"></i> Sidebar</b> to View Details</p>
+
+            </template>
+            <!-- <div class="footer">
+              <hr>
+              <div class="stats">
+                <i class="fa fa-history"></i> Getting Started Instructions
+              </div>
+            </div> -->
+          </card>
+        </div>
+      </div>
+<hr/>
+      <!-- <div class="row justify-content-md-center">
+        <div class="col-md-10 ">
+          <card>
+            <template slot="header">
+              <h5 class="title text-center">Welcome to PCT PTSD Dashboard!</h5>
+              <p class="category text-center">Getting Started</p>
             </template>
             <l-table :data="tableData.data"
                      :columns="tableData.columns">
@@ -15,10 +34,10 @@
 
               <template slot-scope="{row}">
                 <td>
-                  <Checkbox v-model="row.checked"></Checkbox>
+                  <Checkbox v-model="row.checked" v-if="row.checked"></Checkbox>
                 </td>
                 <td>{{row.title}}</td>
-                <td class="td-actions text-right">
+                <td class="td-actions text-right" v-if="row.checked == 'null'">
                   <button type="button" class="btn-simple btn btn-xs btn-info" v-tooltip.top-center="editTooltip">
                     <i class="fa fa-edit"></i>
                   </button>
@@ -31,14 +50,22 @@
             <div class="footer">
               <hr>
               <div class="stats">
-                <i class="fa fa-history"></i> Updated 3 minutes ago
+                <i class="fa fa-history"></i> Getting Started Instructions
               </div>
             </div>
           </card>
         </div>
-      </div> <!-- end of row -->
+      </div>  -->
 
-      <div class="row">
+      <!-- <div>
+        <h1>Hey, You've Been Here Before!!!</h1>
+<br/>
+          <h2>Look Above and See I've Preset the Site and Date Range</h2>
+        <h4>Site of {{ selectedSite }}</h4>
+        <h4>Date Range of {{ selectedRange }}</h4>
+      </div> -->
+
+      <!-- <div class="row justify-content-md-center">
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-warning">
@@ -46,14 +73,16 @@
             </div>
             <div slot="content">
               <p class="card-category">Total Consults</p>
-              <h4 class="card-title">154</h4>
+              <h4 class="card-title">{{ nationalConsultTotal }}</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>VA MAINE HCS
+              <i class="fa fa-refresh"></i>Consults {{ selectedRange }}
             </div>
           </stats-card>
         </div>
+      </div>
 
+      <div class="row">
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-warning">
@@ -64,12 +93,12 @@
               <h4 class="card-title">34</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>VA MAINE HCS
+              <i class="fa fa-refresh"></i>Consult Status {{ selectedRange }}
             </div>
           </stats-card>
-        </div>
+        </div> -->
 
-        <div class="col-xl-3 col-md-6">
+        <!-- <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-success">
               <i class="nc-icon nc-light-3 text-success"></i>
@@ -79,28 +108,12 @@
               <h4 class="card-title">1</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-calendar-o"></i>VA MAINE HCS
+              <i class="fa fa-calendar-o"></i>National {{ selectedRange }}
             </div>
           </stats-card>
-        </div>
+        </div> -->
 
-        <div class="col-xl-3 col-md-6">
-          <stats-card>
-            <div slot="header" class="icon-danger">
-              <i class="nc-icon nc-vector text-danger"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Complete</p>
-              <h4 class="card-title">35</h4>
-            </div>
-            <div slot="footer">
-              <i class="fa fa-clock-o"></i>VA MAINE HCS
-            </div>
-          </stats-card>
-        </div>
-      </div>
-
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-info">
@@ -111,13 +124,13 @@
               <h4 class="card-title">+45</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>VA MAINE HCS
+              <i class="fa fa-refresh"></i>National {{ selectedRange }}
             </div>
           </stats-card>
-        </div>
+        </div> -->
 
-      
-        <div class="col-xl-3 col-md-6">
+
+        <!-- <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-info">
               <i class="nc-icon nc-favourite-28 text-primary"></i>
@@ -127,22 +140,22 @@
               <h4 class="card-title">1</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>VA MAINE HCS
+              <i class="fa fa-refresh"></i>National {{ selectedRange }}
             </div>
           </stats-card>
-        </div>
+        </div> -->
 
-        <div class="col-xl-3 col-md-6">
+        <!-- <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-info">
               <i class="nc-icon nc-favourite-28 text-primary"></i>
             </div>
             <div slot="content">
               <p class="card-category">Pending</p>
-              <h4 class="card-title">5</h4>
+              <h4 class="card-title">{{nationalConsultStatuses.PENDING}}</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>VA MAINE HCS
+              <i class="fa fa-refresh"></i>Consult Status {{ selectedRange }}
             </div>
           </stats-card>
         </div>
@@ -154,14 +167,31 @@
             </div>
             <div slot="content">
               <p class="card-category">Scheduled</p>
-              <h4 class="card-title">73</h4>
+              <h4 class="card-title">{{nationalConsultStatuses.SCHEDULED}}</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>VA MAINE HCS
+              <i class="fa fa-refresh"></i>Consult Status {{ selectedRange }}
             </div>
           </stats-card>
         </div>
-      </div>
+
+
+        <div class="col-xl-3 col-md-6">
+          <stats-card>
+            <div slot="header" class="icon-danger">
+              <i class="nc-icon nc-vector text-danger"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Complete</p>
+              <h4 class="card-title">{{nationalConsultStatuses.COMPLETE}}</h4>
+            </div>
+            <div slot="footer">
+              <i class="fa fa-clock-o"></i>Consult Status {{ selectedRange }}
+            </div>
+          </stats-card>
+        </div>
+
+      </div> -->
 
       <!-- <div class="row">
         <div class="col-md-8">
@@ -230,9 +260,6 @@
             </template>
           </chart-card>
         </div> -->
-
-
-
       </div>
     </div>
   </div>
@@ -244,7 +271,7 @@
   import LTable from 'src/components/UIComponents/Table.vue'
   import Checkbox from 'src/components/UIComponents/Inputs/Checkbox.vue'
 
-  import { mapGetters } from 'vuex'
+  import { mapState } from 'vuex'
 
   export default {
     components: {
@@ -255,92 +282,100 @@
       StatsCard
     },
     computed: {
-        ...mapGetters(['selectedSite'])
+        ...mapState(['selectedSite', 'selectedRange']),
+        // ...mapGetters(['nationalConsultTotal','nationalConsultStatuses'])
+    },
+    created () {
+      if (this.selectedSite || this.selectedRange) {
+        console.log('overview created - yes been here before')
+        this.beenHereBefore = true
+      } else {
+        console.log('not been here before')
+      }
     },
     data () {
       return {
+        beenHereBefore: false,
+
         editTooltip: 'Edit Task',
         deleteTooltip: 'Remove',
-        pieChart: {
-          data: {
-            labels: ['40%', '20%', '40%'],
-            series: [40, 20, 40]
-          }
-        },
-        lineChart: {
-          data: {
-            labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
-            series: [
-              [287, 385, 490, 492, 554, 586, 698, 695],
-              [67, 152, 143, 240, 287, 335, 435, 437],
-              [23, 113, 67, 108, 190, 239, 307, 308]
-            ]
-          },
-          options: {
-            low: 0,
-            high: 800,
-            showArea: false,
-            height: '245px',
-            axisX: {
-              showGrid: false
-            },
-            lineSmooth: true,
-            showLine: true,
-            showPoint: true,
-            fullWidth: true,
-            chartPadding: {
-              right: 50
-            }
-          },
-          responsiveOptions: [
-            ['screen and (max-width: 640px)', {
-              axisX: {
-                labelInterpolationFnc (value) {
-                  return value[0]
-                }
-              }
-            }]
-          ]
-        },
-        barChart: {
-          data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            series: [
-              [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-              [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-            ]
-          },
-          options: {
-            seriesBarDistance: 10,
-            axisX: {
-              showGrid: false
-            },
-            height: '245px'
-          },
-          responsiveOptions: [
-            ['screen and (max-width: 640px)', {
-              seriesBarDistance: 5,
-              axisX: {
-                labelInterpolationFnc (value) {
-                  return value[0]
-                }
-              }
-            }]
-          ]
-        },
+
         tableData: {
           data: [
-            {title: 'Sign contract for "What are conference organizers afraid of?"', checked: false},
-            {title: 'Lines From Great Russian Literature? Or E-mails From My Boss?', checked: true},
-            {
-              title: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
-              checked: true
-            },
-            {title: 'Create 4 Invisible User Experiences you Never Knew About', checked: false},
-            {title: 'Read "Following makes Medium better"', checked: false},
-            {title: 'Unfollow 5 enemies from twitter', checked: false}
+            {title: 'STEP 1: Identify your PCT Site using the selection drop downs above', checked: false},
+            {title: 'STEP 2: Select the Date Range for viewing data (can be changed anytime)', checked: false},
+            {title: 'STEP 3: Finaly, Select one of the data type in the Navigation bar on the left to start reviewing PCT data', checked: false},
+            {title: ''},
+            {title: 'Come Back Soon !!', checked: true}
           ]
-        }
+        },
+        // pieChart: {
+        //   data: {
+        //     labels: ['40%', '20%', '40%'],
+        //     series: [40, 20, 40]
+        //   }
+        // },
+        // lineChart: {
+        //   data: {
+        //     labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
+        //     series: [
+        //       [287, 385, 490, 492, 554, 586, 698, 695],
+        //       [67, 152, 143, 240, 287, 335, 435, 437],
+        //       [23, 113, 67, 108, 190, 239, 307, 308]
+        //     ]
+        //   },
+        //   options: {
+        //     low: 0,
+        //     high: 800,
+        //     showArea: false,
+        //     height: '245px',
+        //     axisX: {
+        //       showGrid: false
+        //     },
+        //     lineSmooth: true,
+        //     showLine: true,
+        //     showPoint: true,
+        //     fullWidth: true,
+        //     chartPadding: {
+        //       right: 50
+        //     }
+        //   },
+        //   responsiveOptions: [
+        //     ['screen and (max-width: 640px)', {
+        //       axisX: {
+        //         labelInterpolationFnc (value) {
+        //           return value[0]
+        //         }
+        //       }
+        //     }]
+        //   ]
+        // },
+        // barChart: {
+        //   data: {
+        //     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        //     series: [
+        //       [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
+        //       [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
+        //     ]
+        //   },
+        //   options: {
+        //     seriesBarDistance: 10,
+        //     axisX: {
+        //       showGrid: false
+        //     },
+        //     height: '245px'
+        //   },
+        //   responsiveOptions: [
+        //     ['screen and (max-width: 640px)', {
+        //       seriesBarDistance: 5,
+        //       axisX: {
+        //         labelInterpolationFnc (value) {
+        //           return value[0]
+        //         }
+        //       }
+        //     }]
+        //   ]
+        // }
       }
     }
   }

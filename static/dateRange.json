@@ -1,7 +1,0 @@
-[
-    {"name" : "oneweek", "dateRange" : "1 Week"},
-    {"name" : "onemonth", "dateRange" : "1 Month"},
-    {"name" : "threemonths", "dateRange" : "3 Months"},
-    {"name" : "sixmonths", "dateRange" : "6 Months"},
-    {"name" : "oneyear", "dateRange" : "1 Year"}
-]

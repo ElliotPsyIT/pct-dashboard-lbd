@@ -1,49 +1,49 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <!-- <div class="row">
-            <div class="col-xl-3 col-md-6">
+      <div class="row d-flex justify-content-center">
+            <div class="col-xl-3 col-md-4">
               <stats-card>
                 <div slot="header" class="icon-warning">
                   <i class="nc-icon nc-chart text-warning"></i>
                 </div>
                 <div slot="content">
-                  <p class="card-category">Capacity</p>
-                  <h4 class="card-title">105GB</h4>
+                  <p class="card-category">Total Consults</p>
+                  <h4 class="card-title">{{ siteConsultTotal }}</h4>
                 </div>
-                <div slot="footer">
-                  <i class="fa fa-refresh"></i>Updated now
-                </div>
+                <!-- <div slot="footer">
+                  <i class="fa fa-refresh"></i>With Duplicates
+                </div> -->
               </stats-card>
             </div>
 
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-4">
               <stats-card>
                 <div slot="header" class="icon-success">
                   <i class="nc-icon nc-light-3 text-success"></i>
                 </div>
                 <div slot="content">
-                  <p class="card-category">Revenue</p>
-                  <h4 class="card-title">$1,345</h4>
+                  <p class="card-category">Total Patients</p>
+                  <h4 class="card-title">{{ sitePatientTotal }}</h4>
                 </div>
-                <div slot="footer">
-                  <i class="fa fa-calendar-o"></i>Last day
-                </div>
+                <!-- <div slot="footer">
+                  <i class="fa fa-calendar-o"></i>No Duplicates
+                </div> -->
               </stats-card>
             </div>
 
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-4">
               <stats-card>
                 <div slot="header" class="icon-danger">
                   <i class="nc-icon nc-vector text-danger"></i>
                 </div>
                 <div slot="content">
-                  <p class="card-category">Errors</p>
-                  <h4 class="card-title">23</h4>
+                  <p class="card-category">Pending</p>
+                  <h4 class="card-title">{{ sitePendingConsultTotal }}</h4>
                 </div>
-                <div slot="footer">
-                  <i class="fa fa-clock-o"></i>Last day
-                </div>
+                <!-- <div slot="footer">
+                  <i class="fa fa-clock-o"></i>No Duplicates
+                </div> -->
               </stats-card>
             </div>
 
@@ -53,44 +53,48 @@
                   <i class="nc-icon nc-favourite-28 text-primary"></i>
                 </div>
                 <div slot="content">
-                  <p class="card-category">Followers</p>
-                  <h4 class="card-title">+45</h4>
+                  <p class="card-category">Active</p>
+                  <h4 class="card-title">{{ siteActiveConsultTotal }}</h4>
                 </div>
-                <div slot="footer">
+                <!-- <div slot="footer">
                   <i class="fa fa-refresh"></i>Updated now
-                </div>
+                </div> -->
               </stats-card>
             </div>
 
-          </div> -->
+          </div>
 
       <div class="row">
 
         <div class="col-md-6">
+          <!-- <span>{{ selectedSite }} {{ selectedRange }}</span> -->
+
           <template>
-            <vue-highcharts :options="lineOptions" :Highcharts="Highcharts" ref="lineChart"></vue-highcharts>
+            <vue-highcharts :options="lineChartOptions"  ref="lineChart"></vue-highcharts>
           </template>
         </div>
 
         <div class="col-md-6">
           <template>
-            <vue-highcharts :options="pieOptions" :Highcharts="Highcharts" ref="pieChart"></vue-highcharts>
+            <vue-highcharts :options="pieChartOptions"  ref="pieChart"></vue-highcharts>
           </template>
         </div>
 
       </div>
 
+<!-- {{ siteLineChartSeries }} -->
+
       <div class="row">
         
         <div class="col-md-12">
-          <card>
+          <!-- <card> -->
             <grid-table></grid-table>
-          <template slot="footer">
+          <!-- <template slot="footer">
             <div class="legend">
               Detailed Consult Listing
             </div>
           </template>
-          </card>
+          </card> -->
         </div>
       
       </div>
@@ -213,11 +217,10 @@ import LTable from 'src/components/UIComponents/Table.vue'
 import Checkbox from 'src/components/UIComponents/Inputs/Checkbox.vue'
 
 import VueHighcharts from 'vue2-highcharts'
-import Highcharts from 'highcharts'
 
 import GridTable from 'src/components/UIComponents/GridTable'
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -231,254 +234,145 @@ export default {
   },
   computed: {
     ...mapState([
-      'selectedSite'
-    ])
-  },
-  methods: {
-    update() {
-      this.$refs.pieChart.removeSeries()
-      this.$refs.pieChart.addSeries({
-        data: [
-          ["Active", 5966],
-          ["Pending", 1065],
-          ["Discontinued", 87261],
-          ["Complete", 155588],
-          ["Partial Results", 231],
-          ["Cancelled", 5572],
-          ["Scheduled", 12789]
+      'selectedSite', 'selectedRange'
+    ]),
+    ...mapGetters([
+      'siteConsultTotal','sitePatientTotal','siteActiveConsultTotal',
+      'sitePendingConsultTotal','sitePieChartSeries','siteLineChartSeries'
+    ]),
+    pieChartOptions () {
+      return {
+        chart:      { type: "pie", 
+                      options3d: { enabled: true, alpha: 45 }},
+        title:      { text: 'Consult Status' },
+        subtitle:   { text: 'Hover over sections for Consult Status data' },
+        credits:    { enabled: false },
+        plotOptions: { pie: { innerSize: 100, depth: 45 },
+                       series: { allowPointSelect: true }},
+        series: [
+          {
+            name: "consults statuses",
+            events: {
+                click: function (event) {
+                  console.log('pie slice clicked, here is event: ', event)
+                  let points = this.chart.getSelectedPoints()
+                  console.log('getSelectedPoints: ', typeof points[0])
+                }
+            },
+            data: this.sitePieChartSeries
+          }
         ]
-      })
-
+      }
+    },
+    lineChartOptions () {
+      return {
+        chart: {  type: "spline" },
+        title: {  text: 'Consults Over Time' },
+        subtitle: {  text: "Monthly Consults Over the Last Year" },
+        xAxis: {
+          categories: this.siteLineChartSeries.months
+          // ["Jan","Feb","Mar","Apr","May","Jun",
+          //   "Jul","Aug","Sep","Oct","Nov","Dec"
+          // ]
+        },
+        yAxis: {
+          title: { text: "Monthly Consults" },
+          labels: {
+            formatter: function() { return this.value; }
+          }
+        },
+        tooltip: { crosshairs: true, shared: true },
+        credits: { enabled: false },
+        plotOptions: {
+          spline: {
+            marker: { radius: 4, lineColor: "#666666", lineWidth: 1 }
+          }
+        },
+        series: [{
+          name: 'Monthly Consults',
+          data: this.siteLineChartSeries.series
+          // [
+          //   22361,20777,23470,16856,22840,23383,21351,
+          //   25153,21758,23523,21599,19590
+          // ]
+        }]
+      }
+    }
+  },
+  mounted() { // update the widget data is there's existing site
+    if (this.selectedSite || this.selectedRange) { 
+      // console.log('sitePieChartSeries is: ', this.sitePieChartSeries)
+      // console.log('beforeMount shows selectedSite is: ', this.selectedSite)
+      // console.log('running update to initialize consult page')
+      // this.updateSeries()
     }
   },
   watch: {
-    selectedSite: function(site, oldSite) {
-      this.update()
+    // selectedSite () {
+    //   // console.log('watch detected selectedSite Change')
+    //   this.updateSeries()
+    // }
+  },
+  methods: {
+    updateSeries() {
+      console.log('updateSeries called')
+      this.$refs.pieChart.showLoading()
+      this.pieOptions.title.text = `Consult Status for ${this.selectedSite}`
+      this.pieOptions.subtitle.text = `Consult Status for ${this.selectedRange}`
+      this.pieOptions.series[0].data = this.sitePieChartSeries
+      this.$refs.pieChart.delegateMethod('update', this.pieOptions )
+      this.$refs.pieChart.hideLoading()
     }
   },
   data() {
     return {
-      editTooltip: 'Edit Task',
-      deleteTooltip: 'Remove',
-      pieData: {
-        'national': [
-          ["Active", 5966],
-          ["Pending", 1065],
-          ["Discontinued", 87261],
-          ["Complete", 155588],
-          ["Partial Results", 231],
-          ["Cancelled", 5572],
-          ["Scheduled", 12789]
-        ],
-        '402': [
-          ["Active", 39],
-          ["Pending", 4],
-          ["Discontinued", 694],
-          ["Complete", 1638],
-          ["Partial Results", 4],
-          ["Cancelled", 25],
-          ["Scheduled", 112]
-        ]
-
-      },
-      pieOptions: {
-        chart: {
-          type: "pie",
-          options3d: {
-            enabled: true,
-            alpha: 45
-          }
-        },
-        title: {
-          text: "Consult Statuses"
-        },
-        subtitle: {
-          text: "Hover Over Section to Display Data"
-        },
-        credits: {
-          enabled: false
-        },
-        plotOptions: {
-          pie: {
-            innerSize: 100,
-            depth: 45
-          }
-        },
-        series: [
-          {
-            name: "consults statuses",
-            data: //Vue.nexttick(() => this.pieComputed() ) 
-            [
-              ["Active", 39],
-              ["Pending", 4],
-              ["Discontinued", 694],
-              ["Complete", 1638],
-              ["Partial Results", 4],
-              ["Cancelled", 25],
-              ["Scheduled", 112]
-            ]
-            // [
-            //   ["Active", 5966],
-            //   ["Pending", 1065],
-            //   ["Discontinued", 87261],
-            //   ["Complete", 155588],
-            //   ["Partial Results", 231],
-            //   ["Cancelled", 5572],
-            //   ["Scheduled", 12789]
-            // ]
-          }
-        ]
-      },
-      lineOptions: {
-        chart: {
-          type: "spline"
-        },
-        title: {
-          text: "Consult Totals"
-        },
-        subtitle: {
-          text: "Monthly Consults Over the Last Year"
-        },
-        xAxis: {
-          categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-          ]
-        },
-        yAxis: {
-          title: {
-            text: "Monthly Consults"
-          },
-          labels: {
-            formatter: function() {
-              return this.value;
-            }
-          }
-        },
-        tooltip: {
-          crosshairs: true,
-          shared: true
-        },
-        credits: {
-          enabled: false
-        },
-        plotOptions: {
-          spline: {
-            marker: {
-              radius: 4,
-              lineColor: "#666666",
-              lineWidth: 1
-            }
-          }
-        },
-        series: [{
-          name: 'One Year Consults',
-          data: [
-            22361,
-            20777,
-            23470,
-            16856,
-            22840,
-            23383,
-            21351,
-            25153,
-            21758,
-            23523,
-            21599,
-            19590
-          ]
-        }]
-      },
-      pieChart: {
-        data: {
-          labels: ['40%', '20%', '40%'],
-          series: [40, 20, 40]
-        }
-      },
-      lineChart: {
-        data: {
-          labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
-          series: [
-            [287, 385, 490, 492, 554, 586, 698, 695],
-            [67, 152, 143, 240, 287, 335, 435, 437],
-            [23, 113, 67, 108, 190, 239, 307, 308]
-          ]
-        },
-        options: {
-          low: 0,
-          high: 800,
-          showArea: false,
-          height: '245px',
-          axisX: {
-            showGrid: false
-          },
-          lineSmooth: true,
-          showLine: true,
-          showPoint: true,
-          fullWidth: true,
-          chartPadding: {
-            right: 50
-          }
-        },
-        responsiveOptions: [
-          ['screen and (max-width: 640px)', {
-            axisX: {
-              labelInterpolationFnc(value) {
-                return value[0]
-              }
-            }
-          }]
-        ]
-      },
-      barChart: {
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          series: [
-            [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-            [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-          ]
-        },
-        options: {
-          seriesBarDistance: 10,
-          axisX: {
-            showGrid: false
-          },
-          height: '245px'
-        },
-        responsiveOptions: [
-          ['screen and (max-width: 640px)', {
-            seriesBarDistance: 5,
-            axisX: {
-              labelInterpolationFnc(value) {
-                return value[0]
-              }
-            }
-          }]
-        ]
-      },
-      tableData: {
-        data: [
-          { title: 'Sign contract for "What are conference organizers afraid of?"', checked: false },
-          { title: 'Lines From Great Russian Literature? Or E-mails From My Boss?', checked: true },
-          {
-            title: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
-            checked: true
-          },
-          { title: 'Create 4 Invisible User Experiences you Never Knew About', checked: false },
-          { title: 'Read "Following makes Medium better"', checked: false },
-          { title: 'Unfollow 5 enemies from twitter', checked: false }
-        ]
-      }
+      // editTooltip: 'Edit Task',
+      // deleteTooltip: 'Remove',
+      
+      // lineOptions: {
+      //   chart: {  type: "spline" },
+      //   title: {  text: 'Consults Over Time' },
+      //   subtitle: {  text: "Monthly Consults Over the Last Year" },
+      //   xAxis: {
+      //     categories: ["Jan","Feb","Mar","Apr","May","Jun",
+      //       "Jul","Aug","Sep","Oct","Nov","Dec"
+      //     ]
+      //   },
+      //   yAxis: {
+      //     title: { text: "Monthly Consults" },
+      //     labels: {
+      //       formatter: function() { return this.value; }
+      //     }
+      //   },
+      //   tooltip: { crosshairs: true, shared: true },
+      //   credits: { enabled: false },
+      //   plotOptions: {
+      //     spline: {
+      //       marker: { radius: 4, lineColor: "#666666", lineWidth: 1 }
+      //     }
+      //   },
+      //   series: [{
+      //     name: 'Monthly Consults',
+      //     data: [
+      //       22361,20777,23470,16856,22840,23383,21351,
+      //       25153,21758,23523,21599,19590
+      //     ]
+      //   }]
+      // },
+          
+      // tableData: {
+      //   data: [
+      //     { title: 'Sign contract for "What are conference organizers afraid of?"', checked: false },
+      //     { title: 'Lines From Great Russian Literature? Or E-mails From My Boss?', checked: true },
+      //     {
+      //       title: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+      //       checked: true
+      //     },
+      //     { title: 'Create 4 Invisible User Experiences you Never Knew About', checked: false },
+      //     { title: 'Read "Following makes Medium better"', checked: false },
+      //     { title: 'Unfollow 5 enemies from twitter', checked: false }
+      //   ]
+      // }
     }
   }
 }

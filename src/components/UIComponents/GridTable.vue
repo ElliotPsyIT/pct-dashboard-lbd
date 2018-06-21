@@ -1,11 +1,14 @@
 <template>
   <div>
     <div class="text-center mb-4">
-      <span>Consult Details</span>
+      <span>Consult Details (Hover Over a Header to Filter the Column)</span>
     <div></div>
     </div>
     <div>
-      <ag-grid-vue style="font-size: 12px" class="ag-theme-fresh grid" :gridOptions="gridOptions" :rowData="rowData" :rowDataChanged="onRowDataChanged">
+      <ag-grid-vue style="font-size: 12px" class="ag-theme-balham grid" 
+      :gridOptions="gridOptions" 
+      :rowData="rowData" 
+      :rowDataChanged="onRowDataChanged">
       </ag-grid-vue>
    </div>
   </div>
@@ -15,12 +18,27 @@ import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
 import 'whatwg-fetch'
 
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'pct-grid',
+  created() {
+    this.gridOptions = {};
+    this.gridOptions.enableFilter = true
+    this.gridOptions.columnDefs = this.createColDefs();
+    this.gridOptions.rowData = this.rowData
+    this.gridOptions.enableSorting = true
+    this.gridOptions.enableColResize = true
+  },
+  computed: {
+    ...mapGetters(['siteConsultDetails']),
+    rowData () {
+      return this.siteConsultDetails
+    }
+  },
   data() {
     return {
-      gridOptions: null,
-      rowData: null
+      gridOptions: null
     }
   },
   components: {
@@ -28,39 +46,106 @@ export default {
   },
   methods: {
     loadRowData() {
-      fetch('/static/consults.json')
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          this.rowData = json;
-          console.log('this store: ', this.$store)
-        });
+      console.log('in loadRowData with siteConsultDetails: ', this.siteConsultDetails)
+      // load data as getter from store
+      this.rowData = this.siteConsultDetails
     },
     createColDefs() {
       return [
-        { headerName: "Sta3n", field: "Sta3n", width: 30, cellStyle: { 'text-align': "left" } }, // , width: 225, suppressSizeToFit: true
-        { headerName: "StaPa", field: "StaPa", width: 40, cellStyle: { 'text-align': "left" } },
-        { headerName: "Site Name", field: "StaPaName", width: 100, cellStyle: { 'text-align': "left" } },
-        { headerName: "Request Date", field: "RequestDateTime", width: 75, cellStyle: { 'text-align': "left" } },
-        { headerName: "Request To", field: "ToRequestServiceName",width: 125, cellStyle: { 'text-align': "left" } },
-        { headerName: "Order Status", field: "OrderStatus",width: 70, cellStyle: { 'text-align': "left" } },
-        { headerName: "D/C", field: "CONSULTFACTORTYPE",width: 25, cellStyle: { 'text-align': "left" } },
-        { headerName: "D/C Comment", field: "CONSULTFACTORTEXT",width: 70, cellStyle: { 'text-align': "left" }, tooltipField: "CONSULTFACTORTEXT" },
-
+        {headerName: "Consults",
+          children: [
+            { headerName: "Site", 
+              field: "StaPa", 
+              width: 60, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agTextColumnFilter"
+            },
+            // { headerName: "Site Name", 
+            //   field: "InstitutionName", 
+            //   width: 100, 
+            //   cellStyle: { 'text-align': "left" } 
+            // },
+            { headerName: "Consult", 
+              field: "RequestDateTime", 
+              width: 110, 
+              cellStyle: { 'text-align': "left" },
+              filter: "agDateColumnFilter" 
+            },
+            // { headerName: "PatientSID", 
+            //   field: "PatientSID", 
+            //   width: 50, 
+            //   cellStyle: { 'text-align': "left" },
+            //   filter: "agNumberColumnFilter" 
+            // },
+            { headerName: "Request", 
+              field: "ToRequestServiceName",
+              width: 125, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agTextColumnFilter"
+            },
+            { headerName: "Status", 
+              field: "OrderStatus",
+              width: 90, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agTextColumnFilter"
+            },
+          ]
+        },
+         {headerName: "Appointments",
+            children: [
+              { headerName: "Appt", 
+                field: "AppointmentDateTime", 
+                width: 75, 
+                cellStyle: { 'text-align': "left" },
+                filter: "agDateColumnFilter",
+                columnGroupShow: "open" 
+              },
+              // { headerName: "Wait", 
+              //   field: "WaitTime", 
+              //   width: 40, 
+              //   cellStyle: { 'text-align': "left" } ,
+              //   filter: "agNumberColumnFilter"
+              // },
+              { headerName: "Status", 
+                field: "RowCategory",
+                width: 150, 
+                cellStyle: { 'text-align': "left" } ,
+                filter: "agTextColumnFilter",
+                columnGroupShow: "open" 
+              },
+              { headerName: "Patient", 
+                field: "PatientName",
+                width: 70, 
+                cellStyle: { 'text-align': "left" } ,
+                filter: "agTextColumnFilter",
+                columnGroupShow: "open" 
+              },
+              { headerName: "Clinic", 
+                field: "LocationName",
+                width: 70, 
+                cellStyle: { 'text-align': "left" } ,
+                filter: "agTextColumnFilter",
+                columnGroupShow: "open" 
+              },
+              { headerName: "Staff", 
+                field: "StaffName",
+                width: 70, 
+                cellStyle: { 'text-align': "left" } ,
+                filter: "agTextColumnFilter",
+                columnGroupShow: "open" 
+              },
+            ]
+         }
+        // { headerName: "D/C", field: "ConsultFactorType",width: 25, cellStyle: { 'text-align': "left" }, filter: "agTextColumnFilter" },
+        // { headerName: "D/C Comment", field: "ConsultFactorText",width: 70, cellStyle: { 'text-align': "left" }, tooltipField: "CONSULTFACTORTEXT" }
       ];
     },
     onRowDataChanged() {
+      console.log('row data changed!!')
       Vue.nextTick(() => {
         this.gridOptions.api.sizeColumnsToFit();
-      }
-      );
+      });
     }
-  },
-  created() {
-    this.gridOptions = {};
-    this.gridOptions.columnDefs = this.createColDefs();
-    this.loadRowData();
   }
 }
 </script>

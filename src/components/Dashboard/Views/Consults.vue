@@ -1,9 +1,15 @@
 <template>
   <div class="content">
     <div class="container-fluid">
+
+       <!-- Section Header -->
+      <div class="row d-flex justify-content-center ">
+        <h4 class="section-head">Consult Overall Summary</h4>
+      </div>
+
       <div class="row d-flex justify-content-center">
             <div class="col-xl-3 col-md-4">
-              <stats-card>
+              <stats-card >
                 <div slot="header" class="icon-warning">
                   <i class="nc-icon nc-chart text-warning"></i>
                 </div>
@@ -24,7 +30,7 @@
                 </div>
                 <div slot="content">
                   <p class="card-category">Total Patients</p>
-                  <h4 class="card-title">{{ sitePatientTotal }}</h4>
+                  <h4 class="card-title">{{ siteConsultPatientTotal }}</h4>
                 </div>
                 <!-- <div slot="footer">
                   <i class="fa fa-calendar-o"></i>No Duplicates
@@ -33,41 +39,49 @@
             </div>
 
             <div class="col-xl-3 col-md-4">
-              <stats-card>
-                <div slot="header" class="icon-danger">
-                  <i class="nc-icon nc-vector text-danger"></i>
-                </div>
-                <div slot="content">
-                  <p class="card-category">Pending</p>
-                  <h4 class="card-title">{{ sitePendingConsultTotal }}</h4>
-                </div>
-                <!-- <div slot="footer">
-                  <i class="fa fa-clock-o"></i>No Duplicates
-                </div> -->
-              </stats-card>
+              <div @click="clickedCard('PENDING')" style="cursor: pointer;">
+                <stats-card>
+                  <div slot="header" :class="cardStatusIconPending">
+                    <i class="nc-icon nc-vector text-danger"></i>
+                  </div>
+                  <div slot="content">
+                    <p class="card-category">Pending</p>
+                    <h4 class="card-title">{{ siteConsultPendingTotal }}</h4>
+                  </div>
+                  <div slot="footer">
+                    <i class="fa fa-refresh"></i>Click To <span :class="cardStatusTextPending">Filter PENDING</span>
+                  </div>
+                </stats-card>
+              </div>
             </div>
 
             <div class="col-xl-3 col-md-6">
-              <stats-card>
-                <div slot="header" class="icon-info">
-                  <i class="nc-icon nc-favourite-28 text-primary"></i>
-                </div>
-                <div slot="content">
-                  <p class="card-category">Active</p>
-                  <h4 class="card-title">{{ siteActiveConsultTotal }}</h4>
-                </div>
-                <!-- <div slot="footer">
-                  <i class="fa fa-refresh"></i>Updated now
-                </div> -->
-              </stats-card>
+              <div @click="clickedCard('ACTIVE')" style="cursor: pointer;">
+                <stats-card>
+                  <div slot="header" :class="cardStatusIconActive">
+                    <i class="nc-icon nc-favourite-28 text-primary"></i>
+                  </div>
+                  <div slot="content">
+                    <p class="card-category">Active</p>
+                    <h4 class="card-title">{{ siteConsultActiveTotal }}</h4>
+                  </div>
+                  <div slot="footer">
+                    <i class="fa fa-refresh"></i>Click To <span :class="cardStatusTextActive">Filter ACTIVE</span>
+                  </div>
+                </stats-card>
+              </div>
             </div>
 
           </div>
 
+      <!-- Section Header -->
+      <div class="row d-flex justify-content-center ">
+        <h4 class="section-head">Consult Uniques and Statuses</h4>
+      </div>
+
       <div class="row">
 
         <div class="col-md-6">
-          <!-- <span>{{ selectedSite }} {{ selectedRange }}</span> -->
 
           <template>
             <vue-highcharts :options="lineChartOptions"  ref="lineChart"></vue-highcharts>
@@ -83,20 +97,46 @@
       </div>
 
 <!-- {{ siteLineChartSeries }} -->
+ <!-- Section Header -->
+      <div class="row d-flex justify-content-center ">
+        <h4 class="section-head">Consult Details</h4>
+      </div>
 
       <div class="row">
-        
+<!--         
         <div class="col-md-12">
-          <!-- <card> -->
+          <card>
             <grid-table></grid-table>
-          <!-- <template slot="footer">
+          <template slot="footer">
             <div class="legend">
               Detailed Consult Listing
             </div>
           </template>
-          </card> -->
+          </card>
+        </div> -->
+        
+        <div class="col-md-12">
+          <card>
+            <template slot="header">
+              <span>Consult Details (Hover Over a Header to Filter the Column)</span>
+            </template>
+              <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
+              :gridOptions="gridOptions" 
+              :rowData="rowData" 
+              :rowDataChanged="onRowDataChanged"
+              :enableFilter="true"
+              :enableSorting="true"
+              :enableColResize="true"
+              >
+              </ag-grid-vue>
+            <template slot="footer">
+              <div class="legend">
+                Detailed Consult Listing
+              </div>
+            </template>
+          </card>
         </div>
-      
+
       </div>
 
       <!-- <div class="row">
@@ -210,37 +250,89 @@
   </div>
 </template>
 <script>
-import ChartCard from 'src/components/UIComponents/Cards/ChartCard.vue'
+// import ChartCard from 'src/components/UIComponents/Cards/ChartCard.vue'
 import StatsCard from 'src/components/UIComponents/Cards/StatsCard.vue'
 import Card from 'src/components/UIComponents/Cards/Card.vue'
-import LTable from 'src/components/UIComponents/Table.vue'
-import Checkbox from 'src/components/UIComponents/Inputs/Checkbox.vue'
+// import LTable from 'src/components/UIComponents/Table.vue'
+// import Checkbox from 'src/components/UIComponents/Inputs/Checkbox.vue'
 
 import VueHighcharts from 'vue2-highcharts'
-
-import GridTable from 'src/components/UIComponents/GridTable'
+// import GridTable from 'src/components/UIComponents/GridTable'
+import Vue from "vue";
+import { AgGridVue } from "ag-grid-vue";
+import dateFormat from "dateformat"
 
 import { mapState, mapGetters } from 'vuex'
 
+// helpers
+const isMatch = (oldOne, newOne) => { return oldOne == newOne }
+      
 export default {
   components: {
-    Checkbox,
+    // Checkbox,
     Card,
-    LTable,
-    ChartCard,
+    // LTable,
+    // ChartCard,
     StatsCard,
     VueHighcharts,
-    GridTable,
+    // GridTable,
+    AgGridVue
+  },
+  data() {
+    return {
+      gridOptions: null,
+      cardClickedConsultStatus: '',
+      togglingCardStatus: false,
+      pieSliceSelected: ''
+    }
+  },
+  beforeMount() { 
+    this.gridOptions = {}
+    this.gridOptions.columnDefs = this.createColDefs()
+    this.gridOptions.rowData = this.rowData // computed prop
+    this.gridOptions.onFilterChanged = function() {console.log('filter changed!!')}
   },
   computed: {
     ...mapState([
       'selectedSite', 'selectedRange'
     ]),
     ...mapGetters([
-      'siteConsultTotal','sitePatientTotal','siteActiveConsultTotal',
-      'sitePendingConsultTotal','sitePieChartSeries','siteLineChartSeries'
+      'siteConsultTotal','siteConsultPatientTotal','siteConsultActiveTotal',
+      'siteConsultPendingTotal','siteConsultPieChartSeries','siteConsultLineChartSeries',
+      'siteConsultDetails'
     ]),
-    pieChartOptions () {
+    cardStatusTextPending () {
+      return {
+        'text-big' : this.cardClickedConsultStatus === 'PENDING' &&
+          !this.togglingCardStatus
+      }
+    },
+    cardStatusTextActive () {
+      return {
+        'text-big' : this.cardClickedConsultStatus === 'ACTIVE' &&
+          !this.togglingCardStatus
+      }
+    },
+    // add another of these computeds for new status card active display
+    cardStatusIconPending () {
+      return {
+        'icon-danger' : true,
+        'icon-big': this.cardClickedConsultStatus === 'PENDING' &&
+          !this.togglingCardStatus
+      }
+    },
+    // referenced by consult status card
+    cardStatusIconActive () {
+      return {
+        'icon-info' : true,
+        'icon-big': this.cardClickedConsultStatus === 'ACTIVE' &&
+          !this.togglingCardStatus
+      }
+    },
+    rowData () {
+      return this.siteConsultDetails // filters when site changes
+    },
+    pieChartOptions (vm) {
       return {
         chart:      { type: "pie", 
                       options3d: { enabled: true, alpha: 45 }},
@@ -252,14 +344,18 @@ export default {
         series: [
           {
             name: "consults statuses",
-            events: {
-                click: function (event) {
-                  console.log('pie slice clicked, here is event: ', event)
-                  let points = this.chart.getSelectedPoints()
-                  console.log('getSelectedPoints: ', typeof points[0])
-                }
+            point:{
+              events:{
+                  click: function (event) {
+                    // pull status name of pie slice clicked
+                    let pieSliceClicked = this.name
+                    // send pie slice status name to handler
+                    vm.pieClickHandler(pieSliceClicked)
+
+                  }
+              }
             },
-            data: this.sitePieChartSeries
+            data: this.siteConsultPieChartSeries
           }
         ]
       }
@@ -270,10 +366,7 @@ export default {
         title: {  text: 'Consults Over Time' },
         subtitle: {  text: "Monthly Consults Over the Last Year" },
         xAxis: {
-          categories: this.siteLineChartSeries.months
-          // ["Jan","Feb","Mar","Apr","May","Jun",
-          //   "Jul","Aug","Sep","Oct","Nov","Dec"
-          // ]
+          categories: this.siteConsultLineChartSeries.months
         },
         yAxis: {
           title: { text: "Monthly Consults" },
@@ -290,93 +383,324 @@ export default {
         },
         series: [{
           name: 'Monthly Consults',
-          data: this.siteLineChartSeries.series
-          // [
-          //   22361,20777,23470,16856,22840,23383,21351,
-          //   25153,21758,23523,21599,19590
-          // ]
+          data: this.siteConsultLineChartSeries.series
         }]
       }
     }
   },
-  mounted() { // update the widget data is there's existing site
-    if (this.selectedSite || this.selectedRange) { 
-      // console.log('sitePieChartSeries is: ', this.sitePieChartSeries)
-      // console.log('beforeMount shows selectedSite is: ', this.selectedSite)
-      // console.log('running update to initialize consult page')
-      // this.updateSeries()
-    }
-  },
-  watch: {
-    // selectedSite () {
-    //   // console.log('watch detected selectedSite Change')
-    //   this.updateSeries()
-    // }
-  },
   methods: {
-    updateSeries() {
-      console.log('updateSeries called')
-      this.$refs.pieChart.showLoading()
-      this.pieOptions.title.text = `Consult Status for ${this.selectedSite}`
-      this.pieOptions.subtitle.text = `Consult Status for ${this.selectedRange}`
-      this.pieOptions.series[0].data = this.sitePieChartSeries
-      this.$refs.pieChart.delegateMethod('update', this.pieOptions )
-      this.$refs.pieChart.hideLoading()
-    }
-  },
-  data() {
-    return {
-      // editTooltip: 'Edit Task',
-      // deleteTooltip: 'Remove',
+    pieClickHandler(status) {
+      // pie clicked, needs handling
+      console.log('in pieClickHandler')
+
+      // is this a toggled pie click
+      let prev = this.pieSliceSelected
+      let curr = status
+      let isToggling = isMatch(prev, curr)
+
+      if (isToggling) {
+        // already handled
+        console.log('toggling pie slices')
+        // turn off card status flag for toggling pie status 
+        this.cardClickedConsultStatus = ''
+
+      } else {
+        // new slice nee
+        console.log('new pie slices selected')
+        // update card status flag for this pie status 
+        this.cardClickedConsultStatus = status
+      }
+      // update pieSliceSelected
+      this.pieSliceSelected = status
       
-      // lineOptions: {
-      //   chart: {  type: "spline" },
-      //   title: {  text: 'Consults Over Time' },
-      //   subtitle: {  text: "Monthly Consults Over the Last Year" },
-      //   xAxis: {
-      //     categories: ["Jan","Feb","Mar","Apr","May","Jun",
-      //       "Jul","Aug","Sep","Oct","Nov","Dec"
-      //     ]
-      //   },
-      //   yAxis: {
-      //     title: { text: "Monthly Consults" },
-      //     labels: {
-      //       formatter: function() { return this.value; }
-      //     }
-      //   },
-      //   tooltip: { crosshairs: true, shared: true },
-      //   credits: { enabled: false },
-      //   plotOptions: {
-      //     spline: {
-      //       marker: { radius: 4, lineColor: "#666666", lineWidth: 1 }
-      //     }
-      //   },
-      //   series: [{
-      //     name: 'Monthly Consults',
-      //     data: [
-      //       22361,20777,23470,16856,22840,23383,21351,
-      //       25153,21758,23523,21599,19590
-      //     ]
-      //   }]
-      // },
-          
-      // tableData: {
-      //   data: [
-      //     { title: 'Sign contract for "What are conference organizers afraid of?"', checked: false },
-      //     { title: 'Lines From Great Russian Literature? Or E-mails From My Boss?', checked: true },
-      //     {
-      //       title: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
-      //       checked: true
-      //     },
-      //     { title: 'Create 4 Invisible User Experiences you Never Knew About', checked: false },
-      //     { title: 'Read "Following makes Medium better"', checked: false },
-      //     { title: 'Unfollow 5 enemies from twitter', checked: false }
-      //   ]
-      // }
+      // update consult details filter for this pie status 
+      this.filterConsultDetails(status, isToggling)
+    
+    },
+    updatePieSlice(status, isToggle) {
+      console.log('in updatePieSlice')
+      // reference to the pie chart
+      const { chart } = this.$refs.pieChart
+      // pie chart data series array
+      const dataSeries = chart.series[0].data
+
+      // use for of looping instead of the filter
+      for (var pieSlice of dataSeries) {
+        let matchesCardStatus = isMatch(status, pieSlice.name)
+        let thisPieSliceStatusIsActive = pieSlice.selected
+        let thisPieSliceStatus = pieSlice.name
+        let shouldDeselectActivePieSlice = thisPieSliceStatusIsActive && matchesCardStatus && isToggle
+        let shouldSelectActivePieSlice = (thisPieSliceStatus == status) && !isToggle
+
+        if (shouldDeselectActivePieSlice) { // existing pie slice
+            console.log('toggling - deselecting pieslice ', status)
+            pieSlice.select(null)
+            // reset component data
+            this.pieSliceSelected = ''
+            break // no need to keep looking
+        }
+
+        if( shouldSelectActivePieSlice ) { // toggline
+          console.log('noToggling - new status of ', status)        
+          pieSlice.select()
+          // set component data
+          this.pieSliceSelected = status
+          break // no need to keep looking
+        }
+      }
+    },
+    updateConsultDetailsFilter(status, toToggle) {
+      console.log('in updateConsultDetailsFilter')
+      if (toToggle) {
+        console.log('SAME STATUS CLICKED- toggling off Consult Details filter')
+        // toggle Consult Details filter off
+        this.filterConsultDetails(null)
+
+      } else {  // not toggle, so new status
+        console.log('NEW STATUS ', status)
+        // set card consult status flag
+        this.cardClickedConsultStatus = `${status}`
+        // use status to filter consult details table
+        this.filterConsultDetails(status)
+
+      }
+
+    },
+    clickedCard(status) {
+
+      //determine if click is toggling status
+      const toToggle = this.cardClickedConsultStatus == status
+      this.togglingCardStatus = toToggle // update component
+      console.log('in clickedCard toToggle is ', toToggle)
+
+      // update consult detail table filter
+      this.updateConsultDetailsFilter(status, toToggle)
+
+      // update pie slice
+      this.updatePieSlice(status, toToggle)
+      
+    },
+    filterConsultDetails(status, isToggling) {
+
+      console.log('filterConsultDetails gets ', status)
+      let statusFilter = {}
+      // define the ag-grid filter status
+      if (!isToggling && status !== null ) {
+        console.log('statusFilter is being set because status is ', status)
+        statusFilter = {
+          OrderStatus: { type: 'equals', filter: `${status}` }
+        }
+      } else {
+        console.log('statusFilter is not being set because status is ', status)
+        statusFilter = null
+      }
+      // set the ag-grid filter programmatically
+      this.gridOptions.api.setFilterModel(statusFilter)
+      this.gridOptions.api.onFilterChanged()
+     
+
+      // country: ['Ireland', 'United States'],
+      // age: {type: 'lessThan', filter: '30'},
+      // athlete: {type: 'startsWith', filter: 'Mich'},
+      // date: {type: 'lessThan', dateFrom: '2010-01-01'}
+      // console.log('can this format work ', `"${status}"` )
+    },
+    createColDefs() {
+      return [
+        {headerName: "Consults",
+          children: [
+            { headerName: "Site", 
+              field: "StaPa", 
+              width: 40, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agTextColumnFilter"
+            },
+            { headerName: "Site Name", 
+              field: "InstitutionName", 
+              width: 100, 
+              cellStyle: { 'text-align': "left" } 
+            },
+            { headerName: "Consult", 
+              field: "RequestDateTime", 
+              width: 80, 
+              cellStyle: { 'text-align': "left" },
+              filter: "agDateColumnFilter",
+              filterParams: {
+                comparator: (filterLocalDateAtMidnight, cellValue) => {
+                  var dateAsString = cellValue
+                  if (dateAsString == null) return -1
+                  var cellDate = new Date(dateAsString)
+
+                  if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+                    // console.log('Equal', cellValue)
+                    return 0
+                  }
+                  if (cellDate < filterLocalDateAtMidnight) {
+                    // console.log('Less Than', cellValue)
+                    return -1
+                  }
+                  if (cellDate > filterLocalDateAtMidnight) {
+                    // console.log('Greater Than', cellValue)
+                    return 1
+                  }
+                }
+              }
+            },
+            { headerName: "Patient", 
+              field: "InitialsAndL4", 
+              width: 70, 
+              cellStyle: { 'text-align': "left" },
+              filter: "agtextColumnFilter" 
+            },
+            { headerName: "Requested Service", 
+              field: "ToRequestServiceName",
+              width: 125, 
+              cellStyle: { 'text-align': "left" } 
+            },
+            { headerName: "Status", 
+              field: "OrderStatus",
+              width: 60, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agTextColumnFilter"
+            },
+          ]
+        },
+        //  {headerName: "Appointments",
+        //     children: [
+        //       { headerName: "Appt", 
+        //         field: "AppointmentDateTime", 
+        //         width: 75, 
+        //         cellStyle: { 'text-align': "left" },
+        //         filter: "agDateColumnFilter",
+        //         columnGroupShow: "open" 
+        //       },
+        //       // { headerName: "Wait", 
+        //       //   field: "WaitTime", 
+        //       //   width: 40, 
+        //       //   cellStyle: { 'text-align': "left" } ,
+        //       //   filter: "agNumberColumnFilter"
+        //       // },
+        //       { headerName: "Status", 
+        //         field: "RowCategory",
+        //         width: 150, 
+        //         cellStyle: { 'text-align': "left" } ,
+        //         filter: "agTextColumnFilter",
+        //         columnGroupShow: "open" 
+        //       },
+        //       { headerName: "Patient", 
+        //         field: "PatientName",
+        //         width: 70, 
+        //         cellStyle: { 'text-align': "left" } ,
+        //         filter: "agTextColumnFilter",
+        //         columnGroupShow: "open" 
+        //       },
+        //       { headerName: "Clinic", 
+        //         field: "LocationName",
+        //         width: 70, 
+        //         cellStyle: { 'text-align': "left" } ,
+        //         filter: "agTextColumnFilter",
+        //         columnGroupShow: "open" 
+        //       },
+        //       { headerName: "Staff", 
+        //         field: "StaffName",
+        //         width: 70, 
+        //         cellStyle: { 'text-align': "left" } ,
+        //         filter: "agTextColumnFilter",
+        //         columnGroupShow: "open" 
+        //       },
+        //     ]
+        //  }
+        // { headerName: "D/C", field: "ConsultFactorType",width: 25, cellStyle: { 'text-align': "left" }, filter: "agTextColumnFilter" },
+        // { headerName: "D/C Comment", field: "ConsultFactorText",width: 70, cellStyle: { 'text-align': "left" }, tooltipField: "CONSULTFACTORTEXT" }
+      ]
+    },
+    onRowDataChanged() {
+      console.log('row data changed!!')
+      Vue.nextTick(() => {
+        this.gridOptions.api.sizeColumnsToFit();
+      });
     }
   }
+  // data() {
+  //   return {
+  //     gridOptions: null
+
+  //     editTooltip: 'Edit Task',
+  //     deleteTooltip: 'Remove',
+      
+  //     lineOptions: {
+  //       chart: {  type: "spline" },
+  //       title: {  text: 'Consults Over Time' },
+  //       subtitle: {  text: "Monthly Consults Over the Last Year" },
+  //       xAxis: {
+  //         categories: ["Jan","Feb","Mar","Apr","May","Jun",
+  //           "Jul","Aug","Sep","Oct","Nov","Dec"
+  //         ]
+  //       },
+  //       yAxis: {
+  //         title: { text: "Monthly Consults" },
+  //         labels: {
+  //           formatter: function() { return this.value; }
+  //         }
+  //       },
+  //       tooltip: { crosshairs: true, shared: true },
+  //       credits: { enabled: false },
+  //       plotOptions: {
+  //         spline: {
+  //           marker: { radius: 4, lineColor: "#666666", lineWidth: 1 }
+  //         }
+  //       },
+  //       series: [{
+  //         name: 'Monthly Consults',
+  //         data: [
+  //           22361,20777,23470,16856,22840,23383,21351,
+  //           25153,21758,23523,21599,19590
+  //         ]
+  //       }]
+  //     },
+          
+  //     tableData: {
+  //       data: [
+  //         { title: 'Sign contract for "What are conference organizers afraid of?"', checked: false },
+  //         { title: 'Lines From Great Russian Literature? Or E-mails From My Boss?', checked: true },
+  //         {
+  //           title: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+  //           checked: true
+  //         },
+  //         { title: 'Create 4 Invisible User Experiences you Never Knew About', checked: false },
+  //         { title: 'Read "Following makes Medium better"', checked: false },
+  //         { title: 'Unfollow 5 enemies from twitter', checked: false }
+  //       ]
+  //     }
+  //   }
+  // }
+
+  // updateSeries() {
+  //     console.log('updateSeries called')
+  //     this.$refs.pieChart.showLoading()
+  //     this.pieOptions.title.text = `Consult Status for ${this.selectedSite}`
+  //     this.pieOptions.subtitle.text = `Consult Status for ${this.selectedRange}`
+  //     this.pieOptions.series[0].data = this.sitePieChartSeries
+  //     this.$refs.pieChart.delegateMethod('update', this.pieOptions )
+  //     this.$refs.pieChart.hideLoading()
+  //   },
 }
 </script>
-<style>
 
+<style scoped>
+.icon-big {
+  /* enlarge icon after clicked */
+  font-size: 1.5em;
+}
+.text-big { 
+  /* enlarge text size and change font color after clicked */
+  font-weight: 800;
+  color: green;
+}
+
+.section-head {
+   font-size: 2rem;
+}
 </style>
+
+

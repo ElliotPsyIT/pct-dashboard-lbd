@@ -10,9 +10,25 @@
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Consults</p>
       </sidebar-link>
-      <!-- <sidebar-link to="/admin/user">
+      <sidebar-link to="/admin/encounters">
+        <i class="nc-icon nc-chart-pie-35"></i>
+        <p>Encounters</p>
+      </sidebar-link>
+      <sidebar-link to="/admin/providers">
         <i class="nc-icon nc-circle-09"></i>
-        <p>User Profile</p>
+        <p>Providers</p>
+      </sidebar-link>
+      <sidebar-link to="/admin/surveys">
+        <i class="nc-icon nc-circle-09"></i>
+        <p>Surveys</p>
+      </sidebar-link>
+      <sidebar-link to="/admin/ebp">
+        <i class="nc-icon nc-circle-09"></i>
+        <p>EBPs</p>
+      </sidebar-link>
+      <!-- <sidebar-link to="/admin/providers">
+        <i class="nc-icon nc-circle-09"></i>
+        <p>Providers</p>
       </sidebar-link>
       <sidebar-link to="/admin/table-list">
         <i class="nc-icon nc-notes"></i>

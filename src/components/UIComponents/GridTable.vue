@@ -16,7 +16,7 @@
 <script>
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
-import 'whatwg-fetch'
+import dateFormat from "dateformat"
 
 import { mapGetters } from 'vuex'
 
@@ -28,6 +28,7 @@ export default {
     this.gridOptions.columnDefs = this.createColDefs();
     this.gridOptions.rowData = this.rowData
     this.gridOptions.enableSorting = true
+    this.gridOptions.enableFilter = true
     this.gridOptions.enableColResize = true
   },
   computed: {
@@ -69,7 +70,27 @@ export default {
               field: "RequestDateTime", 
               width: 110, 
               cellStyle: { 'text-align': "left" },
-              filter: "agDateColumnFilter" 
+              filter: "agDateColumnFilter",
+              filterParams: {
+                comparator: (filterLocalDateAtMidnight, cellValue) => {
+                  var dateAsString = cellValue
+                  if (dateAsString == null) return -1
+                  var cellDate = new Date(dateAsString)
+
+                  if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+                    // console.log('Equal', cellValue)
+                    return 0
+                  }
+                  if (cellDate < filterLocalDateAtMidnight) {
+                    // console.log('Less Than', cellValue)
+                    return -1
+                  }
+                  if (cellDate > filterLocalDateAtMidnight) {
+                    // console.log('Greater Than', cellValue)
+                    return 1
+                  }
+                }
+              }
             },
             // { headerName: "PatientSID", 
             //   field: "PatientSID", 
@@ -80,8 +101,7 @@ export default {
             { headerName: "Request", 
               field: "ToRequestServiceName",
               width: 125, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter"
+              cellStyle: { 'text-align': "left" } 
             },
             { headerName: "Status", 
               field: "OrderStatus",
@@ -154,3 +174,4 @@ export default {
     height: 500px
   }
 </style>
+

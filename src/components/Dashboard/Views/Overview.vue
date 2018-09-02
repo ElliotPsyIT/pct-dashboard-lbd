@@ -2,7 +2,74 @@
   <div class="content">
     <div class="container-fluid">
 
-      <div class="row justify-content-md-center">
+<div class="jumbotron d-flex flex-row">
+  <div class="mr-4">
+    <img src="../../../../static/img/nat-center-ptsd.jpg">
+  </div>
+  <div class="mb-2">
+    <h1>Welcome to PCT PTSD Dashboard</h1> 
+
+    <p class="category "><b>Select Your Site <i class="bold nc-icon nc-stre-up text-primary"></i></b> From Drop Down Above </p>
+    <p class="category "><b>To View Details <i class="bold nc-icon nc-stre-left text-primary"></i></b> Use Left Sidebar</p>
+  </div>
+</div>
+
+<hr/>
+
+<div class="row">
+  
+  <div class="col-md-4 ">
+    <card>
+      <template slot="header">
+        Consults
+      </template>
+
+        Summary Statistics and Drill Down for PCT Consults, Consult Status
+
+      <template slot="footer">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-history"></i> Consult Page
+        </div>
+      </template>
+    </card>
+  </div>
+
+  <div class="col-md-4 ">
+    <card>
+      <template slot="header">
+        Encounters
+      </template>
+        Summary Statistics and Drill Down for Encounters, Appointments
+      <template slot="footer">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-history"></i> Encounters Page
+        </div>
+      </template>
+    </card>
+  </div>
+
+  <div class="col-md-4 ">
+    <card>
+      <template slot="header">
+        Providers
+      </template>
+
+        Summary Statistics and Drill Down for Providers, panels, use of EBP Templates
+
+      <template slot="footer">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-history"></i> Providers Page
+        </div>
+      </template>
+    </card>
+  </div>
+
+</div>
+
+      <!-- <div class="row justify-content-md-center">
         <div class="col-md-11 ">
           <card>
             <template slot="header">
@@ -11,16 +78,16 @@
               <p class="category text-center"><b>Then Use Left <i class="bold nc-icon nc-stre-left text-primary"></i> Sidebar</b> to View Details</p>
 
             </template>
-            <!-- <div class="footer">
+            <div class="footer">
               <hr>
               <div class="stats">
                 <i class="fa fa-history"></i> Getting Started Instructions
               </div>
-            </div> -->
+            </div>
           </card>
         </div>
-      </div>
-<hr/>
+      </div> -->
+
       <!-- <div class="row justify-content-md-center">
         <div class="col-md-10 ">
           <card>

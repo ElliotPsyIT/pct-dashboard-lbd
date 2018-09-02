@@ -5,6 +5,11 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 // Admin pages
 import Overview from 'src/components/Dashboard/Views/Overview.vue'
 import Consults from 'src/components/Dashboard/Views/Consults.vue'
+import Encounters from 'src/components/Dashboard/Views/Encounters.vue'
+import Providers from 'src/components/Dashboard/Views/Providers.vue'
+import Surveys from 'src/components/Dashboard/Views/Surveys.vue'
+import EBP from 'src/components/Dashboard/Views/EBP.vue'
+
 import UserProfile from 'src/components/Dashboard/Views/UserProfile.vue'
 import TableList from 'src/components/Dashboard/Views/TableList.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
@@ -32,6 +37,26 @@ const routes = [
         path: 'consults',
         name: 'Consults',
         component: Consults
+      },
+      {
+        path: 'encounters',
+        name: 'Encounters',
+        component: Encounters
+      },
+      {
+        path: 'providers',
+        name: 'Providers',
+        component: Providers
+      },
+      {
+        path: 'surveys',
+        name: 'Surveys',
+        component: Surveys
+      },
+      {
+        path: 'ebp',
+        name: 'EBP',
+        component: EBP
       },
       {
         path: 'user',

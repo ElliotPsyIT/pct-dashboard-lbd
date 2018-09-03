@@ -34,6 +34,10 @@ import surveyPatientDetails from '../../static/survey_patient_details.json'
 // EBP
 import ebpCount from '../../static/ebp_count.json'
 import ebpInfo from '../../static/ebp_info.json'
+import ebpDetail from '../../static/ebp_details.json'
+import ebpTypeCounts from '../../static/ebp_pie_chart.json'
+import ebpDetailsTypes from '../../static/ebp_details_types.json'
+
 
 Vue.use(Vuex)
 
@@ -85,6 +89,9 @@ const store = new Vuex.Store({
 
     ebpCount,
     ebpInfo,
+    ebpDetail,
+    ebpTypeCounts,
+    ebpDetailsTypes,
 
   },
   getters: {
@@ -393,6 +400,65 @@ const store = new Vuex.Store({
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpProvidersAll')
       return filteredArray[0].totalNum
+    },
+    siteEBPProvidersPEI: (state) => {
+      let filteredArray = state.ebpInfo
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => site.dataType === 'ebpProvidersPEI')
+      return filteredArray[0].totalNum
+    },
+    siteEBPProvidersCPT: (state) => {
+      let filteredArray = state.ebpInfo
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => site.dataType === 'ebpProvidersCPT')
+      return filteredArray[0].totalNum
+    },
+    siteEBPPatients: (state) => {
+      let filteredArray = state.ebpInfo
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => site.dataType === 'ebpPatients')
+      return filteredArray[0].totalNum
+    },
+    siteEBPPatientsAll: (state) => {
+      let filteredArray = state.ebpInfo
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => site.dataType === 'ebpPatientsAll')
+      return filteredArray[0].totalNum
+    },
+    siteEBPPatientsPEI: (state) => {
+      let filteredArray = state.ebpInfo
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => site.dataType === 'ebpPatientsPEI')
+      return filteredArray[0].totalNum
+    },
+    siteEBPPatientsCPT: (state) => {
+      let filteredArray = state.ebpInfo
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => site.dataType === 'ebpPatientsCPT')
+      return filteredArray[0].totalNum
+    },
+    siteEBPClinicSummary: (state) => {
+      let filteredArray = state.ebpDetail
+        .filter(site => {
+          // ** Note: selectedSite is cast to number for comparison
+          return site.StaPa === state.selectedSite
+        })
+      return filteredArray
+    },
+    siteEBPPieChartSeries: (state) =>{
+      // build series based on selected site
+      // console.log('consultStatusCounts is: ', state.consultStatusCounts)
+      let mappedArray = state.ebpTypeCounts
+        .filter(site => site.StaPa === state.selectedSite)
+        .map((status) => { return [status.HealthFactorCategoryShort, +status.Num] })
+      // console.log('pie chart series is: ', mappedArray)
+      return mappedArray  
+    },
+    siteEBPDetailsTypes: (state) => {
+      let filteredArray = state.ebpDetailsTypes
+        .filter(site => site.StaPa === state.selectedSite)
+      // console.log('filteredArray', filteredArray)
+      return filteredArray
     },
   } ,
   actions: {

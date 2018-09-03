@@ -180,12 +180,12 @@ export default {
     ]),
     rowData () {
       // return this.siteEncounterProviderDetails // filters when site changes
-      console.log('here is siteSurveyDetails from store ', this.siteSurveyDetails)
+      // console.log('here is siteSurveyDetails from store ', this.siteSurveyDetails)
       return this.siteSurveyDetails // filters when site changes
     },
     rowData1 () {
       // return this.siteEncounterProviderDetails // filters when site changes
-      console.log('here is siteSurveyPatientDetails from store ', this.siteSurveyPatientDetails)
+      // console.log('here is siteSurveyPatientDetails from store ', this.siteSurveyPatientDetails)
       return this.siteSurveyPatientDetails // filters when site changes
     },
   },

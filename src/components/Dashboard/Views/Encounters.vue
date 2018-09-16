@@ -1,492 +1,485 @@
 <template>
-  <div class="content">
-    <div class="container-fluid">
-      
-      <!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Encounter Summary Stats</h4>
-      </div>
-     
-      <div class="row d-flex ">
-
-        <div class="col-xl-3 col-md-4">
-          <stats-card>
-          <div slot="header" class="icon-warning">
-            <i class="nc-icon nc-chart text-warning"></i>
-          </div>
-          <div slot="content">
-            <p class="card-category">Total Encounters</p>
-            <h4 class="card-title">{{ siteEncounterTotal }}</h4>
-          </div>
-          <!-- <div slot="footer">
-              <i class="fa fa-refresh"></i>With Duplicates
-          </div> -->
-          </stats-card>
+  <transition name="fade" mode="out-in">
+    <div class="content" :key="selectedSite">
+      <div class="container-fluid">
+        
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Encounter Summary Stats</h4>
         </div>
+      
+        <div class="row d-flex ">
 
-        <div class="col-xl-3 col-md-4">
-          <stats-card>
-            <div slot="header" class="icon-success">
-              <i class="nc-icon nc-light-3 text-success"></i>
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+            <div slot="header" class="icon-warning">
+              <i class="nc-icon nc-chart text-warning"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Unique Patients</p>
-              <h4 class="card-title">{{ siteEncounterPatientTotal }}</h4>
+              <p class="card-category">Total Encounters</p>
+              <h4 class="card-title">{{ siteEncounterTotal }}</h4>
             </div>
             <!-- <div slot="footer">
-              <i class="fa fa-calendar-o"></i>No Duplicates
+                <i class="fa fa-refresh"></i>With Duplicates
             </div> -->
-          </stats-card>
-        </div>
-
-        <div class="col-xl-3 col-md-4">
-          <stats-card>
-            <div slot="header" class="icon-danger">
-              <i class="nc-icon nc-vector text-danger"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Appts No Show</p>
-              <h4 class="card-title">{{ siteEncounterApptNoShowTotal }}</h4>
-            </div>
-          </stats-card>
-        </div>
-
-        <div class="col-xl-3 col-md-4">
-          <stats-card>
-            <div slot="header" class="icon-info">
-              <i class="nc-icon nc-favourite-28 text-primary"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Appts Cancelled</p>
-              <h4 class="card-title">{{ siteEncounterApptCancelTotal }}</h4>
-            </div>
-          </stats-card>
-        </div>
-
-      </div>
-
-      <!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Uniques and Cancel/NoShow</h4>
-      </div>
-
-      <div class="row d-flex ">
-
-        <div class="col-md-6">
-          <!-- <span>{{ selectedSite }} {{ selectedRange }}</span> -->
-
-          <template>
-            <vue-highcharts :options="lineChartOptions"  ref="lineChart"></vue-highcharts>
-          </template>
-        </div>
-
-        <div class="col-md-6">
-          <template>
-            <vue-highcharts :options="pieChartOptions"  ref="pieChart"></vue-highcharts>
-          </template>
-        </div>
-
-      </div>
-
-      <!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">CPT Categories</h4>
-      </div>
-
-      <div class="d-flex flex-row justify-content-center">
-        
-        <div class="col-xl-3 col-md-3">
-
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Individual Therapy</p>
-              <h4 class="card-title">{{ siteEncounterCPTIndividual.total }}/{{ siteEncounterCPTIndividual.percent }}%</h4>
-            </div>
-            </stats-card>
-        
-        </div>
-
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Group Therapy</p>
-              <h4 class="card-title">{{ siteEncounterCPTGroup.total }}/{{ siteEncounterCPTGroup.percent }}%</h4>
-            </div>
-          </stats-card>
-
-        </div>
-
-      </div>
-
-      <div class="d-flex flex-row">
-      
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Telephone</p>
-              <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4>
-            </div>
-          </stats-card>
-
-        </div>
-
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Group Education</p>
-              <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4>
-            </div>
-          </stats-card>
-
-        </div>
-         
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Assessment</p>
-              <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4>
-            </div>
-            </stats-card>
-
-        </div>
-
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Prolonged Service</p>
-              <h4 class="card-title">{{ siteEncounterCPTProlongedService.total }}/{{ siteEncounterCPTProlongedService.percent }}%</h4>
-            </div>
-            </stats-card>
-
-        </div>
-
-      </div>
-
-      <div class="d-flex flex-row justify-content-center">
-
-        <div class="col-md-8 ">
-          <card>
-            <template slot="header">
-              <span>Hover Over Column Header to View Menu</span>
-            </template>
-              <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 
-              :gridOptions="gridOptions2" 
-              :rowData="rowData2" 
-              :rowDataChanged="onRowDataChanged2"
-              :enableFilter="true"
-              :enableSorting="true"
-              :enableColResize="true"
-              >
-              </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                Detailed CPT Categories Listing
-              </div>
-            </template>
-          </card>
-        </div>
-
-      </div>
-
-   <!-- </div> End of CPT Categories Column 1 w/ cards -->
-
-  <!-- <div class="col-xl-3 col-md-6"> -->
-
-
-  <!-- </div> End of CPT Categories Column 2 w/ table -->
-
-<!-- </div> End of CPT Wrapping Categories Row -->
-
-          <!-- <div class="d-flex flex-row">
-            <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Individual Therapy</p>
-              <h4 class="card-title">{{ siteEncounterCPTIndividual.total }}/{{ siteEncounterCPTIndividual.percent }}%</h4>
-            </div>
-            </stats-card>
-          </div>
-        
-          <div class="d-flex flex-row">
-            <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Group Education</p>
-              <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4>
-            </div>
             </stats-card>
           </div>
 
-          <div class="d-flex flex-row">
+          <div class="col-xl-3 col-md-4">
             <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Telephone</p>
-              <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4>
-            </div>
+              <div slot="header" class="icon-success">
+                <i class="nc-icon nc-light-3 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Unique Patients</p>
+                <h4 class="card-title">{{ siteEncounterPatientTotal }}</h4>
+              </div>
+              <!-- <div slot="footer">
+                <i class="fa fa-calendar-o"></i>No Duplicates
+              </div> -->
             </stats-card>
-          </div> -->
+          </div>
 
-        <!-- </div> -->
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-danger">
+                <i class="nc-icon nc-vector text-danger"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Appts No Show</p>
+                <h4 class="card-title">{{ siteEncounterApptNoShowTotal }}</h4>
+              </div>
+            </stats-card>
+          </div>
 
-        <!-- <div class="col-xl-3 col-md-3">
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-info">
+                <i class="nc-icon nc-favourite-28 text-primary"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Appts Cancelled</p>
+                <h4 class="card-title">{{ siteEncounterApptCancelTotal }}</h4>
+              </div>
+            </stats-card>
+          </div>
+
+        </div>
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Uniques and Cancel/NoShow</h4>
+        </div>
+
+        <div class="row d-flex ">
+
+          <div class="col-md-6">
+            <!-- <span>{{ selectedSite }} {{ selectedRange }}</span> -->
+
+            <template>
+              <vue-highcharts :options="lineChartOptions"  ref="lineChart"></vue-highcharts>
+            </template>
+          </div>
+
+          <div class="col-md-6">
+            <template>
+              <vue-highcharts :options="pieChartOptions"  ref="pieChart"></vue-highcharts>
+            </template>
+          </div>
+
+        </div>
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">CPT Categories</h4>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
           
-          <div class="d-flex flex-row ">
+          <div class="col-xl-3 col-md-3">
+
             <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Group Therapy</p>
-              <h4 class="card-title">{{ siteEncounterCPTGroup.total }}/{{ siteEncounterCPTGroup.percent }}%</h4>
-            </div>
-            </stats-card>
-          </div>
-
-          <div class="d-flex flex-row">
-            <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Assessment</p>
-              <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4>
-            </div>
-            </stats-card>
-          </div>
-
-          <div class="d-flex flex-row">
-            <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Prolonged Service</p>
-              <h4 class="card-title">{{ siteEncounterCPTProlongedService.total }}/{{ siteEncounterCPTProlongedService.percent }}%</h4>
-            </div>
-            </stats-card>
-          </div> -->
-
-        <!-- </div> -->
-
-        <!-- <div class="col-md-6">
-          <card>
-            <template slot="header">
-              <span>Hover Over Column Header to View Menu</span>
-            </template>
-              <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 
-              :gridOptions="gridOptions2" 
-              :rowData="rowData2" 
-              :rowDataChanged="onRowDataChanged2"
-              :enableFilter="true"
-              :enableSorting="true"
-              :enableColResize="true"
-              >
-              </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                Detailed CPT Categories Listing
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
               </div>
-            </template>
-          </card>
-        </div> -->
+              <div slot="content">
+                <p class="card-category">Individual Therapy</p>
+                <h4 class="card-title">{{ siteEncounterCPTIndividual.total }}/{{ siteEncounterCPTIndividual.percent }}%</h4>
+              </div>
+              </stats-card>
+          
+          </div>
 
-      <!-- </div> -->
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Group Therapy</p>
+                <h4 class="card-title">{{ siteEncounterCPTGroup.total }}/{{ siteEncounterCPTGroup.percent }}%</h4>
+              </div>
+            </stats-card>
 
-      <!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">CPT Details</h4>
-      </div>
+          </div>
 
-      <div class="row">
+        </div>
+
+        <div class="d-flex flex-row">
         
-        <div class="col-md-12">
-          <card>
-            <template slot="header">
-              <span>Hover Over Column Header to View Menu</span>
-            </template>
-              <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
-              :gridOptions="gridOptions" 
-              :rowData="rowData" 
-              :rowDataChanged="onRowDataChanged"
-              :enableFilter="true"
-              :enableSorting="true"
-              :enableColResize="true"
-              >
-              </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                Detailed Encounter CPT Codes
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
               </div>
-            </template>
-          </card>
-        </div>
-      </div>
-
-      <div class="row">
-
-        <!-- <div class="col-md-6">
-          <card>
-            <template slot="header">
-              <span>CPT Categories Details (Hover Over a Header to Filter the Column)</span>
-            </template>
-              <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 
-              :gridOptions="gridOptions2" 
-              :rowData="rowData2" 
-              :rowDataChanged="onRowDataChanged2"
-              :enableFilter="true"
-              :enableSorting="true"
-              :enableColResize="true"
-              >
-              </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                Detailed CPT Categories Listing
+              <div slot="content">
+                <p class="card-category">Telephone</p>
+                <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4>
               </div>
-            </template>
-          </card>
-        </div> -->
+            </stats-card>
 
-      </div>
+          </div>
 
-      <!-- <div class="row">
-
-        <div class="col-md-8">
-          <chart-card :chart-data="lineChart.data" :chart-options="lineChart.options" :responsive-options="lineChart.responsiveOptions">
-            <template slot="header">
-              <h4 class="card-title">Users Behavior</h4>
-              <p class="card-category">24 Hours performance</p>
-            </template>
-            <template slot="footer">
-              <div class="legend">
-                <i class="fa fa-circle text-info"></i> Open
-                <i class="fa fa-circle text-danger"></i> Click
-                <i class="fa fa-circle text-warning"></i> Click Second Time
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
               </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-history"></i> Updated 3 minutes ago
+              <div slot="content">
+                <p class="card-category">Group Education</p>
+                <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4>
               </div>
-            </template>
-          </chart-card>
+            </stats-card>
+
+          </div>
+          
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Assessment</p>
+                <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4>
+              </div>
+              </stats-card>
+
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Prolonged Service</p>
+                <h4 class="card-title">{{ siteEncounterCPTProlongedService.total }}/{{ siteEncounterCPTProlongedService.percent }}%</h4>
+              </div>
+              </stats-card>
+
+          </div>
+
         </div>
 
-        <div class="col-md-4">
-          <chart-card :chart-data="pieChart.data" chart-type="Pie">
-            <template slot="header">
-              <h4 class="card-title">Email Statistics</h4>
-              <p class="card-category">Last Campaign Performance</p>
-            </template>
-            <template slot="footer">
-              <div class="legend">
-                <i class="fa fa-circle text-info"></i> Open
-                <i class="fa fa-circle text-danger"></i> Bounce
-                <i class="fa fa-circle text-warning"></i> Unsubscribe
-              </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-              </div>
-            </template>
-          </chart-card>
-        </div>
+        <div class="d-flex flex-row justify-content-center">
 
-      </div> -->
-
-      <!-- <div class="row">
-
-              <div class="col-md-6">
-                hello there!!!!!!!!!!!!!!!!!!!!!!!
-                {{ pieOptions.title.text }}
-              </div>
-      
-          </div> -->
-
-      <!-- <div class="row">
-        <div class="col-md-6">
-          <chart-card :chart-data="barChart.data" :chart-options="barChart.options" :chart-responsive-options="barChart.responsiveOptions" chart-type="Bar">
-            <template slot="header">
-              <h4 class="card-title">2014 Sales</h4>
-              <p class="card-category">All products including Taxes</p>
-            </template>
-            <template slot="footer">
-              <div class="legend">
-                <i class="fa fa-circle text-info"></i> Tesla Model S
-                <i class="fa fa-circle text-danger"></i> BMW 5 Series
-              </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-check"></i> Data information certified
-              </div>
-            </template>
-          </chart-card>
-        </div> -->
-
-        <!-- <div class="col-md-6">
-          <card>
-            <template slot="header">
-              <h5 class="title">Tasks</h5>
-              <p class="category">Backend development</p>
-            </template>
-            <l-table :data="tableData.data" :columns="tableData.columns">
-              <template slot="columns"></template>
-
-              <template slot-scope="{row}">
-                <td>
-                  <Checkbox v-model="row.checked"></Checkbox>
-                </td>
-                <td>{{row.title}}</td>
-                <td class="td-actions text-right">
-                  <button type="button" class="btn-simple btn btn-xs btn-info" v-tooltip.top-center="editTooltip">
-                    <i class="fa fa-edit"></i>
-                  </button>
-                  <button type="button" class="btn-simple btn btn-xs btn-danger" v-tooltip.top-center="deleteTooltip">
-                    <i class="fa fa-times"></i>
-                  </button>
-                </td>
+          <div class="col-md-8 ">
+            <card>
+              <template slot="header">
+                <span>Hover Over Column Header to View Menu</span>
               </template>
-            </l-table>
-            <div class="footer">
-              <hr>
-              <div class="stats">
-                <i class="fa fa-history"></i> Updated 3 minutes ago
-              </div>
-            </div>
-          </card> -->
+                <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 
+                :gridOptions="gridOptions2" 
+                :rowData="rowData2" 
+                :rowDataChanged="onRowDataChanged2"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+                >
+                </ag-grid-vue>
+              <template slot="footer">
+                <div class="legend">
+                  Detailed CPT Categories Listing
+                </div>
+              </template>
+            </card>
+          </div>
 
-        <!-- </div>
-      </div> -->
+        </div>
+
+            <!-- <div class="d-flex flex-row">
+              <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Individual Therapy</p>
+                <h4 class="card-title">{{ siteEncounterCPTIndividual.total }}/{{ siteEncounterCPTIndividual.percent }}%</h4>
+              </div>
+              </stats-card>
+            </div>
+          
+            <div class="d-flex flex-row">
+              <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Group Education</p>
+                <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4>
+              </div>
+              </stats-card>
+            </div>
+
+            <div class="d-flex flex-row">
+              <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Telephone</p>
+                <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4>
+              </div>
+              </stats-card>
+            </div> -->
+
+          <!-- </div> -->
+
+          <!-- <div class="col-xl-3 col-md-3">
+            
+            <div class="d-flex flex-row ">
+              <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Group Therapy</p>
+                <h4 class="card-title">{{ siteEncounterCPTGroup.total }}/{{ siteEncounterCPTGroup.percent }}%</h4>
+              </div>
+              </stats-card>
+            </div>
+
+            <div class="d-flex flex-row">
+              <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Assessment</p>
+                <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4>
+              </div>
+              </stats-card>
+            </div>
+
+            <div class="d-flex flex-row">
+              <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Prolonged Service</p>
+                <h4 class="card-title">{{ siteEncounterCPTProlongedService.total }}/{{ siteEncounterCPTProlongedService.percent }}%</h4>
+              </div>
+              </stats-card>
+            </div> -->
+
+          <!-- </div> -->
+
+          <!-- <div class="col-md-6">
+            <card>
+              <template slot="header">
+                <span>Hover Over Column Header to View Menu</span>
+              </template>
+                <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 
+                :gridOptions="gridOptions2" 
+                :rowData="rowData2" 
+                :rowDataChanged="onRowDataChanged2"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+                >
+                </ag-grid-vue>
+              <template slot="footer">
+                <div class="legend">
+                  Detailed CPT Categories Listing
+                </div>
+              </template>
+            </card>
+          </div> -->
+
+        <!-- </div> -->
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">CPT Details</h4>
+        </div>
+
+        <div class="row">
+          
+          <div class="col-md-12">
+            <card>
+              <template slot="header">
+                <span>Hover Over Column Header to View Menu</span>
+              </template>
+                <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
+                :gridOptions="gridOptions" 
+                :rowData="rowData" 
+                :rowDataChanged="onRowDataChanged"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+                >
+                </ag-grid-vue>
+              <template slot="footer">
+                <div class="legend">
+                  Detailed Encounter CPT Codes
+                </div>
+              </template>
+            </card>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <!-- <div class="col-md-6">
+            <card>
+              <template slot="header">
+                <span>CPT Categories Details (Hover Over a Header to Filter the Column)</span>
+              </template>
+                <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 
+                :gridOptions="gridOptions2" 
+                :rowData="rowData2" 
+                :rowDataChanged="onRowDataChanged2"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+                >
+                </ag-grid-vue>
+              <template slot="footer">
+                <div class="legend">
+                  Detailed CPT Categories Listing
+                </div>
+              </template>
+            </card>
+          </div> -->
+
+        </div>
+
+        <!-- <div class="row">
+
+          <div class="col-md-8">
+            <chart-card :chart-data="lineChart.data" :chart-options="lineChart.options" :responsive-options="lineChart.responsiveOptions">
+              <template slot="header">
+                <h4 class="card-title">Users Behavior</h4>
+                <p class="card-category">24 Hours performance</p>
+              </template>
+              <template slot="footer">
+                <div class="legend">
+                  <i class="fa fa-circle text-info"></i> Open
+                  <i class="fa fa-circle text-danger"></i> Click
+                  <i class="fa fa-circle text-warning"></i> Click Second Time
+                </div>
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-history"></i> Updated 3 minutes ago
+                </div>
+              </template>
+            </chart-card>
+          </div>
+
+          <div class="col-md-4">
+            <chart-card :chart-data="pieChart.data" chart-type="Pie">
+              <template slot="header">
+                <h4 class="card-title">Email Statistics</h4>
+                <p class="card-category">Last Campaign Performance</p>
+              </template>
+              <template slot="footer">
+                <div class="legend">
+                  <i class="fa fa-circle text-info"></i> Open
+                  <i class="fa fa-circle text-danger"></i> Bounce
+                  <i class="fa fa-circle text-warning"></i> Unsubscribe
+                </div>
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+                </div>
+              </template>
+            </chart-card>
+          </div>
+
+        </div> -->
+
+        <!-- <div class="row">
+
+                <div class="col-md-6">
+                  hello there!!!!!!!!!!!!!!!!!!!!!!!
+                  {{ pieOptions.title.text }}
+                </div>
+        
+            </div> -->
+
+        <!-- <div class="row">
+          <div class="col-md-6">
+            <chart-card :chart-data="barChart.data" :chart-options="barChart.options" :chart-responsive-options="barChart.responsiveOptions" chart-type="Bar">
+              <template slot="header">
+                <h4 class="card-title">2014 Sales</h4>
+                <p class="card-category">All products including Taxes</p>
+              </template>
+              <template slot="footer">
+                <div class="legend">
+                  <i class="fa fa-circle text-info"></i> Tesla Model S
+                  <i class="fa fa-circle text-danger"></i> BMW 5 Series
+                </div>
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-check"></i> Data information certified
+                </div>
+              </template>
+            </chart-card>
+          </div> -->
+
+          <!-- <div class="col-md-6">
+            <card>
+              <template slot="header">
+                <h5 class="title">Tasks</h5>
+                <p class="category">Backend development</p>
+              </template>
+              <l-table :data="tableData.data" :columns="tableData.columns">
+                <template slot="columns"></template>
+
+                <template slot-scope="{row}">
+                  <td>
+                    <Checkbox v-model="row.checked"></Checkbox>
+                  </td>
+                  <td>{{row.title}}</td>
+                  <td class="td-actions text-right">
+                    <button type="button" class="btn-simple btn btn-xs btn-info" v-tooltip.top-center="editTooltip">
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <button type="button" class="btn-simple btn btn-xs btn-danger" v-tooltip.top-center="deleteTooltip">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </td>
+                </template>
+              </l-table>
+              <div class="footer">
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-history"></i> Updated 3 minutes ago
+                </div>
+              </div>
+            </card> -->
+
+          <!-- </div>
+        </div> -->
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 import ChartCard from 'src/components/UIComponents/Cards/ChartCard.vue'
@@ -700,7 +693,23 @@ export default {
 }
 </script>
 <style>
-.section-head {
-   font-size: 2rem;
-}
+  .section-head {
+    font-size: 2rem;
+  }
+
+/* fade page in and out when site changes */
+
+.fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .1s
+  }
+
+  .fade-enter,
+  .fade-leave-to
+    /* .fade-leave-active in <2.1.8 */
+
+  {
+    opacity: 0
+  }
+
 </style>

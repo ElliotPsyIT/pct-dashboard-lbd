@@ -1,150 +1,153 @@
 <template>
-  <div class="content">
-    <div class="container-fluid">
-      
-    <!-- Section Header -->
-    <div class="row d-flex justify-content-center ">
-      <h4 class="section-head">Overall Surveys Summary</h4>
-    </div>
-
-    <div class="row d-flex justify-content-center">
-<!-- siteSurveyTotals -->
-      <div class="col-xl-3 col-md-3">
-      
-        <stats-card>
-          <div slot="header" class="icon-warning">
-            <i class="nc-icon nc-chart text-warning"></i>
-          </div>
-          <div slot="content">
-            <p class="card-category">Total Surveys Given</p>
-            <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-            <h4 class="card-title">{{ siteSurveyTotals.surveysGivenOverall }}</h4>
-          </div>
-        </stats-card>
-
+  <transition name="fade" mode="out-in">
+    <div class="content" :key="selectedSite">
+      <div class="container-fluid">
+        
+      <!-- Section Header -->
+      <div class="row d-flex justify-content-center ">
+        <h4 class="section-head">Overall Surveys Summary</h4>
       </div>
 
-    </div>
-
-<!-- Section Header -->
-    <div class="row d-flex justify-content-center ">
-      <h4 class="section-head">Clinics, Providers, Patients Survey Summary</h4>
-    </div>
-<!-- siteSurveyClinicTotals -->
-    <div class="row d-flex justify-content-center">
-      <div class="col-xl-3 col-md-4">
-      
-        <stats-card>
-          <div slot="header" class="icon-warning">
-            <i class="nc-icon nc-chart text-warning"></i>
-          </div>
-          <div slot="content" >
-            <p class="card-category">Clinics with Surveys/<br/>All Clinics</p>
-            <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-            <h4 class="card-title">{{ siteSurveyClinicTotals.surveysGivenClinics }}/{{ siteSurveyClinicTotals.surveysTotalClinics }}</h4>
-          </div>
+      <div class="row d-flex justify-content-center">
+      <!-- siteSurveyTotals -->
+        <div class="col-xl-3 col-md-3">
+        
+          <stats-card :key="siteSurveyTotals.surveysGivenOverall">
+            <div slot="header" class="icon-warning">
+              <i class="nc-icon nc-chart text-warning"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Total Surveys Given</p>
+              <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
+              <h4 class="card-title">{{ siteSurveyTotals.surveysGivenOverall }}</h4>
+            </div>
           </stats-card>
-
+        
         </div>
 
-<!-- siteSurveyProviderTotals -->
-      <div class="col-xl-3 col-md-4">
-      
-        <stats-card>
-          <div slot="header" class="icon-warning">
-            <i class="nc-icon nc-chart text-warning"></i>
-          </div>
-          <div slot="content">
-            <p class="card-category">Providers with Surveys/<br/>All Providers</p>
-            <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-            <h4 class="card-title">{{ siteSurveyProviderTotals.surveysGivenProviders }}/{{ siteSurveyProviderTotals.surveysTotalProviders }}</h4>
-          </div>
-          </stats-card>
-
-        </div>
-
-<!-- siteSurveyPatientTotals -->
-      <div class="col-xl-3 col-md-4">
-      
-        <stats-card>
-          <div slot="header" class="icon-warning">
-            <i class="nc-icon nc-chart text-warning"></i>
-          </div>
-          <div slot="content">
-            <p class="card-category">Patients with Surveys/<br/>All Patients</p>
-            <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-            <h4 class="card-title">{{ siteSurveyPatientTotals.surveysGivenPatients }}/{{ siteSurveyPatientTotals.surveysTotalPatients }}</h4>
-          </div>
-          </stats-card>
-
-        </div>
-
-    </div>
+      </div>
 
       <!-- Section Header -->
       <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Survey Activity Summary</h4>
+        <h4 class="section-head">Clinics, Providers, Patients Survey Summary</h4>
       </div>
-
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <card>
-            <template slot="header">
-              <span>Hover Over Column Header to View Menu</span>
-            </template>
-              <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
-              :gridOptions="gridOptions" 
-              :columnDefs="columnDefs"
-              :rowData="rowData" 
-              :rowDataChanged="onRowDataChanged"
-              :enableFilter="true"
-              :enableSorting="true"
-              :enableColResize="true"
-              >
-              </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                Detailed Survey Listing
-              </div>
-            </template>
-          </card>
+        <!-- siteSurveyClinicTotals -->
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-3 col-md-4">
+        
+          <stats-card :key="siteSurveyClinicTotals.surveysGivenClinics">
+            <div slot="header" class="icon-warning">
+              <i class="nc-icon nc-chart text-warning"></i>
+            </div>
+            <div slot="content" >
+              <p class="card-category">Clinics with Surveys/<br/>All Clinics</p>
+              <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
+              <h4 class="card-title">{{ siteSurveyClinicTotals.surveysGivenClinics }}/{{ siteSurveyClinicTotals.surveysTotalClinics }}</h4>
+            </div>
+          </stats-card>
+        
         </div>
-      </div>
 
-       <!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Patient Survey Activity Summary</h4>
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="col-md-12">
-          <card>
-            <template slot="header">
-              <!-- <span>Hover Over Column Header to View Menu</span> -->
-              <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
-              <button @click="gridOptions1.api.expandAll()" >Expand All</button>
-            </template>
-              <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
-              :gridOptions="gridOptions1" 
-              :columnDefs="columnDefs1"
-              :rowData="rowData1" 
-              :rowDataChanged="onRowDataChanged1"
-              :enableFilter="true"
-              :enableSorting="true"
-              :enableColResize="true"
-              >
-              </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                Patient Survey Listing
-              </div>
-            </template>
-          </card>
+        <!-- siteSurveyProviderTotals -->
+        <div class="col-xl-3 col-md-4">
+        
+          <stats-card :key="siteSurveyProviderTotals.surveysGivenProviders">
+            <div slot="header" class="icon-warning">
+              <i class="nc-icon nc-chart text-warning"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Providers with Surveys/<br/>All Providers</p>
+              <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
+              <h4 class="card-title">{{ siteSurveyProviderTotals.surveysGivenProviders }}/{{ siteSurveyProviderTotals.surveysTotalProviders }}</h4>
+            </div>
+          </stats-card>
+        
         </div>
+
+        <!-- siteSurveyPatientTotals -->
+        <div class="col-xl-3 col-md-4">
+        
+          <stats-card :key="siteSurveyPatientTotals.surveysGivenPatients">
+            <div slot="header" class="icon-warning">
+              <i class="nc-icon nc-chart text-warning"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Patients with Surveys/<br/>All Patients</p>
+              <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
+              <h4 class="card-title">{{ siteSurveyPatientTotals.surveysGivenPatients }}/{{ siteSurveyPatientTotals.surveysTotalPatients }}</h4>
+            </div>
+          </stats-card>
+
+        </div>
+
       </div>
 
-    </div>      
-  </div>
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Survey Activity Summary</h4>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <card>
+              <template slot="header">
+                <span>Hover Over Column Header to View Menu</span>
+              </template>
+                <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
+                :gridOptions="gridOptions" 
+                :columnDefs="columnDefs"
+                :rowData="rowData" 
+                :rowDataChanged="onRowDataChanged"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+                >
+                </ag-grid-vue>
+              <template slot="footer">
+                <div class="legend">
+                  Detailed Survey Listing
+                </div>
+              </template>
+            </card>
+          </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Patient Survey Activity Summary</h4>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <card>
+              <template slot="header">
+                <!-- <span>Hover Over Column Header to View Menu</span> -->
+                <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
+                <button @click="gridOptions1.api.expandAll()" >Expand All</button>
+              </template>
+                <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
+                :gridOptions="gridOptions1" 
+                :columnDefs="columnDefs1"
+                :rowData="rowData1" 
+                :rowDataChanged="onRowDataChanged1"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+                >
+                </ag-grid-vue>
+              <template slot="footer">
+                <div class="legend">
+                  Patient Survey Listing
+                </div>
+              </template>
+            </card>
+          </div>
+        </div>
+
+      </div>      
+    </div>
+
+  </transition>
 </template>
 
 <script>
@@ -178,6 +181,8 @@ export default {
       'siteSurveyDetails',
       'siteSurveyPatientDetails'
     ]),
+    ...mapState(['selectedSite']),
+
     rowData () {
       // return this.siteEncounterProviderDetails // filters when site changes
       // console.log('here is siteSurveyDetails from store ', this.siteSurveyDetails)
@@ -320,3 +325,17 @@ export default {
   }
 }
 </script>
+<style>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .1s
+  }
+
+  .fade-enter,
+  .fade-leave-to
+    /* .fade-leave-active in <2.1.8 */
+
+  {
+    opacity: 0
+  }
+</style>

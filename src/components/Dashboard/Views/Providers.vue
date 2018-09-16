@@ -1,156 +1,158 @@
 <template>
-  <div class="content">
-    <div class="container-fluid">
-      
+  <transition name="fade" mode="out-in">
+    <div class="content" :key="selectedSite">
+      <div class="container-fluid">
+        
+          <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Provider, Clinic, Patient Stats</h4>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+          
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+            <div slot="header" class="icon-warning">
+              <i class="nc-icon nc-chart text-warning"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Total Providers</p>
+              <h4 class="card-title">{{ siteProviderProviderCount }}</h4>
+            </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+            <div slot="header" class="icon-warning">
+              <i class="nc-icon nc-chart text-warning"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Total Clinics</p>
+              <h4 class="card-title">{{ siteProviderClinicCount }}</h4>
+            </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+            <div slot="header" class="icon-warning">
+              <i class="nc-icon nc-chart text-warning"></i>
+            </div>
+            <div slot="content">
+              <p class="card-category">Total Patients</p>
+              <h4 class="card-title">{{ siteProviderPatientCount }}</h4>
+            </div>
+            </stats-card>
+          </div>
+
+        </div>
+
         <!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Provider, Clinic, Patient Stats</h4>
-      </div>
-
-      <div class="row d-flex justify-content-center">
-        
-        <div class="col-xl-3 col-md-4">
-          <stats-card>
-          <div slot="header" class="icon-warning">
-            <i class="nc-icon nc-chart text-warning"></i>
-          </div>
-          <div slot="content">
-            <p class="card-category">Total Providers</p>
-            <h4 class="card-title">{{ siteProviderProviderCount }}</h4>
-          </div>
-          </stats-card>
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Provider Summary</h4>
         </div>
 
-        <div class="col-xl-3 col-md-4">
-          <stats-card>
-          <div slot="header" class="icon-warning">
-            <i class="nc-icon nc-chart text-warning"></i>
+        <div class="row justify-content-center">
+          
+          <div class="col-md-10 ">
+            <card>
+              <template slot="header">
+                <span>Hover Over Column Header to View Menu</span>
+              </template>
+                <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
+                :gridOptions="gridOptions3" 
+                :columnDefs="columnDefs3"
+                :rowData="rowData3" 
+                :rowDataChanged="onRowDataChanged3"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+                :onFilterChanged="onFilterChanged"
+                :animateRows="true"
+                >
+                </ag-grid-vue>
+              <template slot="footer">
+                <div class="legend">
+                  Detailed Encounter Listing
+                </div>
+              </template>
+            </card>
           </div>
-          <div slot="content">
-            <p class="card-category">Total Clinics</p>
-            <h4 class="card-title">{{ siteProviderClinicCount }}</h4>
-          </div>
-          </stats-card>
+
+        </div> <!-- End Row -->
+
+  <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Provider Encounters By Clinic</h4>
         </div>
 
-        <div class="col-xl-3 col-md-4">
-          <stats-card>
-          <div slot="header" class="icon-warning">
-            <i class="nc-icon nc-chart text-warning"></i>
-          </div>
-          <div slot="content">
-            <p class="card-category">Total Patients</p>
-            <h4 class="card-title">{{ siteProviderPatientCount }}</h4>
-          </div>
-          </stats-card>
-        </div>
-
-      </div>
-
-      <!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Provider Summary</h4>
-      </div>
-
-      <div class="row justify-content-center">
-        
-        <div class="col-md-10 ">
-          <card>
-            <template slot="header">
-              <span>Hover Over Column Header to View Menu</span>
-            </template>
+        <div class="row justify-content-center">
+          <div class="col-md-10">
+            <card>
+              <template slot="header">
+                <!-- <span>Click On Arrow <span class="nc-icon">></span> Below to Drill Down</span> -->
+                <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
+                <button @click="gridOptions1.api.expandAll()" >Expand All</button>
+              </template>
               <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
-              :gridOptions="gridOptions3" 
-              :columnDefs="columnDefs3"
-              :rowData="rowData3" 
-              :rowDataChanged="onRowDataChanged3"
-              :enableFilter="true"
-              :enableSorting="true"
-              :enableColResize="true"
-              :onFilterChanged="onFilterChanged"
-              :animateRows="true"
-              >
-              </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                Detailed Encounter Listing
-              </div>
-            </template>
-          </card>
-        </div>
-
-      </div> <!-- End Row -->
-
-<!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Provider Encounters By Clinic</h4>
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="col-md-10">
-          <card>
-            <template slot="header">
-              <!-- <span>Click On Arrow <span class="nc-icon">></span> Below to Drill Down</span> -->
-              <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
-              <button @click="gridOptions1.api.expandAll()" >Expand All</button>
-            </template>
-            <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
-            :gridOptions="gridOptions1" 
-            :columnDefs="columnDefs1"
-            :rowData="rowData1" 
-            :rowDataChanged="onRowDataChanged1"
-            :enableFilter="true"
-            :enableSorting="true"
-            :enableColResize="true"
-            :animateRows="true"
-            >
-            </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                Provider Encounters
-              </div>
-            </template>
-          </card>
-        </div>
-
-      </div> <!-- End Row -->
- 
-      <!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Providers' Patients and Sessions</h4>
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="col-md-10">
-          <card>
-            <template slot="header">
-              <!-- <span>Click On Arrow <span class="nc-icon">></span> Below to Drill Down</span> -->
-              <button @click="gridOptions2.api.collapseAll()" >Collapse All</button>
-              <button @click="gridOptions2.api.expandAll()" >Expand All</button>
-            </template>
-              <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
-              :gridOptions="gridOptions2" 
-              :columnDefs="columnDefs2"
-              :rowData="rowData2" 
-              :rowDataChanged="onRowDataChanged2"
+              :gridOptions="gridOptions1" 
+              :columnDefs="columnDefs1"
+              :rowData="rowData1" 
+              :rowDataChanged="onRowDataChanged1"
               :enableFilter="true"
               :enableSorting="true"
               :enableColResize="true"
               :animateRows="true"
               >
               </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                Providers' Patient Sessions
-              </div>
-            </template>
-          </card>
+              <template slot="footer">
+                <div class="legend">
+                  Provider Encounters
+                </div>
+              </template>
+            </card>
+          </div>
+
+        </div> <!-- End Row -->
+  
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Providers' Patients and Sessions</h4>
         </div>
 
-      </div>
+        <div class="row justify-content-center">
+          <div class="col-md-10">
+            <card>
+              <template slot="header">
+                <!-- <span>Click On Arrow <span class="nc-icon">></span> Below to Drill Down</span> -->
+                <button @click="gridOptions2.api.collapseAll()" >Collapse All</button>
+                <button @click="gridOptions2.api.expandAll()" >Expand All</button>
+              </template>
+                <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
+                :gridOptions="gridOptions2" 
+                :columnDefs="columnDefs2"
+                :rowData="rowData2" 
+                :rowDataChanged="onRowDataChanged2"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+                :animateRows="true"
+                >
+                </ag-grid-vue>
+              <template slot="footer">
+                <div class="legend">
+                  Providers' Patient Sessions
+                </div>
+              </template>
+            </card>
+          </div>
 
-    </div> <!-- End container-fluid -->
-  </div> <!-- End content -->
+        </div>
+
+      </div> <!-- End container-fluid -->
+    </div> <!-- End content -->
+  </transition>
 </template>
 <script>
 import StatsCard from 'src/components/UIComponents/Cards/StatsCard.vue'
@@ -376,7 +378,23 @@ export default {
 
 </script>
 <style>
-.section-head {
-   font-size: 2rem;
-}
+  .section-head {
+    font-size: 2rem;
+  }
+
+  /* fade page in and out when site changes */
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .1s
+  }
+
+  .fade-enter,
+  .fade-leave-to
+    /* .fade-leave-active in <2.1.8 */
+
+  {
+    opacity: 0
+  }
+
 </style>

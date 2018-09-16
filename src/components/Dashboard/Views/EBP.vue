@@ -1,359 +1,363 @@
 <template>
-  <div class="content">
-    <div class="container-fluid">
-      
-      <!-- Section Headers -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">EBPs</h4>
-      </div>
-     
-      <div class="row d-flex justify-content-around">
-        <h4 class="section-head">  EBP Clinics {{siteEBPClinics}}/{{siteEBPClinicsAll}}</h4>
-        <h4 class="section-head"> EBP Providers {{siteEBPProviders}}/{{siteEBPProvidersAll}}</h4>
-      </div>
-
-
-      <div class="row d-flex justify-content-center">
-
-        <div class="col-xl-3 col-md-2">
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">PEI Clinics ({{siteEBPClinicsPEI}})</p>
-              <!-- <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4> -->
-              <h4 class="card-title">{{siteEBPClinicsPEIPercent}}%</h4>
-            </div>
-          </stats-card>
-
-        </div>
-
-        <div class="col-xl-3 col-md-2">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">CPT Clinics ({{siteEBPClinicsCPT}})</p>
-              <!-- <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4> -->
-              <h4 class="card-title">{{siteEBPClinicsCPTPercent}}%</h4>
-            </div>
-          </stats-card>
-
-        </div>
-
-        <div class="col-xl-3 col-md-2">
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">PEI Providers ({{siteEBPProvidersPEI}})</p>
-              <!-- <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4> -->
-              <h4 class="card-title">{{siteEBPProvidersPEIPercent}}%</h4>
-            </div>
-          </stats-card>
-
+  <transition name="fade" mode="out-in">
+    <div class="content" :key="selectedSite">
+      <div class="container-fluid">
+        
+        <!-- Section Headers -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">EBPs</h4>
         </div>
       
-        <div class="col-xl-3 col-md-2">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">CPT Provider ({{siteEBPProvidersCPT}})</p>
-              <!-- <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4> -->
-              <h4 class="card-title">{{siteEBPProvidersCPTPercent}}%</h4>
-            </div>
-          </stats-card>
-
+        <div class="row d-flex justify-content-around">
+          <h4 class="section-head">  EBP Clinics {{siteEBPClinics}}/{{siteEBPClinicsAll}}</h4>
+          <h4 class="section-head"> EBP Providers {{siteEBPProviders}}/{{siteEBPProvidersAll}}</h4>
         </div>
-      </div>
 
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">EBP (Individual Tx) Patients {{siteEBPPatients}}/{{siteEBPPatientsAll}}</h4>
-      </div>
-    
-      <div class="row d-flex justify-content-center">
 
-        <div class="col-xl-3 col-md-2">
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">PEI Patients ({{siteEBPPatientsPEI}})</p>
-              <h4 class="card-title">{{siteEBPPatientsPEIPercent}}%</h4>
-            </div>
-          </stats-card>
+        <div class="row d-flex justify-content-center">
 
+          <div class="col-xl-3 col-md-2">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">PEI Clinics ({{siteEBPClinicsPEI}})</p>
+                <!-- <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4> -->
+                <h4 class="card-title">{{siteEBPClinicsPEIPercent}}%</h4>
+              </div>
+            </stats-card>
+
+          </div>
+
+          <div class="col-xl-3 col-md-2">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">CPT Clinics ({{siteEBPClinicsCPT}})</p>
+                <!-- <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4> -->
+                <h4 class="card-title">{{siteEBPClinicsCPTPercent}}%</h4>
+              </div>
+            </stats-card>
+
+          </div>
+
+          <div class="col-xl-3 col-md-2">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">PEI Providers ({{siteEBPProvidersPEI}})</p>
+                <!-- <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4> -->
+                <h4 class="card-title">{{siteEBPProvidersPEIPercent}}%</h4>
+              </div>
+            </stats-card>
+
+          </div>
+        
+          <div class="col-xl-3 col-md-2">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">CPT Provider ({{siteEBPProvidersCPT}})</p>
+                <!-- <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4> -->
+                <h4 class="card-title">{{siteEBPProvidersCPTPercent}}%</h4>
+              </div>
+            </stats-card>
+
+          </div>
+        </div>
+
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">EBP Patients (Individual Tx) {{siteEBPPatients}}/{{siteEBPPatientsAll}}</h4>
         </div>
       
-        <div class="col-xl-3 col-md-2">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">CPT Patients ({{siteEBPPatientsCPT}})</p>
-              <h4 class="card-title">{{siteEBPPatientsCPTPercent}}%</h4>
-            </div>
-          </stats-card>
+        <div class="row d-flex justify-content-center">
 
+          <div class="col-xl-3 col-md-2">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">PEI Patients ({{siteEBPPatientsPEI}})</p>
+                <h4 class="card-title">{{siteEBPPatientsPEIPercent}}%</h4>
+              </div>
+            </stats-card>
+
+          </div>
+        
+          <div class="col-xl-3 col-md-2">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">CPT Patients ({{siteEBPPatientsCPT}})</p>
+                <h4 class="card-title">{{siteEBPPatientsCPTPercent}}%</h4>
+              </div>
+            </stats-card>
+
+          </div>
+        
+        </div>
+
+  <hr class="style1"/>
+
+        <!-- <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Depression EBPs</h4>
         </div>
       
-      </div>
+        <div class="row d-flex justify-content-around">
+          <h4 class="section-head">Clinics</h4>
+          <h4 class="section-head">Providers</h4>
+        </div> -->
 
-<hr class="style1"/>
+        <!-- <div class="row d-flex justify-content-center">
+        
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">CBT-Depression</p>
+                <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4>
+                <h4 class="card-title">%</h4>
+              </div>
+              </stats-card>
 
-      <!-- <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Depression EBPs</h4>
-      </div>
-     
-      <div class="row d-flex justify-content-around">
-        <h4 class="section-head">Clinics</h4>
-        <h4 class="section-head">Providers</h4>
-      </div> -->
+          </div>
 
-      <!-- <div class="row d-flex justify-content-center">
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">IPT-Depression</p>
+                <h4 class="card-title">%</h4>
+              </div>
+              </stats-card>
+
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">CBT-Depression</p>
+                <h4 class="card-title">%</h4>
+              </div>
+              </stats-card>
+
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">IPT-Depression</p>              
+                <h4 class="card-title">%</h4>
+              </div>
+              </stats-card>
+
+          </div>
+
+        </div> -->
+
+        <!-- <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Patients</h4>
+        </div> -->
+
+        <!-- <div class="row d-flex justify-content-center">
+        
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">CBT-Depression</p>
+                <h4 class="card-title">%</h4>
+              </div>
+              </stats-card>
+
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">IPT-Depression</p>             
+                <h4 class="card-title">%</h4>
+              </div>
+              </stats-card>
+
+          </div>
+
+        </div> -->
+
+  <!-- <hr class="style1"/> -->
+
+        <!-- <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Insomnia EBPs</h4>
+        </div> -->
       
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">CBT-Depression</p>
-               <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4>
-              <h4 class="card-title">%</h4>
-            </div>
-            </stats-card>
+        <!-- <div class="row d-flex justify-content-around">
+          <h4 class="section-head">Clinics</h4>
+          <h4 class="section-head">Providers</h4>
+          <h4 class="section-head">Patients</h4>
+        </div> -->
 
+        <!-- <div class="row d-flex justify-content-around">
+        
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">CBT-Insomnia</p>
+                <h4 class="card-title">%</h4>
+              </div>
+              </stats-card>
+
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">CBT-Insomnia</p>
+                <h4 class="card-title">%</h4>
+              </div>
+              </stats-card>
+
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">CBT-Insomnia</p>
+                <h4 class="card-title">%</h4>
+              </div>
+              </stats-card>
+
+          </div>
+        
+        </div> -->
+
+  <!-- <hr class="style1"/> -->
+
+  <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">EBP Activity Summary</h4>
         </div>
 
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">IPT-Depression</p>
-              <h4 class="card-title">%</h4>
-            </div>
-            </stats-card>
+        <div class="row">
 
-        </div>
+          <div class="col-md-6" >
 
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">CBT-Depression</p>
-              <h4 class="card-title">%</h4>
-            </div>
-            </stats-card>
+            <br/>
+            <card>
+              <!-- <template slot="header">
+                <button @click="getSelectedRows()"> Get Selected Rows</button>
+              </template> -->
+                <ag-grid-vue style="font-size: 12px; height: 425px" class="ag-theme-balham grid" 
+                :gridOptions="gridOptions" 
+                :columnDefs="columnDefs"
+                :rowData="rowData" 
+                :rowDataChanged="onRowDataChanged"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+                :cellClicked="onCellClicked"
+                >
+                </ag-grid-vue>
+              <!-- <template slot="footer">
+                <div class="legend">
+                  EBP Patient Totals
+                </div>
+              </template> -->
+            </card>
+          </div>
 
-        </div>
 
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">IPT-Depression</p>              
-              <h4 class="card-title">%</h4>
-            </div>
-            </stats-card>
-
-        </div>
-
-      </div> -->
-
-      <!-- <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Patients</h4>
-      </div> -->
-
-      <!-- <div class="row d-flex justify-content-center">
-      
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">CBT-Depression</p>
-              <h4 class="card-title">%</h4>
-            </div>
-            </stats-card>
-
-        </div>
-
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">IPT-Depression</p>             
-              <h4 class="card-title">%</h4>
-            </div>
-            </stats-card>
-
-        </div>
-
-      </div> -->
-
-<!-- <hr class="style1"/> -->
-
-      <!-- <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Insomnia EBPs</h4>
-      </div> -->
-     
-      <!-- <div class="row d-flex justify-content-around">
-        <h4 class="section-head">Clinics</h4>
-        <h4 class="section-head">Providers</h4>
-        <h4 class="section-head">Patients</h4>
-      </div> -->
-
-      <!-- <div class="row d-flex justify-content-around">
-      
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">CBT-Insomnia</p>
-              <h4 class="card-title">%</h4>
-            </div>
-            </stats-card>
-
-        </div>
-
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">CBT-Insomnia</p>
-              <h4 class="card-title">%</h4>
-            </div>
-            </stats-card>
-
-        </div>
-
-        <div class="col-xl-3 col-md-3">
-          
-          <stats-card>
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">CBT-Insomnia</p>
-              <h4 class="card-title">%</h4>
-            </div>
-            </stats-card>
-
-        </div>
-      
-      </div> -->
-
-<!-- <hr class="style1"/> -->
-
-<!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">EBP Activity Summary</h4>
-      </div>
-
-      <div class="row">
-
-        <div class="col-md-6" >
-
-          <br/>
-          <card>
-            <template slot="header">
-              <span>EBP Patient Totals By Type</span>
+          <div class="col-md-6">
+            <template>
+              <vue-highcharts :options="pieChartOptions"  ref="pieChart"></vue-highcharts>
             </template>
-              <ag-grid-vue style="font-size: 12px; height: 350px" class="ag-theme-balham grid" 
-              :gridOptions="gridOptions" 
-              :columnDefs="columnDefs"
-              :rowData="rowData" 
-              :rowDataChanged="onRowDataChanged"
+          </div>
+
+        </div>
+
+  <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Provider EBPs By Clinic and Patient</h4>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <card>
+              <template slot="header">
+                <!-- <span>Click On Arrow <span class="nc-icon">></span> Below to Drill Down</span> -->
+                <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
+                <button @click="gridOptions1.api.expandAll()" >Expand All</button>
+              </template>
+              <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
+              :gridOptions="gridOptions1" 
+              :columnDefs="columnDefs1"
+              :rowData="rowData1" 
+              :rowDataChanged="onRowDataChanged1"
               :enableFilter="true"
               :enableSorting="true"
               :enableColResize="true"
+              :animateRows="true"
+              :cellClicked="onCellClicked"
               >
               </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                EBP Summary Listing
-              </div>
-            </template>
-          </card>
-        </div>
+              <!-- <template slot="footer">
+                <div class="legend">
+                  EBP By Clinic and Provider
+                </div>
+              </template> -->
+            </card>
+          </div>
 
-
-        <div class="col-md-6">
-          <template>
-            <vue-highcharts :options="pieChartOptions"  ref="pieChart"></vue-highcharts>
-          </template>
-        </div>
+        </div> <!-- End Row -->
 
       </div>
-
-<!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Provider EBPs By Clinic</h4>
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="col-md-10">
-          <card>
-            <template slot="header">
-              <!-- <span>Click On Arrow <span class="nc-icon">></span> Below to Drill Down</span> -->
-              <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
-              <button @click="gridOptions1.api.expandAll()" >Expand All</button>
-            </template>
-            <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
-            :gridOptions="gridOptions1" 
-            :columnDefs="columnDefs1"
-            :rowData="rowData1" 
-            :rowDataChanged="onRowDataChanged1"
-            :enableFilter="true"
-            :enableSorting="true"
-            :enableColResize="true"
-            :animateRows="true"
-            >
-            </ag-grid-vue>
-            <template slot="footer">
-              <div class="legend">
-                EBP By Clinic and Provider
-              </div>
-            </template>
-          </card>
-        </div>
-
-      </div> <!-- End Row -->
-
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 
@@ -392,8 +396,9 @@ export default {
       'siteEBPClinicSummary',
       'siteEBPPieChartSeries',
       'siteEBPDetailsTypes',
-      
     ]),
+    ...mapState(['selectedSite']),
+
     siteEBPClinicsPercent () {
       return Math.round((this.siteEBPClinics/this.siteEBPClinicsAll) * 100)
     },
@@ -462,7 +467,7 @@ export default {
 
     this.onFilterChanged = function() {console.log('filter changed!!')}
 
-   this.gridOptions = {},
+    this.gridOptions = {},
 
     this.gridOptions1 = {  
       // groupHideOpenParents: true, 
@@ -470,11 +475,24 @@ export default {
         headerName: 'Site / Staff / Clinic',
         field: 'LocationName',
         // field: 'InstitutionName'
-      },
+      }
       // groupMultiAutoColumn:true,
     }
   },
   methods: {
+    // onGridReady(params) {
+    //   this.gridApi = params.api;
+    //   this.columnApi = params.columnApi;
+    // },
+    onCellClicked(event) {
+      let clickedCellFieldName = event.colDef.field
+      let clickedCellDataSimple =  event.value
+      let clickedCellDataWithFieldReference =  event.node.data[clickedCellFieldName]
+      let clickedCellRowIndex = event.rowIndex
+      let clickedCellNode = event.node
+
+      console.log('onCellClicked node.data is ****: ', event.node.data)
+    },
     createColDefs() {
       return [
         {headerName: "EBPs",
@@ -484,6 +502,7 @@ export default {
               width: 30, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter",
+              // checkboxSelection: true,
             },
             { headerName: "Institution", 
               field: "InstitutionName", 
@@ -511,7 +530,7 @@ export default {
       return [
         { headerName: "Patients", 
           field: "InitialsAndL4", 
-          width: 80, 
+          width: 100, 
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter"
         },
@@ -531,11 +550,22 @@ export default {
         // },
         { headerName: "EBP Type", 
           field: "HealthFactorCategoryShort", 
-          width: 150, 
+          width: 100, 
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter"
         },
-        
+        { headerName: "Latest", 
+          field: "LatestSession", 
+          width: 90, 
+          cellStyle: { 'text-align': "left" } ,
+          filter: "agTextColumnFilter"
+        },
+        { headerName: "Latest Date", 
+          field: "LatestDate", 
+          width: 120, 
+          cellStyle: { 'text-align': "left" } ,
+          filter: "agDateColumnFilter"
+        },
         { headerName: "Provider", 
           field: "STAFFNAME", 
           width: 150, 
@@ -571,4 +601,20 @@ export default {
 hr.style1 {
 	border-top: 3px double #8c8b8b;
 }
+
+/* fade page in and out when site changes */
+
+.fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .1s
+  }
+
+  .fade-enter,
+  .fade-leave-to
+    /* .fade-leave-active in <2.1.8 */
+
+  {
+    opacity: 0
+  }
+
 </style>

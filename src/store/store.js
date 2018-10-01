@@ -484,7 +484,7 @@ const store = new Vuex.Store({
 				this.replaceState(
 					Object.assign(state, JSON.parse(localStorage.getItem('store')))
         )
-        // hard code 'onemonth' as initialized date range for v.1.0
+        // hard code 'threemonths' as initialized date range for v.1.0
         state.selectedRange = state.selectedRange || 'threemonths'
         state.selectedSite = state.selectedSite || '512'
         console.log('initialiseStore getting localStorage state:', state )

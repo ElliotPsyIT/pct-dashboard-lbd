@@ -1,10 +1,24 @@
 [
     {
+      "VISN": 4,
+      "Sta3n": 642,
+      "StaPa": "642",
+      "InstitutionName": "PHILADELPHIA, PA VAMC",
+      "InstitutionNameLong": "(V04) (642) PHILADELPHIA, PA VAMC"
+    },
+    {
       "VISN": 5,
       "Sta3n": 512,
       "StaPa": "512",
       "InstitutionName": "VA MARYLAND HEALTH CARE SYS",
       "InstitutionNameLong": "(V05) (512) VA MARYLAND HEALTH CARE SYS"
+    },
+    {
+      "VISN": 7,
+      "Sta3n": 534,
+      "StaPa": "534",
+      "InstitutionName": "CHARLESTON VAMC",
+      "InstitutionNameLong": "(V07) (534) CHARLESTON VAMC"
     },
     {
       "VISN": 12,
@@ -19,5 +33,26 @@
       "StaPa": "578",
       "InstitutionName": "HINES, IL VAMC",
       "InstitutionNameLong": "(V12) (578) HINES, IL VAMC"
+    },
+    {
+      "VISN": 15,
+      "Sta3n": 589,
+      "StaPa": "589",
+      "InstitutionName": "VA HEARTLAND - WEST, VISN 15",
+      "InstitutionNameLong": "(V15) (589) VA HEARTLAND - WEST, VISN 15"
+    },
+    {
+      "VISN": 15,
+      "Sta3n": 657,
+      "StaPa": "657",
+      "InstitutionName": "ST. LOUIS MO VAMC-JC DIVISION",
+      "InstitutionNameLong": "(V15) (657) ST. LOUIS MO VAMC-JC DIVISION"
+    },
+    {
+      "VISN": 6,
+      "Sta3n": 658,
+      "StaPa": "658",
+      "InstitutionName": "SALEM VA MEDICAL CENTER",
+      "InstitutionNameLong": "(V06) (658) SALEM VA MEDICAL CENTER"
     }
 ]

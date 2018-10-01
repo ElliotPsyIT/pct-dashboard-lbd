@@ -9,8 +9,8 @@
         </div>
       
         <div class="row d-flex justify-content-around">
-          <h4 class="section-head">  EBP Clinics {{siteEBPClinics}}/{{siteEBPClinicsAll}}</h4>
-          <h4 class="section-head"> EBP Providers {{siteEBPProviders}}/{{siteEBPProvidersAll}}</h4>
+          <h4 class="section-head">  EBPs in Clinics {{siteEBPClinics}}/{{siteEBPClinicsAll}}</h4>
+          <h4 class="section-head"> EBPs by Providers {{siteEBPProviders}}/{{siteEBPProvidersAll}}</h4>
         </div>
 
 
@@ -22,7 +22,7 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">PEI Clinics ({{siteEBPClinicsPEI}})</p>
+                <p class="card-category">PEI in Clinics ({{siteEBPClinicsPEI}})</p>
                 <!-- <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4> -->
                 <h4 class="card-title">{{siteEBPClinicsPEIPercent}}%</h4>
               </div>
@@ -37,7 +37,7 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">CPT Clinics ({{siteEBPClinicsCPT}})</p>
+                <p class="card-category">CPT in Clinics ({{siteEBPClinicsCPT}})</p>
                 <!-- <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4> -->
                 <h4 class="card-title">{{siteEBPClinicsCPTPercent}}%</h4>
               </div>
@@ -51,7 +51,7 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">PEI Providers ({{siteEBPProvidersPEI}})</p>
+                <p class="card-category">PEI by Providers ({{siteEBPProvidersPEI}})</p>
                 <!-- <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4> -->
                 <h4 class="card-title">{{siteEBPProvidersPEIPercent}}%</h4>
               </div>
@@ -66,7 +66,7 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">CPT Provider ({{siteEBPProvidersCPT}})</p>
+                <p class="card-category">CPT by Providers ({{siteEBPProvidersCPT}})</p>
                 <!-- <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4> -->
                 <h4 class="card-title">{{siteEBPProvidersCPTPercent}}%</h4>
               </div>
@@ -76,7 +76,7 @@
         </div>
 
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">EBP Patients (Individual Tx) {{siteEBPPatients}}/{{siteEBPPatientsAll}}</h4>
+          <h4 class="section-head">EBPs for Patients (Individual Tx) {{siteEBPPatients}}/{{siteEBPPatientsAll}}</h4>
         </div>
       
         <div class="row d-flex justify-content-center">
@@ -87,7 +87,7 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">PEI Patients ({{siteEBPPatientsPEI}})</p>
+                <p class="card-category">PEI for Patients ({{siteEBPPatientsPEI}})</p>
                 <h4 class="card-title">{{siteEBPPatientsPEIPercent}}%</h4>
               </div>
             </stats-card>
@@ -101,7 +101,7 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">CPT Patients ({{siteEBPPatientsCPT}})</p>
+                <p class="card-category">CPT for Patients ({{siteEBPPatientsCPT}})</p>
                 <h4 class="card-title">{{siteEBPPatientsCPTPercent}}%</h4>
               </div>
             </stats-card>
@@ -322,14 +322,13 @@
 
   <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Provider EBPs By Clinic and Patient</h4>
+          <h4 class="section-head">Providers' EBPs By Clinic and Patient</h4>
         </div>
 
         <div class="row justify-content-center">
           <div class="col-md-12">
             <card>
               <template slot="header">
-                <!-- <span>Click On Arrow <span class="nc-icon">></span> Below to Drill Down</span> -->
                 <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
                 <button @click="gridOptions1.api.expandAll()" >Expand All</button>
               </template>
@@ -345,15 +344,11 @@
               :cellClicked="onCellClicked"
               >
               </ag-grid-vue>
-              <!-- <template slot="footer">
-                <div class="legend">
-                  EBP By Clinic and Provider
-                </div>
-              </template> -->
+              
             </card>
           </div>
 
-        </div> <!-- End Row -->
+        </div> 
 
       </div>
     </div>
@@ -475,7 +470,8 @@ export default {
         headerName: 'Site / Staff / Clinic',
         field: 'LocationName',
         // field: 'InstitutionName'
-      }
+      },
+      // floatingFilter: true
       // groupMultiAutoColumn:true,
     }
   },
@@ -565,6 +561,7 @@ export default {
           width: 120, 
           cellStyle: { 'text-align': "left" } ,
           filter: "agDateColumnFilter"
+          // suppressFilter: true,
         },
         { headerName: "Provider", 
           field: "STAFFNAME", 
@@ -572,7 +569,7 @@ export default {
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter",
           rowGroup: true,
-          // hide:true
+          hide:true
         },
       ]
     },

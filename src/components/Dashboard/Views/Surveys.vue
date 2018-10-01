@@ -114,7 +114,7 @@
 
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Patient Survey Activity Summary</h4>
+          <h4 class="section-head">Patient Survey Activity By Provider</h4>
         </div>
 
         <div class="row justify-content-center">
@@ -326,6 +326,8 @@ export default {
 }
 </script>
 <style>
+  /* fade page in and out when site changes */
+
   .fade-enter-active,
   .fade-leave-active {
     transition: opacity .1s

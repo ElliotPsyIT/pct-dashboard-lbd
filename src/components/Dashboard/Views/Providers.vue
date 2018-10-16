@@ -175,7 +175,6 @@ export default {
       'selectedSite', 'selectedRange'
     ]),
     ...mapGetters([
-      'siteEncounterProviderDetails',
       'siteProviderDetailsCPT',
       'siteProviderInfo',
       'siteProviderClinicSummary',

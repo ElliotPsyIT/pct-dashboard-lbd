@@ -4,11 +4,13 @@ import Vuex from 'vuex'
 import siteNames from '../../static/sites.json'
 import dateRanges from '../../static/dateRanges.json'
 
+//Consults
 import consultCounts from '../../static/consult_count.json'
 import consultStatusCounts from '../../static/consult_pie_chart.json'
 import consultLineChart from '../../static/consult_line_chart.json'
 import consultDetails from '../../static/consult_details.json'
 
+// Encounters
 import encounterCounts from '../../static/encounter_count.json'
 import encounterLineChart from '../../static/encounter_line_chart.json'
 import encounterPatientLineChart from '../../static/encounter_patient_line_chart.json'
@@ -16,10 +18,7 @@ import encounterApptCancelNoShow from '../../static/encounter_appointment_cancel
 import encounterCPT from '../../static/encounter_cpt.json'
 import encounterCPTCategories from '../../static/encounter_cpt_categories.json'
 
-// Provider
-// import encounterProviderDetails from '../../static/encounter_provider_details.json'
-// import encounterProviderDetailsCPT from '../../static/encounter_provider_details_cpt.json'
-
+// Providers
 import providerCount from '../../static/provider_count.json'
 import providerInfo from '../../static/provider_info.json'
 import providerDetail from '../../static/provider_detail.json'
@@ -41,8 +40,10 @@ import ebpDetailsTypes from '../../static/ebp_details_types.json'
 
 Vue.use(Vuex)
 
+// Access localStorage for previously stored site and daterange
 const localStorage = window.localStorage
 
+// helpers
 function addCommas(intNum) {
   return (intNum + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,');
 }
@@ -65,6 +66,7 @@ const store = new Vuex.Store({
     selectedRange: null,
     siteNames,
     dateRanges,
+    
     consultCounts,
     consultStatusCounts,
     consultDetails,

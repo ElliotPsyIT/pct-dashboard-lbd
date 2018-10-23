@@ -101,7 +101,7 @@ const store = new Vuex.Store({
       let filteredArray = state.consultCounts
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'consultCount')
-      // console.log('ConsultTotal is: ', filteredArray)
+      //  console.log('ConsultTotal is: ', filteredArray)
       return filteredArray[0].countTotal
     },
     siteConsultPatientTotal: (state) => {
@@ -235,37 +235,37 @@ const store = new Vuex.Store({
     siteEncounterCPTIndividual: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.Category === 'Individual Psychotherapy')
+        .filter(site => site.CPTCategory === 'Individual Psychotherapy')
       return totalAndPercent(filteredArray)
     },
     siteEncounterCPTGroup: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.Category === 'Group Psychotherapy')
+        .filter(site => site.CPTCategory === 'Group Psychotherapy')
       return totalAndPercent(filteredArray)
     },
     siteEncounterCPTTelephone: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.Category === 'Telephone')
+        .filter(site => site.CPTCategory === 'Telephone')
       return totalAndPercent(filteredArray)
     },
     siteEncounterCPTProlongedService: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.Category === 'Prolonged Service')
+        .filter(site => site.CPTCategory === 'Prolonged Service')
       return totalAndPercent(filteredArray)
     },
     siteEncounterCPTAssessment: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.Category === 'Assessment')
+        .filter(site => site.CPTCategory === 'Assessment')
       return totalAndPercent(filteredArray)
     },
     siteEncounterCPTGroupEducation: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.Category === 'Health and Behavior (Group) Education')
+        .filter(site => site.CPTCategory === 'Health and Behavior (Group) Education')
       return totalAndPercent(filteredArray)
     },
     

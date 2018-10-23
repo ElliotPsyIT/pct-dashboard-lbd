@@ -650,7 +650,7 @@ export default {
               filter: "agTextColumnFilter"
             },
             { headerName: "Category", 
-              field: "Category", 
+              field: "CPTCategory", 
               width: 60, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"

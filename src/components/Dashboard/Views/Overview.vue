@@ -16,53 +16,87 @@
 
 <hr/>
 
-<div class="row">
+<div class="row d-flex justify-content-around">
   
-  <div class="col-md-4 ">
+  <div class="col-md-3 ">
     <card>
       <template slot="header">
-        Consults
+        <div class="category">Consults</div>
       </template>
-
-        Summary Statistics and Drill Down for PCT Consults, Consult Status
-
+          <h6 class="text-muted">PCT Consults, Statuses and Details </h6>
+        
       <template slot="footer">
         <hr>
-        <div class="stats">
+        <!-- <div class="stats">
           <i class="fa fa-history"></i> Consult Page
-        </div>
+        </div> -->
       </template>
     </card>
   </div>
 
-  <div class="col-md-4 ">
+  <div class="col-md-3 ">
     <card>
       <template slot="header">
         Encounters
       </template>
-        Summary Statistics and Drill Down for Encounters, Appointments
+        <h6 class="text-muted">Encounters, No Show / Cancel, CPT Categories</h6>
       <template slot="footer">
         <hr>
-        <div class="stats">
+        <!-- <div class="stats">
           <i class="fa fa-history"></i> Encounters Page
-        </div>
+        </div> -->
       </template>
     </card>
   </div>
 
-  <div class="col-md-4 ">
+  <div class="col-md-3 ">
     <card>
       <template slot="header">
         Providers
       </template>
 
-        Summary Statistics and Drill Down for Providers, panels, use of EBP Templates
+        <h6 class="text-muted">Providers, Clinics and Patient Stats</h6>
 
       <template slot="footer">
         <hr>
-        <div class="stats">
+        <!-- <div class="stats">
           <i class="fa fa-history"></i> Providers Page
-        </div>
+        </div> -->
+      </template>
+    </card>
+  </div>
+
+
+  <div class="col-md-3 ">
+    <card>
+      <template slot="header">
+        Surveys
+      </template>
+
+        <h6 class="text-muted">PCT Surveys by Providers and by Patients</h6>
+
+      <template slot="footer">
+        <hr>
+        <!-- <div class="stats">
+          <i class="fa fa-history"></i> Surveys Page
+        </div> -->
+      </template>
+    </card>
+  </div>
+
+  <div class="col-md-3 ">
+    <card>
+      <template slot="header">
+        EBPs
+      </template>
+
+        <h6 class="text-muted">EBP Session counts and Therapy Types</h6>
+
+      <template slot="footer">
+        <hr>
+        <!-- <div class="stats">
+          <i class="fa fa-history"></i> Surveys Page
+        </div> -->
       </template>
     </card>
   </div>

@@ -184,25 +184,28 @@ export default {
     ...mapState(['selectedSite']),
 
     rowData () {
-      // return this.siteEncounterProviderDetails // filters when site changes
       // console.log('here is siteSurveyDetails from store ', this.siteSurveyDetails)
       return this.siteSurveyDetails // filters when site changes
     },
     rowData1 () {
-      // return this.siteEncounterProviderDetails // filters when site changes
       // console.log('here is siteSurveyPatientDetails from store ', this.siteSurveyPatientDetails)
       return this.siteSurveyPatientDetails // filters when site changes
     },
   },
   beforeMount() {
 
-    this.gridOptions = {},
+    this.gridOptions = {
+      suppressPropertyNamesCheck: true
+    },
     this.gridOptions1 = { 
       // groupHideOpenParents: true, 
+      
       autoGroupColumnDef: {
+        headerName: 'Staff / Patient / Clinic',
         field: 'StaffName',
-        // field: 'LocationName'
-      } 
+        field: 'LocationName'
+      },
+      suppressPropertyNamesCheck: true
     },
 
     this.columnDefs = this.createColDefs(),
@@ -244,39 +247,14 @@ export default {
         // {
           // headerName: "Surveys By Patient",
           // children: [
-            // { headerName: "Site", 
-            //   field: "StaPa", 
-            //   width: 10, 
-            //   cellStyle: { 'text-align': "left" } ,
-            //   filter: "agTextColumnFilter",
-            //   cellRenderer:'agGroupCellRenderer',
-            //   rowGroup: true,
-            //   hide:true,
-            // },
-            // { headerName: "Institution", 
-            //   field: "InstitutionName", 
-            //   width: 200, 
-            //   cellStyle: { 'text-align': "left" } ,
-            //   filter: "agTextColumnFilter",
-            //   rowGroup: true,
-            //   hide:true,
-            // },
             { headerName: "Provider", 
-              field: "StaffName", 
+              field: "OrderedBy", 
               width: 200, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter",
               rowGroup: true,
               hide:true,
             },
-            // { headerName: "Clinic Name", 
-            //   field: "LocationName", 
-            //   width: 50, 
-            //   cellStyle: { 'text-align': "left" } ,
-            //   filter: "agTextColumnFilter",
-            //   rowGroup: true,
-            //   hide:true,
-            // },
             { headerName: "Patient", 
               field: "InitialsAndL4", 
               width: 100, 
@@ -319,7 +297,7 @@ export default {
       console.log('row1 data changed!!')
       Vue.nextTick(() => {
         this.gridOptions1.api.sizeColumnsToFit()
-        this.gridOptions1.api.expandAll();
+        // this.gridOptions1.api.expandAll();
       });
     },
   }

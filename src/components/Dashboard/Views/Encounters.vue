@@ -5,12 +5,88 @@
         
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Encounter Summary Stats</h4>
+          <h4 class="section-head">No Show & Cancel Summary Stats</h4>
         </div>
       
-        <div class="row d-flex ">
+        <div class="row d-flex justify-content-center">
 
-          <div class="col-xl-3 col-md-4">
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-danger">
+                <i class="nc-icon nc-vector text-danger"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">No Show Appts/All ({{ siteEncounterApptNoShowTotal }}/{{ siteEncounterApptTotalStr}})</p>
+                <h4 class="card-title">{{  siteEncounterAppNoShowPercent }}%</h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-info">
+                <i class="nc-icon nc-favourite-28 text-primary"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Cancelled Appts/All ({{ formatNumber(siteEncounterApptCancelTotal) }}/{{ siteEncounterApptTotalStr }})</p>
+                <h4 class="card-title">{{ siteEncounterAppCancelPercent }}%</h4>
+              </div>
+            </stats-card>
+          </div>
+
+        </div>
+
+        <div class="row d-flex justify-content-center">
+
+          <div class="col-md-8">
+            <template>
+              <vue-highcharts :options="pieChartOptions"  ref="pieChart"></vue-highcharts>
+            </template>
+          </div>
+
+        </div>
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+
+          <div class="col-md-12 ">
+            <card>
+              <template slot="header">
+                <span>Hover Over Column Header to View Menu</span>
+              </template>
+              <!-- {{siteEncounterApptProviderClinicNoShowTotal}} -->
+                <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 
+                :gridOptions="gridOptions3" 
+                :rowData="rowData3" 
+                :gridReady="onGridReady3"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+                >
+                </ag-grid-vue>
+                <!-- :rowDataChanged="onRowDataChanged3" -->
+              <template slot="footer">
+                <div class="legend">
+                  Detailed CPT Categories Listing
+                </div>
+              </template>
+            </card>
+          </div>
+
+        </div>
+      
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Encounters, Uniques and CPTs Counts and Trends</h4>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+ 
+        <div class="col-xl-3 col-md-3">
             <stats-card>
             <div slot="header" class="icon-warning">
               <i class="nc-icon nc-chart text-warning"></i>
@@ -25,7 +101,7 @@
             </stats-card>
           </div>
 
-          <div class="col-xl-3 col-md-4">
+          <div class="col-xl-3 col-md-3">
             <stats-card>
               <div slot="header" class="icon-success">
                 <i class="nc-icon nc-light-3 text-success"></i>
@@ -40,50 +116,15 @@
             </stats-card>
           </div>
 
-          <div class="col-xl-3 col-md-4">
-            <stats-card>
-              <div slot="header" class="icon-danger">
-                <i class="nc-icon nc-vector text-danger"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">Appts No Show</p>
-                <h4 class="card-title">{{ siteEncounterApptNoShowTotal }}</h4>
-              </div>
-            </stats-card>
-          </div>
-
-          <div class="col-xl-3 col-md-4">
-            <stats-card>
-              <div slot="header" class="icon-info">
-                <i class="nc-icon nc-favourite-28 text-primary"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">Appts Cancelled</p>
-                <h4 class="card-title">{{ siteEncounterApptCancelTotal }}</h4>
-              </div>
-            </stats-card>
-          </div>
-
         </div>
 
-        <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Uniques and Cancel/NoShow</h4>
-        </div>
-
-        <div class="row d-flex ">
-
-          <div class="col-md-6">
+        <div class="row d-flex justify-content-center">
+ 
+          <div class="col-md-8">
             <!-- <span>{{ selectedSite }} {{ selectedRange }}</span> -->
 
             <template>
               <vue-highcharts :options="lineChartOptions"  ref="lineChart"></vue-highcharts>
-            </template>
-          </div>
-
-          <div class="col-md-6">
-            <template>
-              <vue-highcharts :options="pieChartOptions"  ref="pieChart"></vue-highcharts>
             </template>
           </div>
 
@@ -103,8 +144,8 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Individual Therapy</p>
-                <h4 class="card-title">{{ siteEncounterCPTIndividual.total }}/{{ siteEncounterCPTIndividual.percent }}%</h4>
+                <p class="card-category">Individual Sessions ({{ siteEncounterCPTIndividual.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <h4 class="card-title">{{ siteEncounterCPTIndividual.percent }}%</h4>
               </div>
               </stats-card>
           
@@ -117,8 +158,8 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group Therapy</p>
-                <h4 class="card-title">{{ siteEncounterCPTGroup.total }}/{{ siteEncounterCPTGroup.percent }}%</h4>
+                <p class="card-category">Group Sessions ({{ siteEncounterCPTGroup.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <h4 class="card-title">{{ siteEncounterCPTGroup.percent }}%</h4>
               </div>
             </stats-card>
 
@@ -135,8 +176,8 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Telephone</p>
-                <h4 class="card-title">{{ siteEncounterCPTTelephone.total }}/{{ siteEncounterCPTTelephone.percent }}%</h4>
+                <p class="card-category">Telephone CPT ({{ siteEncounterCPTTelephone.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <h4 class="card-title">{{ siteEncounterCPTTelephone.percent }}%</h4>
               </div>
             </stats-card>
 
@@ -149,8 +190,8 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group Education</p>
-                <h4 class="card-title">{{ siteEncounterCPTGroupEducation.total }}/{{ siteEncounterCPTGroupEducation.percent }}%</h4>
+                <p class="card-category">Group Education ({{ siteEncounterCPTGroupEducation.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <h4 class="card-title">{{ siteEncounterCPTGroupEducation.percent }}%</h4>
               </div>
             </stats-card>
 
@@ -163,8 +204,8 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Assessment</p>
-                <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4>
+                <p class="card-category">Assessment CPT ({{ siteEncounterCPTAssessment.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <h4 class="card-title">{{ siteEncounterCPTAssessment.percent }}%</h4>
               </div>
               </stats-card>
 
@@ -177,13 +218,69 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Prolonged Service</p>
-                <h4 class="card-title">{{ siteEncounterCPTProlongedService.total }}/{{ siteEncounterCPTProlongedService.percent }}%</h4>
+                <p class="card-category">Prolonged Service ({{ siteEncounterCPTProlongedService.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <h4 class="card-title">{{ siteEncounterCPTProlongedService.percent }}%</h4>
               </div>
               </stats-card>
 
           </div>
 
+        </div>
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Individual and Group Psychotherapy Patients Only</h4>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          
+          <div class="col-xl-3 col-md-4">
+
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Individual Tx Only </p>
+                <h4 class="card-title">{{siteEncounterCPTPatientsIndOnly}} Pts</h4>
+              </div>
+              </stats-card>
+          
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Group Tx Only </p>
+              <h4 class="card-title">{{siteEncounterCPTPatientsGrpOnly}} Pts</h4>
+              </div>
+              </stats-card>
+          
+          </div>
+
+           <div class="col-xl-3 col-md-4">
+
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Both Ind and Grp Tx </p>
+                <h4 class="card-title">{{siteEncounterCPTPatientsBoth}} Pts</h4>
+              </div>
+              </stats-card>
+          
+          </div>
+
+        </div>
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">CPT Categories Summary</h4>
         </div>
 
         <div class="d-flex flex-row justify-content-center">
@@ -196,12 +293,13 @@
                 <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions2" 
                 :rowData="rowData2" 
-                :rowDataChanged="onRowDataChanged2"
+                :gridReady="onGridReady2"
                 :enableFilter="true"
                 :enableSorting="true"
                 :enableColResize="true"
                 >
                 </ag-grid-vue>
+                <!-- :rowDataChanged="onRowDataChanged2" -->
               <template slot="footer">
                 <div class="legend">
                   Detailed CPT Categories Listing
@@ -329,12 +427,13 @@
                 <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions" 
                 :rowData="rowData" 
-                :rowDataChanged="onRowDataChanged"
+                :gridReady="onGridReady"
                 :enableFilter="true"
                 :enableSorting="true"
                 :enableColResize="true"
                 >
                 </ag-grid-vue>
+                <!-- :rowDataChanged="onRowDataChanged" -->
               <template slot="footer">
                 <div class="legend">
                   Detailed Encounter CPT Codes
@@ -492,7 +591,8 @@ import VueHighcharts from 'vue2-highcharts'
 
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
-// import GridTable from 'src/components/UIComponents/GridTable'
+
+import { addCommas, totalAndPercent } from 'src/utils'
 
 import { mapState, mapGetters } from 'vuex'
 
@@ -510,12 +610,18 @@ export default {
       'selectedSite', 'selectedRange'
     ]),
     ...mapGetters([
-      'siteEncounterTotal','siteEncounterPatientTotal',
+      'siteEncounterTotal',
+      'siteEncounterPatientTotal',
       'siteEncounterLineChartSeries',
       'siteEncounterPatientLineChartSeries',
+
+      'siteEncounterApptClinicNoShowTotal',
       'siteEncounterApptCancelNoShowPieChart',
       'siteEncounterApptNoShowTotal',
       'siteEncounterApptCancelTotal',
+      'siteEncounterApptTotalStr', // for display
+      'siteEncounterApptTotal', // for computation
+      
       'siteEncounterCPTTotal',
       'siteEncounterCPTCategories',
       'siteEncounterCPTIndividual',
@@ -523,10 +629,22 @@ export default {
       'siteEncounterCPTGroupEducation',
       'siteEncounterCPTAssessment',
       'siteEncounterCPTTelephone',
-      'siteEncounterCPTProlongedService'
-      // 'siteEncounterProviderDetails',
-      // 'siteEncounterProviderDetailsCPT',
+      'siteEncounterCPTProlongedService',
+      'siteEncounterCPTPatientsIndOnly',
+      'siteEncounterCPTPatientsGrpOnly',
+      'siteEncounterCPTPatientsBoth',
+      
     ]),
+    
+    siteEncounterAppNoShowPercent () {
+      return Math.round((this.siteEncounterApptNoShowTotal/this.siteEncounterApptTotal) * 100)
+    },
+
+    siteEncounterAppCancelPercent () {
+      return Math.round((this.siteEncounterApptCancelTotal/this.siteEncounterApptTotal) * 100)
+      // return precise_round((this.siteEBPSessionsPECPT/this.siteALLSessions) * 100, 1) 
+    },
+
     pieChartOptions () {
       return {
         chart:      { type: "pie", 
@@ -587,20 +705,35 @@ export default {
     rowData2 () {
       return this.siteEncounterCPTCategories // filters when site changes
     },
+    rowData3 () {
+      return this.siteEncounterApptClinicNoShowTotal // filters when site changes    
+    },
+
   },
   beforeMount() { 
-    this.gridOptions = {}
-    this.gridOptions.columnDefs = this.createColDefs()
-    this.gridOptions.rowData = this.rowData // computed prop
-    this.gridOptions.onFilterChanged = function() {console.log('filter changed!!')}
-  
-    this.gridOptions2 = {}
-    this.gridOptions2.columnDefs = this.createColDefs2()
-    this.gridOptions2.rowData = this.rowData2 // computed prop
-    this.gridOptions2.onFilterChanged = function() {console.log('filter changed!!')}
-  
+    this.gridOptions = {
+      columnDefs:  this.createColDefs(),
+      rowData: this.rowData, // computed prop
+      suppressPropertyNamesCheck: true
+    }
+    
+    this.gridOptions2 = {
+      columnDefs:  this.createColDefs2(),
+      rowData: this.rowData, // computed prop
+      suppressPropertyNamesCheck: true
+    }
+     
+    this.gridOptions3 = {
+      columnDefs:  this.createColDefs3(),
+      rowData: this.rowData, // computed prop
+      suppressPropertyNamesCheck: true
+    }
+    
   },
   methods: { 
+    formatNumber(num) {
+      return addCommas(num)
+    },
     createColDefs() {
       return [
         {headerName: "Encounters",
@@ -671,6 +804,66 @@ export default {
         },
       ]
     },
+    createColDefs3() {
+      return [
+        {headerName: "Provider Clinic Cancel NoShow",
+          children: [
+            { headerName: "Site", 
+              field: "StaPa", 
+              width: 15, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agTextColumnFilter"
+            },
+            // { headerName: "Staff", 
+            //   field: "StaffName", 
+            //   width: 30, 
+            //   cellStyle: { 'text-align': "left" } ,
+            //   filter: "agTextColumnFilter"
+            // },
+            { headerName: "Clinic", 
+              field: "LocationName", 
+              width: 30, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agTextColumnFilter"
+            },
+            { headerName: "Appt Type", 
+              field: "CancelNoShow", 
+              width: 30, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agTextColumnFilter"
+            },
+            { headerName: "Cancel/NS Count", 
+              field: "CancelNoShowCount", 
+              width: 25, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agNumberColumnFilter"
+            },
+            { headerName: "Clinic Appts", 
+              field: "ClinicAppointmentTotal", 
+              width: 20, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agNumberColumnFilter"
+            },
+            { headerName: "Site Appts", 
+              field: "StaPaTotal", 
+              width: 20, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agNumberColumnFilter"
+            },
+          ]
+        },
+      ]
+    },
+    onGridReady() {
+      this.gridOptions.api.sizeColumnsToFit();
+    },
+    onGridReady2() {
+      this.gridOptions2.api.sizeColumnsToFit();
+    },
+    onGridReady3() {
+      this.gridOptions3.api.sizeColumnsToFit();
+    },
+
     onRowDataChanged() {
       console.log('row data changed!!')
       Vue.nextTick(() => {
@@ -683,11 +876,18 @@ export default {
         this.gridOptions2.api.sizeColumnsToFit();
       });
     },
+    onRowDataChanged3() {
+      console.log('row data changed!!')
+      Vue.nextTick(() => {
+        this.gridOptions3.api.sizeColumnsToFit();
+      });
+    },
   },
   data() {
     return {
       gridOptions: null,
       gridOptions2: null,
+      gridOptions3: null,
     }
   }
 }

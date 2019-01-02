@@ -124,12 +124,13 @@
                 <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions" 
                 :rowData="rowData" 
-                :rowDataChanged="onRowDataChanged"
+                :gridReady="onGridReady"
                 :enableFilter="true"
                 :enableSorting="true"
                 :enableColResize="true"
                 >
                 </ag-grid-vue>
+                <!-- :rowDataChanged="onRowDataChanged" -->
               <template slot="footer">
                 <div class="legend">
                   Detailed Consult Listing
@@ -289,11 +290,19 @@ export default {
     }
   },
   beforeMount() { 
-    this.gridOptions = {}
-    this.gridOptions.columnDefs = this.createColDefs()
-    this.gridOptions.rowData = this.rowData // computed prop
-    this.gridOptions.onFilterChanged = function() {console.log('filter changed!!')}
-  },
+    // this.gridOptions = {}
+    // this.gridOptions.columnDefs = this.createColDefs()
+    // this.gridOptions.rowData = this.rowData // computed prop
+    // this.gridOptions.onFilterChanged = function() {console.log('filter changed!!')}
+  
+    this.gridOptions = {
+      columnDefs: this.createColDefs(),
+      rowData: this.rowData, // computed prop
+      onFilterChanged: function() {console.log('filter changed!!')},
+      suppressPropertyNamesCheck: true
+    }
+
+},
   computed: {
     ...mapState([
       'selectedSite', 'selectedRange'
@@ -616,12 +625,15 @@ export default {
         // { headerName: "D/C Comment", field: "ConsultFactorText",width: 70, cellStyle: { 'text-align': "left" }, tooltipField: "CONSULTFACTORTEXT" }
       ]
     },
-    onRowDataChanged() {
-      console.log('row data changed!!')
-      Vue.nextTick(() => {
-        this.gridOptions.api.sizeColumnsToFit();
-      });
-    }
+    onGridReady() {
+      this.gridOptions.api.sizeColumnsToFit();
+    },
+    // onRowDataChanged() {
+    //   console.log('row data changed!!')
+    //   Vue.nextTick(() => {
+    //     this.gridOptions.api.sizeColumnsToFit();
+    //   });
+    // }
   }
   // data() {
   //   return {

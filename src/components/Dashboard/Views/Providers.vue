@@ -64,7 +64,7 @@
                 :gridOptions="gridOptions3" 
                 :columnDefs="columnDefs3"
                 :rowData="rowData3" 
-                :rowDataChanged="onRowDataChanged3"
+                :gridReady="onGridReady3"
                 :enableFilter="true"
                 :enableSorting="true"
                 :enableColResize="true"
@@ -72,6 +72,7 @@
                 :animateRows="true"
                 >
                 </ag-grid-vue>
+                <!-- :rowDataChanged="onRowDataChanged3" -->
               <template slot="footer">
                 <div class="legend">
                   Detailed Encounter Listing
@@ -99,13 +100,14 @@
               :gridOptions="gridOptions1" 
               :columnDefs="columnDefs1"
               :rowData="rowData1" 
-              :rowDataChanged="onRowDataChanged1"
+              :gridReady="onGridReady1"
               :enableFilter="true"
               :enableSorting="true"
               :enableColResize="true"
               :animateRows="true"
               >
               </ag-grid-vue>
+              <!-- :rowDataChanged="onRowDataChanged1" -->
               <template slot="footer">
                 <div class="legend">
                   Provider Encounters
@@ -121,6 +123,10 @@
           <h4 class="section-head">Providers' Patients and Sessions</h4>
         </div>
 
+        <div class="row d-flex justify-content-center ">
+          <h5 class="section-head">(For Testing: One Week's Data Only)</h5>
+        </div>
+
         <div class="row justify-content-center">
           <div class="col-md-10">
             <card>
@@ -133,13 +139,14 @@
                 :gridOptions="gridOptions2" 
                 :columnDefs="columnDefs2"
                 :rowData="rowData2" 
-                :rowDataChanged="onRowDataChanged2"
+                :gridReady="onGridReady2"
                 :enableFilter="true"
                 :enableSorting="true"
                 :enableColResize="true"
                 :animateRows="true"
                 >
                 </ag-grid-vue>
+                <!-- :rowDataChanged="onRowDataChanged2" -->
               <template slot="footer">
                 <div class="legend">
                   Providers' Patient Sessions
@@ -200,20 +207,24 @@ export default {
         headerName: 'Staff / Site',
         field: 'LocationName',
         // field: 'InstitutionName'
+        suppressPropertyNamesCheck: true
       },
       // groupMultiAutoColumn:true,
     },
     this.gridOptions2 = {
       // groupHideOpenParents: true, 
       autoGroupColumnDef: {
+        headerName: 'Staff / Patient',
         field: 'InitialsAndL4',
         // field: 'LocationName'
-        
+        suppressPropertyNamesCheck: true
       },
       // groupMultiAutoColumn:true,
       // groupSuppressAutoColumn: true
     },
-    this.gridOptions3 = { }
+    this.gridOptions3 = {
+      suppressPropertyNamesCheck: true
+     }
   },
   methods: {
     
@@ -258,7 +269,7 @@ export default {
     createColDefs2() {
       return [ 
         {
-          headerName: "Staff Name (# Sessions)",  
+          headerName: "Staff Name",  
           field: "StaffName", 
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter",
@@ -293,18 +304,18 @@ export default {
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter"
         },
-        // { headerName: "Clinic Sessions", 
-        //   field: "EncountersByProvider", 
-        //   width: 100, 
-        //   cellStyle: { 'text-align': "left" } ,
-        //   filter: "agNumberColumnFilter"
-        // },
-        { headerName: "Date", 
-          field: "VisitDateTime", 
-          width: 150, 
+        { headerName: "Sessions", 
+          field: "EncountersByProvider", 
+          width: 100, 
           cellStyle: { 'text-align': "left" } ,
-          filter: "agDateColumnFilter"
+          filter: "agNumberColumnFilter"
         },
+        // { headerName: "Date", 
+        //   field: "VisitDateTime", 
+        //   width: 150, 
+        //   cellStyle: { 'text-align': "left" } ,
+        //   filter: "agDateColumnFilter"
+        // },
       ]
     },
     createColDefs3() {
@@ -313,19 +324,19 @@ export default {
           children: [
             { headerName: "Site", 
               field: "StaPa", 
-              width: 20, 
+              width: 15, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
             { headerName: "Staff Name", 
               field: "STAFFNAME", 
-              width: 50, 
+              width: 45, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
             { headerName: "Institution", 
               field: "InstitutionName", 
-              width: 50, 
+              width: 45, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
@@ -343,7 +354,7 @@ export default {
             },
             { headerName: "Patients", 
               field: "numPatients", 
-              width: 20, 
+              width: 25, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agNumberColumnFilter"
             },
@@ -351,27 +362,39 @@ export default {
         }
       ]
     },
-    onRowDataChanged1() {
-      console.log('row1 data changed!!')
+    onGridReady1() {
+      console.log('onGridReady1 fires sizeColumnsToFit!')
+      this.gridOptions1.api.sizeColumnsToFit()
+    },
+    onGridReady2() {
+      console.log('onGridReady3 fires sizeColumnsToFit!')
+      this.gridOptions2.api.sizeColumnsToFit()
+    },
+    onGridReady3() {
+      console.log('onGridReady3 fires sizeColumnsToFit!')
+      this.gridOptions3.api.sizeColumnsToFit()
+    },
+    // onRowDataChanged1() {
+    //   console.log('row1 data change calledd!!')
       
-      Vue.nextTick(() => {
-        this.gridOptions1.api.sizeColumnsToFit();
-        this.gridOptions1.api.expandAll();
-      });
-    },
-    onRowDataChanged2() {
-      console.log('row2 data changed!!')
-      Vue.nextTick(() => {
-        this.gridOptions2.api.sizeColumnsToFit()
-        this.gridOptions2.api.expandAll();
-      });
-    },
-    onRowDataChanged3() {
-      console.log('row3 data changed!!')
-      Vue.nextTick(() => {
-        this.gridOptions3.api.sizeColumnsToFit();
-      });
-    }
+    //   // Vue.nextTick(() => {
+    //   //   this.gridOptions1.api.sizeColumnsToFit();
+    //   //   // this.gridOptions1.api.expandAll();
+    //   // });
+    // },
+    // onRowDataChanged2() {
+    //   console.log('row2 data change called!!')
+    //   // Vue.nextTick(() => {
+    //   //   this.gridOptions2.api.sizeColumnsToFit()
+    //   //   // this.gridOptions2.api.expandAll();
+    //   // });
+    // },
+    // onRowDataChanged3() {
+    //   console.log('row3 data change called!!')
+    //   Vue.nextTick(() => {
+    //     this.gridOptions3.api.sizeColumnsToFit();
+    //   });
+    // }
   },
 }
 

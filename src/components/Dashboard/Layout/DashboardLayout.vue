@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <side-bar title="PCT Admin">
+      <user-menu></user-menu>
       <mobile-menu slot="content"></mobile-menu>
       <sidebar-link to="/admin/overview">
         <i class="nc-icon nc-chart-pie-35"></i>
@@ -70,12 +71,15 @@
   import ContentFooter from './ContentFooter.vue'
   import DashboardContent from './Content.vue'
   import MobileMenu from './MobileMenu.vue'
+  import UserMenu from './UserMenu.vue'
+
   export default {
     components: {
       TopNavbar,
       ContentFooter,
       DashboardContent,
-      MobileMenu
+      MobileMenu,
+      UserMenu
     },
     methods: {
       toggleSidebar () {

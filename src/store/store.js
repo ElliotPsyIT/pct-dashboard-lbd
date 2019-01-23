@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import axios from 'axios'
+
 import { addCommas, totalAndPercent } from '../utils'
 import siteNames from '../../static/sites.json'
 import dateRanges from '../../static/dateRanges.json'
@@ -179,7 +181,7 @@ const store = new Vuex.Store({
       return { months: consultLineChartMonths, series: consultLineChartData }
     },
 
-
+    // encounters: distinct VisitSID, not CPTCode filtering
     siteEncounterTotal: (state) => {
       let filteredArray = state.encounterCounts
         .filter(site => site.Sta3n === state.selectedSite)
@@ -187,6 +189,7 @@ const store = new Vuex.Store({
       // console.log('Encounter Total is: ', filteredArray)
       return addCommas(filteredArray[0].countTotal)
     },
+    // encounters: distinct PatientSID, no CPTCode filtering
     siteEncounterPatientTotal: (state) => {
       let filteredArray = state.encounterCounts
         .filter(site => site.Sta3n === state.selectedSite)
@@ -218,7 +221,7 @@ const store = new Vuex.Store({
       // console.log('encounter patient line chart data: ', encounterPatientLineChartData)
       return { months: encounterPatientLineChartMonths, series: encounterPatientLineChartData }
     },
-    
+    // total for each CPTs no categorizing and no filtering
     siteEncounterCPTTotal: (state) => {
       let filteredArray = state.encounterCPT
         .filter(site => site.Sta3n === state.selectedSite)
@@ -227,47 +230,56 @@ const store = new Vuex.Store({
       })
       return filteredArray
     },
+    // total for each CPTCategory (large set of CPTs) and no category filtering
     siteEncounterCPTCategories: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite)
       return filteredArray
     },
+    // total for Ind Therapy CPT Category (large set of CPTs)
     siteEncounterCPTIndividual: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.CPTCategory === 'Individual Psychotherapy')
       return totalAndPercent(filteredArray)
     },
+    // total for Grp Therapy CPT Category (large set of CPTs)
     siteEncounterCPTGroup: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.CPTCategory === 'Group Psychotherapy')
       return totalAndPercent(filteredArray)
     },
+    // total for Tele CPT Category (large set of CPTs)
     siteEncounterCPTTelephone: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.CPTCategory === 'Telephone')
       return totalAndPercent(filteredArray)
     },
+    // total for Prolonged Service CPT Category (large set of CPTs)
     siteEncounterCPTProlongedService: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.CPTCategory === 'Prolonged Service')
       return totalAndPercent(filteredArray)
     },
+    // total for Specific CPT Category (large set of CPTs)
     siteEncounterCPTAssessment: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.CPTCategory === 'Assessment')
       return totalAndPercent(filteredArray)
     },
+    // total for Specific CPT Category (large set of CPTs)
     siteEncounterCPTGroupEducation: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.CPTCategory === 'Health and Behavior (Group) Education')
       return totalAndPercent(filteredArray)
     },
+
+    // like siteEncounterCPTIndividual's large CPTs - but Ind Therapy Category and no Grp Therapy
     siteEncounterCPTPatientsIndOnly: (state) => {
       //encounterPatientCPTCategories
       let filteredArray = state.encounterPatientCPTCategories
@@ -275,6 +287,7 @@ const store = new Vuex.Store({
         .filter(site => site.TherapyType === 'IndividualOnly')
       return filteredArray[0].NumPsychotherapyByType
     },
+    // like siteEncounterCPTGroup's large CPTs - but Grp Therapy Category and no Ind Therapy
     siteEncounterCPTPatientsGrpOnly: (state) => {
       //encounterPatientCPTCategories
       let filteredArray = state.encounterPatientCPTCategories
@@ -282,6 +295,7 @@ const store = new Vuex.Store({
         .filter(site => site.TherapyType === 'GroupOnly')
       return filteredArray[0].NumPsychotherapyByType
     },
+    // like above two but w/ both Ind and Grp Therapy
     siteEncounterCPTPatientsBoth: (state) => {
       //encounterPatientCPTCategories
       let filteredArray = state.encounterPatientCPTCategories
@@ -289,7 +303,14 @@ const store = new Vuex.Store({
         .filter(site => site.TherapyType === 'Both')
       return filteredArray[0].NumPsychotherapyByType
     },
-
+    // like above two but w/ either Ind or Grp Therapy
+    siteEncounterCPTPatientsEither: (state) => {
+      //encounterPatientCPTCategories
+      let filteredArray = state.encounterPatientCPTCategories
+        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.TherapyType === 'Either')
+      return filteredArray[0].NumPsychotherapyByType
+    },
 
     //encounter appointment
     siteEncounterApptCancelNoShowPieChart: (state) =>{
@@ -475,12 +496,6 @@ const store = new Vuex.Store({
         .filter(site => site.dataType === 'ebp_sessions_pe_cpt')
       return filteredArray[0].sumTotal
     },
-    siteALLSessions: (state) => {      
-      let filteredArray = state.ebpSummary
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'all_sessions')
-      return filteredArray[0].sumTotal
-    },
     siteEBPPatientsPECPT: (state) => {      
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
@@ -491,6 +506,7 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'all_patients')
+      console.log('siteALLPatients filteredArray[0]: ', filteredArray[0] )
       return filteredArray[0].sumTotal
     },
     siteEBPSessionsInd: (state) => {      
@@ -692,6 +708,20 @@ const store = new Vuex.Store({
       console.log('in setCurrentUser w this user: ', user)
       context.commit('SET_CURRENT_USER', user)
     },
+    getSelectedConsultComments (context, ConsultSID) {
+      console.log('In this action to get current ConsultSIDs Comments for: ', ConsultSID)
+      var comments = ''
+      // API call to get comments for this ConsultSID -- 1400071306050
+      return new Promise((resolve, reject) => {
+        axios.get(`pct.cgi?elliot=1&format=consult_comments&consultsid=${ConsultSID}`)
+        .then(response => { 
+          console.log('response.data is: ', response.data)
+          resolve(response.data)
+        }, error => {
+          reject(error)
+        })
+      })
+    },
   },
   mutations: {
     SET_SELECTED_SITE (state, site) {
@@ -706,6 +736,21 @@ const store = new Vuex.Store({
       console.log('in SET_CURRENT_USER and state. userFirstName is: ', userFirstName)
       console.log('in SET_CURRENT_USER and state. userLastName is: ', userLastName)
     },
+    // SET_CURRENT_CONSULT_COMMENT (state, comments) {
+    //   console.log('here I commit the current consult comment, that I will have gotten')
+    //   // comments should be array
+    //   const commentsType = typeof comments
+    //   if (Array.isArray(comments)) { // should be an array
+    //     let commentsString = ''
+    //     const commentsText = comments
+    //       .map((c) => {
+    //         let string = c.ConsultActivityComment == null ? 'Comment Has No Text' : c.ConsultActivityComment
+    //         console.log('string has a value of: ', string)
+    //       })
+    //     commentsString = commentsText.join('')
+    //     state.currentComments = commentsString
+    //   }
+    // },
     
     initialiseStore(state) {
       // Check if the ID exists

@@ -4,13 +4,14 @@
       <div class="container-fluid">
         
         <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
+        <!-- <div class="row d-flex justify-content-center ">
           <h4 class="section-head">No Show & Cancel Summary Stats</h4>
-        </div>
+        </div> -->
       
-        <div class="row d-flex justify-content-center">
+      
+        <!-- <div class="row d-flex justify-content-center"> -->
 
-          <div class="col-xl-3 col-md-3">
+          <!-- <div class="col-xl-3 col-md-3">
             <stats-card>
               <div slot="header" class="icon-danger">
                 <i class="nc-icon nc-vector text-danger"></i>
@@ -20,23 +21,23 @@
                 <h4 class="card-title">{{  siteEncounterAppNoShowPercent }}%</h4>
               </div>
             </stats-card>
-          </div>
+          </div> -->
 
-          <div class="col-xl-3 col-md-3">
+          <!-- <div class="col-xl-3 col-md-3">
             <stats-card>
               <div slot="header" class="icon-info">
                 <i class="nc-icon nc-favourite-28 text-primary"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Cancelled Appts/All ({{ formatNumber(siteEncounterApptCancelTotal) }}/{{ siteEncounterApptTotalStr }})</p>
+                <p class="card-category">Any Cancelled Appts/All ({{ formatNumber(siteEncounterApptCancelTotal) }}/{{ siteEncounterApptTotalStr }})</p>
                 <h4 class="card-title">{{ siteEncounterAppCancelPercent }}%</h4>
               </div>
             </stats-card>
-          </div>
+          </div> -->
 
-        </div>
+        <!-- </div> -->
 
-        <div class="row d-flex justify-content-center">
+        <!-- <div class="row d-flex justify-content-center">
 
           <div class="col-md-8">
             <template>
@@ -44,21 +45,20 @@
             </template>
           </div>
 
-        </div>
+        </div> -->
 
         <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
+        <!-- <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4>
-        </div>
+        </div> -->
 
-        <div class="d-flex flex-row justify-content-center">
+        <!-- <div class="d-flex flex-row justify-content-center">
 
           <div class="col-md-12 ">
             <card>
               <template slot="header">
                 <span>Hover Over Column Header to View Menu</span>
               </template>
-              <!-- {{siteEncounterApptProviderClinicNoShowTotal}} -->
                 <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions3" 
                 :rowData="rowData3" 
@@ -68,7 +68,6 @@
                 :enableColResize="true"
                 >
                 </ag-grid-vue>
-                <!-- :rowDataChanged="onRowDataChanged3" -->
               <template slot="footer">
                 <div class="legend">
                   Detailed CPT Categories Listing
@@ -77,7 +76,7 @@
             </card>
           </div>
 
-        </div>
+        </div> -->
       
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
@@ -92,7 +91,7 @@
               <i class="nc-icon nc-chart text-warning"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Total Encounters</p>
+              <p class="card-category">Total Encounters - All CPTs</p>
               <h4 class="card-title">{{ siteEncounterTotal }}</h4>
             </div>
             <!-- <div slot="footer">
@@ -107,7 +106,7 @@
                 <i class="nc-icon nc-light-3 text-success"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Unique Patients</p>
+                <p class="card-category">Unique Patients - All CPTs</p>
                 <h4 class="card-title">{{ siteEncounterPatientTotal }}</h4>
               </div>
               <!-- <div slot="footer">
@@ -132,7 +131,7 @@
 
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">CPT Categories</h4>
+          <h4 class="section-head">Psychotherapy Sessions</h4>
         </div>
 
         <div class="d-flex flex-row justify-content-center">
@@ -167,8 +166,66 @@
 
         </div>
 
-        <div class="d-flex flex-row">
-        
+ <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Individual Tx Only / Group Tx Only / Both -- Patients Counts</h4>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          
+          <div class="col-xl-3 col-md-4">
+
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Individual Tx Only </p>
+                <h4 class="card-title">{{siteEncounterCPTPatientsIndOnly}} Pts</h4>
+              </div>
+              </stats-card>
+          
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Group Tx Only </p>
+              <h4 class="card-title">{{siteEncounterCPTPatientsGrpOnly}} Pts</h4>
+              </div>
+              </stats-card>
+          
+          </div>
+
+           <div class="col-xl-3 col-md-4">
+
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-chart text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Both Ind and Grp Tx </p>
+                <h4 class="card-title">{{siteEncounterCPTPatientsBoth}} Pts</h4>
+              </div>
+              </stats-card>
+          
+          </div>
+
+        </div>
+
+
+        <!-- <div class="d-flex flex-row"> -->
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Other Services</h4>
+        </div>
+
+      <div class="d-flex flex-row justify-content-center">
+           
           <div class="col-xl-3 col-md-3">
             
             <stats-card>
@@ -610,17 +667,17 @@ export default {
       'selectedSite', 'selectedRange'
     ]),
     ...mapGetters([
-      'siteEncounterTotal',
-      'siteEncounterPatientTotal',
+      'siteEncounterTotal', // all distinct visitsid no CPT filtering
+      'siteEncounterPatientTotal', // all distinct patientSID no CPT filtering
       'siteEncounterLineChartSeries',
       'siteEncounterPatientLineChartSeries',
 
-      'siteEncounterApptClinicNoShowTotal',
-      'siteEncounterApptCancelNoShowPieChart',
-      'siteEncounterApptNoShowTotal',
-      'siteEncounterApptCancelTotal',
-      'siteEncounterApptTotalStr', // for display
-      'siteEncounterApptTotal', // for computation
+      // 'siteEncounterApptClinicNoShowTotal',
+      // 'siteEncounterApptCancelNoShowPieChart',
+      // 'siteEncounterApptNoShowTotal',
+      // 'siteEncounterApptCancelTotal',
+      // 'siteEncounterApptTotalStr', // for display
+      // 'siteEncounterApptTotal', // for computation
       
       'siteEncounterCPTTotal',
       'siteEncounterCPTCategories',
@@ -636,39 +693,46 @@ export default {
       
     ]),
     
-    siteEncounterAppNoShowPercent () {
-      return Math.round((this.siteEncounterApptNoShowTotal/this.siteEncounterApptTotal) * 100)
-    },
+    // siteEncounterAppNoShowPercent () {
+    //   return Math.round((this.siteEncounterApptNoShowTotal/this.siteEncounterApptTotal) * 100)
+    // },
 
-    siteEncounterAppCancelPercent () {
-      return Math.round((this.siteEncounterApptCancelTotal/this.siteEncounterApptTotal) * 100)
-      // return precise_round((this.siteEBPSessionsPECPT/this.siteALLSessions) * 100, 1) 
-    },
+    // siteEncounterAppCancelPercent () {
+    //   return Math.round((this.siteEncounterApptCancelTotal/this.siteEncounterApptTotal) * 100)
+    //   // return precise_round((this.siteEBPSessionsPECPT/this.siteALLSessions) * 100, 1) 
+    // },
 
-    pieChartOptions () {
-      return {
-        chart:      { type: "pie", 
-                      options3d: { enabled: true, alpha: 45 }},
-        title:      { text: 'Cancel NoShow Totals' },
-        subtitle:   { text: 'Hover over sections for Patient data' },
-        credits:    { enabled: false },
-        plotOptions: { pie: { innerSize: 100, depth: 45 },
-                       series: { allowPointSelect: true }},
-        series: [
-          {
-            name: "patient totals",
-            events: {
-                click: function (event) {
-                  console.log('pie slice clicked, here is event: ', event)
-                  let points = this.chart.getSelectedPoints()
-                  console.log('getSelectedPoints: ', typeof points[0])
-                }
-            },
-            data: this.siteEncounterApptCancelNoShowPieChart
-          }
-        ]
-      }
-    },
+    // pieChartOptions () {
+    //   return {
+    //     chart:      { type: "pie", 
+    //                   options3d: { enabled: true, alpha: 45 }},
+    //     title:      { text: 'Cancel NoShow Totals' },
+    //     subtitle:   { text: 'Hover over sections for Patient data' },
+    //     credits:    { enabled: false },
+    //     plotOptions: { pie: { innerSize: 100, depth: 45 },
+    //                    series: { allowPointSelect: true }},
+    //     series: [
+    //       {
+    //         name: "patient totals",
+    //         events: {
+    //             click: function (event) {
+    //               console.log('pie slice clicked, here is event: ', event)
+    //               let points = this.chart.getSelectedPoints()
+    //               console.log('getSelectedPoints: ', typeof points[0])
+    //             }
+    //         },
+    //         data: this.siteEncounterApptCancelNoShowPieChart,
+    //         dataLabels: {
+    //           formatter: function () {
+    //             // console.log('this.point is: ', this.point)
+    //             return this.point.name + ':<br/>' + '(' + this.y + ')'
+    //             // return `${this.point.name}:<br/>(${this.y})`
+    //           }
+    //         }
+    //       }
+    //     ]
+    //   }
+    // },
     lineChartOptions () {
       return {
         chart: {  type: "spline" },
@@ -688,6 +752,11 @@ export default {
         plotOptions: {
           spline: {
             marker: { radius: 4, lineColor: "#666666", lineWidth: 1 }
+          },
+          series: {
+            dataLabels: {
+              enabled: true
+            }
           }
         },
         series: [{
@@ -705,9 +774,9 @@ export default {
     rowData2 () {
       return this.siteEncounterCPTCategories // filters when site changes
     },
-    rowData3 () {
-      return this.siteEncounterApptClinicNoShowTotal // filters when site changes    
-    },
+    // rowData3 () {
+    //   return this.siteEncounterApptClinicNoShowTotal // filters when site changes    
+    // },
 
   },
   beforeMount() { 
@@ -723,11 +792,11 @@ export default {
       suppressPropertyNamesCheck: true
     }
      
-    this.gridOptions3 = {
-      columnDefs:  this.createColDefs3(),
-      rowData: this.rowData, // computed prop
-      suppressPropertyNamesCheck: true
-    }
+    // this.gridOptions3 = {
+    //   columnDefs:  this.createColDefs3(),
+    //   rowData: this.rowData, // computed prop
+    //   suppressPropertyNamesCheck: true
+    // }
     
   },
   methods: { 
@@ -804,65 +873,65 @@ export default {
         },
       ]
     },
-    createColDefs3() {
-      return [
-        {headerName: "Provider Clinic Cancel NoShow",
-          children: [
-            { headerName: "Site", 
-              field: "StaPa", 
-              width: 15, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter"
-            },
-            // { headerName: "Staff", 
-            //   field: "StaffName", 
-            //   width: 30, 
-            //   cellStyle: { 'text-align': "left" } ,
-            //   filter: "agTextColumnFilter"
-            // },
-            { headerName: "Clinic", 
-              field: "LocationName", 
-              width: 30, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter"
-            },
-            { headerName: "Appt Type", 
-              field: "CancelNoShow", 
-              width: 30, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter"
-            },
-            { headerName: "Cancel/NS Count", 
-              field: "CancelNoShowCount", 
-              width: 25, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agNumberColumnFilter"
-            },
-            { headerName: "Clinic Appts", 
-              field: "ClinicAppointmentTotal", 
-              width: 20, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agNumberColumnFilter"
-            },
-            { headerName: "Site Appts", 
-              field: "StaPaTotal", 
-              width: 20, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agNumberColumnFilter"
-            },
-          ]
-        },
-      ]
-    },
+    // createColDefs3() {
+    //   return [
+    //     {headerName: "Provider Clinic Cancel NoShow",
+    //       children: [
+    //         { headerName: "Site", 
+    //           field: "StaPa", 
+    //           width: 15, 
+    //           cellStyle: { 'text-align': "left" } ,
+    //           filter: "agTextColumnFilter"
+    //         },
+    //         // { headerName: "Staff", 
+    //         //   field: "StaffName", 
+    //         //   width: 30, 
+    //         //   cellStyle: { 'text-align': "left" } ,
+    //         //   filter: "agTextColumnFilter"
+    //         // },
+    //         { headerName: "Clinic", 
+    //           field: "LocationName", 
+    //           width: 30, 
+    //           cellStyle: { 'text-align': "left" } ,
+    //           filter: "agTextColumnFilter"
+    //         },
+    //         { headerName: "Appt Type", 
+    //           field: "CancelNoShow", 
+    //           width: 30, 
+    //           cellStyle: { 'text-align': "left" } ,
+    //           filter: "agTextColumnFilter"
+    //         },
+    //         { headerName: "Cancel/NS Count", 
+    //           field: "CancelNoShowCount", 
+    //           width: 25, 
+    //           cellStyle: { 'text-align': "left" } ,
+    //           filter: "agNumberColumnFilter"
+    //         },
+    //         { headerName: "Clinic Appts", 
+    //           field: "ClinicAppointmentTotal", 
+    //           width: 20, 
+    //           cellStyle: { 'text-align': "left" } ,
+    //           filter: "agNumberColumnFilter"
+    //         },
+    //         { headerName: "Site Appts", 
+    //           field: "StaPaTotal", 
+    //           width: 20, 
+    //           cellStyle: { 'text-align': "left" } ,
+    //           filter: "agNumberColumnFilter"
+    //         },
+    //       ]
+    //     },
+    //   ]
+    // },
     onGridReady() {
       this.gridOptions.api.sizeColumnsToFit();
     },
     onGridReady2() {
       this.gridOptions2.api.sizeColumnsToFit();
     },
-    onGridReady3() {
-      this.gridOptions3.api.sizeColumnsToFit();
-    },
+    // onGridReady3() {
+    //   this.gridOptions3.api.sizeColumnsToFit();
+    // },
 
     onRowDataChanged() {
       console.log('row data changed!!')
@@ -876,18 +945,18 @@ export default {
         this.gridOptions2.api.sizeColumnsToFit();
       });
     },
-    onRowDataChanged3() {
-      console.log('row data changed!!')
-      Vue.nextTick(() => {
-        this.gridOptions3.api.sizeColumnsToFit();
-      });
-    },
+    // onRowDataChanged3() {
+    //   console.log('row data changed!!')
+    //   Vue.nextTick(() => {
+    //     this.gridOptions3.api.sizeColumnsToFit();
+    //   });
+    // },
   },
   data() {
     return {
       gridOptions: null,
       gridOptions2: null,
-      gridOptions3: null,
+      // gridOptions3: null,
     }
   }
 }

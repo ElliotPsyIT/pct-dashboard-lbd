@@ -77,7 +77,7 @@
           <h4 class="section-head" ></h4>
         </div>
       
-             <!-- Section Headers -->
+        <!-- Section Headers -->
         <div class="row d-flex justify-content-around">
           <h4 class="section-head" >Individual Tx EBPs</h4>
           <h4 class="section-head" >Group Tx EBPs</h4>
@@ -169,7 +169,7 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category"  v-tooltip.top-center="IndTherapyOnly">Ind Therapy Only ({{siteEBPPatientsCPTIndividualOnly}}/{{addCommas(siteALLPatients)}})</p>
+                <p class="card-category"  v-tooltip.top-center="IndTherapyOnly">Ind Tx Only ({{siteEBPPatientsCPTIndividualOnly}}/{{addCommas(siteEncounterCPTPatientsEither)}})</p>
                 <h4 class="card-title">{{siteEBPPatientsIndOnlyPercent}}%</h4>
               </div>
             </stats-card>
@@ -183,7 +183,7 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="GroupTherapyOnly">Grp Therapy Only ({{siteEBPPatientsCPTGroupOnly}}/{{addCommas(siteALLPatients)}})</p>
+                <p class="card-category" v-tooltip.top-center="GroupTherapyOnly">Grp Tx Only ({{siteEBPPatientsCPTGroupOnly}}/{{addCommas(siteEncounterCPTPatientsEither)}})</p>
                 <h4 class="card-title">{{siteEBPPatientsGrpOnlyPercent}}%</h4>
               </div>
             </stats-card>
@@ -197,7 +197,7 @@
                 <i class="nc-icon nc-chart text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="BothIndGroupTherapy">Both Ind & Grp Tx({{siteEBPPatientsCPTBoth}}/{{addCommas(siteALLPatients)}})</p>
+                <p class="card-category" v-tooltip.top-center="BothIndGroupTherapy">Both Ind & Grp Tx({{siteEBPPatientsCPTBoth}}/{{addCommas(siteEncounterCPTPatientsEither)}})</p>
                 <h4 class="card-title">{{siteEBPPatientsBothPercent}}%</h4>
               </div>
             </stats-card>
@@ -588,9 +588,9 @@ export default {
       IndividualTxEBPPatients: 'EBP Ind Tx Patients / All PCT Ind Tx Patients',
       GroupTxEBPSessions: 'EBP Group Tx Sessions / All PCT Group Tx Sessions',
       GroupTxEBPPatients: 'EBP Group Tx Patients / All PCT Group Tx Patients',
-      IndTherapyOnly: 'Patients with EBP Ind Tx Sessions Only / All PCT Ind Tx Patients',
-      GroupTherapyOnly: 'Patients with EBP Group Tx Sessions Only / All PCT Group Tx Patients',
-      BothIndGroupTherapy: 'Patients with EBP Ind and Group Tx Sessions / All PCT Ind and Group Session Patients',
+      IndTherapyOnly: 'Patients with EBP Ind Tx Sessions Only / All Therapy Patients',
+      GroupTherapyOnly: 'Patients with EBP Group Tx Sessions Only / All Therapy Patients',
+      BothIndGroupTherapy: 'Patients with EBP Ind and Group Tx Sessions / All Therapy Patients',
     }
   },
   computed: {
@@ -599,7 +599,10 @@ export default {
       'siteALLSessions',
 
       'siteEBPPatientsAny',
-      'siteALLPatients',
+      // 'siteALLPatients', // inconsistent with Encounter therapy sum
+      'siteEncounterPatientTotal', // pull from Encounters
+
+      'siteEncounterCPTPatientsEither', // from Encounter to sync #s
 
       'siteEBPSessionsPECPT',
       // 'siteALLSessions',
@@ -706,13 +709,13 @@ export default {
     },
 
     siteEBPPatientsIndOnlyPercent () {
-      return Math.round((this.siteEBPPatientsCPTIndividualOnly/this.siteEBPPatientsAll) * 100)
+      return Math.round((this.siteEBPPatientsCPTIndividualOnly/this.siteEncounterCPTPatientsEither) * 100)
     },
     siteEBPPatientsGrpOnlyPercent () {
-      return Math.round((this.siteEBPPatientsCPTGroupOnly/this.siteEBPPatientsAll) * 100)
+      return Math.round((this.siteEBPPatientsCPTGroupOnly/this.siteEncounterCPTPatientsEither) * 100)
     },
     siteEBPPatientsBothPercent () {
-      return Math.round((this.siteEBPPatientsCPTBoth/this.siteEBPPatientsAll) * 100)
+      return Math.round((this.siteEBPPatientsCPTBoth/this.siteEncounterCPTPatientsEither) * 100)
     },
 
     rowData () { return this.siteEBPDetailsTypes  },
@@ -743,7 +746,14 @@ export default {
                   }
               }
             },
-            data: this.siteEBPPieChartSeries 
+            data: this.siteEBPPieChartSeries,
+            dataLabels: {
+              formatter: function () {
+                // console.log('this.point is: ', this.point)
+                return this.point.name + ':<br/>' + '(' + this.y + ')'
+                // return `${this.point.name}:<br/>(${this.y})`
+              }
+            }
           }
         ]
       }
@@ -853,7 +863,7 @@ export default {
           filter: "agDateColumnFilter"
           // suppressFilter: true,
         },
-        { headerName: "Survey", 
+        { headerName: "PCL-5", 
           field: "SurveyName", 
           width: 70, 
           cellStyle: { 'text-align': "left" } ,

@@ -20,13 +20,17 @@ import LightBootstrap from './light-bootstrap-main'
 
 // router setup
 import routes from './routes/routes'
+
+// modal
+import VModal from 'vue-js-modal'
+Vue.use(VModal, {dynamic: true, dialog: true}) 
+
 // plugin setup
 Vue.use(VueRouter)
 Vue.use(LightBootstrap)
 
 // tooltip mixin
 import VTooltip from 'v-tooltip'
-
 Vue.use(VTooltip)
 
 // configure router
@@ -67,14 +71,37 @@ new Vue({
   },
   mounted() {
     // in prod -- get user info as global
-      // if (remote_user) {
-      //   var user = remote_user.split("\\")
-      //   var domain = user[0]
-      //   var username = user[1]
-      //   this.$store.dispatch('setCurrentUser', {FirstName: domain, LastName: username})
-      // } else {
-      //   this.$store.dispatch('setCurrentUser', {FirstName: 'domain', LastName: 'username'})
-      // }
+    // var currentUser = ''
     
+    // var window_remote_user = (typeof window.remote_user !== 'undefined' || window.remote_user !== null) ?
+    //   window.remote_user : null
+
+    // if (window_remote_user) {
+    //   console.log('got window.remote_user from sspi: ', window_remote_user)
+    //   var currentUser = window.remote_user
+    // }
+
+    // if (currentUser) {    
+    //   console.log('remote_user is: ', currentUser)
+    //   var [domain, username] = currentUser.split("\\")
+    //   this.$store.dispatch('setCurrentUser', {FirstName: domain, LastName: username})
+    // } 
+    // else {
+    //   this.$store.dispatch('setCurrentUser', {FirstName: 'No', LastName: 'User Retrieved'})
+    // }
+    
+    // get current user and set in store
+    // axios.get('pct.cgi?format=t1&dtrng=20180101,20180201&sta3n=575,365')
+    axios.get('pct.cgi?format=who')
+      .then(response => { 
+        console.log('response.data is: ', response.data)
+        const remote_user = response.data[0]
+        if (remote_user != undefined) {
+          this.$store.dispatch('setCurrentUser', {FirstName: remote_user.FirstName, LastName: remote_user.LastName})
+        } else {
+          this.$store.dispatch('setCurrentUser', {FirstName: 'No', LastName: 'User Retrieved'})
+        }
+      
+      })
   }
 })

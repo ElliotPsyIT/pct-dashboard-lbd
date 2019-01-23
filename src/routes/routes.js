@@ -4,6 +4,7 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 
 // Admin pages
 import Overview from 'src/components/Dashboard/Views/Overview.vue'
+import Appointments from 'src/components/Dashboard/Views/Appointments.vue'
 import Consults from 'src/components/Dashboard/Views/Consults.vue'
 import Encounters from 'src/components/Dashboard/Views/Encounters.vue'
 import Providers from 'src/components/Dashboard/Views/Providers.vue'
@@ -44,6 +45,11 @@ const routes = [
         path: 'consults',
         name: 'Consults',
         component: Consults
+      },
+      {
+        path: 'appointments',
+        name: 'Cancel No Show',
+        component: Appointments
       },
       {
         path: 'encounters',

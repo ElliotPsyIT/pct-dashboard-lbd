@@ -11,6 +11,10 @@
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Consults</p>
       </sidebar-link>
+      <sidebar-link to="/admin/appointments">
+        <i class="nc-icon nc-chart-pie-35"></i>
+        <p>No Shows & Cancels</p>
+      </sidebar-link>
       <sidebar-link to="/admin/encounters">
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Encounters</p>

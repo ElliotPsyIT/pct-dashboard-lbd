@@ -27,21 +27,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/api': {
-      //   target: 'http://localhost:3000',
-      //   // changeOrigin: true,
-      //   // secure: false,
-      //   pathRewrite: {
-      //     '^api': ''
-      //   },
-      //   filter: function (pathname, req) {
-      //     if (pathname.match("^/api")) {
-      //       console.log('in proxyTable, pathname is: ', pathname)
-      //       console.log('in proxyTable, req.method is: ', req.method)
-      //     }
-      //     return pathname.match('^api') && req.method === 'GET'
-      //   }
-      // }
+      '/pct.cgi': {
+        target: 'http://vhacdwdwhmhs01.vha.med.va.gov:9999',
+        // pathRewrite: {'format=':'elliot=1&format='}
+        // use rewrite rule
+      },
     },
     logLevel: 'debug',
     // CSS Sourcemaps off by default because relative paths are "buggy"

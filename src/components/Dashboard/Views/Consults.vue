@@ -249,6 +249,12 @@
           <!-- </div>
         </div> -->
       </div>
+      
+      <!-- dialog for comments -->
+      <modals-container />
+      
+      <v-dialog />
+
     </div>
   </transition>
 </template>
@@ -265,7 +271,7 @@ import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
 import dateFormat from "dateformat"
 
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 // helpers
 const isMatch = (oldOne, newOne) => { return oldOne == newOne }
@@ -286,7 +292,8 @@ export default {
       gridOptions: null,
       cardClickedConsultStatus: '',
       togglingCardStatus: false,
-      pieSliceSelected: ''
+      pieSliceSelected: '',
+      comments: '',
     }
   },
   beforeMount() { 
@@ -299,7 +306,11 @@ export default {
       columnDefs: this.createColDefs(),
       rowData: this.rowData, // computed prop
       onFilterChanged: function() {console.log('filter changed!!')},
-      suppressPropertyNamesCheck: true
+      suppressPropertyNamesCheck: true,
+      rowSelection: 'single',
+      onSelectionChanged: this.onSelectionChanged,
+      onCellClicked: this.onCellClicked,
+      overlayLoadingTemplate: '<span class="ag-overlay-loading-center">Consult Comments Loading ...</span>',
     }
 
 },
@@ -312,6 +323,9 @@ export default {
       'siteConsultPendingTotal','siteConsultPieChartSeries','siteConsultLineChartSeries',
       'siteConsultDetails'
     ]),
+    // ...mapActions([
+    //   'getSelectedConsultComments'
+    // ]),
     cardStatusTextPending () {
       return {
         'text-big' : this.cardClickedConsultStatus === 'PENDING' &&
@@ -366,7 +380,14 @@ export default {
                   }
               }
             },
-            data: this.siteConsultPieChartSeries
+            data: this.siteConsultPieChartSeries,
+            dataLabels: {
+            formatter: function () {
+              // console.log('this.point is: ', this.point)
+              return this.point.name + ':<br/>' + '(' + this.y + ')'
+              // return `${this.point.name}:<br/>(${this.y})`
+            }
+          }
           }
         ]
       }
@@ -390,6 +411,11 @@ export default {
         plotOptions: {
           spline: {
             marker: { radius: 4, lineColor: "#666666", lineWidth: 1 }
+          },
+          series: {
+            dataLabels: {
+              enabled: true
+            }
           }
         },
         series: [{
@@ -400,6 +426,16 @@ export default {
     }
   },
   methods: {
+
+    show (comments) { //simple dialog box for now
+      // console.log('in show getting these comments: ', comments)
+      this.comments = comments
+      // console.log('calling dialog now!') 
+      this.$modal.show('dialog', {
+        title: 'Consult Comments',
+        text: this.comments
+      })
+    },
     pieClickHandler(status) {
       // pie clicked, needs handling
       console.log('in pieClickHandler')
@@ -476,6 +512,59 @@ export default {
 
       }
 
+    },
+    onSelectionChanged() { // click in the Consult Details ag-grid
+      
+      // call store action to retrieve consult comments for this consultSID
+
+      
+    },
+    onReady() {
+      console.log('onReady');
+    },
+    onCellClicked(event) {
+      // console.log('onCellClicked: ' + event.rowIndex + ' ' + event.colDef.field);
+      // var focusedCell = this.gridOptions.api.getFocusedCell()
+      // console.log('is there a focused cell? ', focusedCell)
+
+      var selectedRows = this.gridOptions.api.getSelectedRows()
+      var clickedField = event.colDef.field
+      var orderStatus = selectedRows[0].OrderStatus
+
+      var consultCommentRequested = clickedField === 'OrderStatus' && 
+        (orderStatus === 'ACTIVE' || orderStatus === 'PENDING')
+        
+      if ( consultCommentRequested) {
+        // need cell and row 
+        var ConsultSID = selectedRows[0].ConsultSID
+    
+        this.gridOptions.api.showLoadingOverlay()
+
+        this.$store.dispatch('getSelectedConsultComments', ConsultSID)
+        .then((comments) => {  
+
+          let commentsString = ''
+          if (Array.isArray(comments)) { // should be an array of comments
+            const commentsText = comments
+              .filter(obj => obj.ConsultActivityComment !== null)
+              .map((c) => { 
+                if (c.ConsultActivityComment == null) { return }
+                return c.ConsultActivityComment
+              })
+            commentsString = commentsText.length == 0 ? 'No Comments' : commentsText.join('<br/><br/>')
+            // hide loading indicator now
+            this.gridOptions.api.hideOverlay();
+            this.show(commentsString) // call dialog and show comments
+          } else {
+            console.log('Unexpected Consult Comment Response - Not Array!!')
+            // call dialog and show error
+            this.show('Problem Getting Consult Comments<br/><br/> Contact Administration elliot.m.fielstein@va.gov') 
+          }
+          // trigger modal w comments
+          // console.log('now triggering modal with this commentString!: ', commentsString)
+          
+        })
+      }      
     },
     clickedCard(status) {
 
@@ -572,7 +661,25 @@ export default {
               field: "OrderStatus",
               width: 60, 
               cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter"
+              filter: "agTextColumnFilter",
+              cellRenderer: (params) => {
+                if (params.value === 'PENDING' || params.value === 'ACTIVE') {
+                  // console.log('is this pending or active: ', params.value)
+                  const link = document.createElement("a")
+                  link.innerText = params.value
+                  link.href = ''
+                  link.style.textDecoration = "underline"
+                  link.addEventListener("click", e => {
+                    // console.log('click event params? ', params)
+                    e.preventDefault();
+                    // console.log('click event is: ', e)
+                    // console.log('clicked on : ', params.value)
+                    
+                  });
+                  return link;                  
+                }
+                return params.value
+              }
             },
           ]
         },
@@ -626,6 +733,7 @@ export default {
       ]
     },
     onGridReady() {
+      // console.log('onGridReady fired!')
       this.gridOptions.api.sizeColumnsToFit();
     },
     // onRowDataChanged() {

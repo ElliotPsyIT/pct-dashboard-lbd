@@ -5,14 +5,14 @@
 
        <!-- Section Headers -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Total EBPs</h4>
+          <h4 class="section-head">EBPs</h4>
         </div>
 
       <div class="row d-flex justify-content-center ">
         <div class="col-xl-3 col-md-2">
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-layers-3 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="TotalEBPsSessions">Sessions ({{siteEBPSessionsAny}}/{{addCommas(siteALLSessions)}})</p>
@@ -25,7 +25,7 @@
           <div class="col-xl-3 col-md-2">
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="TotalEBPsPatients">Patients ({{siteEBPPatientsAny}}/{{addCommas(siteALLPatients)}}) </p>
@@ -39,14 +39,14 @@
 
        <!-- Section Headers -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Total PE or CPT</h4>
+          <h4 class="section-head">PE or CPT</h4>
         </div>
 
       <div class="row d-flex justify-content-center ">
         <div class="col-xl-3 col-md-2">
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-layers-3 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="TotalPECPTSessions">Sessions ({{siteEBPSessionsPECPT}}/{{addCommas(siteALLSessions)}})</p>
@@ -59,7 +59,7 @@
           <div class="col-xl-3 col-md-2">
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="TotalPECPTPatients">Patients ({{siteEBPPatientsPECPT}}/{{addCommas(siteALLPatients)}})</p>
@@ -88,7 +88,7 @@
         <div class="col-xl-3 col-md-2">
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-layers-3 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="IndividualTxEBPSessions">Sessions ({{siteEBPSessionsInd}}/{{addCommas(siteALLSessionsInd)}})</p>
@@ -101,7 +101,7 @@
           <div class="col-xl-3 col-md-2">
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="IndividualTxEBPPatients">Patients ({{siteEBPPatientsIndPercent}}/{{addCommas(siteALLPatientsInd)}})</p>
@@ -122,7 +122,7 @@
         <div class="col-xl-3 col-md-2">
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-layers-3 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="GroupTxEBPSessions">Sessions ({{siteEBPSessionsGrp}}/{{addCommas(siteALLSessionsGrp)}})</p>
@@ -135,7 +135,7 @@
           <div class="col-xl-3 col-md-2">
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="GroupTxEBPPatients">Patients ({{siteEBPPatientsGrp}}/{{addCommas(siteALLPatientsGrp)}})</p>
@@ -163,10 +163,10 @@
         <div class="row d-flex justify-content-center">
 
           <div class="col-xl-3 col-md-2">
-            <h4 class="section-head d-flex justify-content-center"> Individual Only </h4>
+            <h4 class="section-head d-flex justify-content-center"> Ind Tx Only </h4>
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category"  v-tooltip.top-center="IndTherapyOnly">Ind Tx Only ({{siteEBPPatientsCPTIndividualOnly}}/{{addCommas(siteEncounterCPTPatientsEither)}})</p>
@@ -177,10 +177,10 @@
           </div>
 
           <div class="col-xl-3 col-md-2">
-            <h4 class="section-head d-flex justify-content-center"> Group Only</h4>
+            <h4 class="section-head d-flex justify-content-center"> Grp Tx Only</h4>
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="GroupTherapyOnly">Grp Tx Only ({{siteEBPPatientsCPTGroupOnly}}/{{addCommas(siteEncounterCPTPatientsEither)}})</p>
@@ -194,7 +194,7 @@
             <h4 class="section-head d-flex justify-content-center"> Both </h4>
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon nc-preferences-circle-rotate text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="BothIndGroupTherapy">Both Ind & Grp Tx({{siteEBPPatientsCPTBoth}}/{{addCommas(siteEncounterCPTPatientsEither)}})</p>

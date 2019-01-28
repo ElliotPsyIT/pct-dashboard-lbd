@@ -13,7 +13,7 @@
           <div class="col-xl-3 col-md-4">
             <stats-card>
             <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
+              <i class="nc-icon nc-badge text-warning"></i>
             </div>
             <div slot="content">
               <p class="card-category">Total Providers</p>
@@ -25,7 +25,7 @@
           <div class="col-xl-3 col-md-4">
             <stats-card>
             <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
+              <i class="nc-icon-outline nc-home-52 text-warning"></i>
             </div>
             <div slot="content">
               <p class="card-category">Total Clinics</p>
@@ -37,7 +37,7 @@
           <div class="col-xl-3 col-md-4">
             <stats-card>
             <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
+              <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
             </div>
             <div slot="content">
               <p class="card-category">Total Patients</p>

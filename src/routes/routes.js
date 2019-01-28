@@ -11,6 +11,8 @@ import Providers from 'src/components/Dashboard/Views/Providers.vue'
 import Surveys from 'src/components/Dashboard/Views/Surveys.vue'
 import EBP from 'src/components/Dashboard/Views/EBP.vue'
 
+import Icons from 'src/components/Dashboard/Views/Icons.vue'
+
 // lazy load page views
 // const Consults = () => import('src/components/Dashboard/Views/Consults.vue')
 // const Encounters = () => import('src/components/Dashboard/Views/Encounters.vue')
@@ -70,6 +72,11 @@ const routes = [
         path: 'ebp',
         name: 'EBP',
         component: EBP
+      },
+      {
+        path: 'icons',
+        name: 'Icons',
+        component: Icons
       },
       // {
       //   path: 'user',

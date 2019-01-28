@@ -616,6 +616,376 @@
         </div>
 
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <card>
+            <template slot="header">
+              <h4 class="card-title">Added Nucleo Icons Outline</h4>
+              <p class="card-category">Handcrafted by our friends from <a target="_blank" href="https://nucleoapp.com/?ref=1712">NucleoApp</a></p>
+            </template>
+            <div class="all-icons">
+              <div class="row">
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class="nc-icon-outline nc-archive-2"></i>
+                    <p>nc-archive-2</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-archive-paper"></i>
+                    <p>nc-archive-paper</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-award-48"></i>
+                    <p>nc-award-48</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-badge-13"></i>
+                    <p>nc-badge-13</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-bag-09"></i>
+                    <p>nc-bag-09</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-barcode-qr"></i>
+                    <p>nc-barcode-qr</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-bear-2"></i>
+                    <p>nc-bear-2</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-bell-53"></i>
+                    <p>nc-bell-53</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-bookmark-2"></i>
+                    <p>nc-bookmark-2</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-briefcase-24"></i>
+                    <p>nc-briefcase-24</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-calendar-60"></i>
+                    <p>nc-calendar-60</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-camera-20"></i>
+                    <p>nc-camera-20</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-cart-simple"></i>
+                    <p>nc-cart-simple</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-chat-46"></i>
+                    <p>nc-chat-46</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-check-circle-07"></i>
+                    <p>nc-check-circle-07</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-cloud-26"></i>
+                    <p>nc-cloud-26</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-compass-05"></i>
+                    <p>nc-compass-05</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-dashboard-level"></i>
+                    <p>nc-dashboard-level</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-diamond"></i>
+                    <p>nc-diamond</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-edit-78"></i>
+                    <p>nc-edit-78</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-email-84"></i>
+                    <p>nc-email-84</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-eye-19"></i>
+                    <p>nc-eye-19</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-favourite-31"></i>
+                    <p>nc-favourite-31</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-flag-points-32"></i>
+                    <p>nc-flag-points-32</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-flash-21"></i>
+                    <p>nc-flash-21</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-folder-15"></i>
+                    <p>nc-folder-15</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-gift-2"></i>
+                    <p>nc-gift-2</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-grid-45"></i>
+                    <p>nc-grid-45</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-handout"></i>
+                    <p>nc-handout</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-heart-2"></i>
+                    <p>nc-heart-2</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-home-52"></i>
+                    <p>nc-home-52</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-image"></i>
+                    <p>nc-image</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-key-25"></i>
+                    <p>nc-key-25</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-layers-3"></i>
+                    <p>nc-layers-3</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-like-2"></i>
+                    <p>nc-like-2</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-link-72"></i>
+                    <p>nc-link-72</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-lock-open"></i>
+                    <p>nc-lock-open</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-lock"></i>
+                    <p>nc-lock</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-multiple-11"></i>
+                    <p>nc-multiple-11</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-notes"></i>
+                    <p>nc-notes</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-pencil"></i>
+                    <p>nc-pencil</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-phone-2"></i>
+                    <p>nc-phone-2</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-preferences"></i>
+                    <p>nc-preferences</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-send-2"></i>
+                    <p>nc-send-2</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-settings-gear-63"></i>
+                    <p>nc-settings-gear-63</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-single-01"></i>
+                    <p>nc-single-01</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-single-folded-content"></i>
+                    <p>nc-single-folded-content</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-skull-2"></i>
+                    <p>nc-skull-2</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-spaceship"></i>
+                    <p>nc-spaceship</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-square-download"></i>
+                    <p>nc-square-download</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-support-16"></i>
+                    <p>nc-support-16</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-trash-simple"></i>
+                    <p>nc-trash-simple</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-turtle"></i>
+                    <p>nc-turtle</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-vector"></i>
+                    <p>nc-vector</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-video-66"></i>
+                    <p>nc-video-66</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-wallet-43"></i>
+                    <p>nc-wallet-43</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-widget"></i>
+                    <p>nc-widget</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-world"></i>
+                    <p>nc-world</p>
+                  </div>
+                </div>
+                <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div class="font-icon-detail">
+                    <i class=" nc-icon-outline nc-zoom-2"></i>
+                    <p>nc-zoom-2</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </card>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>

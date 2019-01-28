@@ -80,7 +80,7 @@
       
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Encounters, Uniques and CPTs Counts and Trends</h4>
+          <h4 class="section-head">Encounters and Patients</h4>
         </div>
 
         <div class="row d-flex justify-content-center">
@@ -88,10 +88,10 @@
         <div class="col-xl-3 col-md-3">
             <stats-card>
             <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
+              <i class="nc-icon-outline nc-layers-3 text-warning"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Total Encounters - All CPTs</p>
+              <p class="card-category">Total Encounters</p>
               <h4 class="card-title">{{ siteEncounterTotal }}</h4>
             </div>
             <!-- <div slot="footer">
@@ -103,10 +103,10 @@
           <div class="col-xl-3 col-md-3">
             <stats-card>
               <div slot="header" class="icon-success">
-                <i class="nc-icon nc-light-3 text-success"></i>
+                <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Unique Patients - All CPTs</p>
+                <p class="card-category">Patient Uniques</p>
                 <h4 class="card-title">{{ siteEncounterPatientTotal }}</h4>
               </div>
               <!-- <div slot="footer">
@@ -140,10 +140,10 @@
 
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Individual Sessions ({{ siteEncounterCPTIndividual.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <p class="card-category">Individual<br/>({{ siteEncounterCPTIndividual.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
                 <h4 class="card-title">{{ siteEncounterCPTIndividual.percent }}%</h4>
               </div>
               </stats-card>
@@ -154,10 +154,10 @@
             
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group Sessions ({{ siteEncounterCPTGroup.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <p class="card-category">Group<br/> ({{ siteEncounterCPTGroup.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
                 <h4 class="card-title">{{ siteEncounterCPTGroup.percent }}%</h4>
               </div>
             </stats-card>
@@ -168,7 +168,7 @@
 
  <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Individual Tx Only / Group Tx Only / Both -- Patients Counts</h4>
+          <h4 class="section-head">Patients Receiving Psychotherapy</h4>
         </div>
 
         <div class="d-flex flex-row justify-content-center">
@@ -177,7 +177,7 @@
 
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-single-01 text-success"></i>
               </div>
               <div slot="content">
                 <p class="card-category">Individual Tx Only </p>
@@ -191,7 +191,7 @@
 
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
               </div>
               <div slot="content">
                 <p class="card-category">Group Tx Only </p>
@@ -205,7 +205,7 @@
 
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
               </div>
               <div slot="content">
                 <p class="card-category">Both Ind and Grp Tx </p>
@@ -217,6 +217,56 @@
 
         </div>
 
+        <!-- Section Header -->
+        <!-- <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Individual and Group Psychotherapy Patients Only</h4>
+        </div> -->
+
+        <!-- <div class="d-flex flex-row justify-content-center">
+          
+          <div class="col-xl-3 col-md-4">
+
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Individual Tx Only </p>
+                <h4 class="card-title">{{siteEncounterCPTPatientsIndOnly}} Pts</h4>
+              </div>
+              </stats-card>
+          
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Group Tx Only </p>
+              <h4 class="card-title">{{siteEncounterCPTPatientsGrpOnly}} Pts</h4>
+              </div>
+              </stats-card>
+          
+          </div>
+
+           <div class="col-xl-3 col-md-4">
+
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Both Ind and Grp Tx </p>
+                <h4 class="card-title">{{siteEncounterCPTPatientsBoth}} Pts</h4>
+              </div>
+              </stats-card>
+          
+          </div>
+
+        </div> -->
 
         <!-- <div class="d-flex flex-row"> -->
         <!-- Section Header -->
@@ -230,7 +280,7 @@
             
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-phone-2 text-info"></i>
               </div>
               <div slot="content">
                 <p class="card-category">Telephone CPT ({{ siteEncounterCPTTelephone.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
@@ -244,7 +294,7 @@
             
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-multiple-11 text-info"></i>
               </div>
               <div slot="content">
                 <p class="card-category">Group Education ({{ siteEncounterCPTGroupEducation.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
@@ -258,7 +308,7 @@
             
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon-outline nc-single-folded-content text-info"></i>
               </div>
               <div slot="content">
                 <p class="card-category">Assessment CPT ({{ siteEncounterCPTAssessment.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
@@ -272,7 +322,7 @@
             
             <stats-card>
               <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
+                <i class="nc-icon nc-refresh-02 text-info"></i>
               </div>
               <div slot="content">
                 <p class="card-category">Prolonged Service ({{ siteEncounterCPTProlongedService.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
@@ -280,57 +330,6 @@
               </div>
               </stats-card>
 
-          </div>
-
-        </div>
-
-        <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Individual and Group Psychotherapy Patients Only</h4>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center">
-          
-          <div class="col-xl-3 col-md-4">
-
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">Individual Tx Only </p>
-                <h4 class="card-title">{{siteEncounterCPTPatientsIndOnly}} Pts</h4>
-              </div>
-              </stats-card>
-          
-          </div>
-
-          <div class="col-xl-3 col-md-4">
-
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">Group Tx Only </p>
-              <h4 class="card-title">{{siteEncounterCPTPatientsGrpOnly}} Pts</h4>
-              </div>
-              </stats-card>
-          
-          </div>
-
-           <div class="col-xl-3 col-md-4">
-
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-chart text-warning"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">Both Ind and Grp Tx </p>
-                <h4 class="card-title">{{siteEncounterCPTPatientsBoth}} Pts</h4>
-              </div>
-              </stats-card>
-          
           </div>
 
         </div>

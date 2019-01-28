@@ -12,7 +12,7 @@
               <div class="col-xl-3 col-md-4">
                 <stats-card >
                   <div slot="header" class="icon-warning">
-                    <i class="nc-icon nc-chart text-warning"></i>
+                    <i class="nc-icon nc-email-85 text-warning"></i>
                   </div>
                   <div slot="content">
                     <p class="card-category">Total Consults</p>
@@ -26,8 +26,8 @@
 
               <div class="col-xl-3 col-md-4">
                 <stats-card>
-                  <div slot="header" class="icon-success">
-                    <i class="nc-icon nc-light-3 text-success"></i>
+                  <div slot="header" class="icon-warning">
+                    <i class="nc-icon nc-single-copy-04 text-warning"></i>
                   </div>
                   <div slot="content">
                     <p class="card-category">Total Patients</p>
@@ -43,7 +43,7 @@
                 <div @click="clickedCard('PENDING')" style="cursor: pointer;">
                   <stats-card>
                     <div slot="header" :class="cardStatusIconPending">
-                      <i class="nc-icon nc-vector text-danger"></i>
+                      <i class="nc-icon nc-attach-87 text-warning"></i>
                     </div>
                     <div slot="content">
                       <p class="card-category">Pending</p>
@@ -60,7 +60,7 @@
                 <div @click="clickedCard('ACTIVE')" style="cursor: pointer;">
                   <stats-card>
                     <div slot="header" :class="cardStatusIconActive">
-                      <i class="nc-icon nc-favourite-28 text-primary"></i>
+                      <i class="nc-icon nc-cloud-upload-94 text-warning"></i>
                     </div>
                     <div slot="content">
                       <p class="card-category">Active</p>

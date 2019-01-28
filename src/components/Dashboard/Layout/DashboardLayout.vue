@@ -8,15 +8,15 @@
         <p>Dashboard</p>
       </sidebar-link>
       <sidebar-link to="/admin/consults">
-        <i class="nc-icon nc-chart-pie-35"></i>
+        <i class="nc-icon nc-email-85"></i>
         <p>Consults</p>
       </sidebar-link>
       <sidebar-link to="/admin/appointments">
-        <i class="nc-icon nc-chart-pie-35"></i>
+        <i class="nc-icon nc-chart-pie-36"></i>
         <p>No Shows & Cancels</p>
       </sidebar-link>
       <sidebar-link to="/admin/encounters">
-        <i class="nc-icon nc-chart-pie-35"></i>
+        <i class="nc-icon nc-single-copy-04"></i>
         <p>Encounters</p>
       </sidebar-link>
       <sidebar-link to="/admin/providers">
@@ -24,12 +24,16 @@
         <p>Providers</p>
       </sidebar-link>
       <sidebar-link to="/admin/surveys">
-        <i class="nc-icon nc-circle-09"></i>
+        <i class="nc-icon nc-paper-2"></i>
         <p>Surveys</p>
       </sidebar-link>
       <sidebar-link to="/admin/ebp">
-        <i class="nc-icon nc-circle-09"></i>
+        <i class="nc-icon nc-notes"></i>
         <p>EBPs</p>
+      </sidebar-link>
+      <sidebar-link to="/admin/icons">
+        <i class="nc-icon nc-circle-09"></i>
+        <p>Icons</p>
       </sidebar-link>
       <!-- <sidebar-link to="/admin/providers">
         <i class="nc-icon nc-circle-09"></i>

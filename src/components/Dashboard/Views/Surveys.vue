@@ -5,7 +5,7 @@
         
       <!-- Section Header -->
       <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Overall Surveys Summary</h4>
+        <h4 class="section-head">Surveys Summary</h4>
       </div>
 
       <div class="row d-flex justify-content-center">
@@ -14,7 +14,7 @@
         
           <stats-card :key="siteSurveyTotals.surveysGivenOverall">
             <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
+              <i class="nc-icon nc-paper-2 text-warning"></i>
             </div>
             <div slot="content">
               <p class="card-category">Total Surveys Given</p>
@@ -29,18 +29,18 @@
 
       <!-- Section Header -->
       <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Clinics, Providers, Patients Survey Summary</h4>
+        <!-- <h4 class="section-head">Clinics, Providers, Patients</h4> -->
       </div>
         <!-- siteSurveyClinicTotals -->
       <div class="row d-flex justify-content-center">
         <div class="col-xl-3 col-md-4">
-        
+          <h4 class="section-head d-flex justify-content-center"> Clinics </h4>
           <stats-card :key="siteSurveyClinicTotals.surveysGivenClinics">
             <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
+              <i class="nc-icon-outline nc-home-52 text-warning"></i>
             </div>
             <div slot="content" >
-              <p class="card-category">Clinics with Surveys/<br/>All Clinics</p>
+              <p class="card-category">Surveys in Clinics / <br/>All Clinics</p>
               <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
               <h4 class="card-title">{{ siteSurveyClinicTotals.surveysGivenClinics }}/{{ siteSurveyClinicTotals.surveysTotalClinics }}</h4>
             </div>
@@ -50,13 +50,13 @@
 
         <!-- siteSurveyProviderTotals -->
         <div class="col-xl-3 col-md-4">
-        
+          <h4 class="section-head d-flex justify-content-center"> Providers </h4>
           <stats-card :key="siteSurveyProviderTotals.surveysGivenProviders">
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
+           <div slot="header" class="icon-warning">
+              <i class="nc-icon nc-badge text-warning"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Providers with Surveys/<br/>All Providers</p>
+              <p class="card-category">Surveys by Providers / <br/>All Providers</p>
               <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
               <h4 class="card-title">{{ siteSurveyProviderTotals.surveysGivenProviders }}/{{ siteSurveyProviderTotals.surveysTotalProviders }}</h4>
             </div>
@@ -66,13 +66,13 @@
 
         <!-- siteSurveyPatientTotals -->
         <div class="col-xl-3 col-md-4">
-        
+          <h4 class="section-head d-flex justify-content-center"> Patients </h4>
           <stats-card :key="siteSurveyPatientTotals.surveysGivenPatients">
             <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
+              <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Patients with Surveys/<br/>All Patients</p>
+              <p class="card-category">Surveys by Patients / <br/>All Patients</p>
               <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
               <h4 class="card-title">{{ siteSurveyPatientTotals.surveysGivenPatients }}/{{ siteSurveyPatientTotals.surveysTotalPatients }}</h4>
             </div>
@@ -84,7 +84,7 @@
 
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Survey Activity Summary</h4>
+          <h4 class="section-head">Survey Types Given</h4>
         </div>
 
         <div class="row justify-content-center">
@@ -114,7 +114,7 @@
 
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Patient Survey Activity By Provider</h4>
+          <h4 class="section-head">Surveys to Patients - By Provider</h4>
         </div>
 
         <div class="row justify-content-center">

@@ -14,7 +14,7 @@
           <div class="col-xl-3 col-md-3">
             <stats-card>
               <div slot="header" class="icon-danger">
-                <i class="nc-icon nc-vector text-danger"></i>
+                <i class="nc-icon nc-chart-pie-36 text-danger"></i>
               </div>
               <div slot="content">
                 <p class="card-category">No Show Appts/All ({{ siteEncounterApptNoShowTotal }}/{{ siteEncounterApptTotalStr}})</p>
@@ -26,7 +26,7 @@
           <div class="col-xl-3 col-md-3">
             <stats-card>
               <div slot="header" class="icon-info">
-                <i class="nc-icon nc-favourite-28 text-primary"></i>
+                <i class="nc-icon nc-simple-remove text-danger"></i>
               </div>
               <div slot="content">
                 <p class="card-category">Any Cancelled Appts/All ({{ formatNumber(siteEncounterApptCancelTotal) }}/{{ siteEncounterApptTotalStr }})</p>

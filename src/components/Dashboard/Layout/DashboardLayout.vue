@@ -62,7 +62,12 @@
     </side-bar>
     <div class="main-panel">
       <top-navbar></top-navbar>
-
+      <sidebar-share :color.sync="sidebarBackground"
+                     :backgroundImageEnabled.sync="sidebarBackgroundImageEnabled"
+                     :fixed-navbar.sync="fixedNavbar"
+                     :sidebarMini.sync="sidebarMini"
+                     :image.sync="sidebarBackgroundImage">>
+      </sidebar-share>
       <dashboard-content @click="toggleSidebar">
 
       </dashboard-content>
@@ -81,21 +86,36 @@
   import MobileMenu from './MobileMenu.vue'
   import UserMenu from './UserMenu.vue'
 
+  import SidebarShare from './SidebarShare.vue'
+
   export default {
     components: {
       TopNavbar,
       ContentFooter,
       DashboardContent,
       MobileMenu,
-      UserMenu
+      UserMenu,
+      SidebarShare
+    },
+    data () {
+      return {
+        sidebarBackground: 'black',
+        sidebarBackgroundImage: 'static/img/sidebar-5.jpg',
+        sidebarBackgroundImageEnabled: true,
+        fixedNavbar: false,
+        sidebarMini: false
+      }
     },
     methods: {
       toggleSidebar () {
         if (this.$sidebar.showSidebar) {
           this.$sidebar.displaySidebar(false)
         }
+      },
+      minimizeSidebar () {
+        this.$sidebar.toggleMinimize()
       }
-    }
+    },
   }
 
 </script>

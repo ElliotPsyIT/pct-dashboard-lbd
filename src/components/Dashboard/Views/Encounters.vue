@@ -671,12 +671,12 @@ export default {
       'siteEncounterLineChartSeries',
       'siteEncounterPatientLineChartSeries',
 
-      // 'siteEncounterApptClinicNoShowTotal',
-      // 'siteEncounterApptCancelNoShowPieChart',
-      // 'siteEncounterApptNoShowTotal',
-      // 'siteEncounterApptCancelTotal',
-      // 'siteEncounterApptTotalStr', // for display
-      // 'siteEncounterApptTotal', // for computation
+      'siteEncounterApptClinicNoShowTotal',
+      'siteEncounterApptCancelNoShowPieChart',
+      'siteEncounterApptNoShowTotal',
+      'siteEncounterApptCancelTotal',
+      'siteEncounterApptTotalStr', // for display
+      'siteEncounterApptTotal', // for computation
       
       'siteEncounterCPTTotal',
       'siteEncounterCPTCategories',

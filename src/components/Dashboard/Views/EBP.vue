@@ -599,7 +599,7 @@ export default {
       'siteALLSessions',
 
       'siteEBPPatientsAny',
-      // 'siteALLPatients', // inconsistent with Encounter therapy sum
+      'siteALLPatients', // inconsistent with Encounter therapy sum
       'siteEncounterPatientTotal', // pull from Encounters
 
       'siteEncounterCPTPatientsEither', // from Encounter to sync #s

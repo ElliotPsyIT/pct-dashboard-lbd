@@ -254,6 +254,8 @@
       <modals-container />
       
       <v-dialog />
+      <!-- <modal name="Comment">{{ comments }}</modal> -->
+      <!-- <modal name="Comment"/> -->
 
     </div>
   </transition>
@@ -435,6 +437,22 @@ export default {
         title: 'Consult Comments',
         text: this.comments
       })
+      // this.$modal.show('Comment', { hello: 'hello'})
+      // this.$modal.show('Comment', {
+      //   template: `
+      //     <div>
+      //       <h4>Hello</h4>
+      //       <p>{{ comments }}</p>
+      //     </div>
+      //   `,
+      //   props: ['comments']
+      // }, {
+      //   comments: 'this is a comment'
+      // },
+      // {
+      //   height: 'auto'
+      // })
+
     },
     pieClickHandler(status) {
       // pie clicked, needs handling
@@ -542,20 +560,28 @@ export default {
 
         this.$store.dispatch('getSelectedConsultComments', ConsultSID)
         .then((comments) => {  
+          // console.log('comments from API: ', comments
 
           let commentsString = ''
+          
           if (Array.isArray(comments)) { // should be an array of comments
-            const commentsText = comments
-              .filter(obj => obj.ConsultActivityComment !== null)
-              .map((c) => { 
-                if (c.ConsultActivityComment == null) { return }
-                return c.ConsultActivityComment
-              })
-            commentsString = commentsText.length == 0 ? 'No Comments' : commentsText.join('<br/><br/>')
-            // hide loading indicator now
-            this.gridOptions.api.hideOverlay();
-            this.show(commentsString) // call dialog and show comments
-          } else {
+            // const commentsText = comments
+            //   .filter(obj => obj.ConsultActivityComment !== null)
+            //   .map((c) => { 
+            //     if (c.ConsultActivityComment == null) { return }
+            //     return c.ConsultActivityComment
+            //   })
+            // commentsString = commentsText.length == 0 ? 'No Comments' : commentsText.join('<br/><br/>')
+            
+            const commentsString = comments[0].ConsultActivityComments
+            if (commentsString === null)  return 'No Comments'
+            const commentsFormatted = commentsString.split('|').join('<br/><br/>') 
+
+            this.gridOptions.api.hideOverlay(); // hide loading indicator now
+            this.show(commentsFormatted) // call dialog and show comments
+
+          }  
+          else {
             console.log('Unexpected Consult Comment Response - Not Array!!')
             // call dialog and show error
             this.show('Problem Getting Consult Comments<br/><br/> Contact Administration elliot.m.fielstein@va.gov') 

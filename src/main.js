@@ -23,7 +23,7 @@ import routes from './routes/routes'
 
 // modal
 import VModal from 'vue-js-modal'
-Vue.use(VModal, {dynamic: true, dialog: true}) 
+Vue.use(VModal, {dynamic: true, dialog: true, injectModalsContainer: true}) 
 
 // plugin setup
 Vue.use(VueRouter)

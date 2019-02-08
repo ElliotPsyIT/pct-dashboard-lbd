@@ -282,6 +282,7 @@ const store = new Vuex.Store({
     // like siteEncounterCPTIndividual's large CPTs - but Ind Therapy Category and no Grp Therapy
     siteEncounterCPTPatientsIndOnly: (state) => {
       //encounterPatientCPTCategories
+      console.log('state.encounterPatientCPTCategories', state.encounterPatientCPTCategories)
       let filteredArray = state.encounterPatientCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.TherapyType === 'IndividualOnly')
@@ -392,6 +393,12 @@ const store = new Vuex.Store({
         .filter(site => site.Sta3n === state.selectedSite)
       return filteredArray
     },
+    siteProviderList: (state) => {
+      let filteredArray = state.providerInfo
+        .filter(site => site.Sta3n === state.selectedSite)
+        .map(site => { return site.STAFFNAME })
+      return filteredArray
+    },
     siteProviderPatientDetailCPT: (state) => {
       // console.log('state.selectedSite: ', state.selectedSite)
       let filteredArray = state.providerPatientDetailCPT
@@ -417,44 +424,51 @@ const store = new Vuex.Store({
       let sumGivenOverall = state.surveyTotals
         .filter(site => site.StaPa === state.selectedSite && 
           site.dataType == 'surveysGivenOverall')
+      console.log('sumGivenOverall is: ', sumGivenOverall)
+      let sumGivenTotal = sumGivenOverall.length == 0 ? 0 : +sumGivenOverall[0].sumTotal
 
-      return { surveysGivenOverall: +sumGivenOverall[0].sumTotal }
+      return { surveysGivenOverall: sumGivenTotal }
     },
     siteSurveyClinicTotals: (state) => {
       let surveysGivenClinics = state.surveyTotals
         .filter(site => site.StaPa === state.selectedSite && 
           site.dataType == 'surveysGivenClinics')
+      let surveysGivenClinicsTot = surveysGivenClinics.length == 0 ? 0 : +surveysGivenClinics[0].sumTotal
 
       let surveysTotalClinics = state.surveyTotals
       .filter(site => site.StaPa === state.selectedSite && 
         site.dataType == 'surveysTotalClinics')
-
-      return { surveysGivenClinics: +surveysGivenClinics[0].sumTotal,
-               surveysTotalClinics: +surveysTotalClinics[0].sumTotal }
+      let surveysTotalClinicsTot = surveysTotalClinics.length == 0 ? 0 : +surveysTotalClinics[0].sumTotal
+      
+      return { surveysGivenClinics: surveysGivenClinicsTot,
+               surveysTotalClinics: surveysTotalClinicsTot}
     },
     siteSurveyProviderTotals: (state) => {
       let surveysGivenProviders = state.surveyTotals
         .filter(site => site.StaPa === state.selectedSite && 
           site.dataType == 'surveysGivenProviders')
-          // surveysTotalClinics
+      let surveysGivenProvidersTot = surveysGivenProviders.length == 0 ? 0 : +surveysGivenProviders[0].sumTotal
+      
       let surveysTotalProviders = state.surveyTotals
         .filter(site => site.StaPa === state.selectedSite && 
           site.dataType == 'surveysTotalProviders')
+      let surveysTotalProvidersTot = surveysTotalProviders.length == 0 ? 0 : +surveysTotalProviders[0].sumTotal
 
-      return { surveysGivenProviders: +surveysGivenProviders[0].sumTotal,
-               surveysTotalProviders: +surveysTotalProviders[0].sumTotal }
+      return { surveysGivenProviders: surveysGivenProvidersTot,
+               surveysTotalProviders: surveysTotalProvidersTot }
     },
     siteSurveyPatientTotals: (state) => {
       let surveysGivenPatients = state.surveyTotals
         .filter(site => site.StaPa === state.selectedSite && 
           site.dataType == 'surveysGivenPatients')
-          // surveysTotalClinics
+      let surveysGivenPatientsTot = surveysGivenPatients.length == 0 ? 0 : +surveysGivenPatients[0].sumTotal
+      
       let surveysTotalPatients = state.surveyTotals
       .filter(site => site.StaPa === state.selectedSite && 
         site.dataType == 'surveysTotalPatients')
-
-      return { surveysGivenPatients: +surveysGivenPatients[0].sumTotal,
-               surveysTotalPatients: +surveysTotalPatients[0].sumTotal }
+      let surveysTotalPatientsTot = surveysTotalPatients.length == 0 ? 0 : +surveysTotalPatients[0].sumTotal
+      return { surveysGivenPatients: surveysGivenPatientsTot,
+               surveysTotalPatients: surveysTotalPatientsTot }
     },
     siteSurveyDetails: (state) => {
       let filteredArray = state.surveyDetails
@@ -708,6 +722,10 @@ const store = new Vuex.Store({
       console.log('in setCurrentUser w this user: ', user)
       context.commit('SET_CURRENT_USER', user)
     },
+    setUserPermissions (context, userPermissions) {
+      // need to obtain sites for permissions
+      context.commit('SET_USER_PERMISSIONS', userPermissions)
+    },
     getSelectedConsultComments (context, ConsultSID) {
       console.log('In this action to get current ConsultSIDs Comments for: ', ConsultSID)
       var comments = ''
@@ -715,6 +733,7 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.get(`pct.cgi?elliot=1&format=consult_comments&consultsid=${ConsultSID}`)
         .then(response => { 
+          // alert('Got Data!')
           console.log('response.data is: ', response.data)
           resolve(response.data)
         }, error => {
@@ -731,12 +750,28 @@ const store = new Vuex.Store({
       state.selectedRange = range
     },
     SET_CURRENT_USER (state, user) {
+      // take the first record to get user
       state.userFirstName = user.FirstName
       state.userLastName = user.LastName
       console.log('in SET_CURRENT_USER and state. userFirstName is: ', userFirstName)
-      console.log('in SET_CURRENT_USER and state. userLastName is: ', userLastName)
+      console.log('in SET_CURRENT_USER and state. userLastName is: ', userLastName)   
+
+      //   if (user[0].FirstName != undefined && user[0].LastName != undefine) {
+      //   state.userFirstName = user.FirstName
+      //   state.userLastName = user.LastName
+      //   console.log('in SET_CURRENT_USER and state. userFirstName is: ', userFirstName)
+      //   console.log('in SET_CURRENT_USER and state. userLastName is: ', userLastName)    
+      // } else {
+      //   state.userFirstName = 'No'
+      //   state.userLastName = 'User Identified'
+      // }
     },
-    // SET_CURRENT_CONSULT_COMMENT (state, comments) {
+    SET_USER_PERMISSIONS (state, userPermissions) {
+      // iterate through records and pull sites and their PHIPII
+      // Create an object 
+    },
+
+      // SET_CURRENT_CONSULT_COMMENT (state, comments) {
     //   console.log('here I commit the current consult comment, that I will have gotten')
     //   // comments should be array
     //   const commentsType = typeof comments

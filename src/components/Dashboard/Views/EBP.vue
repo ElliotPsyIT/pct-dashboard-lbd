@@ -489,9 +489,10 @@
 
             <br/>
             <card>
-              <!-- <template slot="header">
-                <button @click="getSelectedRows()"> Get Selected Rows</button>
-              </template> -->
+              <template slot="header">
+                <!-- <button @click="getSelectedRows()"> Get Selected Rows</button> -->
+                <button class="float-right" @click="gridOptions.api.exportDataAsCsv()">Export to CSV</button>
+              </template>
                 <ag-grid-vue style="font-size: 12px; height: 425px" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions" 
                 :columnDefs="columnDefs"
@@ -532,6 +533,7 @@
               <template slot="header">
                 <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
                 <button @click="gridOptions1.api.expandAll()" >Expand All</button>
+                <button class="float-right" @click="gridOptions1.api.exportDataAsCsv()">Export to CSV</button>
               </template>
               <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
               :gridOptions="gridOptions1" 

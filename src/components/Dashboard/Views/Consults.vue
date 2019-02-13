@@ -120,6 +120,7 @@
             <card>
               <template slot="header">
                 <span>Consult Details (Hover Over a Header to Filter the Column)</span>
+                <button class="float-right" @click="gridOptions.api.exportDataAsCsv()">Export to CSV</button>
               </template>
                 <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions" 
@@ -577,9 +578,9 @@ export default {
           }
 
           // show dialog with comments
-            this.gridOptions.api.hideOverlay(); // hide loading indicator now
-            this.show(commentsFormatted) // call dialog and show comments
-
+          this.gridOptions.api.hideOverlay(); // hide loading indicator now
+          this.show(commentsFormatted) // call dialog and show comments
+  
         })
       }      
     },

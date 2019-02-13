@@ -58,6 +58,7 @@
             <card>
               <template slot="header">
                 <span>Hover Over Column Header to View Menu</span>
+                <button class="float-right" @click="gridOptions3.api.exportDataAsCsv()">Export to CSV</button>
               </template>
               <!-- {{siteEncounterApptProviderClinicNoShowTotal}} -->
                 <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 

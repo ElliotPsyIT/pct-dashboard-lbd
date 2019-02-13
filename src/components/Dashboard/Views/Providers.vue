@@ -59,6 +59,7 @@
             <card>
               <template slot="header">
                 <span>Hover Over Column Header to View Menu</span>
+                <button class="float-right" @click="gridOptions3.api.exportDataAsCsv()">Export to CSV</button>
               </template>
                 <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions3" 
@@ -95,6 +96,7 @@
                 <!-- <span>Click On Arrow <span class="nc-icon">></span> Below to Drill Down</span> -->
                 <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
                 <button @click="gridOptions1.api.expandAll()" >Expand All</button>
+                <button class="float-right" @click="gridOptions1.api.exportDataAsCsv()">Export to CSV</button>
               </template>
               <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
               :gridOptions="gridOptions1" 
@@ -134,6 +136,7 @@
                 <!-- <span>Click On Arrow <span class="nc-icon">></span> Below to Drill Down</span> -->
                 <button @click="gridOptions2.api.collapseAll()" >Collapse All</button>
                 <button @click="gridOptions2.api.expandAll()" >Expand All</button>
+                <button class="float-right" @click="gridOptions2.api.exportDataAsCsv()">Export to CSV</button>
               </template>
                 <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions2" 

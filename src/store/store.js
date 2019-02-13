@@ -282,7 +282,7 @@ const store = new Vuex.Store({
     // like siteEncounterCPTIndividual's large CPTs - but Ind Therapy Category and no Grp Therapy
     siteEncounterCPTPatientsIndOnly: (state) => {
       //encounterPatientCPTCategories
-      console.log('state.encounterPatientCPTCategories', state.encounterPatientCPTCategories)
+      // console.log('state.encounterPatientCPTCategories', state.encounterPatientCPTCategories)
       let filteredArray = state.encounterPatientCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.TherapyType === 'IndividualOnly')
@@ -396,8 +396,10 @@ const store = new Vuex.Store({
     siteProviderList: (state) => {
       let filteredArray = state.providerInfo
         .filter(site => site.Sta3n === state.selectedSite)
-        .map(site => { return site.STAFFNAME })
-      return filteredArray
+        .map(site => site.STAFFNAME )
+      //unique the provider names
+      filteredArray = filteredArray.filter((el, i, a) => i === a.indexOf(el))
+      return filteredArray // array of staffname objects?
     },
     siteProviderPatientDetailCPT: (state) => {
       // console.log('state.selectedSite: ', state.selectedSite)
@@ -424,7 +426,7 @@ const store = new Vuex.Store({
       let sumGivenOverall = state.surveyTotals
         .filter(site => site.StaPa === state.selectedSite && 
           site.dataType == 'surveysGivenOverall')
-      console.log('sumGivenOverall is: ', sumGivenOverall)
+      // console.log('sumGivenOverall is: ', sumGivenOverall)
       let sumGivenTotal = sumGivenOverall.length == 0 ? 0 : +sumGivenOverall[0].sumTotal
 
       return { surveysGivenOverall: sumGivenTotal }
@@ -520,7 +522,7 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'all_patients')
-      console.log('siteALLPatients filteredArray[0]: ', filteredArray[0] )
+      // console.log('siteALLPatients filteredArray[0]: ', filteredArray[0] )
       return filteredArray[0].sumTotal
     },
     siteEBPSessionsInd: (state) => {      

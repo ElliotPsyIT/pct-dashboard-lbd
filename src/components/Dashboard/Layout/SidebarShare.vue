@@ -6,8 +6,15 @@
       </a>
       <ul class="dropdown-menu">
         <li class="header-title">Placeholder for Provider List</li>
-        {{ siteProviderList }}
-        
+          <p v-for="provider in providers" :key="provider">
+            <span>
+              <input type=checkbox />
+              {{ provider }}
+            </span>
+          </p>
+        <!-- <li v-for="name in siteProviderList" :key="name.index" class="badge filter">
+          {{ name }}
+        </li>       -->
         <!-- <li class="colors-line text-center">
           <a class="switch-trigger background-color">
             <span v-for="item in sidebarColors" :key="item.index" class="badge filter"
@@ -83,12 +90,14 @@ import { mapGetters } from 'vuex'
     computed: {
       ...mapGetters([
         'siteProviderList',
-      ])
+      ]),
+      
     },
     props: ['color', 'image'],
     data () {
       return {
         isOpen: false,
+        providers: [],
         links: {
           documentation: 'https://cristijora.github.io/vue-light-bootstrap-dashboard/documentation/#/getting-started',
           download: 'https://github.com/cristijora/vue-light-bootstrap-dashboard/archive/master.zip'
@@ -111,7 +120,15 @@ import { mapGetters } from 'vuex'
       }
     },
     methods: {
+      providerlist () {
+        // use list from store and clean it up
+        this.providers = [...new Set(this.siteProviderList)]
+      // console.log('in providersList after uniqed and providers is: ', this.providers)
+        
+      },
       toggleDropDown () {
+        //identify list of providers
+        this.providerlist()
         this.isOpen = !this.isOpen
       },
       closeDropDown () {
@@ -283,7 +300,7 @@ import { mapGetters } from 'vuex'
   }
 
   .fixed-plugin .adjustments-line p {
-    float: left;
+    // float: left;
     display: inline-block;
     margin-bottom: 0;
     font-size: 1em;

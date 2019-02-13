@@ -560,35 +560,26 @@ export default {
 
         this.$store.dispatch('getSelectedConsultComments', ConsultSID)
         .then((comments) => {  
-          // console.log('comments from API: ', comments
+          console.log('comments from API: ', comments)
 
-          let commentsString = ''
+          let commentsFormatted = ''
           
           if (Array.isArray(comments)) { // should be an array of comments
-            // const commentsText = comments
-            //   .filter(obj => obj.ConsultActivityComment !== null)
-            //   .map((c) => { 
-            //     if (c.ConsultActivityComment == null) { return }
-            //     return c.ConsultActivityComment
-            //   })
-            // commentsString = commentsText.length == 0 ? 'No Comments' : commentsText.join('<br/><br/>')
             
-            const commentsString = comments[0].ConsultActivityComments
-            if (commentsString === null)  return 'No Comments'
-            const commentsFormatted = commentsString.split('|').join('<br/><br/>') 
+            let commentsString = comments[0].ConsultActivityComments
+            commentsFormatted = commentsString === null ?
+             'No Comments' : commentsString.split('|').join('<br/><br/>') 
 
+          }
+          else { // not an array
+            // error - something unexpected returned
+            commentsFormatted = 'Problem Getting Consult Comments<br/><br/> Contact Administration elliot.m.fielstein@va.gov'
+          }
+
+          // show dialog with comments
             this.gridOptions.api.hideOverlay(); // hide loading indicator now
             this.show(commentsFormatted) // call dialog and show comments
 
-          }  
-          else {
-            console.log('Unexpected Consult Comment Response - Not Array!!')
-            // call dialog and show error
-            this.show('Problem Getting Consult Comments<br/><br/> Contact Administration elliot.m.fielstein@va.gov') 
-          }
-          // trigger modal w comments
-          // console.log('now triggering modal with this commentString!: ', commentsString)
-          
         })
       }      
     },

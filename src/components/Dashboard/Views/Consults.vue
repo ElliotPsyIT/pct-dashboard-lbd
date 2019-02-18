@@ -300,10 +300,6 @@ export default {
     }
   },
   beforeMount() { 
-    // this.gridOptions = {}
-    // this.gridOptions.columnDefs = this.createColDefs()
-    // this.gridOptions.rowData = this.rowData // computed prop
-    // this.gridOptions.onFilterChanged = function() {console.log('filter changed!!')}
   
     this.gridOptions = {
       columnDefs: this.createColDefs(),
@@ -536,7 +532,6 @@ export default {
       
       // call store action to retrieve consult comments for this consultSID
 
-      
     },
     onReady() {
       console.log('onReady');

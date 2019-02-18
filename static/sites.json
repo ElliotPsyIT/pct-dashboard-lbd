@@ -49,19 +49,20 @@
       "InstitutionName": "VA HEARTLAND - WEST, VISN 15",
       "InstitutionNameLong": "(V15) (589) VA HEARTLAND - WEST, VISN 15"
     },
-    
     {
-      "VISN": 6,
-      "Sta3n": 658,
-      "StaPa": "658",
-      "InstitutionName": "SALEM VA MEDICAL CENTER",
-      "InstitutionNameLong": "(V06) (658) SALEM VA MEDICAL CENTER"
+      "VISN": 20,
+      "Sta3n": 653,
+      "StaPa": "653",
+      "InstitutionName": "ROSEBURG VA MEDICAL CENTER",
+      "InstitutionNameLong": "(V20) (653) ROSEBURG VA MEDICAL CENTER"
     },
     {
-      "VISN": 22,
-      "Sta3n": 664,
-      "StaPa": "664",
-      "InstitutionName": "SAN DIEGO HCS",
-      "InstitutionNameLong": "(V22) (664) SAN DIEGO HCS"
+      "VISN": 7,
+      "Sta3n": 619,
+      "StaPa": "619",
+      "InstitutionName": "CENTRAL ALABAMA HCS",
+      "InstitutionNameLong": "(V07) (619) CENTRAL ALABAMA HCS"
     }
+       
+    
 ]

@@ -736,7 +736,8 @@ const store = new Vuex.Store({
         axios.get(`pct.cgi?elliot=1&format=consult_comments&consultsid=${ConsultSID}`)
         .then(response => { 
           // alert('Got Data!')
-          console.log('response.data is: ', response.data)
+          // console.log('response.data is: ', response.data)
+          // console.log('is response.data an array', Array.isArray(response.data))
           resolve(response.data)
         }, error => {
           reject(error)

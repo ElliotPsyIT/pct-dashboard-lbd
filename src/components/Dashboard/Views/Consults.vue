@@ -557,15 +557,18 @@ export default {
         this.$store.dispatch('getSelectedConsultComments', ConsultSID)
         .then((comments) => {  
           console.log('comments from API: ', comments)
-
+          console.log('comments from API array length ', comments.length)
           let commentsFormatted = ''
           
-          if (Array.isArray(comments)) { // should be an array of comments
-            
-            let commentsString = comments[0].ConsultActivityComments
-            commentsFormatted = commentsString === null ?
-             'No Comments' : commentsString.split('|').join('<br/><br/>') 
-
+          if (Array.isArray(comments) ) { // should be an array of comments
+            // console.log('what is the comments in the array? ', comments)
+            if (comments.length > 0 ) { 
+              let commentsString = comments[0].ConsultActivityComments
+              commentsFormatted = commentsString === null ?
+              'No Comments' : commentsString.split('|').join('<br/><br/>') 
+            } else {
+              commentsFormatted = 'No Comments'
+            }
           }
           else { // not an array
             // error - something unexpected returned

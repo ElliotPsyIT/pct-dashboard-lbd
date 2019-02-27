@@ -556,8 +556,8 @@ export default {
 
         this.$store.dispatch('getSelectedConsultComments', ConsultSID)
         .then((comments) => {  
-          console.log('comments from API: ', comments)
-          console.log('comments from API array length ', comments.length)
+          // console.log('comments from API: ', comments)
+          // console.log('comments from API array length ', comments.length)
           let commentsFormatted = ''
           
           if (Array.isArray(comments) ) { // should be an array of comments
@@ -679,22 +679,27 @@ export default {
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter",
               cellRenderer: (params) => {
-                if (params.value === 'PENDING' || params.value === 'ACTIVE') {
-                  // console.log('is this pending or active: ', params.value)
-                  const link = document.createElement("a")
-                  link.innerText = params.value
-                  link.href = ''
-                  link.style.textDecoration = "underline"
-                  link.addEventListener("click", e => {
-                    // console.log('click event params? ', params)
-                    e.preventDefault();
-                    // console.log('click event is: ', e)
-                    // console.log('clicked on : ', params.value)
+                let comments = params.data.ConsultActivityComments
+                // console.log('checking the consult comments in consult details: ', comments)
+                if ((params.value === 'PENDING' || params.value === 'ACTIVE')) {
+                  // console.log('status: ', params.value)
+                  // console.log('comments: ', comments)
+                  if (comments == 1) { // there are comments for this consult
+                    const link = document.createElement("a")
+                    link.innerText = params.value
+                    link.href = ''
+                    link.style.textDecoration = "underline"
+                    link.addEventListener("click", e => {
+                      // console.log('click event params? ', params)
+                      e.preventDefault();
+                      // console.log('click event is: ', e)
+                      // console.log('clicked on : ', params.value)
                     
-                  });
-                  return link;                  
+                    })
+                    return link; // link to get comments        
+                  }
                 }
-                return params.value
+                return params.value // return status w/ no link
               }
             },
           ]

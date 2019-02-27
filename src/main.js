@@ -53,6 +53,8 @@ router.afterEach((to, from) => {
   NProgress.done()
 })
 
+Vue.config.productionTip = false
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -94,7 +96,7 @@ new Vue({
     // axios.get('pct.cgi?format=t1&dtrng=20180101,20180201&sta3n=575,365')
     axios.get('pct.cgi?format=who')
       .then(response => { 
-        console.log('response.data is: ', response.data)
+        // console.log('response.data is: ', response.data)
         const remote_user = response.data[0]
         if (remote_user != undefined) {
           this.$store.dispatch('setCurrentUser', {FirstName: remote_user.FirstName, LastName: remote_user.LastName})

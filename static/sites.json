@@ -14,6 +14,13 @@
       "InstitutionNameLong": "(V05) (512) VA MARYLAND HEALTH CARE SYS"
     },
     {
+      "VISN": 4,
+      "Sta3n": 642,
+      "StaPa": "642",
+      "InstitutionName": "PHILADELPHIA, PA VAMC",
+      "InstitutionNameLong": "(V04) (642) PHILADELPHIA, PA VAMC"
+    },
+    {
       "VISN": 9,
       "Sta3n": 626,
       "StaPa": "626",

@@ -62,13 +62,13 @@ const localStorage = window.localStorage
 
 // if saved store, then update initial state
 if(localStorage.getItem('store')) {
-  console.log('in store - and see if there is a localStorage store! ')
+  // console.log('in store - and see if there is a localStorage store! ')
   const storeLocal = JSON.parse(localStorage.getItem('store'))
   selectedSite = storeLocal.selectedSite || '512'
   selectedRange = storeLocal.selectedRange || 'threemonths'
   userFirstName = storeLocal.userFirstName || 'No'
   userLastName = storeLocal.userLastName || 'User Name'
-  console.log('what is selectedSite on storeLocal after JSON.parse: ', storeLocal.selectedSite) 
+  // console.log('what is selectedSite on storeLocal after JSON.parse: ', storeLocal.selectedSite) 
 }
 
 const store = new Vuex.Store({
@@ -597,7 +597,8 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpClinicsPEI')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+      // return filteredArray[0].totalNum
     },
     siteEBPClinicsCPT: (state) => {
       let filteredArray = state.ebpInfo
@@ -621,7 +622,8 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpProvidersPEI')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+      // return filteredArray[0].totalNum
     },
     siteEBPProvidersCPT: (state) => {
       let filteredArray = state.ebpInfo
@@ -645,7 +647,8 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpPatientsPEI')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+      // return filteredArray[0].totalNum
     },
     siteEBPPatientsCPT: (state) => {
       let filteredArray = state.ebpInfo
@@ -714,14 +717,29 @@ const store = new Vuex.Store({
 
   } ,
   actions: {
+    // getConsultDetails (context, site) {
+    //   console.log('in getConsultDetailsAction, site is: ', site)
+    //   context.state.consultDetails = [
+    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"NULL","InstitutionName":"VISN 20","RequestDateTime":"2019-01-25 12:18:11","OrderStatus":"SCHEDULED","ToRequestServiceName":"PTSD OUTPT (ROSEBURG)","InitialsAndL4":"RC3734","ConsultActivityComments":"0","ConsultSID":"800090322921"},
+    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 16:54:29","OrderStatus":"PENDING","ToRequestServiceName":"LINCOLN MH PSYCHOTHERAPY OUTPT","InitialsAndL4":"MC9771","ConsultActivityComments":"0","ConsultSID":"1400071919453"},
+    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 16:13:03","OrderStatus":"PENDING","ToRequestServiceName":"CALAIS MH PSYCHOTHERAPY OUTPT","InitialsAndL4":"JM7768","ConsultActivityComments":"0","ConsultSID":"1400071916543"},
+    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 15:01:59","OrderStatus":"ACTIVE","ToRequestServiceName":"TOGUS MH MED MANAGEMENT OUTPT","InitialsAndL4":"CT4954","ConsultActivityComments":"0","ConsultSID":"1400071918993"},
+    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 14:55:21","OrderStatus":"PENDING","ToRequestServiceName":"TOGUS MH PSYCHOTHERAPY OUTPT","InitialsAndL4":"DA6279","ConsultActivityComments":"0","ConsultSID":"1400071913696"},
+    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 11:47:06","OrderStatus":"ACTIVE","ToRequestServiceName":"TOGUS MH PSYCHOTHERAPY OUTPT","InitialsAndL4":"JO0921","ConsultActivityComments":"0","ConsultSID":"1400071903823"},
+    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 10:13:20","OrderStatus":"SCHEDULED","ToRequestServiceName":"BANGOR MH PSYCHOTHERAPY OUTPT","InitialsAndL4":"DJ1516","ConsultActivityComments":"0","ConsultSID":"1400071905426"},
+    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-22 19:13:29","OrderStatus":"ACTIVE","ToRequestServiceName":"TOGUS MH MED MANAGEMENT OUTPT","InitialsAndL4":"CT0256","ConsultActivityComments":"1","ConsultSID":"1400071893704"},
+    //   ]        
+    // },
     setSelectedSite (context, site) {
+      console.log('action: selSelectedSite context: ', context)
       context.commit('SET_SELECTED_SITE', site)
+      // context.dispatch('getConsultDetails', site)
     },
     setSelectedRange (context, range) {
       context.commit('SET_SELECTED_RANGE', range)
     },
     setCurrentUser (context, user) {
-      console.log('in setCurrentUser w this user: ', user)
+      // console.log('in setCurrentUser w this user: ', user)
       context.commit('SET_CURRENT_USER', user)
     },
     setUserPermissions (context, userPermissions) {
@@ -729,7 +747,7 @@ const store = new Vuex.Store({
       context.commit('SET_USER_PERMISSIONS', userPermissions)
     },
     getSelectedConsultComments (context, ConsultSID) {
-      console.log('In this action to get current ConsultSIDs Comments for: ', ConsultSID)
+      // console.log('In this action to get current ConsultSIDs Comments for: ', ConsultSID)
       var comments = ''
       // API call to get comments for this ConsultSID -- 1400071306050
       return new Promise((resolve, reject) => {
@@ -756,8 +774,8 @@ const store = new Vuex.Store({
       // take the first record to get user
       state.userFirstName = user.FirstName
       state.userLastName = user.LastName
-      console.log('in SET_CURRENT_USER and state. userFirstName is: ', userFirstName)
-      console.log('in SET_CURRENT_USER and state. userLastName is: ', userLastName)   
+      // console.log('in SET_CURRENT_USER and state. userFirstName is: ', userFirstName)
+      // console.log('in SET_CURRENT_USER and state. userLastName is: ', userLastName)   
 
       //   if (user[0].FirstName != undefined && user[0].LastName != undefine) {
       //   state.userFirstName = user.FirstName
@@ -792,7 +810,7 @@ const store = new Vuex.Store({
     
     initialiseStore(state) {
       // Check if the ID exists
-      console.log('checking for localStorage state')
+      // console.log('checking for localStorage state')
 			if(localStorage.getItem('store')) {
 				// Replace the state object with the stored item
 				this.replaceState(
@@ -803,7 +821,7 @@ const store = new Vuex.Store({
         state.selectedSite = state.selectedSite || '512'
         userFirstName = state.userFirstName || 'No'
         userLastName = state.userLastName || 'User Name'
-        console.log('initialiseStore getting localStorage state:', state )
+        // console.log('initialiseStore getting localStorage state:', state )
 			}
 		}
   }

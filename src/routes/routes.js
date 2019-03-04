@@ -13,19 +13,8 @@ import EBP from 'src/components/Dashboard/Views/EBP.vue'
 
 import Icons from 'src/components/Dashboard/Views/Icons.vue'
 
-// lazy load page views
-// const Consults = () => import('src/components/Dashboard/Views/Consults.vue')
-// const Encounters = () => import('src/components/Dashboard/Views/Encounters.vue')
-// const Providers = () => import('src/components/Dashboard/Views/Providers.vue')
-// const Surveys = () => import('src/components/Dashboard/Views/Surveys.vue')
-// const EBP = () => import('src/components/Dashboard/Views/EBP.vue')
-
-// import UserProfile from 'src/components/Dashboard/Views/UserProfile.vue'
-// import TableList from 'src/components/Dashboard/Views/TableList.vue'
-// import Typography from 'src/components/Dashboard/Views/Typography.vue'
-// import Icons from 'src/components/Dashboard/Views/Icons.vue'
-// import Maps from 'src/components/Dashboard/Views/Maps.vue'
-// import Notifications from 'src/components/Dashboard/Views/Notifications.vue'
+// import store to trigger get data action
+import store from '@/store/store'
 
 const routes = [
   {

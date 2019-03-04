@@ -61,49 +61,26 @@ new Vue({
   render: h => h(App),
   router,
   store,
-  // beforeCreate() {
-  //   console.log('initializing store ...')
-  //   this.$store.commit('initialiseStore')
-    
-  // },
   created() {
-    console.log('initializing store ...')
-    this.$store.commit('initialiseStore')
+    
+    // console.log('initializing store ...')
+    // this.$store.commit('initialiseStore')
     
   },
-  mounted() {
-    // in prod -- get user info as global
-    // var currentUser = ''
+  mounted() {   
     
-    // var window_remote_user = (typeof window.remote_user !== 'undefined' || window.remote_user !== null) ?
-    //   window.remote_user : null
-
-    // if (window_remote_user) {
-    //   console.log('got window.remote_user from sspi: ', window_remote_user)
-    //   var currentUser = window.remote_user
-    // }
-
-    // if (currentUser) {    
-    //   console.log('remote_user is: ', currentUser)
-    //   var [domain, username] = currentUser.split("\\")
-    //   this.$store.dispatch('setCurrentUser', {FirstName: domain, LastName: username})
-    // } 
-    // else {
-    //   this.$store.dispatch('setCurrentUser', {FirstName: 'No', LastName: 'User Retrieved'})
-    // }
-    
-    // get current user and set in store
-    // axios.get('pct.cgi?format=t1&dtrng=20180101,20180201&sta3n=575,365')
-    axios.get('pct.cgi?format=who')
-      .then(response => { 
-        // console.log('response.data is: ', response.data)
-        const remote_user = response.data[0]
-        if (remote_user != undefined) {
-          this.$store.dispatch('setCurrentUser', {FirstName: remote_user.FirstName, LastName: remote_user.LastName})
-        } else {
-          this.$store.dispatch('setCurrentUser', {FirstName: 'No', LastName: 'User Retrieved'})
-        }
-      
-      })
+    const path = 'pct.cgi'
+    const params = 'format=who'
+    // axios.get('pct.cgi?format=who')
+    axios.get(`${path}?${params}`)
+    .then(response => { 
+      // console.log('response.data is: ', response.data)
+      const remote_user = response.data[0]
+      if (remote_user != undefined) {
+        this.$store.dispatch('setCurrentUser', {FirstName: remote_user.FirstName, LastName: remote_user.LastName})
+      } else {
+        this.$store.dispatch('setCurrentUser', {FirstName: 'No', LastName: 'User Retrieved'})
+      }
+    })
   }
 })

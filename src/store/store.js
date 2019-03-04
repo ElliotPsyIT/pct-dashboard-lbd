@@ -11,7 +11,7 @@ import dateRanges from '../../static/dateRanges.json'
 import consultCounts from '../../static/consult_count.json'
 import consultStatusCounts from '../../static/consult_pie_chart.json'
 import consultLineChart from '../../static/consult_line_chart.json'
-import consultDetails from '../../static/consult_details.json'
+// import consultDetails from '../../static/consult_details.json'
 
 // Encounters
 import encounterCounts from '../../static/encounter_count.json'
@@ -48,41 +48,31 @@ import ebpDetailsTypes from '../../static/ebp_details_types.json'
 import ebpSummary from '../../static/ebp_summary.json'
 import ebpPatientsCPTCategories from '../../static/ebp_patient_cpt_categories.json'
 
-
 Vue.use(Vuex)
-
-// set up for initial state
-let selectedSite = null
-let selectedRange = null
-let userFirstName = null
-let userLastName = null
 
 // Access localStorage for previously stored site and daterange
 const localStorage = window.localStorage
+let storeLocal = {}
 
-// if saved store, then update initial state
+// if no saved store, then  initialize certain default values
 if(localStorage.getItem('store')) {
-  // console.log('in store - and see if there is a localStorage store! ')
-  const storeLocal = JSON.parse(localStorage.getItem('store'))
-  selectedSite = storeLocal.selectedSite || '512'
-  selectedRange = storeLocal.selectedRange || 'threemonths'
-  userFirstName = storeLocal.userFirstName || 'No'
-  userLastName = storeLocal.userLastName || 'User Name'
-  // console.log('what is selectedSite on storeLocal after JSON.parse: ', storeLocal.selectedSite) 
+  storeLocal = JSON.parse(localStorage.getItem('store'))
 }
+
 
 const store = new Vuex.Store({
   state: {
-    selectedSite,
-    selectedRange,
-    userFirstName,
-    userLastName,
+    // selectedSite,
+    selectedSite: storeLocal.selectedSite || '512',
+    selectedRange: storeLocal.selectedRange || 'threemonths',
+    userFirstName: storeLocal.userFirstName || 'No',
+    userLastName: storeLocal.userLastName || 'User Name',
     siteNames,
     dateRanges,
     
     consultCounts,
     consultStatusCounts,
-    consultDetails,
+    consultDetails : [],
     consultLineChart,
 
     encounterCounts,
@@ -127,7 +117,7 @@ const store = new Vuex.Store({
           return site.StaPa === state.selectedSite
         })
         .filter(site => site.dataType === 'consultCount')
-      //  console.log('ConsultTotal is: ', filteredArray)
+      //  console.log('ConsultTotal filteredArray is: ', filteredArray)
       return filteredArray[0].countTotal
     },
     siteConsultPatientTotal: (state) => {
@@ -163,6 +153,7 @@ const store = new Vuex.Store({
       return mappedArray  
     },
     siteConsultDetails: (state) => {
+      console.log('in getter siteConsultDetails')
       let consultDetails = state.consultDetails
         .filter(site => site.StaPa === state.selectedSite)
       // console.log('consultDetails is: ', consultDetails)
@@ -715,25 +706,28 @@ const store = new Vuex.Store({
       return filteredArray[0] ? filteredArray[0].NumPsychotherapyByType : 0
     },
 
-  } ,
+  },
   actions: {
-    // getConsultDetails (context, site) {
-    //   console.log('in getConsultDetailsAction, site is: ', site)
-    //   context.state.consultDetails = [
-    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"NULL","InstitutionName":"VISN 20","RequestDateTime":"2019-01-25 12:18:11","OrderStatus":"SCHEDULED","ToRequestServiceName":"PTSD OUTPT (ROSEBURG)","InitialsAndL4":"RC3734","ConsultActivityComments":"0","ConsultSID":"800090322921"},
-    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 16:54:29","OrderStatus":"PENDING","ToRequestServiceName":"LINCOLN MH PSYCHOTHERAPY OUTPT","InitialsAndL4":"MC9771","ConsultActivityComments":"0","ConsultSID":"1400071919453"},
-    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 16:13:03","OrderStatus":"PENDING","ToRequestServiceName":"CALAIS MH PSYCHOTHERAPY OUTPT","InitialsAndL4":"JM7768","ConsultActivityComments":"0","ConsultSID":"1400071916543"},
-    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 15:01:59","OrderStatus":"ACTIVE","ToRequestServiceName":"TOGUS MH MED MANAGEMENT OUTPT","InitialsAndL4":"CT4954","ConsultActivityComments":"0","ConsultSID":"1400071918993"},
-    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 14:55:21","OrderStatus":"PENDING","ToRequestServiceName":"TOGUS MH PSYCHOTHERAPY OUTPT","InitialsAndL4":"DA6279","ConsultActivityComments":"0","ConsultSID":"1400071913696"},
-    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 11:47:06","OrderStatus":"ACTIVE","ToRequestServiceName":"TOGUS MH PSYCHOTHERAPY OUTPT","InitialsAndL4":"JO0921","ConsultActivityComments":"0","ConsultSID":"1400071903823"},
-    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-25 10:13:20","OrderStatus":"SCHEDULED","ToRequestServiceName":"BANGOR MH PSYCHOTHERAPY OUTPT","InitialsAndL4":"DJ1516","ConsultActivityComments":"0","ConsultSID":"1400071905426"},
-    //     {"dataType":"consultDetails","dateRange":"threemonths","StaPa":"402","InstitutionName":"VA MAINE HCS","RequestDateTime":"2019-02-22 19:13:29","OrderStatus":"ACTIVE","ToRequestServiceName":"TOGUS MH MED MANAGEMENT OUTPT","InitialsAndL4":"CT0256","ConsultActivityComments":"1","ConsultSID":"1400071893704"},
-    //   ]        
-    // },
+    CONSULT_DETAILS (context) {
+      console.log('in CONSULT_DETAILS Action, check context here', context)
+    
+      const path = 'pct.cgi'
+      const params = 'format=consult_details&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        console.log('got consult details from server')
+        console.log('response.data is: ', response.data)
+        console.log('check context before commit: ', context)
+        context.commit('SET_CONSULT_DETAILS', response.data)
+      })
+    },
     setSelectedSite (context, site) {
-      console.log('action: selSelectedSite context: ', context)
+      // console.log('action: selSelectedSite context: ', context)
       context.commit('SET_SELECTED_SITE', site)
-      // context.dispatch('getConsultDetails', site)
+      console.log('commited this new site:', site)
+      console.log('calling Action CONSULT_DETAILS')
+      context.dispatch('CONSULT_DETAILS', site)
     },
     setSelectedRange (context, range) {
       context.commit('SET_SELECTED_RANGE', range)
@@ -764,7 +758,12 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
+    SET_CONSULT_DETAILS(state, consultDetails) {
+      console.log('in mutate SET_CONSULT_DETAILS and state is: ', state)
+      state.consultDetails = consultDetails
+    },
     SET_SELECTED_SITE (state, site) {
+      console.log('in mutate SET_SELECTED_SITE')
       state.selectedSite = site
     },
     SET_SELECTED_RANGE (state, range) {
@@ -808,28 +807,22 @@ const store = new Vuex.Store({
     //   }
     // },
     
-    initialiseStore(state) {
-      // Check if the ID exists
-      // console.log('checking for localStorage state')
-			if(localStorage.getItem('store')) {
-				// Replace the state object with the stored item
-				this.replaceState(
-					Object.assign(state, JSON.parse(localStorage.getItem('store')))
-        )
-        // hard code 'threemonths' as initialized date range for v.1.0
-        state.selectedRange = state.selectedRange || 'threemonths'
-        state.selectedSite = state.selectedSite || '512'
-        userFirstName = state.userFirstName || 'No'
-        userLastName = state.userLastName || 'User Name'
-        // console.log('initialiseStore getting localStorage state:', state )
-			}
-		}
+    // initialiseStore(state) {
+    //   // Called after new Vuex.Store is instantiated
+      
+		// 	if(localStorage.getItem('store')) {
+		// 		// Replace the state object with the stored item
+		// 		this.replaceState(
+		// 			Object.assign(state, JSON.parse(localStorage.getItem('store')))
+    //     )
+    //   }
+		// }
   }
 
 })
 
 // Init store from localStorage on load
-store.commit("initialiseStore");
+// store.commit("initialiseStore");
 
 // called after mutation w/ its name, and its post mutation state
 store.subscribe((mutation, state) => {

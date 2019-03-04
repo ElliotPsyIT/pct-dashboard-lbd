@@ -273,6 +273,7 @@ import VueHighcharts from 'vue2-highcharts'
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
 import dateFormat from "dateformat"
+import axios from 'axios'
 
 import { mapState, mapGetters, mapActions } from 'vuex'
 
@@ -312,7 +313,13 @@ export default {
       overlayLoadingTemplate: '<span class="ag-overlay-loading-center">Consult Comments Loading ...</span>',
     }
 
-},
+
+  },
+  mounted() {
+    // action gets Consult Details from server
+    this.CONSULT_DETAILS()
+
+  },
   computed: {
     ...mapState([
       'selectedSite', 'selectedRange'
@@ -322,9 +329,6 @@ export default {
       'siteConsultPendingTotal','siteConsultPieChartSeries','siteConsultLineChartSeries',
       'siteConsultDetails'
     ]),
-    // ...mapActions([
-    //   'getSelectedConsultComments'
-    // ]),
     cardStatusTextPending () {
       return {
         'text-big' : this.cardClickedConsultStatus === 'PENDING' &&
@@ -425,7 +429,9 @@ export default {
     }
   },
   methods: {
-
+    ...mapActions([
+      'CONSULT_DETAILS'
+    ]),
     show (comments) { //simple dialog box for now
       // console.log('in show getting these comments: ', comments)
       this.comments = comments

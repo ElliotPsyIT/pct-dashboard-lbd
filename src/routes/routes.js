@@ -67,36 +67,6 @@ const routes = [
         name: 'Icons',
         component: Icons
       },
-      // {
-      //   path: 'user',
-      //   name: 'User',
-      //   component: UserProfile
-      // },
-      // {
-      //   path: 'table-list',
-      //   name: 'Table List',
-      //   component: TableList
-      // },
-      // {
-      //   path: 'typography',
-      //   name: 'Typography',
-      //   component: Typography
-      // },
-      // {
-      //   path: 'icons',
-      //   name: 'Icons',
-      //   component: Icons
-      // },
-      // {
-      //   path: 'maps',
-      //   name: 'Maps',
-      //   component: Maps
-      // },
-      // {
-      //   path: 'notifications',
-      //   name: 'Notifications',
-      //   component: Notifications
-      // }
     ]
   },
   { path: '*', component: NotFound }

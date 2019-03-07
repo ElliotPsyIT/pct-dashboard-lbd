@@ -24,7 +24,7 @@ import encounterPatientCPTCategories from '../../static/encounter_patient_cpt_ca
 // Encounter Appointments
 import encounterApptCounts from '../../static/encounter_appointment_count.json'
 import encounterApptCancelNoShow from '../../static/encounter_appointment_cancel_noshow.json'
-import encounterApptClinicCancelNoShow from '../../static/encounter_appointment_clinic_cancel_noshow.json'
+// import encounterApptClinicCancelNoShow from '../../static/encounter_appointment_clinic_cancel_noshow.json'
 
 // Providers
 import providerCount from '../../static/provider_count.json'
@@ -53,12 +53,9 @@ Vue.use(Vuex)
 // Access localStorage for previously stored site and daterange
 const localStorage = window.localStorage
 let storeLocal = {}
-
-// if no saved store, then  initialize certain default values
 if(localStorage.getItem('store')) {
   storeLocal = JSON.parse(localStorage.getItem('store'))
 }
-
 
 const store = new Vuex.Store({
   state: {
@@ -84,7 +81,8 @@ const store = new Vuex.Store({
 
     encounterApptCancelNoShow,
     encounterApptCounts,
-    encounterApptClinicCancelNoShow,
+    encounterApptClinicCancelNoShow: [],
+    
 
     providerCount,
     providerInfo,
@@ -154,6 +152,8 @@ const store = new Vuex.Store({
     },
     siteConsultDetails: (state) => {
       console.log('in getter siteConsultDetails')
+      // console.log('selectedSite: ', selectedSite)
+      // console.log('state.consultDetails is: ', state.consultDetails)
       let consultDetails = state.consultDetails
         .filter(site => site.StaPa === state.selectedSite)
       // console.log('consultDetails is: ', consultDetails)
@@ -389,6 +389,7 @@ const store = new Vuex.Store({
         .filter(site => site.Sta3n === state.selectedSite)
         .map(site => site.STAFFNAME )
       //unique the provider names
+      // console.log('sitProviderList filteredArray: ', filteredArray)
       filteredArray = filteredArray.filter((el, i, a) => i === a.indexOf(el))
       return filteredArray // array of staffname objects?
     },
@@ -708,17 +709,32 @@ const store = new Vuex.Store({
 
   },
   actions: {
+    CANCEL_NO_SHOW_TOTALS (context) {
+      // console.log('in CANCEL_NOSHOW_TOTALS Action, check context here', context)
+    
+      const path = 'pct.cgi'
+      const params = 'format=encounter_appt_cancel_noshow&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got consult details from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_CANCEL_NOSHOW_TOTALS', response.data)
+      })
+      
+    },
     CONSULT_DETAILS (context) {
-      console.log('in CONSULT_DETAILS Action, check context here', context)
+      // console.log('in CONSULT_DETAILS Action, check context here', context)
     
       const path = 'pct.cgi'
       const params = 'format=consult_details&sta3n=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('got consult details from server')
-        console.log('response.data is: ', response.data)
-        console.log('check context before commit: ', context)
+        // console.log('got consult details from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
         context.commit('SET_CONSULT_DETAILS', response.data)
       })
     },
@@ -728,6 +744,7 @@ const store = new Vuex.Store({
       console.log('commited this new site:', site)
       console.log('calling Action CONSULT_DETAILS')
       context.dispatch('CONSULT_DETAILS', site)
+      context.dispatch('CANCEL_NO_SHOW_TOTALS')
     },
     setSelectedRange (context, range) {
       context.commit('SET_SELECTED_RANGE', range)
@@ -761,6 +778,10 @@ const store = new Vuex.Store({
     SET_CONSULT_DETAILS(state, consultDetails) {
       console.log('in mutate SET_CONSULT_DETAILS and state is: ', state)
       state.consultDetails = consultDetails
+    },
+    SET_CANCEL_NOSHOW_TOTALS(state, cancelNoShowTotals) {
+      console.log('in mutate SET_CANCEL_NOSHOW_TOTALS and state is: ', state)
+      state.encounterApptClinicCancelNoShow = cancelNoShowTotals
     },
     SET_SELECTED_SITE (state, site) {
       console.log('in mutate SET_SELECTED_SITE')
@@ -821,23 +842,21 @@ const store = new Vuex.Store({
 
 })
 
-// Init store from localStorage on load
-// store.commit("initialiseStore");
 
 // called after mutation w/ its name, and its post mutation state
 store.subscribe((mutation, state) => {
   console.log('subscribe called')
 
-  // prepare updated store
+  // prepare updated store w/ select subset of state
   let storedState = {
 		selectedSite: state.selectedSite,
     selectedRange: state.selectedRange,
     userFirstName: state.userFirstName,
     userLastName: state.userLastName
   }
-  
   // update localStorage with the mutated-changed store
-	localStorage.setItem('store', JSON.stringify(storedState))
+  localStorage.setItem('store', JSON.stringify(storedState))
+  
 })
 
 export default store

@@ -100,7 +100,7 @@ import { AgGridVue } from "ag-grid-vue";
 
 import { addCommas, totalAndPercent } from 'src/utils'
 
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'encounters',
@@ -175,7 +175,13 @@ export default {
       suppressPropertyNamesCheck: true
     }    
   },
-  methods: { 
+  mounted() {
+    this.CANCEL_NO_SHOW_TOTALS()
+  },
+  methods: {
+    ...mapActions([
+      'CANCEL_NO_SHOW_TOTALS'
+    ]),
     formatNumber(num) {
       return addCommas(num)
     },

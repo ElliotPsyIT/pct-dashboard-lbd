@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
 import App from './App.vue'
 import axios from 'axios'
+import { apiConfig } from '@/utils'
 
 //css
 import "../node_modules/ag-grid/dist/styles/ag-grid.css"
@@ -61,26 +62,18 @@ new Vue({
   render: h => h(App),
   router,
   store,
-  created() {
-    
-    // console.log('initializing store ...')
-    // this.$store.commit('initialiseStore')
-    
-  },
   mounted() {   
-    
-    const path = 'pct.cgi'
+    // who is the current user?
+    const path = apiConfig.path //'pct.cgi'
     const params = 'format=who'
-    // axios.get('pct.cgi?format=who')
     axios.get(`${path}?${params}`)
-    .then(response => { 
-      // console.log('response.data is: ', response.data)
-      const remote_user = response.data[0]
-      if (remote_user != undefined) {
-        this.$store.dispatch('setCurrentUser', {FirstName: remote_user.FirstName, LastName: remote_user.LastName})
-      } else {
-        this.$store.dispatch('setCurrentUser', {FirstName: 'No', LastName: 'User Retrieved'})
-      }
-    })
+      .then(response => { 
+        const remote_user = response.data[0]
+        if (remote_user != undefined) {
+          this.$store.dispatch('setCurrentUser', {FirstName: remote_user.FirstName, LastName: remote_user.LastName})
+        } else {
+          this.$store.dispatch('setCurrentUser', {FirstName: 'No', LastName: 'User Retrieved'})
+        }
+      })
   }
 })

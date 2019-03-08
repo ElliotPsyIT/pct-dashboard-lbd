@@ -34,8 +34,8 @@ import providerCount from '../../static/provider_count.json'
 
 // Surveys
 import surveyTotals from '../../static/survey_totals.json'
-import surveyDetails from '../../static/survey_details.json'
-import surveyPatientDetails from '../../static/survey_patient_details.json'
+// import surveyDetails from '../../static/survey_details.json'
+// import surveyPatientDetails from '../../static/survey_patient_details.json'
 
 // EBP
 import ebpCount from '../../static/ebp_count.json'
@@ -89,8 +89,8 @@ const store = new Vuex.Store({
     providerPatientDetailsCPT: [],
 
     surveyTotals,
-    surveyDetails,
-    surveyPatientDetails,
+    surveyDetails: [],
+    surveyPatientDetails: [],
 
     ebpCount,
     ebpInfo,
@@ -709,6 +709,36 @@ const store = new Vuex.Store({
 
   // ACTIONS
   actions: {
+    SURVEY_DETAILS (context) {
+      // console.log('in SURVEY_DETAILS Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=survey_details&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got consult details from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_SURVEY_DETAILS', response.data)
+      })
+
+    },
+    SURVEY_PATIENT_DETAILS (context) {
+      // console.log('in SURVEY_PATIENT_DETAILS Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=survey_patient_details&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got SURVEY_PATIENT_DETAILS  from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_SURVEY_PATIENT_DETAILS', response.data)
+      })
+
+    },
     PROVIDER_DETAILS (context) {
       // console.log('in PROVIDER_DETAILS Action, check context here', context)
                 
@@ -837,6 +867,11 @@ const store = new Vuex.Store({
         context.dispatch('PROVIDER_INFO') 
         context.dispatch('PROVIDER_PATIENT_DETAILS_CPT') 
       }
+      if (context.state.route.path == '/admin/surveys') {
+        // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
+        context.dispatch('SURVEY_DETAILS') 
+        context.dispatch('SURVEY_PATIENT_DETAILS') 
+      }
     },
     setSelectedRange (context, range) {
       context.commit('SET_SELECTED_RANGE', range)
@@ -867,6 +902,14 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
+    SET_SURVEY_DETAILS(state, surveyDetails) {
+      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      state.surveyDetails = surveyDetails
+    },
+    SET_SURVEY_PATIENT_DETAILS(state, surveyPatientDetails) {
+      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      state.surveyPatientDetails = surveyPatientDetails
+    },
     SET_PROVIDER_DETAILS(state, providerDetails) {
       // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
       state.providerDetails = providerDetails

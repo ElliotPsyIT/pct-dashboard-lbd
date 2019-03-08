@@ -159,7 +159,7 @@ import Card from 'src/components/UIComponents/Cards/Card.vue'
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue"
 
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 // surveysGivenOverall
 export default {
   name: 'surveys',
@@ -216,7 +216,14 @@ export default {
     this.onFilterChanged = function() {console.log('filter changed!!')}
    
   },
+  mounted() {
+    this.SURVEY_DETAILS()
+    this.SURVEY_PATIENT_DETAILS()
+  },
    methods: {
+    ...mapActions([
+      'SURVEY_DETAILS','SURVEY_PATIENT_DETAILS'
+    ]),     
     createColDefs() {
       return [
         {headerName: "Surveys",

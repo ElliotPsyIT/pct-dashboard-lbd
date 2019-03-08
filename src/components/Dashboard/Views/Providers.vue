@@ -50,7 +50,7 @@
 
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Provider Summary</h4>
+          <h4 class="section-head">Provider Activity Summary</h4>
         </div>
 
         <div class="row justify-content-center">
@@ -86,7 +86,7 @@
 
   <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Provider Encounters By Clinic</h4>
+          <h4 class="section-head">Provider Encounter Totals</h4>
         </div>
 
         <div class="row justify-content-center">
@@ -122,7 +122,7 @@
   
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Providers' Patients and Sessions</h4>
+          <h4 class="section-head">Provider Patient Sessions</h4>
         </div>
 
         <div class="row d-flex justify-content-center ">
@@ -171,7 +171,7 @@ import Card from 'src/components/UIComponents/Cards/Card.vue'
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
 
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'providers',
@@ -186,21 +186,23 @@ export default {
     ]),
     ...mapGetters([
       'siteProviderDetailsCPT',
+
       'siteProviderInfo',
-      'siteProviderClinicSummary',
-      'siteProviderPatientDetailCPT',
+      'siteProviderDetails',
+      'siteProviderPatientDetailsCPT',
+      
       'siteProviderProviderCount',
       'siteProviderClinicCount',
       'siteProviderPatientCount'
     ]),
-    rowData1 () { return this.siteProviderClinicSummary },
-    rowData2 () { return this.siteProviderPatientDetailCPT },
-    rowData3 () { return this.siteProviderInfo },
+    rowData1 () { return this.siteProviderDetails }, // siteProviderDetails/Provider Encounters Details
+    rowData2 () { return this.siteProviderPatientDetailsCPT }, // siteProviderPatientDetailsCPT/Provider Sessions Details
+    rowData3 () { return this.siteProviderInfo }, // siteProviderInfo/Provider Activity Details
   },
   beforeMount() {
-    this.columnDefs1 = this.createColDefs1(),
-    this.columnDefs2 = this.createColDefs2(),
-    this.columnDefs3 = this.createColDefs3(),
+    this.columnDefs1 = this.createColDefs1(), 
+    this.columnDefs2 = this.createColDefs2(), 
+    this.columnDefs3 = this.createColDefs3(), // siteProviderInfo/Provider Activity Details
 
     this.onFilterChanged = function() {console.log('filter changed!!')}
 
@@ -229,8 +231,15 @@ export default {
       suppressPropertyNamesCheck: true
      }
   },
+  mounted() {
+    this.PROVIDER_DETAILS()
+    this.PROVIDER_PATIENT_DETAILS_CPT()
+    this.PROVIDER_INFO()
+  },
   methods: {
-    
+    ...mapActions([
+      'PROVIDER_DETAILS','PROVIDER_PATIENT_DETAILS_CPT','PROVIDER_INFO'
+    ]),
     createColDefs1() { //experimental
     return [
         { headerName: "Provider (# Sessions Total)", 
@@ -366,15 +375,15 @@ export default {
       ]
     },
     onGridReady1() {
-      console.log('onGridReady1 fires sizeColumnsToFit!')
+      // console.log('onGridReady1 fires sizeColumnsToFit!')
       this.gridOptions1.api.sizeColumnsToFit()
     },
     onGridReady2() {
-      console.log('onGridReady3 fires sizeColumnsToFit!')
+      // console.log('onGridReady2 fires sizeColumnsToFit!')
       this.gridOptions2.api.sizeColumnsToFit()
     },
     onGridReady3() {
-      console.log('onGridReady3 fires sizeColumnsToFit!')
+      // console.log('onGridReady3 fires sizeColumnsToFit!')
       this.gridOptions3.api.sizeColumnsToFit()
     },
     // onRowDataChanged1() {

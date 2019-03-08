@@ -652,7 +652,7 @@ import { AgGridVue } from "ag-grid-vue";
 
 import { addCommas, totalAndPercent } from 'src/utils'
 
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'encounters',
@@ -800,7 +800,14 @@ export default {
     // }
     
   },
+  mounted() {
+    this.ENCOUNTER_CPT()
+    this.ENCOUNTER_CPT_CATEGORIES()
+  },
   methods: { 
+    ...mapActions([
+      'ENCOUNTER_CPT','ENCOUNTER_CPT_CATEGORIES'
+    ]),
     formatNumber(num) {
       return addCommas(num)
     },

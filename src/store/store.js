@@ -17,8 +17,8 @@ import consultLineChart from '../../static/consult_line_chart.json'
 import encounterCounts from '../../static/encounter_count.json'
 import encounterLineChart from '../../static/encounter_line_chart.json'
 import encounterPatientLineChart from '../../static/encounter_patient_line_chart.json'
-import encounterCPT from '../../static/encounter_cpt.json'
-import encounterCPTCategories from '../../static/encounter_cpt_categories.json'
+// import encounterCPT from '../../static/encounter_cpt.json'
+// import encounterCPTCategories from '../../static/encounter_cpt_categories.json'
 import encounterPatientCPTCategories from '../../static/encounter_patient_cpt_categories.json'
 
 // Encounter Appointments
@@ -28,10 +28,9 @@ import encounterApptCancelNoShow from '../../static/encounter_appointment_cancel
 
 // Providers
 import providerCount from '../../static/provider_count.json'
-import providerInfo from '../../static/provider_info.json'
-import providerDetail from '../../static/provider_details.json'
-import providerDetailCPT from '../../static/provider_details_cpt.json'
-import providerPatientDetailCPT from '../../static/provider_patient_details_cpt.json'
+// import providerInfo from '../../static/provider_info.json'
+// import providerDetails from '../../static/provider_details.json'
+// import providerPatientDetailsCPT from '../../static/provider_patient_details_cpt.json'
 
 // Surveys
 import surveyTotals from '../../static/survey_totals.json'
@@ -69,14 +68,14 @@ const store = new Vuex.Store({
     
     consultCounts,
     consultStatusCounts,
-    consultDetails : [],
+    consultDetails: [],
     consultLineChart,
 
     encounterCounts,
     encounterLineChart,
     encounterPatientLineChart,
-    encounterCPT,
-    encounterCPTCategories,
+    encounterCPT: [],
+    encounterCPTCategories: [],
     encounterPatientCPTCategories,
 
     encounterApptCancelNoShow,
@@ -85,10 +84,9 @@ const store = new Vuex.Store({
     
 
     providerCount,
-    providerInfo,
-    providerDetail,
-    providerDetailCPT,
-    providerPatientDetailCPT,
+    providerInfo: [],
+    providerDetails: [],
+    providerPatientDetailsCPT: [],
 
     surveyTotals,
     surveyDetails,
@@ -151,7 +149,7 @@ const store = new Vuex.Store({
       return mappedArray  
     },
     siteConsultDetails: (state) => {
-      console.log('in getter siteConsultDetails')
+      // console.log('in getter siteConsultDetails')
       // console.log('selectedSite: ', selectedSite)
       // console.log('state.consultDetails is: ', state.consultDetails)
       let consultDetails = state.consultDetails
@@ -360,7 +358,7 @@ const store = new Vuex.Store({
     },
     
 
-    //providerCount
+    // PROVIDERS
     siteProviderProviderCount: (state) => {
       let filteredArray = state.providerCount
         .filter(site => site.StaPa === state.selectedSite)
@@ -379,11 +377,6 @@ const store = new Vuex.Store({
         .filter(site => site.dataType === 'providerPatientCount')
       return filteredArray[0].countTotal
     },
-    siteProviderInfo: (state) => {
-      let filteredArray = state.providerInfo
-        .filter(site => site.Sta3n === state.selectedSite)
-      return filteredArray
-    },
     siteProviderList: (state) => {
       let filteredArray = state.providerInfo
         .filter(site => site.Sta3n === state.selectedSite)
@@ -393,9 +386,14 @@ const store = new Vuex.Store({
       filteredArray = filteredArray.filter((el, i, a) => i === a.indexOf(el))
       return filteredArray // array of staffname objects?
     },
-    siteProviderPatientDetailCPT: (state) => {
+    siteProviderInfo: (state) => {
+      let filteredArray = state.providerInfo
+        .filter(site => site.Sta3n === state.selectedSite)
+      return filteredArray
+    },
+    siteProviderPatientDetailsCPT: (state) => {
       // console.log('state.selectedSite: ', state.selectedSite)
-      let filteredArray = state.providerPatientDetailCPT
+      let filteredArray = state.providerPatientDetailsCPT
         .filter(site => {
           // console.log('site.Sta3n: ', site.Sta3n)
           // console.log('site.StaPa: ', site.StaPa)
@@ -404,8 +402,8 @@ const store = new Vuex.Store({
         // console.log('siteProviderPatientDetailCPT filteredArray', filteredArray)
       return filteredArray
     },   
-    siteProviderClinicSummary: (state) => {
-      let filteredArray = state.providerDetail
+    siteProviderDetails: (state) => {
+      let filteredArray = state.providerDetails
         .filter(site => {
           // ** Note: selectedSite is cast to number for comparison
           return site.Sta3n === state.selectedSite
@@ -708,7 +706,83 @@ const store = new Vuex.Store({
     },
 
   },
+
+  // ACTIONS
   actions: {
+    PROVIDER_DETAILS (context) {
+      // console.log('in PROVIDER_DETAILS Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=provider_details&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got consult details from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_PROVIDER_DETAILS', response.data)
+      })
+
+    },
+    PROVIDER_INFO (context) {
+      // console.log('in PROVIDER_INFO Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=provider_info&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got PROVIDER_INFO from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_PROVIDER_INFO', response.data)
+      })
+
+    },
+    PROVIDER_PATIENT_DETAILS_CPT (context) {
+      // console.log('in PROVIDER_PATIENT_DETAILS_CPT Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=provider_patient_details_cpt&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got provider_patient_details_cpt from server', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_PROVIDER_PATIENT_DETAILS_CPT', response.data)
+      })
+
+    },
+    ENCOUNTER_CPT (context) {
+      // console.log('in ENCOUNTER_CPT Action, check context here', context)
+          
+      const path = 'pct.cgi'
+      const params = 'format=encounter_cpt&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got consult details from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ENCOUNTER_CPT', response.data)
+      })
+
+    }, 
+    ENCOUNTER_CPT_CATEGORIES (context) {
+      // console.log('in ENCOUNTER_CPT Action, check context here', context)
+          
+      const path = 'pct.cgi'
+      const params = 'format=encounter_cpt&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got consult details from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ENCOUNTER_CPT', response.data)
+      })
+
+    },
     CANCEL_NO_SHOW_TOTALS (context) {
       // console.log('in CANCEL_NOSHOW_TOTALS Action, check context here', context)
     
@@ -740,11 +814,29 @@ const store = new Vuex.Store({
     },
     setSelectedSite (context, site) {
       // console.log('action: selSelectedSite context: ', context)
+      // console.log('setSelectedSite triggered')
+      // console.log('route.path is: ', context.state.route.path)
       context.commit('SET_SELECTED_SITE', site)
-      console.log('commited this new site:', site)
-      console.log('calling Action CONSULT_DETAILS')
-      context.dispatch('CONSULT_DETAILS', site)
-      context.dispatch('CANCEL_NO_SHOW_TOTALS')
+
+      if (context.state.route.path == '/admin/consults') {
+        // console.log('calling Action CONSULT_DETAILS')
+        context.dispatch('CONSULT_DETAILS', site)
+      }
+      if (context.state.route.path == '/admin/appointments') {
+        // console.log('calling Action CANCEL_NO_SHOW_TOTALS')    
+        context.dispatch('CANCEL_NO_SHOW_TOTALS') 
+      }
+      if (context.state.route.path == '/admin/encounters') {
+        // console.log('calling Actions ENCOUNTER_CPT & ENCOUNTER_CPT_CATEGORIES')    
+        context.dispatch('ENCOUNTER_CPT') 
+        context.dispatch('ENCOUNTER_CPT_CATEGORIES') 
+      }
+      if (context.state.route.path == '/admin/providers') {
+        // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
+        context.dispatch('PROVIDER_DETAILS') 
+        context.dispatch('PROVIDER_INFO') 
+        context.dispatch('PROVIDER_PATIENT_DETAILS_CPT') 
+      }
     },
     setSelectedRange (context, range) {
       context.commit('SET_SELECTED_RANGE', range)
@@ -775,16 +867,36 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
+    SET_PROVIDER_DETAILS(state, providerDetails) {
+      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      state.providerDetails = providerDetails
+    },
+    SET_PROVIDER_INFO(state, providerInfo) {
+      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      state.providerInfo = providerInfo
+    },
+    SET_PROVIDER_PATIENT_DETAILS_CPT(state, providerPatientDetailsCPT) {
+      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      state.providerPatientDetailsCPT = providerPatientDetailsCPT
+    },
+    SET_ENCOUNTER_CPT_CATEGORIES(state, encounterCPTCategories) {
+      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      state.encounterCPTCategories = encounterCPTCategories
+    },
+    SET_ENCOUNTER_CPT(state, encounterCPT) {
+      // console.log('in mutate SET_ENCOUNTER_CPT and state is: ', state)
+      state.encounterCPT = encounterCPT
+    },
     SET_CONSULT_DETAILS(state, consultDetails) {
-      console.log('in mutate SET_CONSULT_DETAILS and state is: ', state)
+      // console.log('in mutate SET_CONSULT_DETAILS and state is: ', state)
       state.consultDetails = consultDetails
     },
     SET_CANCEL_NOSHOW_TOTALS(state, cancelNoShowTotals) {
-      console.log('in mutate SET_CANCEL_NOSHOW_TOTALS and state is: ', state)
+      // console.log('in mutate SET_CANCEL_NOSHOW_TOTALS and state is: ', state)
       state.encounterApptClinicCancelNoShow = cancelNoShowTotals
     },
     SET_SELECTED_SITE (state, site) {
-      console.log('in mutate SET_SELECTED_SITE')
+      // console.log('in mutate SET_SELECTED_SITE')
       state.selectedSite = site
     },
     SET_SELECTED_RANGE (state, range) {

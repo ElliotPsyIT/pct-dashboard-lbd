@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { sync } from 'vuex-router-sync'
 import NProgress from 'nprogress'
 import App from './App.vue'
 import axios from 'axios'
@@ -53,6 +54,9 @@ router.afterEach((to, from) => {
   // Complete the animation of the route progress bar.
   NProgress.done()
 })
+
+// allow router access within vuex
+const unsync = sync(store, router)
 
 Vue.config.productionTip = false
 

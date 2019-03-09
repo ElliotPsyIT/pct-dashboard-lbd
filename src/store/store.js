@@ -40,12 +40,12 @@ import surveyTotals from '../../static/survey_totals.json'
 // EBP
 import ebpCount from '../../static/ebp_count.json'
 import ebpInfo from '../../static/ebp_info.json'
-import ebpDetail from '../../static/ebp_details.json'
-import ebpDetailSessionsSurveys from '../../static/ebp_details_sessions_and_surveys.json'
+import ebpDetails from '../../static/ebp_details.json'
 import ebpTypeCounts from '../../static/ebp_pie_chart.json'
-import ebpDetailsTypes from '../../static/ebp_details_types.json'
 import ebpSummary from '../../static/ebp_summary.json'
 import ebpPatientsCPTCategories from '../../static/ebp_patient_cpt_categories.json'
+// import ebpDetailsTypes from '../../static/ebp_details_types.json'
+// import ebpDetailsSessionsSurveys from '../../static/ebp_details_sessions_and_surveys.json'
 
 Vue.use(Vuex)
 
@@ -94,13 +94,12 @@ const store = new Vuex.Store({
 
     ebpCount,
     ebpInfo,
-    ebpDetail,
-    ebpDetailSessionsSurveys,
+    ebpDetails,
     ebpTypeCounts,
-    ebpDetailsTypes,
     ebpSummary,
     ebpPatientsCPTCategories,
-
+    ebpDetailsTypes: [],
+    ebpDetailsSessionsSurveys: [],
   },
   getters: {
     siteConsultTotal: (state) => {
@@ -647,7 +646,7 @@ const store = new Vuex.Store({
       return filteredArray[0].totalNum
     },
     siteEBPClinicSummary: (state) => {
-      let filteredArray = state.ebpDetail
+      let filteredArray = state.ebpDetails
         .filter(site => {
           // console.log('site.StaPa is: ', site.StaPa)
           // console.log('state.selectedSite is: ', state.selectedSite)
@@ -657,8 +656,8 @@ const store = new Vuex.Store({
         // console.log('from siteEBPClinicSummary: ', filteredArray)
       return filteredArray
     },
-    siteEBPClinicSessionsSurveys: (state) => {
-      let filteredArray = state.ebpDetailSessionsSurveys
+    siteEBPDetailsSessionsSurveys: (state) => {
+      let filteredArray = state.ebpDetailsSessionsSurveys
         .filter(site => {
           // console.log('site.StaPa is: ', site.StaPa)
           // console.log('state.selectedSite is: ', state.selectedSite)
@@ -709,6 +708,36 @@ const store = new Vuex.Store({
 
   // ACTIONS
   actions: {
+    EBP_DETAILS_TYPES (context) {
+      // console.log('in EBP_DETAILS_TYPES Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=ebp_details_types&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got consult details from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_EBP_DETAILS_TYPES', response.data)
+      })
+
+    },
+    EBP_DETAILS_SESSIONS_SURVEYS (context) {
+      // console.log('in EBP_DETAILS_SESSIONS_SURVEYS Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=ebp_details_sessions_surveys&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got consult details from server')
+        // console.log('EBP_DETAILS_SESSIONS_SURVEYS response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_EBP_DETAILS_SESSIONS_SURVEYS', response.data)
+      })
+
+    },
     SURVEY_DETAILS (context) {
       // console.log('in SURVEY_DETAILS Action, check context here', context)
                 
@@ -792,7 +821,7 @@ const store = new Vuex.Store({
       axios.get(`${path}?${params}`)
       .then(response => { 
         // console.log('got consult details from server')
-        // console.log('response.data is: ', response.data)
+        // console.log('ENCOUNTER_CPT response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_ENCOUNTER_CPT', response.data)
       })
@@ -802,14 +831,14 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_cpt&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_cpt_categories&sta3n=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
         // console.log('got consult details from server')
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
-        context.commit('SET_ENCOUNTER_CPT', response.data)
+        context.commit('SET_ENCOUNTER_CPT_CATEGORIES', response.data)
       })
 
     },
@@ -837,7 +866,7 @@ const store = new Vuex.Store({
       axios.get(`${path}?${params}`)
       .then(response => { 
         // console.log('got consult details from server')
-        // console.log('response.data is: ', response.data)
+        // console.log('CONSULT_DETAILS response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_CONSULT_DETAILS', response.data)
       })
@@ -872,6 +901,11 @@ const store = new Vuex.Store({
         context.dispatch('SURVEY_DETAILS') 
         context.dispatch('SURVEY_PATIENT_DETAILS') 
       }
+      if (context.state.route.path == '/admin/ebp') {
+        // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
+        context.dispatch('EBP_DETAILS_TYPES') 
+        context.dispatch('EBP_DETAILS_SESSIONS_SURVEYS') 
+      }
     },
     setSelectedRange (context, range) {
       context.commit('SET_SELECTED_RANGE', range)
@@ -902,6 +936,14 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
+    SET_EBP_DETAILS_TYPES(state, ebpDetailsTypes) {
+      // console.log('in mutate SET_EBP_DETAILS_TYPES and state is: ', state)
+      state.ebpDetailsTypes = ebpDetailsTypes
+    },
+    SET_EBP_DETAILS_SESSIONS_SURVEYS(state, ebpDetailsSessionsSurveys) {
+      // console.log('in mutate SET_EBP_DETAILS_SESSIONS_SURVEYS and state is: ', state)
+      state.ebpDetailsSessionsSurveys = ebpDetailsSessionsSurveys
+    },
     SET_SURVEY_DETAILS(state, surveyDetails) {
       // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
       state.surveyDetails = surveyDetails
@@ -1000,7 +1042,7 @@ const store = new Vuex.Store({
 
 // called after mutation w/ its name, and its post mutation state
 store.subscribe((mutation, state) => {
-  console.log('subscribe called')
+  // console.log('subscribe called')
 
   // prepare updated store w/ select subset of state
   let storedState = {

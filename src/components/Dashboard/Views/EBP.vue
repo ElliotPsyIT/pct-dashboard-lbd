@@ -567,7 +567,7 @@ import { AgGridVue } from "ag-grid-vue"
 
 import VueHighcharts from 'vue2-highcharts'
 
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 import { precise_round, addCommas } from 'src/utils'
 
@@ -637,9 +637,9 @@ export default {
       'siteEBPPatientsCPT',
       'siteEBPPatientsPEI',
       'siteEBPClinicSummary',
-      'siteEBPClinicSessionsSurveys',
       'siteEBPPieChartSeries',
       'siteEBPDetailsTypes',
+      'siteEBPDetailsSessionsSurveys',
 
       'siteEBPPatientsCPTIndividualOnly',
       'siteEBPPatientsCPTGroupOnly',
@@ -722,7 +722,7 @@ export default {
 
     rowData () { return this.siteEBPDetailsTypes  },
     // rowData1 () { return this.siteEBPClinicSummary },
-    rowData1 () { return this.siteEBPClinicSessionsSurveys },
+    rowData1 () { return this.siteEBPDetailsSessionsSurveys },
 
 
     pieChartOptions (vm) {
@@ -783,7 +783,14 @@ export default {
       // groupMultiAutoColumn:true,
     }
   },
+   mounted() {
+    this.EBP_DETAILS_TYPES()
+    this.EBP_DETAILS_SESSIONS_SURVEYS()
+  },
   methods: {
+   ...mapActions([
+      'EBP_DETAILS_TYPES','EBP_DETAILS_SESSIONS_SURVEYS'
+    ]),
     addCommas,
     onGridReady() {
       this.gridOptions.api.sizeColumnsToFit();

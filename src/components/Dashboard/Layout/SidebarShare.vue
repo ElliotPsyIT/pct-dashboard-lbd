@@ -84,7 +84,7 @@ import Vue from 'vue'
 //   Vue.use(SocialSharing)
 //   Vue.use(VueGitHubButtons, {useCache: true})
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
   export default {
     computed: {
@@ -119,7 +119,13 @@ import { mapGetters } from 'vuex'
         ]
       }
     },
+    mounted() {
+      this.PROVIDER_INFO()
+    },
     methods: {
+      ...mapActions([
+          'PROVIDER_INFO'
+        ]),      
       providerlist () {
         // use list from store and clean it up
         this.providers = [...new Set(this.siteProviderList)]

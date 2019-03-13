@@ -9,7 +9,7 @@ import dateRanges from '../../static/dateRanges.json'
 
 //Consults
 import consultCount from '../../static/consult_count.json'
-// import consultPieChart from '../../static/consult_pie_chart.json'
+import consultPieChart from '../../static/consult_pie_chart.json'
 import consultLineChart from '../../static/consult_line_chart.json'
 // import consultDetails from '../../static/consult_details.json'
 
@@ -72,6 +72,7 @@ const store = new Vuex.Store({
     consultDataCount: [],
     consultDetails: [],
 
+    consultPieChart,
     consultLineChart,
 
     encounterCounts,
@@ -108,8 +109,8 @@ const store = new Vuex.Store({
     
     siteConsultTotal: (state) => {
       // console.log('in store getters, state is: ', state)
-      console.log('in siteConsultTotal, state.consultDataCount is: ', state.consultDataCount)
-      let filteredArray = state.consultDataCount
+      // console.log('in siteConsultTotal, state.consultDataCount is: ', state.consultDataCount)
+      let filteredArray = state.consultCount //state.consultDataCount
         .filter(site => {
           // console.log('site.StaPa', site.StaPa)
           // console.log('state.selectedSite', state.selectedSite)
@@ -120,7 +121,7 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? 0 : filteredArray[0].countTotal
     },
     siteConsultPatientTotal: (state) => {
-      let filteredArray = state.consultDataCount
+      let filteredArray = state.consultCount//state.consultDataCount
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'patientCount')
       // console.log('PatientTotal is: ', filteredArray)
@@ -128,7 +129,7 @@ const store = new Vuex.Store({
     },
     siteConsultActiveTotal: (state) =>{
      
-      let filteredArray = state.consultDataPie //state.consultPieChart
+      let filteredArray = state.consultPieChart //state.consultDataPie //
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.ConsultStatus === 'ACTIVE')
       // console.log('ActiveTotal is: ', filteredArray)
@@ -137,7 +138,7 @@ const store = new Vuex.Store({
     siteConsultPendingTotal: (state) =>{
       // console.log('in siteConsultPendingTotal, state.selectedSite is ', state.selectedSite)
       // console.log('in siteConsultPendingTotal, state.consultPieChart is', state.consultPieChart)
-      let filteredArray = state.consultDataPie
+      let filteredArray = state.consultPieChart
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.ConsultStatus === 'PENDING')
       // console.log('PendingTotal is: ', filteredArray)
@@ -146,7 +147,7 @@ const store = new Vuex.Store({
     siteConsultPieChartSeries: (state) =>{
       // build series based on selected site
       // console.log('consultPieChart is: ', state.consultPieChart)
-      let mappedArray = state.consultDataPie
+      let mappedArray = state.consultPieChart
         .filter(site => site.StaPa === state.selectedSite)
         .map((status) => { return [status.ConsultStatus, +status.Num] })
       // console.log('pie chart series is: ', mappedArray)
@@ -162,12 +163,12 @@ const store = new Vuex.Store({
       return consultDetails
     },
     siteConsultLineChartSeries: (state) => {
-      let consultLineChartMonths = state.consultDataLine
+      let consultLineChartMonths = state.consultLineChart
         .filter(site => site.StaPa === state.selectedSite)
         .map((month) => { return month.shortMonthName})
       // console.log('consult line chart months: ', consultLineChartMonths)
       // return consultLineChartMonths
-      let consultLineChartData = state.consultDataLine
+      let consultLineChartData = state.consultLineChart
         .filter(site => site.StaPa === state.selectedSite)
         .map((month) => { return +month.monthConsultsTotal })
       // console.log('consult line chart data: ', consultLineChartData)
@@ -279,7 +280,7 @@ const store = new Vuex.Store({
       let filteredArray = state.encounterPatientCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.TherapyType === 'IndividualOnly')
-      return filteredArray[0].NumPsychotherapyByType
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NumPsychotherapyByType
     },
     // like siteEncounterCPTGroup's large CPTs - but Grp Therapy Category and no Ind Therapy
     siteEncounterCPTPatientsGrpOnly: (state) => {
@@ -287,7 +288,7 @@ const store = new Vuex.Store({
       let filteredArray = state.encounterPatientCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.TherapyType === 'GroupOnly')
-      return filteredArray[0].NumPsychotherapyByType
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NumPsychotherapyByType
     },
     // like above two but w/ both Ind and Grp Therapy
     siteEncounterCPTPatientsBoth: (state) => {
@@ -295,7 +296,7 @@ const store = new Vuex.Store({
       let filteredArray = state.encounterPatientCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.TherapyType === 'Both')
-      return filteredArray[0].NumPsychotherapyByType
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NumPsychotherapyByType
     },
     // like above two but w/ either Ind or Grp Therapy
     siteEncounterCPTPatientsEither: (state) => {
@@ -303,7 +304,7 @@ const store = new Vuex.Store({
       let filteredArray = state.encounterPatientCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
         .filter(site => site.TherapyType === 'Either')
-      return filteredArray[0].NumPsychotherapyByType
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NumPsychotherapyByType
     },
 
     //encounter appointment
@@ -555,7 +556,7 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'all_sessions_grp')
-        return filteredArray[0].sumTotal
+        return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
         //  console.log('siteEBPSessionsGrp arrayEmpty(filteredArray) ', arrayEmpty(filteredArray))
       // return arrayEmpty(filteredArray) ? 0 : filteredArray[0].sumTotal
     },
@@ -571,7 +572,7 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'all_patients_grp')
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
 
 
@@ -579,13 +580,13 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpClinics')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
     },
     siteEBPClinicsAll: (state) => {
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpClinicsAll')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
     },
     siteEBPClinicsPEI: (state) => {
       let filteredArray = state.ebpInfo
@@ -598,44 +599,44 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpClinicsCPT')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
     },
     siteEBPProviders: (state) => {
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpProviders')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
     },
     siteEBPProvidersAll: (state) => {
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpProvidersAll')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
     },
     siteEBPProvidersPEI: (state) => {
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpProvidersPEI')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
       // return filteredArray[0].totalNum
     },
     siteEBPProvidersCPT: (state) => {
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpProvidersCPT')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
     },
     siteEBPPatients: (state) => {
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpPatients')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
     },
     siteEBPPatientsAll: (state) => {
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpPatientsAll')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
     },
     siteEBPPatientsPEI: (state) => {
       let filteredArray = state.ebpInfo
@@ -648,7 +649,7 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpInfo
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebpPatientsCPT')
-      return filteredArray[0].totalNum
+      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
     },
     siteEBPClinicSummary: (state) => {
       let filteredArray = state.ebpDetails

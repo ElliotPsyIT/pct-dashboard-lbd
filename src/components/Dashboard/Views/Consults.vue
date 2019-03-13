@@ -318,6 +318,7 @@ export default {
   mounted() {
     // action gets Consult Details from server
     this.CONSULT_DETAILS()
+    this.CONSULT_DATA()
 
   },
   computed: {
@@ -430,7 +431,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'CONSULT_DETAILS'
+      'CONSULT_DETAILS','CONSULT_DATA'
     ]),
     show (comments) { //simple dialog box for now
       // console.log('in show getting these comments: ', comments)

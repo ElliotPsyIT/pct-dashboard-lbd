@@ -8,8 +8,8 @@ import siteNames from '../../static/sites.json'
 import dateRanges from '../../static/dateRanges.json'
 
 //Consults
-import consultCounts from '../../static/consult_count.json'
-import consultStatusCounts from '../../static/consult_pie_chart.json'
+import consultCount from '../../static/consult_count.json'
+// import consultPieChart from '../../static/consult_pie_chart.json'
 import consultLineChart from '../../static/consult_line_chart.json'
 // import consultDetails from '../../static/consult_details.json'
 
@@ -66,9 +66,12 @@ const store = new Vuex.Store({
     siteNames,
     dateRanges,
     
-    consultCounts,
-    consultStatusCounts,
+    consultCount,
+    consultDataPie: [],
+    consultDataLine: [],
+    consultDataCount: [],
     consultDetails: [],
+
     consultLineChart,
 
     encounterCounts,
@@ -102,28 +105,30 @@ const store = new Vuex.Store({
     ebpDetailsSessionsSurveys: [],
   },
   getters: {
+    
     siteConsultTotal: (state) => {
       // console.log('in store getters, state is: ', state)
-      // console.log('in siteConsultTotal, stateconsultCounts is: ', state.consultCounts)
-      let filteredArray = state.consultCounts
+      console.log('in siteConsultTotal, state.consultDataCount is: ', state.consultDataCount)
+      let filteredArray = state.consultDataCount
         .filter(site => {
           // console.log('site.StaPa', site.StaPa)
           // console.log('state.selectedSite', state.selectedSite)
           return site.StaPa === state.selectedSite
         })
         .filter(site => site.dataType === 'consultCount')
-      //  console.log('ConsultTotal filteredArray is: ', filteredArray)
-      return filteredArray[0].countTotal
+       console.log('ConsultTotal filteredArray is: ', filteredArray)
+      return filteredArray.length == 0 ? 0 : filteredArray[0].countTotal
     },
     siteConsultPatientTotal: (state) => {
-      let filteredArray = state.consultCounts
+      let filteredArray = state.consultDataCount
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'patientCount')
       // console.log('PatientTotal is: ', filteredArray)
-      return filteredArray[0].countTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].countTotal
     },
     siteConsultActiveTotal: (state) =>{
-      let filteredArray = state.consultStatusCounts
+     
+      let filteredArray = state.consultDataPie //state.consultPieChart
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.ConsultStatus === 'ACTIVE')
       // console.log('ActiveTotal is: ', filteredArray)
@@ -131,8 +136,8 @@ const store = new Vuex.Store({
     },
     siteConsultPendingTotal: (state) =>{
       // console.log('in siteConsultPendingTotal, state.selectedSite is ', state.selectedSite)
-      // console.log('in siteConsultPendingTotal, state.consultStatusCounts is', state.consultStatusCounts)
-      let filteredArray = state.consultStatusCounts
+      // console.log('in siteConsultPendingTotal, state.consultPieChart is', state.consultPieChart)
+      let filteredArray = state.consultDataPie
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.ConsultStatus === 'PENDING')
       // console.log('PendingTotal is: ', filteredArray)
@@ -140,29 +145,29 @@ const store = new Vuex.Store({
     },
     siteConsultPieChartSeries: (state) =>{
       // build series based on selected site
-      // console.log('consultStatusCounts is: ', state.consultStatusCounts)
-      let mappedArray = state.consultStatusCounts
+      // console.log('consultPieChart is: ', state.consultPieChart)
+      let mappedArray = state.consultDataPie
         .filter(site => site.StaPa === state.selectedSite)
         .map((status) => { return [status.ConsultStatus, +status.Num] })
       // console.log('pie chart series is: ', mappedArray)
       return mappedArray  
     },
     siteConsultDetails: (state) => {
-      // console.log('in getter siteConsultDetails')
+      console.log('in getter siteConsultDetails')
       // console.log('selectedSite: ', selectedSite)
-      // console.log('state.consultDetails is: ', state.consultDetails)
+      console.log('state.consultDetails is: ', state.consultDetails)
       let consultDetails = state.consultDetails
         .filter(site => site.StaPa === state.selectedSite)
       // console.log('consultDetails is: ', consultDetails)
       return consultDetails
     },
     siteConsultLineChartSeries: (state) => {
-      let consultLineChartMonths = state.consultLineChart
+      let consultLineChartMonths = state.consultDataLine
         .filter(site => site.StaPa === state.selectedSite)
         .map((month) => { return month.shortMonthName})
       // console.log('consult line chart months: ', consultLineChartMonths)
       // return consultLineChartMonths
-      let consultLineChartData = state.consultLineChart
+      let consultLineChartData = state.consultDataLine
         .filter(site => site.StaPa === state.selectedSite)
         .map((month) => { return +month.monthConsultsTotal })
       // console.log('consult line chart data: ', consultLineChartData)
@@ -670,7 +675,7 @@ const store = new Vuex.Store({
     // ebpDetailSessionSurvey
     siteEBPPieChartSeries: (state) =>{
       // build series based on selected site
-      // console.log('consultStatusCounts is: ', state.consultStatusCounts)
+      // console.log('ebpTypeCounts is: ', state.ebpTypeCounts)
       let mappedArray = state.ebpTypeCounts
         .filter(site => site.StaPa === state.selectedSite)
         .map((status) => { return [status.HealthFactorCategoryShort, +status.Num] })
@@ -857,6 +862,25 @@ const store = new Vuex.Store({
       })
       
     },
+    CONSULT_DATA (context) {
+      // console.log('in CONSULT_DATA Action, check context here', context)
+    
+      const path = 'pct.cgi'
+      const params = 'format=consult_data&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        
+        // convert string to object
+        console.log('in action CONSULT_DATA is: ', response.data)
+        console.log('response.data.pie is: ', response.data.pie)
+      
+
+        // console.log('check context before commit: ', context)
+        context.commit('SET_CONSULT_DATA', response.data)
+
+      })
+    },
     CONSULT_DETAILS (context) {
       // console.log('in CONSULT_DETAILS Action, check context here', context)
     
@@ -865,7 +889,7 @@ const store = new Vuex.Store({
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
-        // console.log('got consult details from server')
+        console.log('got consult details from server')
         // console.log('CONSULT_DETAILS response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_CONSULT_DETAILS', response.data)
@@ -975,6 +999,12 @@ const store = new Vuex.Store({
     SET_CONSULT_DETAILS(state, consultDetails) {
       // console.log('in mutate SET_CONSULT_DETAILS and state is: ', state)
       state.consultDetails = consultDetails
+    },
+    SET_CONSULT_DATA(state, consultData) {
+      console.log('in mutate SET_CONSULT_DATA and consultData is: ', consultData)
+      state.consultDataPie = consultData.pie
+      state.consultDataLine = consultData.line
+      state.consultDataCount = consultData.count
     },
     SET_CANCEL_NOSHOW_TOTALS(state, cancelNoShowTotals) {
       // console.log('in mutate SET_CANCEL_NOSHOW_TOTALS and state is: ', state)

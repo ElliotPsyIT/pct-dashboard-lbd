@@ -67,19 +67,32 @@ new Vue({
   router,
   store,
   mounted() {   
+    this.$store.dispatch('CURRENT_USER')
+    this.$store.dispatch('USER_PERMISSIONS')
+
     // who is the current user?
-    const path = apiConfig.path //'pct.cgi'
-    const params = 'format=who'
-    // console.log('getting user, axios get: ', `${path}?${params}`)
-    axios.get(`${path}?${params}`)
-      .then(response => { 
-        // console.log('return from who: ', response)
-        const remote_user = response.data[0]
-        if (remote_user != undefined) {
-          this.$store.dispatch('setCurrentUser', {FirstName: remote_user.FirstName, LastName: remote_user.LastName})
-        } else {
-          this.$store.dispatch('setCurrentUser', {FirstName: 'No', LastName: 'User Retrieved'})
-        }
-      })
+    // const path = apiConfig.path //'pct.cgi'
+    // const params = 'format=who'
+    // // console.log('getting user, axios get: ', `${path}?${params}`)
+    // axios.get(`${path}?${params}`)
+    //   .then(response => { 
+    //     // console.log('return from who: ', response)
+    //     const remote_user = response.data[0]
+    //     if (remote_user != undefined) {
+    //       this.$store.dispatch('setCurrentUser', 
+    //       {
+    //         FirstName: remote_user.FirstName, 
+    //         LastName: remote_user.LastName
+    //       }
+    //       )
+    //     } else {
+    //       this.$store.dispatch('setCurrentUser', 
+    //       {
+    //         FirstName: 'No', 
+    //         LastName: 'User Retrieved'
+    //       }
+    //       )
+    //     }
+    //   })
   }
 })

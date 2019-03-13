@@ -8,9 +8,9 @@ import siteNames from '../../static/sites.json'
 import dateRanges from '../../static/dateRanges.json'
 
 //Consults
-import consultCount from '../../static/consult_count.json'
-import consultPieChart from '../../static/consult_pie_chart.json'
-import consultLineChart from '../../static/consult_line_chart.json'
+// import consultCount from '../../static/consult_count.json'
+// import consultPieChart from '../../static/consult_pie_chart.json'
+// import consultLineChart from '../../static/consult_line_chart.json'
 // import consultDetails from '../../static/consult_details.json'
 
 // Encounters
@@ -63,17 +63,15 @@ const store = new Vuex.Store({
     selectedRange: storeLocal.selectedRange || 'threemonths',
     userFirstName: storeLocal.userFirstName || 'No',
     userLastName: storeLocal.userLastName || 'User Name',
+
+    phipii: 0,
     siteNames,
     dateRanges,
     
-    consultCount,
     consultDataPie: [],
     consultDataLine: [],
     consultDataCount: [],
     consultDetails: [],
-
-    consultPieChart,
-    consultLineChart,
 
     encounterCounts,
     encounterLineChart,
@@ -110,18 +108,18 @@ const store = new Vuex.Store({
     siteConsultTotal: (state) => {
       // console.log('in store getters, state is: ', state)
       // console.log('in siteConsultTotal, state.consultDataCount is: ', state.consultDataCount)
-      let filteredArray = state.consultCount //state.consultDataCount
+      let filteredArray = state.consultDataCount //state.consultCount //
         .filter(site => {
           // console.log('site.StaPa', site.StaPa)
           // console.log('state.selectedSite', state.selectedSite)
           return site.StaPa === state.selectedSite
         })
         .filter(site => site.dataType === 'consultCount')
-       console.log('ConsultTotal filteredArray is: ', filteredArray)
+      //  console.log('ConsultTotal filteredArray is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray[0].countTotal
     },
     siteConsultPatientTotal: (state) => {
-      let filteredArray = state.consultCount//state.consultDataCount
+      let filteredArray = state.consultDataCount //state.consultCount//
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'patientCount')
       // console.log('PatientTotal is: ', filteredArray)
@@ -129,7 +127,7 @@ const store = new Vuex.Store({
     },
     siteConsultActiveTotal: (state) =>{
      
-      let filteredArray = state.consultPieChart //state.consultDataPie //
+      let filteredArray = state.consultDataPie //state.consultPieChart //
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.ConsultStatus === 'ACTIVE')
       // console.log('ActiveTotal is: ', filteredArray)
@@ -138,7 +136,7 @@ const store = new Vuex.Store({
     siteConsultPendingTotal: (state) =>{
       // console.log('in siteConsultPendingTotal, state.selectedSite is ', state.selectedSite)
       // console.log('in siteConsultPendingTotal, state.consultPieChart is', state.consultPieChart)
-      let filteredArray = state.consultPieChart
+      let filteredArray = state.consultDataPie //state.consultPieChart
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.ConsultStatus === 'PENDING')
       // console.log('PendingTotal is: ', filteredArray)
@@ -147,28 +145,28 @@ const store = new Vuex.Store({
     siteConsultPieChartSeries: (state) =>{
       // build series based on selected site
       // console.log('consultPieChart is: ', state.consultPieChart)
-      let mappedArray = state.consultPieChart
+      let mappedArray = state.consultDataPie //state.consultPieChart
         .filter(site => site.StaPa === state.selectedSite)
         .map((status) => { return [status.ConsultStatus, +status.Num] })
       // console.log('pie chart series is: ', mappedArray)
       return mappedArray  
     },
     siteConsultDetails: (state) => {
-      console.log('in getter siteConsultDetails')
+      // console.log('in getter siteConsultDetails')
       // console.log('selectedSite: ', selectedSite)
-      console.log('state.consultDetails is: ', state.consultDetails)
+      // console.log('state.consultDetails is: ', state.consultDetails)
       let consultDetails = state.consultDetails
         .filter(site => site.StaPa === state.selectedSite)
       // console.log('consultDetails is: ', consultDetails)
       return consultDetails
     },
     siteConsultLineChartSeries: (state) => {
-      let consultLineChartMonths = state.consultLineChart
+      let consultLineChartMonths = state.consultDataLine //state.consultLineChart
         .filter(site => site.StaPa === state.selectedSite)
         .map((month) => { return month.shortMonthName})
       // console.log('consult line chart months: ', consultLineChartMonths)
       // return consultLineChartMonths
-      let consultLineChartData = state.consultLineChart
+      let consultLineChartData = state.consultDataLine //state.consultLineChart
         .filter(site => site.StaPa === state.selectedSite)
         .map((month) => { return +month.monthConsultsTotal })
       // console.log('consult line chart data: ', consultLineChartData)
@@ -873,8 +871,9 @@ const store = new Vuex.Store({
       .then(response => { 
         
         // convert string to object
-        console.log('in action CONSULT_DATA is: ', response.data)
-        console.log('response.data.pie is: ', response.data.pie)
+        // console.log('in action CONSULT_DATA is: ', response.data)
+        // console.log('response.data.pie is: ', response.data.pie)
+        // console.log('response.data.line is: ', response.data.line)
       
 
         // console.log('check context before commit: ', context)
@@ -890,11 +889,25 @@ const store = new Vuex.Store({
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('got consult details from server')
+        // console.log('got consult details from server')
         // console.log('CONSULT_DETAILS response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_CONSULT_DETAILS', response.data)
       })
+    },
+    USER_PERMISSIONS (context) {
+      // need to obtain sites for permissions
+      // console.log('before USER_PERMISSIONS call, context.state.selectedSite is: ', context.state.selectedSite)
+      const path = 'pct.cgi'
+      const params = 'format=user_permissions&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('in USER_PERMISSIONS, got this data back: ', response.data)
+        //
+        context.commit('SET_USER_PERMISSIONS', response.data[0])
+      })
+
     },
     setSelectedSite (context, site) {
       // console.log('action: selSelectedSite context: ', context)
@@ -935,23 +948,45 @@ const store = new Vuex.Store({
     setSelectedRange (context, range) {
       context.commit('SET_SELECTED_RANGE', range)
     },
+    CURRENT_USER (context) {
+      const path = 'pct.cgi'
+      const params = 'format=who'
+      // console.log('getting user, axios get: ', `${path}?${params}`)
+      axios.get(`${path}?${params}`)
+        .then(response => { 
+          // console.log('return from who: ', response)
+          const remote_user = response.data[0]
+          if (remote_user != undefined) {
+            context.dispatch('setCurrentUser',
+            {
+              FirstName: remote_user.FirstName, 
+              LastName: remote_user.LastName
+            }
+            )
+          } else {
+            context.dispatch('setCurrentUser',
+            {
+              FirstName: 'No', 
+              LastName: 'User Retrieved'
+            }
+            )
+          }
+        })
+    },
     setCurrentUser (context, user) {
       // console.log('in setCurrentUser w this user: ', user)
+
       context.commit('SET_CURRENT_USER', user)
-    },
-    setUserPermissions (context, userPermissions) {
-      // need to obtain sites for permissions
-      context.commit('SET_USER_PERMISSIONS', userPermissions)
     },
     getSelectedConsultComments (context, ConsultSID) {
       // console.log('In this action to get current ConsultSIDs Comments for: ', ConsultSID)
       var comments = ''
       // API call to get comments for this ConsultSID -- 1400071306050
       return new Promise((resolve, reject) => {
-        axios.get(`pct.cgi?elliot=1&format=consult_comments&consultsid=${ConsultSID}`)
+        axios.get('pct.cgi?format=consult_comments&consultsid=' + ConsultSID)
         .then(response => { 
           // alert('Got Data!')
-          // console.log('response.data is: ', response.data)
+          // console.log('consult_comments response is: ', response)
           // console.log('is response.data an array', Array.isArray(response.data))
           resolve(response.data)
         }, error => {
@@ -1002,7 +1037,7 @@ const store = new Vuex.Store({
       state.consultDetails = consultDetails
     },
     SET_CONSULT_DATA(state, consultData) {
-      console.log('in mutate SET_CONSULT_DATA and consultData is: ', consultData)
+      // console.log('in mutate SET_CONSULT_DATA and consultData is: ', consultData)
       state.consultDataPie = consultData.pie
       state.consultDataLine = consultData.line
       state.consultDataCount = consultData.count
@@ -1036,8 +1071,11 @@ const store = new Vuex.Store({
       // }
     },
     SET_USER_PERMISSIONS (state, userPermissions) {
-      // iterate through records and pull sites and their PHIPII
-      // Create an object 
+      // userPermissions is an object with this format
+      // {Surname: "Fielstein0", GivenName: "Elliot", ADAccount: "VHA09\VHATVHFIELSE0", PHIPII: "1", Sta3n: "653"}
+      // set PHIPIII
+      // console.log('in mutate SET_USER_PERMISSIONS with userPermissions: ', userPermissions)
+      state.phipii = userPermissions.PHIPII
     },
 
       // SET_CURRENT_CONSULT_COMMENT (state, comments) {

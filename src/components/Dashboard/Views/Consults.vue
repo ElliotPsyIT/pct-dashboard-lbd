@@ -551,16 +551,20 @@ export default {
       var selectedRows = this.gridOptions.api.getSelectedRows()
       var clickedField = event.colDef.field
       var orderStatus = selectedRows[0].OrderStatus
-
+      var permission = this.$store.state.phipii
       var consultCommentRequested = clickedField === 'OrderStatus' && 
         (orderStatus === 'ACTIVE' || orderStatus === 'PENDING')
         
-      if ( consultCommentRequested) {
+
+      if ( consultCommentRequested && permission == 1) {
         // need cell and row 
         var ConsultSID = selectedRows[0].ConsultSID
     
         this.gridOptions.api.showLoadingOverlay()
 
+        if (!permission) {
+
+        }
         this.$store.dispatch('getSelectedConsultComments', ConsultSID)
         .then((comments) => {  
           // console.log('comments from API: ', comments)
@@ -587,6 +591,9 @@ export default {
           this.show(commentsFormatted) // call dialog and show comments
   
         })
+      } else { 
+        // no permission to view PII
+        this.show('Viewing Consult Comments Requires PHI/PII Permissions!')
       }      
     },
     clickedCard(status) {

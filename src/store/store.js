@@ -385,7 +385,7 @@ const store = new Vuex.Store({
         .filter(site => site.Sta3n === state.selectedSite)
         .map(site => site.STAFFNAME )
       //unique the provider names
-      // console.log('sitProviderList filteredArray: ', filteredArray)
+      // console.log('siteProviderList filteredArray: ', filteredArray)
       filteredArray = filteredArray.filter((el, i, a) => i === a.indexOf(el))
       return filteredArray // array of staffname objects?
     },
@@ -871,7 +871,7 @@ const store = new Vuex.Store({
       .then(response => { 
         
         // convert string to object
-        // console.log('in action CONSULT_DATA is: ', response.data)
+        console.log('in action CONSULT_DATA is: ', response.data)
         // console.log('response.data.pie is: ', response.data.pie)
         // console.log('response.data.line is: ', response.data.line)
       
@@ -915,8 +915,12 @@ const store = new Vuex.Store({
       // console.log('route.path is: ', context.state.route.path)
       context.commit('SET_SELECTED_SITE', site)
 
+      // be sure provider info is updated with new site (primarily for providerlist)
+      context.dispatch('PROVIDER_INFO')
+
       if (context.state.route.path == '/admin/consults') {
         // console.log('calling Action CONSULT_DETAILS')
+        context.dispatch('CONSULT_DATA', site)
         context.dispatch('CONSULT_DETAILS', site)
       }
       if (context.state.route.path == '/admin/appointments') {
@@ -1017,7 +1021,7 @@ const store = new Vuex.Store({
       state.providerDetails = providerDetails
     },
     SET_PROVIDER_INFO(state, providerInfo) {
-      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      // console.log('in mutate SET_PROVIDER_INFO and providerInfo is: ', providerInfo)
       state.providerInfo = providerInfo
     },
     SET_PROVIDER_PATIENT_DETAILS_CPT(state, providerPatientDetailsCPT) {

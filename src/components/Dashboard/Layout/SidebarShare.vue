@@ -127,7 +127,10 @@ import { mapGetters, mapActions } from 'vuex'
           'PROVIDER_INFO'
         ]),      
       providerlist () {
+        // console.log('in providerlist method triggered by cog')
         // use list from store and clean it up
+        // this.providerlist
+        // console.log('just called providerlist action')
         this.providers = [...new Set(this.siteProviderList)]
       // console.log('in providersList after uniqed and providers is: ', this.providers)
         

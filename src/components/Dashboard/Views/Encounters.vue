@@ -803,10 +803,11 @@ export default {
   mounted() {
     this.ENCOUNTER_CPT()
     this.ENCOUNTER_CPT_CATEGORIES()
+    this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
   },
   methods: { 
     ...mapActions([
-      'ENCOUNTER_CPT','ENCOUNTER_CPT_CATEGORIES'
+      'ENCOUNTER_CPT','ENCOUNTER_CPT_CATEGORIES','ENCOUNTER_PATIENT_CPT_CATEGORIES'
     ]),
     formatNumber(num) {
       return addCommas(num)

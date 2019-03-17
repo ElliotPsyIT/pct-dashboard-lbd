@@ -19,7 +19,7 @@ import encounterLineChart from '../../static/encounter_line_chart.json'
 import encounterPatientLineChart from '../../static/encounter_patient_line_chart.json'
 // import encounterCPT from '../../static/encounter_cpt.json'
 // import encounterCPTCategories from '../../static/encounter_cpt_categories.json'
-import encounterPatientCPTCategories from '../../static/encounter_patient_cpt_categories.json'
+// import encounterPatientCPTCategories from '../../static/encounter_patient_cpt_categories.json'
 
 // Encounter Appointments
 import encounterApptCounts from '../../static/encounter_appointment_count.json'
@@ -78,7 +78,7 @@ const store = new Vuex.Store({
     encounterPatientLineChart,
     encounterCPT: [],
     encounterCPTCategories: [],
-    encounterPatientCPTCategories,
+    encounterPatientCPTCategories: [],
 
     encounterApptCancelNoShow,
     encounterApptCounts,
@@ -226,48 +226,58 @@ const store = new Vuex.Store({
     siteEncounterCPTCategories: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite)
+      // console.log('in ENCOUNTER_CPT_CATEGORIES, filteredArray is: ', filteredArray)
       return filteredArray
     },
     // total for Ind Therapy CPT Category (large set of CPTs)
     siteEncounterCPTIndividual: (state) => {
+      console.log('in siteEncounterCPTIndividual, state.encounterCPTCategories is: ', state.encounterCPTCategories)
+
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.CPTCategory === 'Individual Psychotherapy')
-      return totalAndPercent(filteredArray)
+        // .filter(site => site.CPTCategory === 'Individual Psychotherapy')
+        .filter(site => site.CPTCategory.match('Individual Psychotherapy') ) 
+      // console.log('in siteEncounterCPTIndividual, filteredArray is: ', totalAndPercent(filteredArray))
+        return totalAndPercent(filteredArray)
     },
     // total for Grp Therapy CPT Category (large set of CPTs)
     siteEncounterCPTGroup: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.CPTCategory === 'Group Psychotherapy')
+        // .filter(site => site.CPTCategory === 'Group Psychotherapy')
+        .filter(site => site.CPTCategory.match('Group Psychotherapy') ) 
       return totalAndPercent(filteredArray)
     },
     // total for Tele CPT Category (large set of CPTs)
     siteEncounterCPTTelephone: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.CPTCategory === 'Telephone')
+        // .filter(site => site.CPTCategory === 'Telephone')
+        .filter(site => site.CPTCategory.match('Telephone') ) 
       return totalAndPercent(filteredArray)
     },
     // total for Prolonged Service CPT Category (large set of CPTs)
     siteEncounterCPTProlongedService: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.CPTCategory === 'Prolonged Service')
+        // .filter(site => site.CPTCategory === 'Prolonged Service')
+        .filter(site => site.CPTCategory.match('Prolonged Service') ) 
       return totalAndPercent(filteredArray)
     },
     // total for Specific CPT Category (large set of CPTs)
     siteEncounterCPTAssessment: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.CPTCategory === 'Assessment')
+        // .filter(site => site.CPTCategory === 'Assessment')
+        .filter(site => site.CPTCategory.match('Assessment') ) 
       return totalAndPercent(filteredArray)
     },
     // total for Specific CPT Category (large set of CPTs)
     siteEncounterCPTGroupEducation: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
-        .filter(site => site.CPTCategory === 'Health and Behavior (Group) Education')
+        // .filter(site => site.CPTCategory === 'Health and Behavior (Group) Education')
+        .filter(site => site.CPTCategory.match('Health and Behavior \(Group\) Education') ) 
       return totalAndPercent(filteredArray)
     },
 
@@ -305,7 +315,7 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? 0 : filteredArray[0].NumPsychotherapyByType
     },
 
-    //encounter appointment
+    // appointments
     siteEncounterApptCancelNoShowPieChart: (state) =>{
       // build series based on selected site
     // console.log('encounterApptCancelNoShow is: ', state.encounterApptCancelNoShow)
@@ -839,10 +849,25 @@ const store = new Vuex.Store({
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
-        // console.log('got consult details from server')
-        // console.log('response.data is: ', response.data)
+        // console.log('got ENCOUNTER_CPT_CATEGORIES details from server')
+        console.log('ENCOUNTER_CPT_CATEGORIES response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_ENCOUNTER_CPT_CATEGORIES', response.data)
+      })
+
+    },
+    ENCOUNTER_PATIENT_CPT_CATEGORIES (context) {
+      // console.log('in ENCOUNTER_CPT Action, check context here', context)
+          
+      const path = 'pct.cgi'
+      const params = 'format=encounter_patient_cpt_categories&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        console.log('got ENCOUNTER_PATIENT_CPT_CATEGORIES details from server')
+        console.log('ENCOUNTER_PATIENT_CPT_CATEGORIES response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ENCOUNTER_PATIENT_CPT_CATEGORIES', response.data)
       })
 
     },
@@ -1009,15 +1034,15 @@ const store = new Vuex.Store({
       state.ebpDetailsSessionsSurveys = ebpDetailsSessionsSurveys
     },
     SET_SURVEY_DETAILS(state, surveyDetails) {
-      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      // console.log('in mutate SET_SURVEY_DETAILS and state is: ', state)
       state.surveyDetails = surveyDetails
     },
     SET_SURVEY_PATIENT_DETAILS(state, surveyPatientDetails) {
-      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      // console.log('in mutate SET_SURVEY_PATIENT_DETAILS and state is: ', state)
       state.surveyPatientDetails = surveyPatientDetails
     },
     SET_PROVIDER_DETAILS(state, providerDetails) {
-      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      // console.log('in mutate SET_PROVIDER_DETAILS and state is: ', state)
       state.providerDetails = providerDetails
     },
     SET_PROVIDER_INFO(state, providerInfo) {
@@ -1025,16 +1050,20 @@ const store = new Vuex.Store({
       state.providerInfo = providerInfo
     },
     SET_PROVIDER_PATIENT_DETAILS_CPT(state, providerPatientDetailsCPT) {
-      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      // console.log('in mutate SET_PROVIDER_PATIENT_DETAILS_CPT and state is: ', state)
       state.providerPatientDetailsCPT = providerPatientDetailsCPT
     },
-    SET_ENCOUNTER_CPT_CATEGORIES(state, encounterCPTCategories) {
-      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
-      state.encounterCPTCategories = encounterCPTCategories
+    SET_ENCOUNTER_PATIENT_CPT_CATEGORIES(state, encounterPatientCPTCategories) {
+      // console.log('in mutate SET_ENCOUNTER_PATIENT_CPT_CATEGORIES and state is: ', state)
+      state.encounterPatientCPTCategories = encounterPatientCPTCategories
     },
     SET_ENCOUNTER_CPT(state, encounterCPT) {
       // console.log('in mutate SET_ENCOUNTER_CPT and state is: ', state)
       state.encounterCPT = encounterCPT
+    },
+    SET_ENCOUNTER_CPT_CATEGORIES(state, encounterCPTCategories) {
+      // console.log('in mutate SET_ENCOUNTER_CPT_CATEGORIES and state is: ', state)
+      state.encounterCPTCategories = encounterCPTCategories
     },
     SET_CONSULT_DETAILS(state, consultDetails) {
       // console.log('in mutate SET_CONSULT_DETAILS and state is: ', state)

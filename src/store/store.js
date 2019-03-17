@@ -231,7 +231,7 @@ const store = new Vuex.Store({
     },
     // total for Ind Therapy CPT Category (large set of CPTs)
     siteEncounterCPTIndividual: (state) => {
-      console.log('in siteEncounterCPTIndividual, state.encounterCPTCategories is: ', state.encounterCPTCategories)
+      // console.log('in siteEncounterCPTIndividual, state.encounterCPTCategories is: ', state.encounterCPTCategories)
 
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.Sta3n === state.selectedSite) 
@@ -850,7 +850,7 @@ const store = new Vuex.Store({
       axios.get(`${path}?${params}`)
       .then(response => { 
         // console.log('got ENCOUNTER_CPT_CATEGORIES details from server')
-        console.log('ENCOUNTER_CPT_CATEGORIES response.data is: ', response.data)
+        // console.log('ENCOUNTER_CPT_CATEGORIES response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_ENCOUNTER_CPT_CATEGORIES', response.data)
       })
@@ -864,8 +864,8 @@ const store = new Vuex.Store({
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('got ENCOUNTER_PATIENT_CPT_CATEGORIES details from server')
-        console.log('ENCOUNTER_PATIENT_CPT_CATEGORIES response.data is: ', response.data)
+        // console.log('got ENCOUNTER_PATIENT_CPT_CATEGORIES details from server')
+        // console.log('ENCOUNTER_PATIENT_CPT_CATEGORIES response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_ENCOUNTER_PATIENT_CPT_CATEGORIES', response.data)
       })
@@ -896,7 +896,7 @@ const store = new Vuex.Store({
       .then(response => { 
         
         // convert string to object
-        console.log('in action CONSULT_DATA is: ', response.data)
+        // console.log('in action CONSULT_DATA is: ', response.data)
         // console.log('response.data.pie is: ', response.data.pie)
         // console.log('response.data.line is: ', response.data.line)
       
@@ -956,6 +956,7 @@ const store = new Vuex.Store({
         // console.log('calling Actions ENCOUNTER_CPT & ENCOUNTER_CPT_CATEGORIES')    
         context.dispatch('ENCOUNTER_CPT') 
         context.dispatch('ENCOUNTER_CPT_CATEGORIES') 
+        context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
       }
       if (context.state.route.path == '/admin/providers') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    

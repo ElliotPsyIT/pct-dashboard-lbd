@@ -3,8 +3,6 @@ import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
 import NProgress from 'nprogress'
 import App from './App.vue'
-import axios from 'axios'
-import { apiConfig } from '@/utils'
 
 //css
 import "../node_modules/ag-grid/dist/styles/ag-grid.css"
@@ -41,6 +39,9 @@ const router = new VueRouter({
   linkActiveClass: 'nav-item active'
 })
 
+// configure the nprogress bard
+NProgress.configure({ easing: 'ease', speed: 500 })
+
 router.beforeResolve((to, from, next) => {
   // If this isn't an initial page load.
   if (to.name) {
@@ -70,29 +71,5 @@ new Vue({
     this.$store.dispatch('CURRENT_USER')
     this.$store.dispatch('USER_PERMISSIONS')
 
-    // who is the current user?
-    // const path = apiConfig.path //'pct.cgi'
-    // const params = 'format=who'
-    // // console.log('getting user, axios get: ', `${path}?${params}`)
-    // axios.get(`${path}?${params}`)
-    //   .then(response => { 
-    //     // console.log('return from who: ', response)
-    //     const remote_user = response.data[0]
-    //     if (remote_user != undefined) {
-    //       this.$store.dispatch('setCurrentUser', 
-    //       {
-    //         FirstName: remote_user.FirstName, 
-    //         LastName: remote_user.LastName
-    //       }
-    //       )
-    //     } else {
-    //       this.$store.dispatch('setCurrentUser', 
-    //       {
-    //         FirstName: 'No', 
-    //         LastName: 'User Retrieved'
-    //       }
-    //       )
-    //     }
-    //   })
   }
 })

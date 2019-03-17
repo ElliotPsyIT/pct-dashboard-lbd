@@ -122,6 +122,7 @@
 </template>
 <script>
   import { mapState, mapActions } from 'vuex'
+  import NProgress from 'nprogress'
 
   export default {
     // beforeMount  () {
@@ -148,6 +149,15 @@
 
     //   }
     // },
+    watch:{
+      siteSelected (val) {
+        // my new value in val. Perform your
+        // select update methods here
+         NProgress.start()
+        // console.log('watcher for siteSelected triggered with new value of: ', val)
+         NProgress.done()
+      }
+    },
     computed: {
       routeName () {
         const {name} = this.$route

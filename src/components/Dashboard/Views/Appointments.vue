@@ -176,11 +176,14 @@ export default {
     }    
   },
   mounted() {
-    this.CANCEL_NO_SHOW_TOTALS()
+    this.APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS()
+    this.APPOINTMENT_CANCEL_NOSHOW_TOTALS()
+    this.APPOINTMENT_COUNT()
   },
   methods: {
     ...mapActions([
-      'CANCEL_NO_SHOW_TOTALS'
+      'APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS','APPOINTMENT_CANCEL_NOSHOW_TOTALS',
+      'APPOINTMENT_COUNT'
     ]),
     formatNumber(num) {
       return addCommas(num)

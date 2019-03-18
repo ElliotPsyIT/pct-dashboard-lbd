@@ -801,14 +801,18 @@ export default {
     
   },
   mounted() {
+    this.ENCOUNTER_COUNT()
+    this.ENCOUNTER_LINE_CHART()
+    this.ENCOUNTER_PATIENT_LINE_CHART()
     this.ENCOUNTER_CPT()
     this.ENCOUNTER_CPT_CATEGORIES()
     this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
   },
   methods: { 
     ...mapActions([
-      'ENCOUNTER_CPT','ENCOUNTER_CPT_CATEGORIES','ENCOUNTER_PATIENT_CPT_CATEGORIES'
-    ]),
+      'ENCOUNTER_CPT','ENCOUNTER_CPT_CATEGORIES','ENCOUNTER_PATIENT_CPT_CATEGORIES',
+      'ENCOUNTER_COUNT','ENCOUNTER_LINE_CHART','ENCOUNTER_PATIENT_LINE_CHART'
+        ]),
     formatNumber(num) {
       return addCommas(num)
     },

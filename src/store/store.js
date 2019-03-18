@@ -14,16 +14,16 @@ import dateRanges from '../../static/dateRanges.json'
 // import consultDetails from '../../static/consult_details.json'
 
 // Encounters
-import encounterCounts from '../../static/encounter_count.json'
-import encounterLineChart from '../../static/encounter_line_chart.json'
-import encounterPatientLineChart from '../../static/encounter_patient_line_chart.json'
+// import encounterCount from '../../static/encounter_count.json'
+// import encounterLineChart from '../../static/encounter_line_chart.json'
+// import encounterPatientLineChart from '../../static/encounter_patient_line_chart.json'
 // import encounterCPT from '../../static/encounter_cpt.json'
 // import encounterCPTCategories from '../../static/encounter_cpt_categories.json'
 // import encounterPatientCPTCategories from '../../static/encounter_patient_cpt_categories.json'
 
 // Encounter Appointments
-import encounterApptCounts from '../../static/encounter_appointment_count.json'
-import encounterApptCancelNoShow from '../../static/encounter_appointment_cancel_noshow.json'
+// import encounterApptCount from '../../static/encounter_appointment_count.json'
+// import encounterApptCancelNoShow from '../../static/encounter_appointment_cancel_noshow.json'
 // import encounterApptClinicCancelNoShow from '../../static/encounter_appointment_clinic_cancel_noshow.json'
 
 // Providers
@@ -73,15 +73,15 @@ const store = new Vuex.Store({
     consultDataCount: [],
     consultDetails: [],
 
-    encounterCounts,
-    encounterLineChart,
-    encounterPatientLineChart,
+    encounterCount: [],
+    encounterLineChart: [],
+    encounterPatientLineChart: [],
     encounterCPT: [],
     encounterCPTCategories: [],
     encounterPatientCPTCategories: [],
 
-    encounterApptCancelNoShow,
-    encounterApptCounts,
+    encounterApptCancelNoShow: [],
+    encounterApptCount: [],
     encounterApptClinicCancelNoShow: [],
     
 
@@ -175,19 +175,19 @@ const store = new Vuex.Store({
 
     // encounters: distinct VisitSID, not CPTCode filtering
     siteEncounterTotal: (state) => {
-      let filteredArray = state.encounterCounts
+      let filteredArray = state.encounterCount
         .filter(site => site.Sta3n === state.selectedSite)
         .filter(site => site.dataType === 'encountersCount')
       // console.log('Encounter Total is: ', filteredArray)
-      return addCommas(filteredArray[0].countTotal)
+      return filteredArray.length == 0 ? 0 : addCommas(filteredArray[0].countTotal)
     },
     // encounters: distinct PatientSID, no CPTCode filtering
     siteEncounterPatientTotal: (state) => {
-      let filteredArray = state.encounterCounts
+      let filteredArray = state.encounterCount
         .filter(site => site.Sta3n === state.selectedSite)
         .filter(site => site.dataType === 'patientCount')
       // console.log('Encounter Patient Total is: ', filteredArray)
-      return addCommas(filteredArray[0].countTotal)
+      return filteredArray.length == 0 ? 0 : addCommas(filteredArray[0].countTotal)
     },
     siteEncounterLineChartSeries: (state) => {
       let encounterLineChartMonths = state.encounterLineChart
@@ -319,18 +319,18 @@ const store = new Vuex.Store({
     siteEncounterApptCancelNoShowPieChart: (state) =>{
       // build series based on selected site
     // console.log('encounterApptCancelNoShow is: ', state.encounterApptCancelNoShow)
-      let mappedArray = state.encounterApptCancelNoShow
+      let filteredArray = state.encounterApptCancelNoShow
         .filter(site => site.Sta3n === state.selectedSite)
         .map((status) => { return [status.CancelNoShow, +status.cancelNoShowCount] })
       // console.log('pie chart series is: ', mappedArray)
-      return mappedArray  
+      return filteredArray.length == 0 ? [] : filteredArray  
     },
     siteEncounterApptNoShowTotal: (state) => {
       let filteredArray = state.encounterApptCancelNoShow
         .filter(site => site.Sta3n === state.selectedSite)
         .filter(site => site.CancelNoShow === 'NO-SHOW')
       // console.log('Encounter Patient Total is: ', filteredArray)
-      return filteredArray[0].cancelNoShowCount
+      return filteredArray.length == 0 ? 0 : filteredArray[0].cancelNoShowCount
     },
     siteEncounterApptCancelTotal: (state) => {
       // console.log('HERE!!!!!')
@@ -350,14 +350,14 @@ const store = new Vuex.Store({
       return total
     },
     siteEncounterApptTotalStr: (state) => { // with commas for display
-      let filteredArray = state.encounterApptCounts
+      let filteredArray = state.encounterApptCount
         .filter(site => site.Sta3n === state.selectedSite)
-      return addCommas(filteredArray[0].appointmentCount)
+      return filteredArray.length == 0 ? 0 : addCommas(filteredArray[0].appointmentCount)
     },
     siteEncounterApptTotal: (state) => { // without commas for computation
-      let filteredArray = state.encounterApptCounts
+      let filteredArray = state.encounterApptCount
         .filter(site => site.Sta3n === state.selectedSite)
-      return filteredArray[0].appointmentCount
+      return filteredArray.length == 0 ? 0 : filteredArray[0].appointmentCount
     },
     siteEncounterApptClinicNoShowTotal: (state) => {
       // console.log('the clinic cancel noshow from json: ', state.encounterApptClinicCancelNoShow)
@@ -367,7 +367,7 @@ const store = new Vuex.Store({
           return site.Sta3n == state.selectedSite
         })
         // console.log('filteredArray is: ', filteredArray)
-        return filteredArray  
+        return filteredArray.length == 0 ? 0 : filteredArray  
     },
     
 
@@ -376,19 +376,19 @@ const store = new Vuex.Store({
       let filteredArray = state.providerCount
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'providerProviderCount')
-      return filteredArray[0].countTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].countTotal
     },
     siteProviderClinicCount: (state) => {
       let filteredArray = state.providerCount
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'providerClinicCount')
-      return filteredArray[0].countTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].countTotal
     },
     siteProviderPatientCount: (state) => {
       let filteredArray = state.providerCount
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'providerPatientCount')
-      return filteredArray[0].countTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].countTotal
     },
     siteProviderList: (state) => {
       let filteredArray = state.providerInfo
@@ -397,12 +397,12 @@ const store = new Vuex.Store({
       //unique the provider names
       // console.log('siteProviderList filteredArray: ', filteredArray)
       filteredArray = filteredArray.filter((el, i, a) => i === a.indexOf(el))
-      return filteredArray // array of staffname objects?
+      return filteredArray.length == 0 ? 0 : filteredArray // array of staffname objects?
     },
     siteProviderInfo: (state) => {
       let filteredArray = state.providerInfo
         .filter(site => site.Sta3n === state.selectedSite)
-      return filteredArray
+      return filteredArray.length == 0 ? 0 : filteredArray
     },
     siteProviderPatientDetailsCPT: (state) => {
       // console.log('state.selectedSite: ', state.selectedSite)
@@ -413,7 +413,7 @@ const store = new Vuex.Store({
           return site.Sta3n === state.selectedSite
         })
         // console.log('siteProviderPatientDetailCPT filteredArray', filteredArray)
-      return filteredArray
+      return filteredArray.length == 0 ? 0 : filteredArray
     },   
     siteProviderDetails: (state) => {
       let filteredArray = state.providerDetails
@@ -421,7 +421,7 @@ const store = new Vuex.Store({
           // ** Note: selectedSite is cast to number for comparison
           return site.Sta3n === state.selectedSite
         })
-      return filteredArray
+      return filteredArray.length == 0 ? 0 : filteredArray
     },
    
 
@@ -479,14 +479,14 @@ const store = new Vuex.Store({
       let filteredArray = state.surveyDetails
         .filter(site => site.StaPa === state.selectedSite)
       // console.log('filteredArray', filteredArray)
-      return filteredArray
+      return filteredArray.length == 0 ? 0 : filteredArray
     },
     siteSurveyPatientDetails: (state) => {
       let filteredArray = state.surveyPatientDetails
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.StaffName != 'NULL')
       // console.log('filteredArray', filteredArray)
-      return filteredArray
+      return filteredArray.length == 0 ? 0 : filteredArray
     },
 
     // revised EBPs from Matt and Erin
@@ -494,70 +494,70 @@ const store = new Vuex.Store({
       let filteredArray = state.ebpSummary
       .filter(site => site.StaPa === state.selectedSite)
       .filter(site => site.dataType === 'ebp_sessions')
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
     siteALLSessions: (state) => {      
       let filteredArray = state.ebpSummary
       .filter(site => site.StaPa === state.selectedSite)
       .filter(site => site.dataType === 'all_sessions')
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
     // no all program EBP patient totals akin to the above session totals
     siteEBPPatientsAny: (state) => {
       let filteredArray = state.ebpSummary
       .filter(site => site.StaPa === state.selectedSite)
       .filter(site => site.dataType === 'ebp_patients')
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
     siteEBPSessionsPECPT: (state) => {      
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebp_sessions_pe_cpt')
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
     siteEBPPatientsPECPT: (state) => {      
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'ebp_patients_pe_cpt')
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
     siteALLPatients: (state) => {      
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'all_patients')
       // console.log('siteALLPatients filteredArray[0]: ', filteredArray[0] )
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
     siteEBPSessionsInd: (state) => {      
       let filteredArray = state.ebpSummary
     .filter(site => site.StaPa === state.selectedSite)
     .filter(site => site.dataType === 'ebp_sessions_ind')
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
     siteALLSessionsInd: (state) => {      
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'all_sessions_ind')
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
     siteEBPPatientsInd: (state) => {      
       let filteredArray = state.ebpSummary
     .filter(site => site.StaPa === state.selectedSite)
     .filter(site => site.dataType === 'ebp_patients_ind')
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
     siteALLPatientsInd: (state) => {      
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'all_patients_ind')
-      return filteredArray[0].sumTotal
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
     siteEBPSessionsGrp: (state) => {
       let filteredArray = [];
       filteredArray = state.ebpSummary
     .filter(site => site.StaPa === state.selectedSite)
     .filter(site => site.dataType === 'ebp_sessions_grp')
-    return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
+    return filteredArray.length == 0 ? 0 : filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     // return arrayEmpty(filteredArray) ? 0 : filteredArray[0].sumTotal
     },
     siteALLSessionsGrp: (state) => {      
@@ -668,7 +668,7 @@ const store = new Vuex.Store({
           return site.StaPa === state.selectedSite
         })
         // console.log('from siteEBPClinicSummary: ', filteredArray)
-      return filteredArray
+      return filteredArray.length == 0 ? [] : filteredArray
     },
     siteEBPDetailsSessionsSurveys: (state) => {
       let filteredArray = state.ebpDetailsSessionsSurveys
@@ -679,23 +679,23 @@ const store = new Vuex.Store({
           return site.StaPa === state.selectedSite
         })
         // console.log('from siteEBPClinicSummary: ', filteredArray)
-      return filteredArray
+      return filteredArray.length == 0 ? [] : filteredArray
     },
     // ebpDetailSessionSurvey
     siteEBPPieChartSeries: (state) =>{
       // build series based on selected site
       // console.log('ebpTypeCounts is: ', state.ebpTypeCounts)
-      let mappedArray = state.ebpTypeCounts
+      let filteredArray = state.ebpTypeCounts
         .filter(site => site.StaPa === state.selectedSite)
         .map((status) => { return [status.HealthFactorCategoryShort, +status.Num] })
       // console.log('pie chart series is: ', mappedArray)
-      return mappedArray  
+      return filteredArray.length == 0 ? [] : filteredArray  
     },
     siteEBPDetailsTypes: (state) => {
       let filteredArray = state.ebpDetailsTypes
         .filter(site => site.StaPa === state.selectedSite)
       // console.log('filteredArray', filteredArray)
-      return filteredArray
+      return filteredArray.length == 0 ? [] : filteredArray
     },
 
     siteEBPPatientsCPTIndividualOnly: (state) => {
@@ -826,6 +826,51 @@ const store = new Vuex.Store({
       })
 
     },
+    ENCOUNTER_PATIENT_LINE_CHART (context) {
+      // console.log('in ENCOUNTER_PATIENT_LINE_CHART Action, check context here', context)
+          
+      const path = 'pct.cgi'
+      const params = 'format=encounter_patient_line_chart&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got ENCOUNTER_PATIENT_LINE_CHART from server')
+        // console.log('ENCOUNTER_PATIENT_LINE_CHART response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ENCOUNTER_PATIENT_LINE_CHART', response.data)
+      })
+
+    }, 
+    ENCOUNTER_LINE_CHART (context) {
+      // console.log('in ENCOUNTER_LINE_CHART Action, check context here', context)
+          
+      const path = 'pct.cgi'
+      const params = 'format=encounter_line_chart&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got ENCOUNTER_LINE_CHART from server')
+        // console.log('ENCOUNTER_LINE_CHART response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ENCOUNTER_LINE_CHART', response.data)
+      })
+
+    }, 
+    ENCOUNTER_COUNT (context) {
+      // console.log('in ENCOUNTER_CPT Action, check context here', context)
+          
+      const path = 'pct.cgi'
+      const params = 'format=encounter_count&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got ENCOUNTER_COUNT from server')
+        // console.log('ENCOUNTER_COUNT response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ENCOUNTER_COUNT', response.data)
+      })
+
+    }, 
     ENCOUNTER_CPT (context) {
       // console.log('in ENCOUNTER_CPT Action, check context here', context)
           
@@ -871,8 +916,23 @@ const store = new Vuex.Store({
       })
 
     },
-    CANCEL_NO_SHOW_TOTALS (context) {
-      // console.log('in CANCEL_NOSHOW_TOTALS Action, check context here', context)
+    APPOINTMENT_COUNT (context) {
+      // console.log('in APP_COUNTS Action, check context here', context)
+          
+      const path = 'pct.cgi'
+      const params = 'format=encounter_appt_count&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got APP_COUNTS from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_APPOINTMENT_COUNT', response.data)
+      })
+
+    },
+    APPOINTMENT_CANCEL_NOSHOW_TOTALS (context) {
+      // console.log('in APPOINTMENT_CANCEL_NOSHOW_TOTALS Action, check context here', context)
     
       const path = 'pct.cgi'
       const params = 'format=encounter_appt_cancel_noshow&sta3n=' + context.state.selectedSite
@@ -882,7 +942,22 @@ const store = new Vuex.Store({
         // console.log('got consult details from server')
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
-        context.commit('SET_CANCEL_NOSHOW_TOTALS', response.data)
+        context.commit('SET_APPOINTMENT_CANCEL_NOSHOW_TOTALS', response.data)
+      })
+      
+    },
+    APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS (context) {
+      // console.log('in APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS Action, check context here', context)
+    
+      const path = 'pct.cgi'
+      const params = 'format=encounter_appt_clinic_cancel_noshow&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got consult details from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS', response.data)
       })
       
     },
@@ -949,11 +1024,16 @@ const store = new Vuex.Store({
         context.dispatch('CONSULT_DETAILS', site)
       }
       if (context.state.route.path == '/admin/appointments') {
-        // console.log('calling Action CANCEL_NO_SHOW_TOTALS')    
-        context.dispatch('CANCEL_NO_SHOW_TOTALS') 
+        // console.log('calling Action CANCEL_NO_SHOW_TOTALS')
+        context.dispatch('APPOINTMENT_COUNTS')    
+        context.dispatch('APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS') 
+        context.dispatch('APPOINTMENT_CANCEL_NOSHOW_TOTALS') 
       }
       if (context.state.route.path == '/admin/encounters') {
         // console.log('calling Actions ENCOUNTER_CPT & ENCOUNTER_CPT_CATEGORIES')    
+        context.dispatch('ENCOUNTER_COUNT')
+        context.dispatch('ENCOUNTER_LINE_CHART')
+        context.dispatch('ENCOUNTER_PATIENT_LINE_CHART')
         context.dispatch('ENCOUNTER_CPT') 
         context.dispatch('ENCOUNTER_CPT_CATEGORIES') 
         context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
@@ -1058,6 +1138,18 @@ const store = new Vuex.Store({
       // console.log('in mutate SET_ENCOUNTER_PATIENT_CPT_CATEGORIES and state is: ', state)
       state.encounterPatientCPTCategories = encounterPatientCPTCategories
     },
+    SET_ENCOUNTER_PATIENT_LINE_CHART(state, encounterPatientlineChart) {
+      // console.log('in mutate SET_ENCOUNTER_PATIENT_LINE_CHART and state is: ', state)
+      state.encounterPatientlineChart = encounterPatientlineChart    
+    },
+    SET_ENCOUNTER_LINE_CHART(state, encounterlineChart) {
+      // console.log('in mutate SET_ENCOUNTER_LINE_CHART and state is: ', state)
+      state.encounterlineChart = encounterlineChart
+    },
+    SET_ENCOUNTER_COUNT(state, encounterCount) {
+      // console.log('in mutate SET_ENCOUNTER_CPT and state is: ', state)
+      state.encounterCount = encounterCount
+    },
     SET_ENCOUNTER_CPT(state, encounterCPT) {
       // console.log('in mutate SET_ENCOUNTER_CPT and state is: ', state)
       state.encounterCPT = encounterCPT
@@ -1076,9 +1168,17 @@ const store = new Vuex.Store({
       state.consultDataLine = consultData.line
       state.consultDataCount = consultData.count
     },
-    SET_CANCEL_NOSHOW_TOTALS(state, cancelNoShowTotals) {
+    SET_APPOINTMENT_COUNT(state, appointmentCount) {
+     // console.log('in mutate SET_CANCEL_NOSHOW_TOTALS and state is: ', state)
+     state.encounterApptCount = appointmentCount
+    },
+    SET_APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS(state, appointmentClinicCancelNoShowTotals) {
       // console.log('in mutate SET_CANCEL_NOSHOW_TOTALS and state is: ', state)
-      state.encounterApptClinicCancelNoShow = cancelNoShowTotals
+      state.encounterApptClinicCancelNoShow = appointmentClinicCancelNoShowTotals
+    },
+    SET_APPOINTMENT_CANCEL_NOSHOW_TOTALS(state, appointmentCancelNoShowTotals) {
+      // console.log('in mutate SET_CANCEL_NOSHOW_TOTALS and state is: ', state)
+      state.encounterApptCancelNoShow = appointmentCancelNoShowTotals
     },
     SET_SELECTED_SITE (state, site) {
       // console.log('in mutate SET_SELECTED_SITE')

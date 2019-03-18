@@ -31,10 +31,10 @@
         <i class="nc-icon nc-notes"></i>
         <p>EBPs</p>
       </sidebar-link>
-      <sidebar-link to="/admin/icons">
+      <!-- <sidebar-link to="/admin/icons">
         <i class="nc-icon nc-circle-09"></i>
         <p>Icons</p>
-      </sidebar-link>
+      </sidebar-link> -->
       <!-- <sidebar-link to="/admin/providers">
         <i class="nc-icon nc-circle-09"></i>
         <p>Providers</p>

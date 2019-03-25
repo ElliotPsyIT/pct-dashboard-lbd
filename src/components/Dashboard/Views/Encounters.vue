@@ -143,8 +143,8 @@
                 <i class="nc-icon-outline nc-single-01 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Individual<br/>({{ siteEncounterCPTIndividual.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
-                <h4 class="card-title">{{ siteEncounterCPTIndividual.percent }}%</h4>
+                <p class="card-category">Individual<br/>({{ siteEncounterCPTIndividual }}/{{siteEncounterTotal}})</p>
+                <h4 class="card-title">{{ siteEncounterCPTIndividualPercent}}%</h4>
               </div>
               </stats-card>
           
@@ -157,8 +157,8 @@
                 <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group<br/> ({{ siteEncounterCPTGroup.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
-                <h4 class="card-title">{{ siteEncounterCPTGroup.percent }}%</h4>
+                <p class="card-category">Group<br/> ({{ siteEncounterCPTGroup }}/{{siteEncounterTotal}})</p>
+                <h4 class="card-title">{{siteEncounterCPTGroupPercent }}%</h4>
               </div>
             </stats-card>
 
@@ -168,7 +168,7 @@
 
  <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Patients Receiving Psychotherapy</h4>
+          <h4 class="section-head">Psychotherapy Patients</h4>
         </div>
 
         <div class="d-flex flex-row justify-content-center">
@@ -271,7 +271,7 @@
         <!-- <div class="d-flex flex-row"> -->
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Other Services</h4>
+          <h4 class="section-head">Other Services Sessions</h4>
         </div>
 
       <div class="d-flex flex-row justify-content-center">
@@ -283,7 +283,7 @@
                 <i class="nc-icon-outline nc-phone-2 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Telephone CPT ({{ siteEncounterCPTTelephone.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <p class="card-category">Telephone CPT ({{ siteEncounterCPTTelephone.total }}/{{formatNumber(siteEncounterTotal)}})</p>
                 <h4 class="card-title">{{ siteEncounterCPTTelephone.percent }}%</h4>
               </div>
             </stats-card>
@@ -297,7 +297,7 @@
                 <i class="nc-icon-outline nc-multiple-11 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group Education ({{ siteEncounterCPTGroupEducation.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <p class="card-category">Group Education ({{ siteEncounterCPTGroupEducation.total }}/{{formatNumber(siteEncounterTotal)}})</p>
                 <h4 class="card-title">{{ siteEncounterCPTGroupEducation.percent }}%</h4>
               </div>
             </stats-card>
@@ -311,7 +311,7 @@
                 <i class="nc-icon-outline nc-single-folded-content text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Assessment CPT ({{ siteEncounterCPTAssessment.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <p class="card-category">Assessment CPT ({{ siteEncounterCPTAssessment.total }}/{{formatNumber(siteEncounterTotal)}})</p>
                 <h4 class="card-title">{{ siteEncounterCPTAssessment.percent }}%</h4>
               </div>
               </stats-card>
@@ -325,7 +325,7 @@
                 <i class="nc-icon nc-refresh-02 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Prolonged Service ({{ siteEncounterCPTProlongedService.total }}/{{formatNumber(siteEncounterApptTotal)}})</p>
+                <p class="card-category">Prolonged Service ({{ siteEncounterCPTProlongedService.total }}/{{formatNumber(siteEncounterTotal)}})</p>
                 <h4 class="card-title">{{ siteEncounterCPTProlongedService.percent }}%</h4>
               </div>
               </stats-card>
@@ -650,7 +650,9 @@ import VueHighcharts from 'vue2-highcharts'
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
 
-import { addCommas, totalAndPercent } from 'src/utils'
+// import VueMarkdown from 'vue-markdown'
+
+import { addCommas, totalAndPercent, precise_round } from 'src/utils'
 
 import { mapState, mapGetters, mapActions } from 'vuex'
 
@@ -662,23 +664,24 @@ export default {
     StatsCard,
     VueHighcharts,
     AgGridVue
+    // VueMarkdown
   },
   computed: {
     ...mapState([
       'selectedSite', 'selectedRange'
     ]),
     ...mapGetters([
-      'siteEncounterTotal', // all distinct visitsid no CPT filtering
-      'siteEncounterPatientTotal', // all distinct patientSID no CPT filtering
+      'siteEncounterTotal', // all distinct visitsid w/ CPT filtering
+      'siteEncounterPatientTotal', // all distinct patientSID w/ CPT filtering
       'siteEncounterLineChartSeries',
       'siteEncounterPatientLineChartSeries',
 
-      'siteEncounterApptClinicNoShowTotal',
-      'siteEncounterApptCancelNoShowPieChart',
-      'siteEncounterApptNoShowTotal',
-      'siteEncounterApptCancelTotal',
+      // 'siteEncounterApptClinicNoShowTotal',
+      // 'siteEncounterApptCancelNoShowPieChart',
+      // 'siteEncounterApptNoShowTotal',
+      // 'siteEncounterApptCancelTotal',
       'siteEncounterApptTotalStr', // for display
-      'siteEncounterApptTotal', // for computation
+      // 'siteEncounterApptTotal', // for computation
       
       'siteEncounterCPTTotal',
       'siteEncounterCPTCategories',
@@ -693,13 +696,20 @@ export default {
       'siteEncounterCPTPatientsBoth',
       
     ]),
-    
+    siteEncounterCPTIndividualPercent() {
+      let percent = (+this.siteEncounterCPTIndividual / +this.siteEncounterTotal) * 100
+      return precise_round(percent, 1)
+    },
+    siteEncounterCPTGroupPercent() {
+      let percent = (+this.siteEncounterCPTGroup / +this.siteEncounterTotal) * 100
+      return precise_round(percent, 1)
+    },
     // siteEncounterAppNoShowPercent () {
-    //   return Math.round((this.siteEncounterApptNoShowTotal/this.siteEncounterApptTotal) * 100)
+    //   return Math.round((this.siteEncounterApptNoShowTotal/this.siteEncounterTotal) * 100)
     // },
 
     // siteEncounterAppCancelPercent () {
-    //   return Math.round((this.siteEncounterApptCancelTotal/this.siteEncounterApptTotal) * 100)
+    //   return Math.round((this.siteEncounterApptCancelTotal/this.siteEncounterTotal) * 100)
     //   // return precise_round((this.siteEBPSessionsPECPT/this.siteALLSessions) * 100, 1) 
     // },
 
@@ -804,14 +814,21 @@ export default {
     this.ENCOUNTER_COUNT()
     this.ENCOUNTER_LINE_CHART()
     this.ENCOUNTER_PATIENT_LINE_CHART()
-    this.ENCOUNTER_CPT()
+    this.ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY()
     this.ENCOUNTER_CPT_CATEGORIES()
+    this.ENCOUNTER_CPT()
     this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
   },
   methods: { 
     ...mapActions([
-      'ENCOUNTER_CPT','ENCOUNTER_CPT_CATEGORIES','ENCOUNTER_PATIENT_CPT_CATEGORIES',
-      'ENCOUNTER_COUNT','ENCOUNTER_LINE_CHART','ENCOUNTER_PATIENT_LINE_CHART'
+      'ENCOUNTER_COUNT',
+      'ENCOUNTER_LINE_CHART',
+      'ENCOUNTER_PATIENT_LINE_CHART',
+      'ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY',
+      'ENCOUNTER_CPT_CATEGORIES',
+      'ENCOUNTER_CPT',
+      'ENCOUNTER_PATIENT_CPT_CATEGORIES',
+
         ]),
     formatNumber(num) {
       return addCommas(num)
@@ -822,31 +839,31 @@ export default {
           children: [
             { headerName: "Site", 
               field: "StaPa", 
-              width: 40, 
+              width: 30, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
             { headerName: "CPT Code", 
               field: "CPTCode", 
-              width: 60, 
+              width: 50, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
             { headerName: "CPT Name", 
               field: "CPTName", 
-              width: 100, 
+              width: 120, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
-            { headerName: "CPT Description", 
-              field: "CPTDescription", 
-              width: 150, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter"
-            },
+            // { headerName: "CPT Description", 
+            //   field: "CPTDescription", 
+            //   width: 150, 
+            //   cellStyle: { 'text-align': "left" } ,
+            //   filter: "agTextColumnFilter"
+            // },
             { headerName: "Encounters", 
               field: "encountersPerCPT", 
-              width: 50, 
+              width: 40, 
               cellStyle: { 'text-align': "left" },
               filter: "agNumberColumnFilter"
             },
@@ -860,15 +877,16 @@ export default {
           children: [
             { headerName: "Site", 
               field: "StaPa", 
-              width: 25, 
+              width: 20, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
-            { headerName: "Category", 
+            { headerName: "Category (hover for full description)", 
               field: "CPTCategory", 
-              width: 60, 
+              width: 80, 
               cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter"
+              filter: "agTextColumnFilter",
+              tooltip: (params) => params.value
             },
             { headerName: "Total", 
               field: "totalNum", 
@@ -878,7 +896,7 @@ export default {
             },
             { headerName: "%", 
               field: "PercentageCPT", 
-              width: 20, 
+              width: 18, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },

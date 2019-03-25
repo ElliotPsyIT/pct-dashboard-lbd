@@ -232,13 +232,17 @@ export default {
      }
   },
   mounted() {
+    this.PROVIDER_COUNT()
     this.PROVIDER_DETAILS()
     this.PROVIDER_PATIENT_DETAILS_CPT()
     this.PROVIDER_INFO()
   },
   methods: {
     ...mapActions([
-      'PROVIDER_DETAILS','PROVIDER_PATIENT_DETAILS_CPT','PROVIDER_INFO'
+      'PROVIDER_COUNT',
+      'PROVIDER_DETAILS',
+      'PROVIDER_PATIENT_DETAILS_CPT',
+      'PROVIDER_INFO'
     ]),
     createColDefs1() { //experimental
     return [

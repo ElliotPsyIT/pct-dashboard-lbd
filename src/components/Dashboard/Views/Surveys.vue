@@ -217,12 +217,15 @@ export default {
    
   },
   mounted() {
+    this.SURVEY_TOTALS()
     this.SURVEY_DETAILS()
     this.SURVEY_PATIENT_DETAILS()
   },
    methods: {
     ...mapActions([
-      'SURVEY_DETAILS','SURVEY_PATIENT_DETAILS'
+      'SURVEY_TOTALS',
+      'SURVEY_DETAILS',
+      'SURVEY_PATIENT_DETAILS'
     ]),     
     createColDefs() {
       return [

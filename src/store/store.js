@@ -27,13 +27,13 @@ import dateRanges from '../../static/dateRanges.json'
 // import encounterApptClinicCancelNoShow from '../../static/encounter_appointment_clinic_cancel_noshow.json'
 
 // Providers
-import providerCount from '../../static/provider_count.json'
+// import providerCount from '../../static/provider_count.json'
 // import providerInfo from '../../static/provider_info.json'
 // import providerDetails from '../../static/provider_details.json'
 // import providerPatientDetailsCPT from '../../static/provider_patient_details_cpt.json'
 
 // Surveys
-import surveyTotals from '../../static/survey_totals.json'
+// import surveyTotals from '../../static/survey_totals.json'
 // import surveyDetails from '../../static/survey_details.json'
 // import surveyPatientDetails from '../../static/survey_patient_details.json'
 
@@ -86,12 +86,12 @@ const store = new Vuex.Store({
     encounterApptClinicCancelNoShow: [],
     
 
-    providerCount,
+    providerCount: [],
     providerInfo: [],
     providerDetails: [],
     providerPatientDetailsCPT: [],
 
-    surveyTotals,
+    surveyTotals: [],
     surveyDetails: [],
     surveyPatientDetails: [],
 
@@ -770,6 +770,21 @@ const store = new Vuex.Store({
       })
 
     },
+    SURVEY_TOTALS (context) {
+      // console.log('in SURVEY_TOTALS Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=survey_totals&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got SURVEY_TOTALS  from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_SURVEY_TOTALS', response.data)
+      })
+
+    },
     SURVEY_PATIENT_DETAILS (context) {
       // console.log('in SURVEY_PATIENT_DETAILS Action, check context here', context)
                 
@@ -782,6 +797,21 @@ const store = new Vuex.Store({
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_SURVEY_PATIENT_DETAILS', response.data)
+      })
+
+    },
+    PROVIDER_COUNT (context) {
+      // console.log('in PROVIDER_COUNT Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=provider_count&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got PROVIDER_COUNT from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_PROVIDER_COUNT', response.data)
       })
 
     },
@@ -1059,12 +1089,14 @@ const store = new Vuex.Store({
       }
       if (context.state.route.path == '/admin/providers') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
+        context.dispatch('PROVIDER_COUNT') 
         context.dispatch('PROVIDER_DETAILS') 
         context.dispatch('PROVIDER_INFO') 
         context.dispatch('PROVIDER_PATIENT_DETAILS_CPT') 
       }
       if (context.state.route.path == '/admin/surveys') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
+        context.dispatch('SURVEY_TOTALS')
         context.dispatch('SURVEY_DETAILS') 
         context.dispatch('SURVEY_PATIENT_DETAILS') 
       }
@@ -1133,6 +1165,10 @@ const store = new Vuex.Store({
       // console.log('in mutate SET_EBP_DETAILS_SESSIONS_SURVEYS and state is: ', state)
       state.ebpDetailsSessionsSurveys = ebpDetailsSessionsSurveys
     },
+    SET_SURVEY_TOTALS(state, surveyTotals) {
+      // console.log('in mutate SET_SURVEY_DETAILS and state is: ', state)
+      state.surveyTotals = surveyTotals
+    },
     SET_SURVEY_DETAILS(state, surveyDetails) {
       // console.log('in mutate SET_SURVEY_DETAILS and state is: ', state)
       state.surveyDetails = surveyDetails
@@ -1140,6 +1176,10 @@ const store = new Vuex.Store({
     SET_SURVEY_PATIENT_DETAILS(state, surveyPatientDetails) {
       // console.log('in mutate SET_SURVEY_PATIENT_DETAILS and state is: ', state)
       state.surveyPatientDetails = surveyPatientDetails
+    },
+    SET_PROVIDER_COUNT(state, providerCount) {
+      // console.log('in mutate SET_PROVIDER_COUNT and providerInfo is: ', providerInfo)
+      state.providerCount = providerCount
     },
     SET_PROVIDER_DETAILS(state, providerDetails) {
       // console.log('in mutate SET_PROVIDER_DETAILS and state is: ', state)

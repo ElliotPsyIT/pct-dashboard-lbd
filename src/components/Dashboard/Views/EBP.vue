@@ -160,7 +160,7 @@
           <h4 class="section-head"> Both Therapies </h4>
         </div> -->
 
-        <div class="row d-flex justify-content-center">
+        <!-- <div class="row d-flex justify-content-center">
 
           <div class="col-xl-3 col-md-2">
             <h4 class="section-head d-flex justify-content-center"> Ind Tx Only </h4>
@@ -204,9 +204,9 @@
 
           </div>
   
-        </div>
+        </div> -->
 
-  <hr class="style1"/>
+  <!-- <hr class="style1"/> -->
 
         <!-- Section Headers -->
         <!-- <div class="row d-flex justify-content-center ">
@@ -273,7 +273,7 @@
             </stats-card>
 
           </div> -->
-        </div>
+        </div> <!-- End Container -->
 
         <!-- <div class="row d-flex justify-content-center ">
           <h4 class="section-head">EBPs for Patients (Individual Tx) {{siteEBPPatients}}/{{siteEBPPatientsAll}}</h4>
@@ -624,26 +624,26 @@ export default {
       'siteEBPPatientsGrp',
       'siteALLPatientsGrp',
 
-      'siteEBPClinics',
-      'siteEBPClinicsAll',
-      'siteEBPClinicsCPT',
-      'siteEBPClinicsPEI',
-      'siteEBPProviders',
-      'siteEBPProvidersAll',
-      'siteEBPProvidersCPT',
-      'siteEBPProvidersPEI',
-      'siteEBPPatients',
-      'siteEBPPatientsAll',
-      'siteEBPPatientsCPT',
-      'siteEBPPatientsPEI',
-      'siteEBPClinicSummary',
+      // 'siteEBPClinics',
+      // 'siteEBPClinicsAll',
+      // 'siteEBPClinicsCPT',
+      // 'siteEBPClinicsPEI',
+      // 'siteEBPProviders',
+      // 'siteEBPProvidersAll',
+      // 'siteEBPProvidersCPT',
+      // 'siteEBPProvidersPEI',
+      // 'siteEBPPatients',
+      // 'siteEBPPatientsAll',
+      // 'siteEBPPatientsCPT',
+      // 'siteEBPPatientsPEI',
+      // 'siteEBPClinicSummary',
       'siteEBPPieChartSeries',
       'siteEBPDetailsTypes',
       'siteEBPDetailsSessionsSurveys',
 
-      'siteEBPPatientsCPTIndividualOnly',
-      'siteEBPPatientsCPTGroupOnly',
-      'siteEBPPatientsCPTBoth',
+      // 'siteEBPPatientsCPTIndividualOnly',
+      // 'siteEBPPatientsCPTGroupOnly',
+      // 'siteEBPPatientsCPTBoth',
 
     ]),
     ...mapState(['selectedSite']), //siteALLSessions
@@ -680,15 +680,15 @@ export default {
     },
 
 
-    siteEBPClinicsPercent () {
-      return Math.round((this.siteEBPClinics/this.siteEBPClinicsAll) * 100)
-    },
-    siteEBPClinicsCPTPercent () {
-      return Math.round((this.siteEBPClinicsCPT/this.siteEBPClinicsAll) * 100)
-    },
-    siteEBPClinicsPEIPercent () {
-      return Math.round((this.siteEBPClinicsPEI/this.siteEBPClinicsAll) * 100)
-    },
+    // siteEBPClinicsPercent () {
+    //   return Math.round((this.siteEBPClinics/this.siteEBPClinicsAll) * 100)
+    // },
+    // siteEBPClinicsCPTPercent () {
+    //   return Math.round((this.siteEBPClinicsCPT/this.siteEBPClinicsAll) * 100)
+    // },
+    // siteEBPClinicsPEIPercent () {
+    //   return Math.round((this.siteEBPClinicsPEI/this.siteEBPClinicsAll) * 100)
+    // },
 
     siteEBPProvidersPercent () {
       return Math.round((this.siteEBPProviders/this.siteEBPProvidersAll) * 100)
@@ -700,25 +700,25 @@ export default {
       return Math.round((this.siteEBPProvidersPEI/this.siteEBPProvidersAll) * 100)
     },
    
-    siteEBPPatientsPercent () {
-      return Math.round((this.siteEBPPatients/this.siteEBPPatientsAll) * 100)
-    },
-    siteEBPPatientsCPTPercent () {
-      return Math.round((this.siteEBPPatientsCPT/this.siteEBPPatientsAll) * 100)
-    },
-    siteEBPPatientsPEIPercent () {
-      return Math.round((this.siteEBPPatientsPEI/this.siteEBPPatientsAll) * 100)
-    },
+    // siteEBPPatientsPercent () {
+    //   return Math.round((this.siteEBPPatients/this.siteEBPPatientsAll) * 100)
+    // },
+    // siteEBPPatientsCPTPercent () {
+    //   return Math.round((this.siteEBPPatientsCPT/this.siteEBPPatientsAll) * 100)
+    // },
+    // siteEBPPatientsPEIPercent () {
+    //   return Math.round((this.siteEBPPatientsPEI/this.siteEBPPatientsAll) * 100)
+    // },
 
-    siteEBPPatientsIndOnlyPercent () {
-      return Math.round((this.siteEBPPatientsCPTIndividualOnly/this.siteEncounterCPTPatientsEither) * 100)
-    },
-    siteEBPPatientsGrpOnlyPercent () {
-      return Math.round((this.siteEBPPatientsCPTGroupOnly/this.siteEncounterCPTPatientsEither) * 100)
-    },
-    siteEBPPatientsBothPercent () {
-      return Math.round((this.siteEBPPatientsCPTBoth/this.siteEncounterCPTPatientsEither) * 100)
-    },
+    // siteEBPPatientsIndOnlyPercent () {
+    //   return Math.round((this.siteEBPPatientsCPTIndividualOnly/this.siteEncounterCPTPatientsEither) * 100)
+    // },
+    // siteEBPPatientsGrpOnlyPercent () {
+    //   return Math.round((this.siteEBPPatientsCPTGroupOnly/this.siteEncounterCPTPatientsEither) * 100)
+    // },
+    // siteEBPPatientsBothPercent () {
+    //   return Math.round((this.siteEBPPatientsCPTBoth/this.siteEncounterCPTPatientsEither) * 100)
+    // },
 
     rowData () { return this.siteEBPDetailsTypes  },
     // rowData1 () { return this.siteEBPClinicSummary },
@@ -784,12 +784,19 @@ export default {
     }
   },
    mounted() {
+    this.EBP_SUMMARY()
+    this.EBP_DETAILS()
+    this.EBP_PIE_CHART()
     this.EBP_DETAILS_TYPES()
     this.EBP_DETAILS_SESSIONS_SURVEYS()
   },
   methods: {
    ...mapActions([
-      'EBP_DETAILS_TYPES','EBP_DETAILS_SESSIONS_SURVEYS'
+      'EBP_SUMMARY',
+      'EBP_DETAILS',
+      'EBP_PIE_CHART',
+      'EBP_DETAILS_TYPES',
+      'EBP_DETAILS_SESSIONS_SURVEYS',
     ]),
     addCommas,
     onGridReady() {

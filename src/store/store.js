@@ -38,12 +38,12 @@ import dateRanges from '../../static/dateRanges.json'
 // import surveyPatientDetails from '../../static/survey_patient_details.json'
 
 // EBP
-import ebpCount from '../../static/ebp_count.json'
-import ebpInfo from '../../static/ebp_info.json'
-import ebpDetails from '../../static/ebp_details.json'
-import ebpTypeCounts from '../../static/ebp_pie_chart.json'
-import ebpSummary from '../../static/ebp_summary.json'
-import ebpPatientsCPTCategories from '../../static/ebp_patient_cpt_categories.json'
+// import ebpCount from '../../static/ebp_count.json'
+// import ebpInfo from '../../static/ebp_info.json'
+// import ebpDetails from '../../static/ebp_details.json'
+// import ebpPieChart from '../../static/ebp_pie_chart.json'
+// import ebpSummary from '../../static/ebp_summary.json'
+// import ebpPatientsCPTCategories from '../../static/ebp_patient_cpt_categories.json'
 // import ebpDetailsTypes from '../../static/ebp_details_types.json'
 // import ebpDetailsSessionsSurveys from '../../static/ebp_details_sessions_and_surveys.json'
 
@@ -95,12 +95,12 @@ const store = new Vuex.Store({
     surveyDetails: [],
     surveyPatientDetails: [],
 
-    ebpCount,
-    ebpInfo,
-    ebpDetails,
-    ebpTypeCounts,
-    ebpSummary,
-    ebpPatientsCPTCategories,
+    // ebpCount,
+    // ebpInfo,
+    ebpDetails: [],
+    ebpPieChart: [],
+    ebpSummary: [],
+    // ebpPatientsCPTCategories,
     ebpDetailsTypes: [],
     ebpDetailsSessionsSurveys: [],
   },
@@ -494,6 +494,7 @@ const store = new Vuex.Store({
 
     // revised EBPs from Matt and Erin
     siteEBPSessionsAny: (state) => {
+      // console.log('in siteEBPSessionsAny and state.ebpSummary datatype is: ', typeof state.ebpSummary)
       let filteredArray = state.ebpSummary
       .filter(site => site.StaPa === state.selectedSite)
       .filter(site => site.dataType === 'ebp_sessions')
@@ -505,7 +506,7 @@ const store = new Vuex.Store({
       .filter(site => site.dataType === 'all_sessions')
       return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
-    // no all program EBP patient totals akin to the above session totals
+    //  patients totals akin to the above session totals
     siteEBPPatientsAny: (state) => {
       let filteredArray = state.ebpSummary
       .filter(site => site.StaPa === state.selectedSite)
@@ -587,81 +588,81 @@ const store = new Vuex.Store({
     },
 
 
-    siteEBPClinics: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpClinics')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-    },
-    siteEBPClinicsAll: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpClinicsAll')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-    },
-    siteEBPClinicsPEI: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpClinicsPEI')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-      // return filteredArray[0].totalNum
-    },
-    siteEBPClinicsCPT: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpClinicsCPT')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-    },
-    siteEBPProviders: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpProviders')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-    },
-    siteEBPProvidersAll: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpProvidersAll')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-    },
-    siteEBPProvidersPEI: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpProvidersPEI')
-      return filteredArray.length == 0 ? 0 : filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-      // return filteredArray[0].totalNum
-    },
-    siteEBPProvidersCPT: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpProvidersCPT')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-    },
-    siteEBPPatients: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpPatients')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-    },
-    siteEBPPatientsAll: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpPatientsAll')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-    },
-    siteEBPPatientsPEI: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpPatientsPEI')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-      // return filteredArray[0].totalNum
-    },
-    siteEBPPatientsCPT: (state) => {
-      let filteredArray = state.ebpInfo
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.dataType === 'ebpPatientsCPT')
-      return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
-    },
+    // siteEBPClinics: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpClinics')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    // },
+    // siteEBPClinicsAll: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpClinicsAll')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    // },
+    // siteEBPClinicsPEI: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpClinicsPEI')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    //   // return filteredArray[0].totalNum
+    // },
+    // siteEBPClinicsCPT: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpClinicsCPT')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    // },
+    // siteEBPProviders: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpProviders')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    // },
+    // siteEBPProvidersAll: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpProvidersAll')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    // },
+    // siteEBPProvidersPEI: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpProvidersPEI')
+    //   return filteredArray.length == 0 ? 0 : filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    //   // return filteredArray[0].totalNum
+    // },
+    // siteEBPProvidersCPT: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpProvidersCPT')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    // },
+    // siteEBPPatients: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpPatients')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    // },
+    // siteEBPPatientsAll: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpPatientsAll')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    // },
+    // siteEBPPatientsPEI: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpPatientsPEI')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    //   // return filteredArray[0].totalNum
+    // },
+    // siteEBPPatientsCPT: (state) => {
+    //   let filteredArray = state.ebpInfo
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.dataType === 'ebpPatientsCPT')
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
+    // },
     siteEBPClinicSummary: (state) => {
       let filteredArray = state.ebpDetails
         .filter(site => {
@@ -681,14 +682,14 @@ const store = new Vuex.Store({
           // ** Note: selectedSite is cast to number for comparison
           return site.StaPa === state.selectedSite
         })
-        // console.log('from siteEBPClinicSummary: ', filteredArray)
+        // console.log('from siteEBPDetailsSessionsSurveys: ', filteredArray)
       return filteredArray.length == 0 ? [] : filteredArray
     },
     // ebpDetailSessionSurvey
     siteEBPPieChartSeries: (state) =>{
       // build series based on selected site
-      // console.log('ebpTypeCounts is: ', state.ebpTypeCounts)
-      let filteredArray = state.ebpTypeCounts
+      // console.log('ebpPieChart is: ', state.ebpPieChart)
+      let filteredArray = state.ebpPieChart
         .filter(site => site.StaPa === state.selectedSite)
         .map((status) => { return [status.HealthFactorCategoryShort, +status.Num] })
       // console.log('pie chart series is: ', mappedArray)
@@ -701,30 +702,75 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? [] : filteredArray
     },
 
-    siteEBPPatientsCPTIndividualOnly: (state) => {
-      let filteredArray = state.ebpPatientsCPTCategories
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.TherapyType === 'IndividualOnly')
-      return filteredArray[0] ? filteredArray[0].NumPsychotherapyByType : 0
-    },
-    siteEBPPatientsCPTGroupOnly: (state) => {
-      let filteredArray = state.ebpPatientsCPTCategories
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.TherapyType === 'GroupOnly')
-      return filteredArray[0] ? filteredArray[0].NumPsychotherapyByType : 0
-    },
-    siteEBPPatientsCPTBoth: (state) => {
-      let filteredArray = state.ebpPatientsCPTCategories
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.TherapyType === 'Both')
-        // console.log('for both filteredArray is: ', filteredArray)
-      return filteredArray[0] ? filteredArray[0].NumPsychotherapyByType : 0
-    },
+    // siteEBPPatientsCPTIndividualOnly: (state) => {
+    //   let filteredArray = state.ebpPatientsCPTCategories
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.TherapyType === 'IndividualOnly')
+    //   return filteredArray[0] ? filteredArray[0].NumPsychotherapyByType : 0
+    // },
+    // siteEBPPatientsCPTGroupOnly: (state) => {
+    //   let filteredArray = state.ebpPatientsCPTCategories
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.TherapyType === 'GroupOnly')
+    //   return filteredArray[0] ? filteredArray[0].NumPsychotherapyByType : 0
+    // },
+    // siteEBPPatientsCPTBoth: (state) => {
+    //   let filteredArray = state.ebpPatientsCPTCategories
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .filter(site => site.TherapyType === 'Both')
+    //     // console.log('for both filteredArray is: ', filteredArray)
+    //   return filteredArray[0] ? filteredArray[0].NumPsychotherapyByType : 0
+    // },
 
   },
 
   // ACTIONS
   actions: {
+    EBP_PIE_CHART (context) {
+      // console.log('in EBP_PIE_CHART Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=ebp_pie_chart&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('IN EBP_PIE_CHART ebp summary details from server is: ', typeof )
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_EBP_PIE_CHART', response.data)
+      })
+
+    },
+    EBP_SUMMARY (context) {
+      // console.log('in EBP_SUMMARY Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=ebp_summary&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('IN EBP_SUMMARY ebp summary details from server is: ', typeof )
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_EBP_SUMMARY', response.data)
+      })
+
+    },
+    EBP_DETAILS (context) {
+      // console.log('in EBP_DETAILS Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const params = 'format=ebp_details&sta3n=' + context.state.selectedSite
+      // axios.get('pct.cgi?format=who')
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        // console.log('got consult details from server')
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_EBP_DETAILS', response.data)
+      })
+
+    },
     EBP_DETAILS_TYPES (context) {
       // console.log('in EBP_DETAILS_TYPES Action, check context here', context)
                 
@@ -733,7 +779,7 @@ const store = new Vuex.Store({
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
-        // console.log('got consult details from server')
+        console.log('data type of ebp_details_types from server is: ', typeof ebp_details_types)
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_EBP_DETAILS_TYPES', response.data)
@@ -1083,7 +1129,7 @@ const store = new Vuex.Store({
         context.dispatch('ENCOUNTER_LINE_CHART')
         context.dispatch('ENCOUNTER_PATIENT_LINE_CHART')
         context.dispatch('ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY') 
-
+        context.dispatch('ENCOUNTER_CATEGORIES_CPT') 
         context.dispatch('ENCOUNTER_CPT') 
         context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
       }
@@ -1102,6 +1148,9 @@ const store = new Vuex.Store({
       }
       if (context.state.route.path == '/admin/ebp') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
+        context.dispatch('EBP_SUMMARY')
+        context.dispatch('EBP_DETAILS')
+        context.dispatch('EBP_PIE_CHART')
         context.dispatch('EBP_DETAILS_TYPES') 
         context.dispatch('EBP_DETAILS_SESSIONS_SURVEYS') 
       }
@@ -1157,6 +1206,18 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
+    SET_EBP_PIE_CHART(state, ebpPieChart) {
+      // console.log('in mutate SET_EBP_SUMMARY and ebpSummary data : ', ebpSummary)
+      state.ebpPieChart = ebpPieChart
+    },
+    SET_EBP_SUMMARY(state, ebpSummary) {
+      // console.log('in mutate SET_EBP_SUMMARY and ebpSummary data : ', ebpSummary)
+      state.ebpSummary = ebpSummary
+    },
+    SET_EBP_DETAILS(state, ebpDetails) {
+      // console.log('in mutate SET_EBP_DETAILS and state is: ', state)
+      state.ebpDetails = ebpDetails
+    },
     SET_EBP_DETAILS_TYPES(state, ebpDetailsTypes) {
       // console.log('in mutate SET_EBP_DETAILS_TYPES and state is: ', state)
       state.ebpDetailsTypes = ebpDetailsTypes

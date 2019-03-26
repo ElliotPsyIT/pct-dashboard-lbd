@@ -300,13 +300,13 @@ export default {
       ]
     },
     onRowDataChanged() {
-      console.log('row data changed!!')
+      // console.log('row data changed!!')
       Vue.nextTick(() => {
         this.gridOptions.api.sizeColumnsToFit();
       });
     },
     onRowDataChanged1() {
-      console.log('row1 data changed!!')
+      // console.log('row1 data changed!!')
       Vue.nextTick(() => {
         this.gridOptions1.api.sizeColumnsToFit()
         // this.gridOptions1.api.expandAll();

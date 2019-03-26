@@ -168,7 +168,7 @@
 
  <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Psychotherapy Patients</h4>
+          <h4 class="section-head">Psychotherapy Patients by Session Types</h4>
         </div>
 
         <div class="d-flex flex-row justify-content-center">

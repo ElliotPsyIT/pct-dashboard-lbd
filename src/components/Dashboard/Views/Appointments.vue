@@ -18,7 +18,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">No Show Appts/All ({{ siteEncounterApptNoShowTotal }}/{{ siteEncounterApptTotalStr}})</p>
-                <h4 class="card-title">{{  siteEncounterAppNoShowPercent }}%</h4>
+                <h4 class="card-title">{{ notNumber(siteEncounterAppNoShowPercent) }}%</h4>
               </div>
             </stats-card>
           </div>
@@ -30,7 +30,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">Any Cancelled Appts/All ({{ formatNumber(siteEncounterApptCancelTotal) }}/{{ siteEncounterApptTotalStr }})</p>
-                <h4 class="card-title">{{ siteEncounterAppCancelPercent }}%</h4>
+                <h4 class="card-title">{{ notNumber(siteEncounterAppCancelPercent) }}%</h4>
               </div>
             </stats-card>
           </div>
@@ -70,7 +70,6 @@
                 :enableColResize="true"
                 >
                 </ag-grid-vue>
-                <!-- :rowDataChanged="onRowDataChanged3" -->
               <template slot="footer">
                 <div class="legend">
                   Detailed CPT Categories Listing
@@ -165,14 +164,17 @@ export default {
       } 
     },
     rowData3 () {
-      return this.siteEncounterApptClinicNoShowTotal // filters when site changes    
+      return this.siteEncounterApptClinicNoShowTotal 
     },
   },
   beforeMount() { 
     this.gridOptions3 = {
       columnDefs:  this.createColDefs3(),
       rowData: this.rowData, // computed prop
-      suppressPropertyNamesCheck: true
+      suppressPropertyNamesCheck: true,
+      onRowDataChanged: this.onRowDataChanged,
+      overlayLoadingTemplate: '<span class="ag-overlay-loading-center">Appointment Details Comments Loading ...</span>',
+
     }    
   },
   mounted() {
@@ -182,9 +184,16 @@ export default {
   },
   methods: {
     ...mapActions([
-      'APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS','APPOINTMENT_CANCEL_NOSHOW_TOTALS',
+      'APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS',
+      'APPOINTMENT_CANCEL_NOSHOW_TOTALS',
       'APPOINTMENT_COUNT'
     ]),
+    asyncValue(val) {
+      return val == 0 ? 'Loading...' : val
+    },
+    notNumber(val) {
+      return isNaN(val) ? 'Loading...' : val
+    },
     formatNumber(num) {
       return addCommas(num)
     },
@@ -241,9 +250,11 @@ export default {
     onGridReady3() {
       this.gridOptions3.api.sizeColumnsToFit();
     },
-    onRowDataChanged3() {
-      console.log('row data changed!!')
+    onRowDataChanged(event) {
+      // console.log('onRowDataChanged event triggered!!')
+      this.gridOptions3.api.showLoadingOverlay()
       Vue.nextTick(() => {
+        this.gridOptions3.api.hideOverlay()
         this.gridOptions3.api.sizeColumnsToFit();
       });
     },

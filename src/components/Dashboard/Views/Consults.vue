@@ -16,7 +16,7 @@
                   </div>
                   <div slot="content">
                     <p class="card-category">Total Consults</p>
-                    <h4 class="card-title">{{ siteConsultTotal }}</h4>
+                    <h4 class="card-title">{{ asyncValue(siteConsultTotal) }}</h4>
                   </div>
                   <!-- <div slot="footer">
                     <i class="fa fa-refresh"></i>With Duplicates
@@ -31,7 +31,7 @@
                   </div>
                   <div slot="content">
                     <p class="card-category">Total Patients</p>
-                    <h4 class="card-title">{{ siteConsultPatientTotal }}</h4>
+                    <h4 class="card-title">{{ asyncValue(siteConsultPatientTotal) }}</h4>
                   </div>
                   <!-- <div slot="footer">
                     <i class="fa fa-calendar-o"></i>No Duplicates
@@ -47,7 +47,7 @@
                     </div>
                     <div slot="content">
                       <p class="card-category">Pending</p>
-                      <h4 class="card-title">{{ siteConsultPendingTotal }}</h4>
+                      <h4 class="card-title">{{ asyncValue(siteConsultPendingTotal) }}</h4>
                     </div>
                     <div slot="footer">
                       <i class="fa fa-refresh"></i>Click To <span :class="cardStatusTextPending">Filter PENDING</span>
@@ -64,7 +64,7 @@
                     </div>
                     <div slot="content">
                       <p class="card-category">Active</p>
-                      <h4 class="card-title">{{ siteConsultActiveTotal }}</h4>
+                      <h4 class="card-title">{{ asyncValue(siteConsultActiveTotal) }}</h4>
                     </div>
                     <div slot="footer">
                       <i class="fa fa-refresh"></i>Click To <span :class="cardStatusTextActive">Filter ACTIVE</span>
@@ -315,6 +315,12 @@ export default {
 
 
   },
+  watch: {
+    siteConsultPieChartSeries(newVal, oldVal) {
+      console.log('siteConsultPieChartSeries watcher triggered - oldVal: ', oldVal )
+      console.log('siteConsultPieChartSeries watcher triggered - newVal: ', newVal )
+    }
+  },
   computed: {
     ...mapState([
       'selectedSite', 'selectedRange'
@@ -433,6 +439,9 @@ export default {
       'CONSULT_DETAILS',
       'CONSULT_DATA'
     ]),
+    asyncValue(val) {
+      return val == 0 ? 'Loading...' : val
+    },
     show (comments) { //simple dialog box for now
       // console.log('in show getting these comments: ', comments)
       this.comments = comments

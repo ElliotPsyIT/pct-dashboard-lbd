@@ -83,6 +83,13 @@
           <h4 class="section-head">Encounters and Patients</h4>
         </div>
 
+        <!-- Encount FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="items"/> 
+          </div>
+        </div>
+        
         <div class="row d-flex justify-content-center">
  
         <div class="col-xl-3 col-md-3">
@@ -92,7 +99,7 @@
             </div>
             <div slot="content">
               <p class="card-category">Total Encounters</p>
-              <h4 class="card-title">{{ siteEncounterTotal }}</h4>
+              <h4 class="card-title">{{ asyncValue(siteEncounterTotal) }}</h4>
             </div>
             <!-- <div slot="footer">
                 <i class="fa fa-refresh"></i>With Duplicates
@@ -107,7 +114,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">Patient Uniques</p>
-                <h4 class="card-title">{{ siteEncounterPatientTotal }}</h4>
+                <h4 class="card-title">{{ asyncValue(siteEncounterPatientTotal)}}</h4>
               </div>
               <!-- <div slot="footer">
                 <i class="fa fa-calendar-o"></i>No Duplicates
@@ -143,7 +150,7 @@
                 <i class="nc-icon-outline nc-single-01 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Individual<br/>({{ siteEncounterCPTIndividual }}/{{siteEncounterTotal}})</p>
+                <p class="card-category">Individual<br/>({{ asyncValue(siteEncounterCPTIndividual) }})</p>
                 <h4 class="card-title">{{ siteEncounterCPTIndividualPercent}}%</h4>
               </div>
               </stats-card>
@@ -157,7 +164,7 @@
                 <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group<br/> ({{ siteEncounterCPTGroup }}/{{siteEncounterTotal}})</p>
+                <p class="card-category">Group<br/> ({{ asyncValue(siteEncounterCPTGroup) }}/{{asyncValue(siteEncounterTotal) }})</p>
                 <h4 class="card-title">{{siteEncounterCPTGroupPercent }}%</h4>
               </div>
             </stats-card>
@@ -181,7 +188,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">Individual Tx Only </p>
-                <h4 class="card-title">{{siteEncounterCPTPatientsIndOnly}} Pts</h4>
+                <h4 class="card-title">{{ asyncValue(siteEncounterCPTPatientsIndOnly) }} Pts</h4>
               </div>
               </stats-card>
           
@@ -195,7 +202,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">Group Tx Only </p>
-              <h4 class="card-title">{{siteEncounterCPTPatientsGrpOnly}} Pts</h4>
+              <h4 class="card-title">{{ asyncValue(siteEncounterCPTPatientsGrpOnly) }} Pts</h4>
               </div>
               </stats-card>
           
@@ -209,7 +216,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">Both Ind and Grp Tx </p>
-                <h4 class="card-title">{{siteEncounterCPTPatientsBoth}} Pts</h4>
+                <h4 class="card-title">{{ asyncValue(siteEncounterCPTPatientsBoth) }} Pts</h4>
               </div>
               </stats-card>
           
@@ -283,8 +290,8 @@
                 <i class="nc-icon-outline nc-phone-2 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Telephone CPT ({{ siteEncounterCPTTelephone.total }}/{{formatNumber(siteEncounterTotal)}})</p>
-                <h4 class="card-title">{{ siteEncounterCPTTelephone.percent }}%</h4>
+                <p class="card-category">Telephone CPT ({{ asyncValue(siteEncounterCPTTelephone.total) }}/{{ asyncValue(formatNumber(siteEncounterTotal)) }})</p>
+                <h4 class="card-title">{{ asyncValue(siteEncounterCPTTelephone.percent) }}%</h4>
               </div>
             </stats-card>
 
@@ -650,7 +657,7 @@ import VueHighcharts from 'vue2-highcharts'
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
 
-// import VueMarkdown from 'vue-markdown'
+import VueFaqAccordion from 'vue-faq-accordion'
 
 import { addCommas, totalAndPercent, precise_round } from 'src/utils'
 
@@ -663,8 +670,57 @@ export default {
     ChartCard,
     StatsCard,
     VueHighcharts,
-    AgGridVue
-    // VueMarkdown
+    AgGridVue,
+    VueFaqAccordion
+  },
+  data() {
+    return {
+      gridOptions: null,
+      gridOptions2: null,
+      // gridOptions3: null,
+      // FAQ
+      items: [
+        {
+          title: "Stop Codes Used",
+          value: "All clinics are set-up at the medical center with one or more stop codes.<br/>  For PCT Clinics we use these stop codes:<br/><br/>" +
+          "516 PTSD - Group<br/>" +
+          "&nbsp;&nbsp;&nbsp; Records consultation and/or treatment follow-up provided to more than one individual.  " + 
+          "Treatment is provided to those patients with PTSD.  Includes provider and support services.  " + 
+          "Use the assigned CHAR4 Code if this activity takes place through a designated NEPEC PTSD Clinical Team (PCT).<br/><br/>" +
+          "542 Telephone PTSD<br/>"	+ 
+          "&nbsp;&nbsp;&nbsp;Records patient consultation or medical care management, advice, and/or referral provided by telephone contact " + 
+          "between patient or patient's next-of-kin and/or the person(s) with whom the patient has a meaningful relationship, and clinical and/or professional staff assigned to the PCT.  <br/>" + 
+          "Includes the administrative and clinical services.  Provisions of 38 U.S.C. Section 7332 requires that records which reveal the identity, diagnosis, prognosis, or treatment of VA patients which relate to drug abuse, <br/>" + 
+          "alcoholism or alcohol abuse, infection with HIV, or sickle cell anemia, are strictly confidential, and may not be released or discussed unless there is a written consent from the individual.<br/><br/>" +
+          "562 PTSD - Individual<br/>" +
+          "&nbsp;&nbsp;&nbsp;Records patient visit for consultation, evaluation, follow-up, and/or treatment provided to an individual with PTSD.  Use the assigned CHAR4 Code if this activity takes place through a NEPEC PTSD Clinical Team (PCT).  Includes provider and support services.",
+          category: "Encounters Defined..."
+        },
+        {
+          title: "CPT Codes Used",
+          value: "All clinics are set-up at the medical center with one or more stop codes.<br/>          We use the following stop codes.<br/><br/>" +
+          "Assessment: <br/>('90791','90792','90801','90802')<br/><br/>" +
+          "Individual Therapy: <br/>('90832','90833','90834','90836','90837','90838','90804','90805','90806'<br/>" +
+			"'90807','90808','90809','90810','90811','90812','90813','90814','90815','90816','90817',<br/>" +
+      "'90818','90819','90821','90822','90823','90824','90826','90827','90828','90829')<br/><br/>" +
+      "Group Psychotherapy: <br/>('90853','90857')<br/><br/>" +
+      "Interactive Complexity: <br/>('90785')<br/><br/>" + 
+      "Crisis Intervention: <br/>('90839','90840','H2011','S9484')<br/><br/>" +
+      "Prolonged Service: <br/>('99354','99355','99356','99357')<br/><br/>" +
+      "Family Services: <br/>('90846','90847','90849','90887')<br/><br/>" +
+      "Health and Behavior (Family) Education: <br/>('96154','96155')<br/><br/>" +
+      "Health and Behavior (Individual) Education: <br/>('96150','96151','96152')<br/><br/>" +
+      "Health and Behavior (Group) Education: ('96153','98961','98962','99078','S9446','S9449','S9452','S9453','S9454')<br/><br/>" +
+      "Team Conference: <br/>('99366','99367','99368')<br/><br/>" +
+      "Case Management: <br/>('T1016')<br/><br/>" +
+      "Telephone: <br/>('98966','98967','98968','99441','99442','99443')<br/><br/>" +
+      "Other: <br/>('90862','90863','90885','90889','H0038','H2027')<br/><br/>", 
+          category: "Encounters Defined..."
+        },
+
+
+      ]
+    }
   },
   computed: {
     ...mapState([
@@ -833,6 +889,9 @@ export default {
     formatNumber(num) {
       return addCommas(num)
     },
+    asyncValue(val) {
+      return val == 0 ? 'Loading...' : val
+    },
     createColDefs() {
       return [
         {headerName: "Encounters",
@@ -982,13 +1041,6 @@ export default {
     //     this.gridOptions3.api.sizeColumnsToFit();
     //   });
     // },
-  },
-  data() {
-    return {
-      gridOptions: null,
-      gridOptions2: null,
-      // gridOptions3: null,
-    }
   }
 }
 </script>

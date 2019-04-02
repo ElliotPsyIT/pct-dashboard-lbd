@@ -140,7 +140,7 @@ const store = new Vuex.Store({
       let filteredArray = state.consultDataPie //state.consultPieChart
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.ConsultStatus === 'PENDING')
-      // console.log('PendingTotal is: ', filteredArray)
+      console.log('PendingTotal array is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray[0].Num  
     },
     siteConsultPieChartSeries: (state) =>{
@@ -149,7 +149,7 @@ const store = new Vuex.Store({
       let mappedArray = state.consultDataPie //state.consultPieChart
         .filter(site => site.StaPa === state.selectedSite)
         .map((status) => { return [status.ConsultStatus, +status.Num] })
-      // console.log('pie chart series is: ', mappedArray)
+      console.log('pie chart series is: ', mappedArray)
       return mappedArray  
     },
     siteConsultDetails: (state) => {

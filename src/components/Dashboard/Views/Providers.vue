@@ -17,7 +17,7 @@
             </div>
             <div slot="content">
               <p class="card-category">Total Providers</p>
-              <h4 class="card-title">{{ siteProviderProviderCount }}</h4>
+              <h4 class="card-title">{{ asyncValue(siteProviderProviderCount) }}</h4>
             </div>
             </stats-card>
           </div>
@@ -29,7 +29,7 @@
             </div>
             <div slot="content">
               <p class="card-category">Total Clinics</p>
-              <h4 class="card-title">{{ siteProviderClinicCount }}</h4>
+              <h4 class="card-title">{{ asyncValue(siteProviderClinicCount) }}</h4>
             </div>
             </stats-card>
           </div>
@@ -41,7 +41,7 @@
             </div>
             <div slot="content">
               <p class="card-category">Total Patients</p>
-              <h4 class="card-title">{{ siteProviderPatientCount }}</h4>
+              <h4 class="card-title">{{ asyncValue(siteProviderPatientCount) }}</h4>
             </div>
             </stats-card>
           </div>
@@ -244,6 +244,9 @@ export default {
       'PROVIDER_PATIENT_DETAILS_CPT',
       'PROVIDER_INFO'
     ]),
+    asyncValue(val) {
+      return val == 0 ? 'Loading...' : val
+    },
     createColDefs1() { //experimental
     return [
         { headerName: "Provider (# Sessions Total)", 

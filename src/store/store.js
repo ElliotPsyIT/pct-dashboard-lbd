@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 import { addCommas, totalAndPercent } from '../utils'
-import siteNames from '../../static/sites.json'
+import siteNames from '../../static/sites_orig.json'
 import dateRanges from '../../static/dateRanges.json'
 
 //Consults
@@ -64,6 +64,7 @@ const store = new Vuex.Store({
     userFirstName: storeLocal.userFirstName || 'No',
     userLastName: storeLocal.userLastName || 'User Name',
 
+    appVersion: '0.9.1',
     phipii: 0,
     siteNames,
     dateRanges,
@@ -395,6 +396,7 @@ const store = new Vuex.Store({
     },
     siteProviderList: (state) => {
       let filteredArray = state.providerInfo
+        .filter(site => site.dataType === 'providerInfo')
         .filter(site => site.Sta3n === state.selectedSite)
         .map(site => site.STAFFNAME )
       //unique the provider names
@@ -404,6 +406,7 @@ const store = new Vuex.Store({
     },
     siteProviderInfo: (state) => {
       let filteredArray = state.providerInfo
+        .filter(site => site.dataType === 'providerInfo')
         .filter(site => site.Sta3n === state.selectedSite)
       return filteredArray.length == 0 ? 0 : filteredArray
     },

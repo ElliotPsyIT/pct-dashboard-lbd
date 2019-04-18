@@ -83,10 +83,10 @@
           <h4 class="section-head">Encounters and Patients</h4>
         </div>
 
-        <!-- Encount FAQ -->
+        <!-- EncountersAll FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
           <div style="width: 60%; margin-bottom: 10px;">
-           <VueFaqAccordion :items="items"/> 
+           <VueFaqAccordion :items="encountersAll"/> 
           </div>
         </div>
         
@@ -99,7 +99,7 @@
             </div>
             <div slot="content">
               <p class="card-category">Total Encounters</p>
-              <h4 class="card-title">{{ asyncValue(siteEncounterTotal) }}</h4>
+              <h4 class="card-title">{{ asyncValue(formatNumber(siteEncounterTotal)) }}</h4>
             </div>
             <!-- <div slot="footer">
                 <i class="fa fa-refresh"></i>With Duplicates
@@ -114,7 +114,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">Patient Uniques</p>
-                <h4 class="card-title">{{ asyncValue(siteEncounterPatientTotal)}}</h4>
+                <h4 class="card-title">{{ asyncValue(formatNumber(siteEncounterPatientTotal))}}</h4>
               </div>
               <!-- <div slot="footer">
                 <i class="fa fa-calendar-o"></i>No Duplicates
@@ -136,11 +136,19 @@
 
         </div>
 
+       
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Psychotherapy Sessions</h4>
         </div>
 
+        <!-- EncountersPsychotherapy FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="encountersPsychotherapy"/> 
+          </div>
+        </div>
+        
         <div class="d-flex flex-row justify-content-center">
           
           <div class="col-xl-3 col-md-3">
@@ -150,7 +158,7 @@
                 <i class="nc-icon-outline nc-single-01 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Individual<br/>({{ asyncValue(siteEncounterCPTIndividual) }})</p>
+                <p class="card-category">Individual<br/>({{ asyncValue(formatNumber(siteEncounterCPTIndividual)) }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
                 <h4 class="card-title">{{ siteEncounterCPTIndividualPercent}}%</h4>
               </div>
               </stats-card>
@@ -164,7 +172,7 @@
                 <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group<br/> ({{ asyncValue(siteEncounterCPTGroup) }}/{{asyncValue(siteEncounterTotal) }})</p>
+                <p class="card-category">Group<br/> ({{ asyncValue(formatNumber(siteEncounterCPTGroup)) }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
                 <h4 class="card-title">{{siteEncounterCPTGroupPercent }}%</h4>
               </div>
             </stats-card>
@@ -173,7 +181,7 @@
 
         </div>
 
- <!-- Section Header -->
+        <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Psychotherapy Patients by Session Types</h4>
         </div>
@@ -188,7 +196,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">Individual Tx Only </p>
-                <h4 class="card-title">{{ asyncValue(siteEncounterCPTPatientsIndOnly) }} Pts</h4>
+                <h4 class="card-title">{{ asyncValue(formatNumber(siteEncounterCPTPatientsIndOnly)) }} Pts</h4>
               </div>
               </stats-card>
           
@@ -202,7 +210,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">Group Tx Only </p>
-              <h4 class="card-title">{{ asyncValue(siteEncounterCPTPatientsGrpOnly) }} Pts</h4>
+              <h4 class="card-title">{{ asyncValue(formatNumber(siteEncounterCPTPatientsGrpOnly)) }} Pts</h4>
               </div>
               </stats-card>
           
@@ -216,7 +224,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">Both Ind and Grp Tx </p>
-                <h4 class="card-title">{{ asyncValue(siteEncounterCPTPatientsBoth) }} Pts</h4>
+                <h4 class="card-title">{{ asyncValue(formatNumber(siteEncounterCPTPatientsBoth)) }} Pts</h4>
               </div>
               </stats-card>
           
@@ -275,13 +283,21 @@
 
         </div> -->
 
+        
         <!-- <div class="d-flex flex-row"> -->
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Other Services Sessions</h4>
         </div>
 
-      <div class="d-flex flex-row justify-content-center">
+        <!-- OtherServices FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="otherServices"/> 
+          </div>
+        </div>
+        
+        <div class="d-flex flex-row justify-content-center">
            
           <div class="col-xl-3 col-md-3">
             
@@ -290,7 +306,7 @@
                 <i class="nc-icon-outline nc-phone-2 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Telephone CPT ({{ asyncValue(siteEncounterCPTTelephone.total) }}/{{ asyncValue(formatNumber(siteEncounterTotal)) }})</p>
+                <p class="card-category">Telephone CPT ({{ asyncValue(formatNumber(siteEncounterCPTTelephone.total)) }}/{{ asyncValue(formatNumber(siteEncounterTotal)) }})</p>
                 <h4 class="card-title">{{ asyncValue(siteEncounterCPTTelephone.percent) }}%</h4>
               </div>
             </stats-card>
@@ -304,7 +320,7 @@
                 <i class="nc-icon-outline nc-multiple-11 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group Education ({{ siteEncounterCPTGroupEducation.total }}/{{formatNumber(siteEncounterTotal)}})</p>
+                <p class="card-category">Group Education ({{ asyncValue(formatNumber(siteEncounterCPTGroupEducation.total)) }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
                 <h4 class="card-title">{{ siteEncounterCPTGroupEducation.percent }}%</h4>
               </div>
             </stats-card>
@@ -318,7 +334,7 @@
                 <i class="nc-icon-outline nc-single-folded-content text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Assessment CPT ({{ siteEncounterCPTAssessment.total }}/{{formatNumber(siteEncounterTotal)}})</p>
+                <p class="card-category">Assessment CPT ({{ asyncValue(formatNumber(siteEncounterCPTAssessment.total)) }}/{{asyncValue(formatNumber(siteEncounterTotal))}})</p>
                 <h4 class="card-title">{{ siteEncounterCPTAssessment.percent }}%</h4>
               </div>
               </stats-card>
@@ -332,7 +348,7 @@
                 <i class="nc-icon nc-refresh-02 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Prolonged Service ({{ siteEncounterCPTProlongedService.total }}/{{formatNumber(siteEncounterTotal)}})</p>
+                <p class="card-category">Prolonged Service ({{ asyncValue(formatNumber(siteEncounterCPTProlongedService.total)) }}/{{asyncValue(formatNumber(siteEncounterTotal))}})</p>
                 <h4 class="card-title">{{ siteEncounterCPTProlongedService.percent }}%</h4>
               </div>
               </stats-card>
@@ -343,8 +359,16 @@
 
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">CPT Categories Summary</h4>
+          <h4 class="section-head">Encounters Categories Summary</h4>
         </div>
+
+       <!-- encounterCategories FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="encounterCategories"/> 
+          </div>
+        </div>
+        
 
         <div class="d-flex flex-row justify-content-center">
 
@@ -481,6 +505,13 @@
           <h4 class="section-head">CPT Details</h4>
         </div>
 
+       <!-- encounterCPTDetails FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="encounterCPTDetails"/> 
+          </div>
+        </div>
+        
         <div class="row">
           
           <div class="col-md-12">
@@ -679,46 +710,123 @@ export default {
       gridOptions2: null,
       // gridOptions3: null,
       // FAQ
-      items: [
+      encountersAll: [
         {
-          title: "Stop Codes Used",
-          value: "All clinics are set-up at the medical center with one or more stop codes.<br/>  For PCT Clinics we use these stop codes:<br/><br/>" +
-          "516 PTSD - Group<br/>" +
+          title: "PCT Clinic Definition",
+          value: "<b>Stop Codes:</b> All clinics are set-up at the medical center with one or more stop codes. For PCT Clinics we use these stop codes:<br/><br/>" +
+          "<u>516 PTSD - Group</u>:<br/>" +
           "&nbsp;&nbsp;&nbsp; Records consultation and/or treatment follow-up provided to more than one individual.  " + 
           "Treatment is provided to those patients with PTSD.  Includes provider and support services.  " + 
           "Use the assigned CHAR4 Code if this activity takes place through a designated NEPEC PTSD Clinical Team (PCT).<br/><br/>" +
-          "542 Telephone PTSD<br/>"	+ 
+          "<u>542 Telephone PTSD</u>:<br/>"	+ 
           "&nbsp;&nbsp;&nbsp;Records patient consultation or medical care management, advice, and/or referral provided by telephone contact " + 
           "between patient or patient's next-of-kin and/or the person(s) with whom the patient has a meaningful relationship, and clinical and/or professional staff assigned to the PCT.  <br/>" + 
           "Includes the administrative and clinical services.  Provisions of 38 U.S.C. Section 7332 requires that records which reveal the identity, diagnosis, prognosis, or treatment of VA patients which relate to drug abuse, <br/>" + 
           "alcoholism or alcohol abuse, infection with HIV, or sickle cell anemia, are strictly confidential, and may not be released or discussed unless there is a written consent from the individual.<br/><br/>" +
-          "562 PTSD - Individual<br/>" +
+          "<u>562 PTSD - Individual</u><br/>" +
           "&nbsp;&nbsp;&nbsp;Records patient visit for consultation, evaluation, follow-up, and/or treatment provided to an individual with PTSD.  Use the assigned CHAR4 Code if this activity takes place through a NEPEC PTSD Clinical Team (PCT).  Includes provider and support services.",
           category: "Encounters Defined..."
         },
         {
-          title: "CPT Codes Used",
-          value: "All clinics are set-up at the medical center with one or more stop codes.<br/>          We use the following stop codes.<br/><br/>" +
-          "Assessment: <br/>('90791','90792','90801','90802')<br/><br/>" +
-          "Individual Therapy: <br/>('90832','90833','90834','90836','90837','90838','90804','90805','90806'<br/>" +
-			"'90807','90808','90809','90810','90811','90812','90813','90814','90815','90816','90817',<br/>" +
-      "'90818','90819','90821','90822','90823','90824','90826','90827','90828','90829')<br/><br/>" +
-      "Group Psychotherapy: <br/>('90853','90857')<br/><br/>" +
-      "Interactive Complexity: <br/>('90785')<br/><br/>" + 
-      "Crisis Intervention: <br/>('90839','90840','H2011','S9484')<br/><br/>" +
-      "Prolonged Service: <br/>('99354','99355','99356','99357')<br/><br/>" +
-      "Family Services: <br/>('90846','90847','90849','90887')<br/><br/>" +
-      "Health and Behavior (Family) Education: <br/>('96154','96155')<br/><br/>" +
-      "Health and Behavior (Individual) Education: <br/>('96150','96151','96152')<br/><br/>" +
-      "Health and Behavior (Group) Education: ('96153','98961','98962','99078','S9446','S9449','S9452','S9453','S9454')<br/><br/>" +
-      "Team Conference: <br/>('99366','99367','99368')<br/><br/>" +
-      "Case Management: <br/>('T1016')<br/><br/>" +
-      "Telephone: <br/>('98966','98967','98968','99441','99442','99443')<br/><br/>" +
-      "Other: <br/>('90862','90863','90885','90889','H0038','H2027')<br/><br/>", 
+          title: "Total Encounters and Patient Uniques",
+          value: "<b>Encounter CPTs:</b> All Encounters (scheduled and unscheduled) in PCT Clinics are totalled from any and all CPT codes used in those clinics.<br/><br/>" +
+      //     "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
+      //     "<u>Individual Therapy</u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
+      // "<u>Group Psychotherapy</u>: <br/>('90853')<br/><br/>" +
+      // "<u>Interactive Complexity</u>: <br/>('90785')<br/><br/>" + 
+      // "<u>Crisis Intervention</u>: <br/>('90839', '90840', 'H2011', 'S9484')<br/><br/>" +
+      // "<u>Prolonged Service</u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>" +
+      // "<u>Family Services</u>: <br/>('90846', '90847', '90849', '90887')<br/><br/>" +
+      // "<u>Health and Behavior (Family) Education</u>: <br/>('96154', '96155')<br/><br/>" +
+      // "<u>Health and Behavior (Individual) Education</u>: <br/>('96150', '96151', '96152')<br/><br/>" +
+      // "<u>Health and Behavior (Group) Education</u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
+      // "<u>Team Conference</u>: <br/>('99366', '99367', '99368')<br/><br/>" +
+      // "<u>Case Management</u>: <br/>('T1016')<br/><br/>" +
+      // "<u>Telephone</u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
+      // "<u>Other</u>: <br/>('90863', '90885', '90889', 'H0038', 'H2027')<br/><br/>" +
+      "<b>Unique Patients:</b> Counts of individual patients irrespective of the types of services received or the number of sessions.<br/><br/>", 
           category: "Encounters Defined..."
         },
+      ],
+      encountersPsychotherapy: [
+        {
+          title: "Individual Psychotherapy",
+          value: "<b>Numerator</b>: Total Encounters from all PCT Clinics with the following Individual Tx CPT codes:<br/><br/>" + 
+          "&nbsp;&nbsp;&nbsp; <u>Individual Therapy</u>: (incl. 1 Crisis Code AND 2 Family Codes): <br/>" +
+          "('90832', '90834', '90837', '90839', '90847', '90849')<br/><br/>" +
+          "<b>Denominator</b>: Total Encounters from all PCT Clinic regardless of type of service provided.<br/><br/>",
+          category: "Psychotherapy Encounters Defined ..."
 
+        },
+        {
+          title: "Group Psychotherapy",
+          value: "<b>Numerator</b>: Total Encounters from all PCT Clinics with the following Group Tx CPT codes:<br/><br/>" +
+          "&nbsp;&nbsp;&nbsp; <u>Group Therapy</u>: <br/>('90853')<br/><br/>" +
+          "<b>Denominator</b>: Total Encounters from all PCT Clinic regardless of type of service provided.<br/><br/>",
+          category: "Psychotherapy Encounters Defined ..."
 
+        }
+      ],
+      otherServices: [
+        {
+          title: "Numerator Counts",
+          value: "<b>Other Services:</b> Numerators are encounter counts from these CPT codes: <br/><br/>" +
+          "<u>Telephone</u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
+          "<u>Health and Behavior (Group) Education</u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
+          "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
+          "<u>Prolonged Service</u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>",
+          category: "Other Services Defined ..."
+        },
+        {
+          title: "Denominator Counts",
+          value: "<b>Other Services:</b> Denominators are encounter counts from all MH CPT codes irrespective of the type of service provided. <br/><br/>",
+          // "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
+          // "<u>Individual Therapy</u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
+          // "<u>Group Psychotherapy</u>: <br/>('90853')<br/><br/>" +
+          // "<u>Interactive Complexity</u>: <br/>('90785')<br/><br/>" + 
+          // "<u>Crisis Intervention</u>: <br/>('90839', '90840', 'H2011', 'S9484')<br/><br/>" +
+          // "<u>Prolonged Service</u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>" +
+          // "<u>Family Services</u>: <br/>('90846', '90847', '90849', '90887')<br/><br/>" +
+          // "<u>Health and Behavior (Family) Education</u>: <br/>('96154', '96155')<br/><br/>" +
+          // "<u>Health and Behavior (Individual) Education</u>: <br/>('96150', '96151', '96152')<br/><br/>" +
+          // "<u>Health and Behavior (Group) Education</u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
+          // "<u>Team Conference</u>: <br/>('99366', '99367', '99368')<br/><br/>" +
+          // "<u>Case Management</u>: <br/>('T1016')<br/><br/>" +
+          // "<u>Telephone</u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
+          // "<u>Other</u>: <br/>('90863', '90885', '90889', 'H0038', 'H2027')<br/><br/>", 
+          category: "Other Services Defined ..."
+        },
+      ],
+      encounterCategories: [
+        {
+          title: "Encounter Category CPT Codes",
+          value: "Encounter Counts are totals listed by encounter category taken from the National VA Mental Health <a href=\"https://vaww.cmopnational.va.gov/CR/MentalHealth/MH_Business Rules/MH_Coding/\" target=\"_blank\"> PTSD quick guides 2016 </a>.<br/><br/>" + 
+          "Also note an encounter may have multiple CPT codes. The Encounters Categories Summary table below shows all unique CPT code category combinations. <br/><br/>" +
+          "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
+          "<u>Individual Therapy</u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
+          "<u>Group Psychotherapy</u>: <br/>('90853')<br/><br/>" +
+          "<u>Interactive Complexity</u>: <br/>('90785')<br/><br/>" + 
+          "<u>Crisis Intervention</u>: <br/>('90839', '90840', 'H2011', 'S9484')<br/><br/>" +
+          "<u>Prolonged Service</u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>" +
+          "<u>Family Services</u>: <br/>('90846', '90847', '90849', '90887')<br/><br/>" +
+          "<u>Health and Behavior (Family) Education</u>: <br/>('96154', '96155')<br/><br/>" +
+          "<u>Health and Behavior (Individual) Education</u>: <br/>('96150', '96151', '96152')<br/><br/>" +
+          "<u>Health and Behavior (Group) Education</u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
+          "<u>Team Conference</u>: <br/>('99366', '99367', '99368')<br/><br/>" +
+          "<u>Case Management</u>: <br/>('T1016')<br/><br/>" +
+          "<u>Telephone</u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
+          "<u>Other</u>: <br/>('90863', '90885', '90889', 'H0038', 'H2027')<br/><br/>", 
+          category: "Encounter Categories Defined ..."
+        }
+      ],
+      encounterCPTDetails: [
+        {
+          title: "CPT Details",
+          value: "Encounter Counts from all PCT Clinics regardless of type of service provided.<br/><br/>" + 
+          "Also note an encounter may have multiple CPT codes. The CPT Details table below shows all the distinct CPT codes and code combinations using the  CPT Code standard names. <br/><br/>" +
+          "Notice, where there are CPT code combinations the individual CPT code names are separated by a bar \'|\' <br/><br/>",
+          category: "CPT Details Defined ..."
+        }
       ]
     }
   },

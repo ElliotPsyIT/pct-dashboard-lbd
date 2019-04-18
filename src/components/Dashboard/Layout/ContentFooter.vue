@@ -4,7 +4,7 @@
       <nav>
         <ul class="footer-menu">
           <li>
-            <router-link :to="{path:'/admin'}">Dashboard</router-link>
+            <router-link :to="{path:'/admin'}">Dashboard v.{{appVersion}}</router-link>
           </li>
         </ul>
       </nav>
@@ -16,7 +16,14 @@
   </footer>
 </template>
 <script>
-  export default {}
+import { mapState } from 'vuex'
+  export default {
+    computed: {
+    ...mapState([
+      'appVersion',
+    ]),
+    }
+  }
 
 </script>
 <style>

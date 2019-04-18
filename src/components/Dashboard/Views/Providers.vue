@@ -188,6 +188,7 @@ export default {
       'siteProviderDetailsCPT',
 
       'siteProviderInfo',
+      'siteProviderInfoEBP', // EBP info for Provider Activity Summary table
       'siteProviderDetails',
       'siteProviderPatientDetailsCPT',
       
@@ -349,33 +350,45 @@ export default {
             },
             { headerName: "Staff Name", 
               field: "STAFFNAME", 
-              width: 45, 
+              width: 30, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
             { headerName: "Institution", 
               field: "InstitutionName", 
-              width: 45, 
+              width: 30, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
-            { headerName: "Clinics", 
-              field: "numLocations", 
-              width: 20, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter"
-            },
-            { headerName: "Visits", 
+            // { headerName: "Clinics", 
+            //   field: "numLocations", 
+            //   width: 20, 
+            //   cellStyle: { 'text-align': "left" } ,
+            //   filter: "agTextColumnFilter"
+            // },
+            { headerName: "Visits / %EBP", 
               field: "numEncounters", 
-              width: 20, 
+              width: 30, 
               cellStyle: { 'text-align': "left" } ,
-              filter: "agNumberColumnFilter"
+              filter: "agNumberColumnFilter",
+              cellRenderer: (params) => {
+                let encounters = params.data.numEncounters
+                let encountersEBP = params.data.numEncountersEBP === null ? 0 : params.data.numEncountersEBP
+                let encountersEBPpercent= params.data.PercentageEncountersCPT === null ? 0 : params.data.PercentageEncountersCPT
+                return `${encounters}/${encountersEBP}(${encountersEBPpercent}%)`
+              }
             },
-            { headerName: "Patients", 
+            { headerName: "Patients / %EBP", 
               field: "numPatients", 
-              width: 25, 
+              width: 30, 
               cellStyle: { 'text-align': "left" } ,
-              filter: "agNumberColumnFilter"
+              filter: "agNumberColumnFilter",
+              cellRenderer: (params) => {
+                let patients = params.data.numPatients
+                let patientsEBP = params.data.numPatientsEBP === null ? 0 : params.data.numPatientsEBP
+                let patientsEBPpercent= params.data.PercentagePatientsCPT === null ? 0 : params.data.PercentagePatientsCPT
+                return `${patients}/${patientsEBP}(${patientsEBPpercent}%)`
+              }
             },
           ]
         }

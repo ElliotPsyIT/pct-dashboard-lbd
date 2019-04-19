@@ -64,7 +64,7 @@ const store = new Vuex.Store({
     userFirstName: storeLocal.userFirstName || 'No',
     userLastName: storeLocal.userLastName || 'User Name',
 
-    appVersion: '0.9.1',
+    appVersion: '0.9.2',
     phipii: 0,
     siteNames,
     dateRanges,

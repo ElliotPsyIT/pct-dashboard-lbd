@@ -1096,7 +1096,13 @@ const store = new Vuex.Store({
       // need to obtain sites for permissions
       // console.log('before USER_PERMISSIONS call, context.state.selectedSite is: ', context.state.selectedSite)
       const path = 'pct.cgi'
-      const params = 'format=user_permissions&sta3n=' + context.state.selectedSite
+      let staPa = context.state.selectedSite
+      let sta3nRegexp = /^(\d\d\d).+$/
+      let sta3nArr = sta3nRegexp.exec(staPa)
+      let sta3n = sta3nArr[1]
+      // console.log('in user_permissions action, staPa is: ', staPa)
+      // console.log('in user_permissions action, sta3n is: ', sta3n[1])
+      const params = 'format=user_permissions&sta3n=' + sta3n
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 

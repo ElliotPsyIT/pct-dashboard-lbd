@@ -64,7 +64,7 @@ const store = new Vuex.Store({
     userFirstName: storeLocal.userFirstName || 'No',
     userLastName: storeLocal.userLastName || 'User Name',
 
-    appVersion: '0.9.2',
+    appVersion: '0.10.0',
     phipii: 0,
     siteNames,
     dateRanges,
@@ -178,7 +178,7 @@ const store = new Vuex.Store({
     // encounters: distinct VisitSID, all MH CPTCodes
     siteEncounterTotal: (state) => {
       let filteredArray = state.encounterCount
-        .filter(site => site.Sta3n === state.selectedSite)
+        .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'encountersCount')
       // console.log('Encounter Total is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray[0].countTotal
@@ -186,7 +186,7 @@ const store = new Vuex.Store({
     // encounters: distinct PatientSID, all MH CPTCode
     siteEncounterPatientTotal: (state) => {
       let filteredArray = state.encounterCount
-        .filter(site => site.Sta3n === state.selectedSite)
+        .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'patientCount')
       // console.log('Encounter Patient Total is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : addCommas(filteredArray[0].countTotal)
@@ -219,7 +219,7 @@ const store = new Vuex.Store({
     siteEncounterCPTIndividual: (state) => {
       // console.log('in siteEncounterCPTIndividual, state.encounterCPTCategoriesPsychotherapy is: ', state.encounterCPTCategoriesPsychotherapy)
       let filteredArray = state.encounterCPTCategoriesPsychotherapy
-        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.StaPa === state.selectedSite) 
         // .filter(site => site.CPTCategory === 'Individual Psychotherapy')
         .filter(site => {
           // console.log('siteEncounterCPTIndividual Psychotherapy is: ', site.Psychotherapy)
@@ -231,7 +231,7 @@ const store = new Vuex.Store({
     // total for Grp Therapy CPT Category (large set of CPTs)
     siteEncounterCPTGroup: (state) => {
       let filteredArray = state.encounterCPTCategoriesPsychotherapy
-        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.StaPa === state.selectedSite) 
         // .filter(site => site.CPTCategory === 'Group Psychotherapy')
         .filter(site => site.Psychotherapy === 'Group Therapy') 
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
@@ -239,7 +239,7 @@ const store = new Vuex.Store({
     // total for each CPTs no categorizing and no filtering
     siteEncounterCPTTotal: (state) => {
       let filteredArray = state.encounterCPT
-        .filter(site => site.Sta3n === state.selectedSite)
+        .filter(site => site.StaPa === state.selectedSite)
       filteredArray.forEach(function (rec) {
         rec.encountersPerCPT = Number(rec.encountersPerCPT)
       })
@@ -248,14 +248,14 @@ const store = new Vuex.Store({
     // total for each CPTCategory (large set of CPTs) and no category filtering
     siteEncounterCPTCategories: (state) => {
       let filteredArray = state.encounterCPTCategories
-        .filter(site => site.Sta3n === state.selectedSite)
+        .filter(site => site.StaPa === state.selectedSite)
       // console.log('in ENCOUNTER_CPT_CATEGORIES, filteredArray is: ', filteredArray)
       return filteredArray
     },
     // total for Tele CPT Category (large set of CPTs)
     siteEncounterCPTTelephone: (state) => {
       let filteredArray = state.encounterCPTCategories
-        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.StaPa === state.selectedSite) 
         // .filter(site => site.CPTCategory === 'Telephone')
         .filter(site => site.CPTCategory.match('Telephone') ) 
       return totalAndPercent(filteredArray)
@@ -263,7 +263,7 @@ const store = new Vuex.Store({
     // total for Prolonged Service CPT Category (large set of CPTs)
     siteEncounterCPTProlongedService: (state) => {
       let filteredArray = state.encounterCPTCategories
-        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.StaPa === state.selectedSite) 
         // .filter(site => site.CPTCategory === 'Prolonged Service')
         .filter(site => site.CPTCategory.match('Prolonged Service') ) 
       return totalAndPercent(filteredArray)
@@ -271,7 +271,7 @@ const store = new Vuex.Store({
     // total for Specific CPT Category (large set of CPTs)
     siteEncounterCPTAssessment: (state) => {
       let filteredArray = state.encounterCPTCategories
-        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.StaPa === state.selectedSite) 
         // .filter(site => site.CPTCategory === 'Assessment')
         .filter(site => site.CPTCategory.match('Assessment') ) 
       return totalAndPercent(filteredArray)
@@ -279,7 +279,7 @@ const store = new Vuex.Store({
     // total for Specific CPT Category (large set of CPTs)
     siteEncounterCPTGroupEducation: (state) => {
       let filteredArray = state.encounterCPTCategories
-        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.StaPa === state.selectedSite) 
         // .filter(site => site.CPTCategory === 'Health and Behavior (Group) Education')
         .filter(site => site.CPTCategory.match('Health and Behavior \(Group\) Education') ) 
       return totalAndPercent(filteredArray)
@@ -290,7 +290,7 @@ const store = new Vuex.Store({
       //encounterPatientCPTCategories
       // console.log('state.encounterPatientCPTCategories', state.encounterPatientCPTCategories)
       let filteredArray = state.encounterPatientCPTCategories
-        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.StaPa === state.selectedSite) 
         .filter(site => site.TherapyType === 'IndividualOnly')
       return filteredArray.length == 0 ? 0 : filteredArray[0].NumPsychotherapyByType
     },
@@ -298,7 +298,7 @@ const store = new Vuex.Store({
     siteEncounterCPTPatientsGrpOnly: (state) => {
       //encounterPatientCPTCategories
       let filteredArray = state.encounterPatientCPTCategories
-        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.StaPa === state.selectedSite) 
         .filter(site => site.TherapyType === 'GroupOnly')
       return filteredArray.length == 0 ? 0 : filteredArray[0].NumPsychotherapyByType
     },
@@ -306,7 +306,7 @@ const store = new Vuex.Store({
     siteEncounterCPTPatientsBoth: (state) => {
       //encounterPatientCPTCategories
       let filteredArray = state.encounterPatientCPTCategories
-        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.StaPa === state.selectedSite) 
         .filter(site => site.TherapyType === 'Both')
       return filteredArray.length == 0 ? 0 : filteredArray[0].NumPsychotherapyByType
     },
@@ -314,7 +314,7 @@ const store = new Vuex.Store({
     siteEncounterCPTPatientsEither: (state) => {
       //encounterPatientCPTCategories
       let filteredArray = state.encounterPatientCPTCategories
-        .filter(site => site.Sta3n === state.selectedSite) 
+        .filter(site => site.StaPa === state.selectedSite) 
         .filter(site => site.TherapyType === 'Either')
       return filteredArray.length == 0 ? 0 : filteredArray[0].NumPsychotherapyByType
     },
@@ -324,14 +324,14 @@ const store = new Vuex.Store({
       // build series based on selected site
     // console.log('encounterApptCancelNoShow is: ', state.encounterApptCancelNoShow)
       let filteredArray = state.encounterApptCancelNoShow
-        .filter(site => site.Sta3n === state.selectedSite)
+        .filter(site => site.StaPa === state.selectedSite)
         .map((status) => { return [status.CancelNoShow, +status.cancelNoShowCount] })
       // console.log('pie chart series is: ', mappedArray)
       return filteredArray.length == 0 ? [] : filteredArray  
     },
     siteEncounterApptNoShowTotal: (state) => {
       let filteredArray = state.encounterApptCancelNoShow
-        .filter(site => site.Sta3n === state.selectedSite)
+        .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.CancelNoShow === 'NO-SHOW')
       // console.log('Encounter Patient Total is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray[0].cancelNoShowCount
@@ -339,7 +339,7 @@ const store = new Vuex.Store({
     siteEncounterApptCancelTotal: (state) => {
       // console.log('HERE!!!!!')
       let filteredArray = state.encounterApptCancelNoShow
-        .filter(site => site.Sta3n === state.selectedSite)
+        .filter(site => site.StaPa === state.selectedSite)
         .filter(site => 
           site.CancelNoShow === 'CANCELLED BY PATIENT' ||
           site.CancelNoShow === 'CANCELLED BY PATIENT & AUTO RE-BOOK' ||
@@ -355,12 +355,12 @@ const store = new Vuex.Store({
     },
     siteEncounterApptTotalStr: (state) => { // with commas for display
       let filteredArray = state.encounterApptCount
-        .filter(site => site.Sta3n === state.selectedSite)
+        .filter(site => site.StaPa === state.selectedSite)
       return filteredArray.length == 0 ? 0 : addCommas(filteredArray[0].appointmentCount)
     },
     siteEncounterApptTotal: (state) => { // without commas for computation
       let filteredArray = state.encounterApptCount
-        .filter(site => site.Sta3n === state.selectedSite)
+        .filter(site => site.StaPa === state.selectedSite)
       return filteredArray.length == 0 ? 0 : filteredArray[0].appointmentCount
     },
     siteEncounterApptClinicNoShowTotal: (state) => {
@@ -368,7 +368,7 @@ const store = new Vuex.Store({
       let filteredArray = state.encounterApptClinicCancelNoShow
         .filter(site => {
           // console.log('in filter, site.Sta3n is: ', site.Sta3n)
-          return site.Sta3n == state.selectedSite
+          return site.StaPa == state.selectedSite
         })
         // console.log('filteredArray is: ', filteredArray)
         return filteredArray.length == 0 ? 0 : filteredArray  
@@ -397,17 +397,27 @@ const store = new Vuex.Store({
     siteProviderList: (state) => {
       let filteredArray = state.providerInfo
         .filter(site => site.dataType === 'providerInfo')
-        .filter(site => site.Sta3n === state.selectedSite)
+        .filter(site => site.StaPa === state.selectedSite)
         .map(site => site.STAFFNAME )
       //unique the provider names
-      // console.log('siteProviderList filteredArray: ', filteredArray)
+      console.log('siteProviderList filteredArray: ', filteredArray)
       filteredArray = filteredArray.filter((el, i, a) => i === a.indexOf(el))
       return filteredArray.length == 0 ? 0 : filteredArray // array of staffname objects?
     },
     siteProviderInfo: (state) => {
+      console.log('in the siteProviderInfo, the state.providerInfo data is: ', state.providerInfo)
       let filteredArray = state.providerInfo
-        .filter(site => site.dataType === 'providerInfo')
-        .filter(site => site.Sta3n === state.selectedSite)
+        // .filter(site => {
+        //   // console.log('going through site.dataType: ', site.dataType === 'providerInfo')
+        //   site.dataType === 'providerInfo' 
+        // })
+        // .filter(site => {
+        //   // console.log(' site.Sta3n is: ',  site.Sta3n)
+        //   // console.log(' state.selectedSite is: ',  state.selectedSite)
+        //   // console.log('in store in siteProviderInfo, state.selectedSite is', site.Sta3n === state.selectedSite)
+        //   site.StaPa === state.selectedSite
+        // })
+      // console.log('siteProviderInfo has this filteredArray: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray
     },
     siteProviderPatientDetailsCPT: (state) => {
@@ -416,7 +426,7 @@ const store = new Vuex.Store({
         .filter(site => {
           // console.log('site.Sta3n: ', site.Sta3n)
           // console.log('site.StaPa: ', site.StaPa)
-          return site.Sta3n === state.selectedSite
+          return site.StaPa === state.selectedSite
         })
         // console.log('siteProviderPatientDetailCPT filteredArray', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray
@@ -425,7 +435,7 @@ const store = new Vuex.Store({
       let filteredArray = state.providerDetails
         .filter(site => {
           // ** Note: selectedSite is cast to number for comparison
-          return site.Sta3n === state.selectedSite
+          return site.StaPa === state.selectedSite
         })
       return filteredArray.length == 0 ? 0 : filteredArray
     },
@@ -733,7 +743,7 @@ const store = new Vuex.Store({
       // console.log('in EBP_PIE_CHART Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=ebp_pie_chart&sta3n=' + context.state.selectedSite
+      const params = 'format=ebp_pie_chart&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -748,7 +758,7 @@ const store = new Vuex.Store({
       // console.log('in EBP_SUMMARY Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=ebp_summary&sta3n=' + context.state.selectedSite
+      const params = 'format=ebp_summary&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -763,7 +773,7 @@ const store = new Vuex.Store({
       // console.log('in EBP_DETAILS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=ebp_details&sta3n=' + context.state.selectedSite
+      const params = 'format=ebp_details&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -778,11 +788,10 @@ const store = new Vuex.Store({
       // console.log('in EBP_DETAILS_TYPES Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=ebp_details_types&sta3n=' + context.state.selectedSite
+      const params = 'format=ebp_details_types&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('data type of ebp_details_types from server is: ', typeof ebp_details_types)
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_EBP_DETAILS_TYPES', response.data)
@@ -793,12 +802,12 @@ const store = new Vuex.Store({
       // console.log('in EBP_DETAILS_SESSIONS_SURVEYS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=ebp_details_sessions_surveys&sta3n=' + context.state.selectedSite
+      const params = 'format=ebp_details_sessions_surveys&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
         // console.log('got consult details from server')
-        // console.log('EBP_DETAILS_SESSIONS_SURVEYS response.data is: ', response.data)
+        console.log('EBP_DETAILS_SESSIONS_SURVEYS response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_EBP_DETAILS_SESSIONS_SURVEYS', response.data)
       })
@@ -808,7 +817,7 @@ const store = new Vuex.Store({
       // console.log('in SURVEY_DETAILS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=survey_details&sta3n=' + context.state.selectedSite
+      const params = 'format=survey_details&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -823,7 +832,7 @@ const store = new Vuex.Store({
       // console.log('in SURVEY_TOTALS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=survey_totals&sta3n=' + context.state.selectedSite
+      const params = 'format=survey_totals&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -838,7 +847,7 @@ const store = new Vuex.Store({
       // console.log('in SURVEY_PATIENT_DETAILS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=survey_patient_details&sta3n=' + context.state.selectedSite
+      const params = 'format=survey_patient_details&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -853,7 +862,7 @@ const store = new Vuex.Store({
       // console.log('in PROVIDER_COUNT Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=provider_count&sta3n=' + context.state.selectedSite
+      const params = 'format=provider_count&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -868,7 +877,7 @@ const store = new Vuex.Store({
       // console.log('in PROVIDER_DETAILS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=provider_details&sta3n=' + context.state.selectedSite
+      const params = 'format=provider_details&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -883,12 +892,12 @@ const store = new Vuex.Store({
       // console.log('in PROVIDER_INFO Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=provider_info&sta3n=' + context.state.selectedSite
+      const params = 'format=provider_info&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
-        // console.log('got PROVIDER_INFO from server')
-        // console.log('response.data is: ', response.data)
+        console.log('got PROVIDER_INFO from server')
+        console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_PROVIDER_INFO', response.data)
       })
@@ -898,7 +907,7 @@ const store = new Vuex.Store({
       // console.log('in PROVIDER_PATIENT_DETAILS_CPT Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=provider_patient_details_cpt&sta3n=' + context.state.selectedSite
+      const params = 'format=provider_patient_details_cpt&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -912,7 +921,7 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_PATIENT_LINE_CHART Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_patient_line_chart&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_patient_line_chart&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -927,7 +936,7 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_LINE_CHART Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_line_chart&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_line_chart&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -942,7 +951,7 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_count&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_count&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -957,7 +966,7 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_cpt&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_cpt&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -972,7 +981,7 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_cpt_categories_psychotherapy&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_cpt_categories_psychotherapy&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -987,7 +996,7 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT_CATEGORIES Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_cpt_categories&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_cpt_categories&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -1002,7 +1011,7 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_patient_cpt_categories&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_patient_cpt_categories&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -1017,7 +1026,7 @@ const store = new Vuex.Store({
       // console.log('in APP_COUNTS Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_appt_count&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_appt_count&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -1032,7 +1041,7 @@ const store = new Vuex.Store({
       // console.log('in APPOINTMENT_CANCEL_NOSHOW_TOTALS Action, check context here', context)
     
       const path = 'pct.cgi'
-      const params = 'format=encounter_appt_cancel_noshow&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_appt_cancel_noshow&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -1047,7 +1056,7 @@ const store = new Vuex.Store({
       // console.log('in APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS Action, check context here', context)
     
       const path = 'pct.cgi'
-      const params = 'format=encounter_appt_clinic_cancel_noshow&sta3n=' + context.state.selectedSite
+      const params = 'format=encounter_appt_clinic_cancel_noshow&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -1062,7 +1071,7 @@ const store = new Vuex.Store({
       // console.log('in CONSULT_DATA Action, check context here', context)
     
       const path = 'pct.cgi'
-      const params = 'format=consult_data&sta3n=' + context.state.selectedSite
+      const params = 'format=consult_data&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -1082,7 +1091,7 @@ const store = new Vuex.Store({
       // console.log('in CONSULT_DETAILS Action, check context here', context)
     
       const path = 'pct.cgi'
-      const params = 'format=consult_details&sta3n=' + context.state.selectedSite
+      const params = 'format=consult_details&staPa=' + context.state.selectedSite
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
@@ -1248,7 +1257,7 @@ const store = new Vuex.Store({
       state.surveyPatientDetails = surveyPatientDetails
     },
     SET_PROVIDER_COUNT(state, providerCount) {
-      // console.log('in mutate SET_PROVIDER_COUNT and providerInfo is: ', providerInfo)
+      // console.log('in mutate SET_PROVIDER_COUNT and providerCount is: ', providerCount)
       state.providerCount = providerCount
     },
     SET_PROVIDER_DETAILS(state, providerDetails) {
@@ -1256,7 +1265,7 @@ const store = new Vuex.Store({
       state.providerDetails = providerDetails
     },
     SET_PROVIDER_INFO(state, providerInfo) {
-      // console.log('in mutate SET_PROVIDER_INFO and providerInfo is: ', providerInfo)
+      console.log('in mutate SET_PROVIDER_INFO and providerInfo is: ', providerInfo)
       state.providerInfo = providerInfo
     },
     SET_PROVIDER_PATIENT_DETAILS_CPT(state, providerPatientDetailsCPT) {
@@ -1379,7 +1388,7 @@ const store = new Vuex.Store({
 
 // called after mutation w/ its name, and its post mutation state
 store.subscribe((mutation, state) => {
-  // console.log('subscribe called')
+  console.log('subscribe called')
 
   // prepare updated store w/ select subset of state
   let storedState = {

@@ -196,9 +196,15 @@ export default {
       'siteProviderClinicCount',
       'siteProviderPatientCount'
     ]),
-    rowData1 () { return this.siteProviderDetails }, // siteProviderDetails/Provider Encounters Details
-    rowData2 () { return this.siteProviderPatientDetailsCPT }, // siteProviderPatientDetailsCPT/Provider Sessions Details
-    rowData3 () { return this.siteProviderInfo }, // siteProviderInfo/Provider Activity Details
+    rowData1 () { 
+      console.log('in computed, this.siteProviderDetails is: ', this.siteProviderDetails)
+      return this.siteProviderDetails }, // siteProviderDetails/Provider Encounters Details
+    rowData2 () { 
+      console.log('in computed, this.siteProviderPatientDetailsCPT is: ', this.siteProviderPatientDetailsCPT)      
+      return this.siteProviderPatientDetailsCPT }, // siteProviderPatientDetailsCPT/Provider Sessions Details
+    rowData3 () { 
+      console.log('in computed, this.siteProviderInfo is: ', this.siteProviderInfo)
+      return this.siteProviderInfo }, // siteProviderInfo/Provider Activity Details
   },
   beforeMount() {
     this.columnDefs1 = this.createColDefs1(), 
@@ -415,7 +421,7 @@ export default {
       this.gridOptions2.api.sizeColumnsToFit()
     },
     onGridReady3() {
-      // console.log('onGridReady3 fires sizeColumnsToFit!')
+      console.log('onGridReady3 fires sizeColumnsToFit!')
       this.gridOptions3.api.sizeColumnsToFit()
     },
     // onRowDataChanged1() {

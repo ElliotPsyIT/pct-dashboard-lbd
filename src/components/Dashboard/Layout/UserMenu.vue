@@ -20,7 +20,7 @@
               <li>
                 <a class="profile-dropdown" href="#pablo">
                   <span class="sidebar-mini">PHI/PII: </span>
-                  <span class="sidebar-normal">{{permissions()}}</span>
+                  <span class="sidebar-normal">{{permissions}}</span>
                 </a>
               </li>
               <li>
@@ -44,7 +44,7 @@
 </template>
 <script>
 //   import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
   export default {
     components: {
@@ -57,9 +57,16 @@ import { mapState } from 'vuex'
       }
     },
      computed: {
-    ...mapState([
-      'userFirstName', 'userLastName','phipii','selectedSite'
-    ])
+      ...mapState([
+        'userFirstName', 'userLastName', 'selectedSite'
+      ]),
+      ...mapGetters([
+        'userPHI'
+      ]),
+      permissions() {
+        console.log('in UserMenu permissions, userPHI is: ', this.userPHI)
+        return this.userPHI == 1 ? 'Yes' : 'No'
+      }
     },
     data () {
       return {
@@ -67,11 +74,7 @@ import { mapState } from 'vuex'
         hasPermissions: false
       }
     },
-    methods: {
-      permissions() {
-        let permission = this.phipii == 1 ? 'Yes' : 'No'
-        return permission
-      },
+    methods: {  
       toggleMenu () {
         this.isClosed = !this.isClosed
       }

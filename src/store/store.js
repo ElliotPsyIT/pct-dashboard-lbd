@@ -106,7 +106,11 @@ const store = new Vuex.Store({
     ebpDetailsSessionsSurveys: [],
   },
   getters: {
-    
+    // user permissions to see PHIPII
+    userPHI: (state) => {
+      return state.phipii
+    },
+  
     siteConsultTotal: (state) => {
       // console.log('in store getters, state is: ', state)
       // console.log('in siteConsultTotal, state.consultDataCount is: ', state.consultDataCount)
@@ -1106,12 +1110,12 @@ const store = new Vuex.Store({
       // console.log('before USER_PERMISSIONS call, context.state.selectedSite is: ', context.state.selectedSite)
       const path = 'pct.cgi'
       let staPa = context.state.selectedSite
-      let sta3nRegexp = /^(\d\d\d).+$/
-      let sta3nArr = sta3nRegexp.exec(staPa)
-      let sta3n = sta3nArr[1]
+      // let sta3nRegexp = /^(\d\d\d).+$/
+      // let sta3nArr = sta3nRegexp.exec(staPa)
+      // let sta3n = sta3nArr[1]
       // console.log('in user_permissions action, staPa is: ', staPa)
       // console.log('in user_permissions action, sta3n is: ', sta3n[1])
-      const params = 'format=user_permissions&sta3n=' + sta3n
+      const params = 'format=user_permissions&staPa=' + staPa
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 

@@ -388,7 +388,7 @@
     },
     created () {
       if (this.selectedSite || this.selectedRange) {
-        console.log('overview created - yes been here before')
+        // console.log('overview created - yes been here before')
         this.beenHereBefore = true
       } else {
         console.log('not been here before')

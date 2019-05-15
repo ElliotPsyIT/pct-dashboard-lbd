@@ -30,3 +30,14 @@ export function precise_round(num, dec){
 
 export const apiConfig = { path : 'pct.cgi' }
 
+export function isSelectedDateRangeWhiteListed(range){
+  // white list dateRanges to prevent huge data size requests
+      // (disallow > 3 month pulls)
+      // console.log('in isSelectedDateRangeWhiteListed, range is: ', range)
+      let dateRangeAllowed = ['oneweek','onemonth','threemonths']
+      let whitelist = dateRangeAllowed.includes(range)
+      // console.log('whitelist range? ', whitelist)
+      return whitelist
+
+}
+

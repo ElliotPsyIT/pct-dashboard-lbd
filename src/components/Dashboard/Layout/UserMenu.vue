@@ -64,7 +64,7 @@ import { mapState, mapGetters } from 'vuex'
         'userPHI'
       ]),
       permissions() {
-        console.log('in UserMenu permissions, userPHI is: ', this.userPHI)
+        // console.log('in UserMenu permissions, userPHI is: ', this.userPHI)
         return this.userPHI == 1 ? 'Yes' : 'No'
       }
     },

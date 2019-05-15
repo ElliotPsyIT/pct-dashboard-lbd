@@ -49,8 +49,19 @@
 
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4>
+          <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4> 
         </div>
+
+<!-- Whitelist Warning -->
+<!-- <h5 v-show="whitelisted" class="text-danger text-center">(Only 3 Months Data Showing)</h5> -->
+
+
+        <!-- Alert if no -->
+        <!-- <div v-show="whitelisted">
+          <div class="row d-flex justify-content-center text-danger">
+            <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4>
+          </div>
+        </div> -->
 
         <div class="d-flex flex-row justify-content-center">
 
@@ -112,7 +123,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'selectedSite', 'selectedRange'
+      'selectedSite', 'selectedRange', 'whitelisted'
     ]),
     ...mapGetters([
       'siteEncounterApptClinicNoShowTotal',

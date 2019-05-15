@@ -156,6 +156,13 @@
          NProgress.start()
         // console.log('watcher for siteSelected triggered with new value of: ', val)
          NProgress.done()
+      },
+      rangeSelected (val) {
+        // my new value in val. Perform your
+        // select update methods here
+         NProgress.start()
+        // console.log('watcher for siteSelected triggered with new value of: ', val)
+         NProgress.done()
       }
     },
     computed: {

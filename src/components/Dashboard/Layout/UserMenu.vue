@@ -29,12 +29,12 @@
                   <span class="sidebar-normal">{{selectedSite}}</span>
                 </a>
               </li>
-              <!-- <li>
+              <li>
                 <a class="profile-dropdown" href="#pablo">
-                  <span class="sidebar-mini">S</span>
-                  <span class="sidebar-normal">Settings</span>
+                  <span class="sidebar-mini">User: </span>
+                  <span class="sidebar-normal">{{userAccount}}</span>
                 </a>
-              </li> -->
+              </li>
             </slot>
           </ul>
         <!-- </el-collapse-transition> -->
@@ -61,7 +61,7 @@ import { mapState, mapGetters } from 'vuex'
         'userFirstName', 'userLastName', 'selectedSite'
       ]),
       ...mapGetters([
-        'userPHI'
+        'userPHI', 'userAccount'
       ]),
       permissions() {
         // console.log('in UserMenu permissions, userPHI is: ', this.userPHI)

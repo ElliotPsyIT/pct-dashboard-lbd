@@ -83,8 +83,9 @@ const store = new Vuex.Store({
 
     whitelisted: false,
 
-    appVersion: '0.10.1',
+    appVersion: '0.11.0',
     phipii: 0,
+    adaccount: "",
     siteNames,
     dateRanges,
     
@@ -128,6 +129,9 @@ const store = new Vuex.Store({
     // user permissions to see PHIPII
     userPHI: (state) => {
       return state.phipii
+    },
+    userAccount: (state) => {
+      return state.adaccount
     },
   
     siteConsultTotal: (state) => {
@@ -428,7 +432,7 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? 0 : filteredArray // array of staffname objects?
     },
     siteProviderInfo: (state) => {
-      console.log('in the siteProviderInfo, the state.providerInfo data is: ', state.providerInfo)
+      // console.log('in the siteProviderInfo, the state.providerInfo data is: ', state.providerInfo)
       let filteredArray = state.providerInfo
         // .filter(site => {
         //   // console.log('going through site.dataType: ', site.dataType === 'providerInfo')
@@ -830,7 +834,7 @@ const store = new Vuex.Store({
       axios.get(`${path}?${params}`)
       .then(response => { 
         // console.log('got consult details from server')
-        console.log('EBP_DETAILS_SESSIONS_SURVEYS response.data is: ', response.data)
+        // console.log('EBP_DETAILS_SESSIONS_SURVEYS response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_EBP_DETAILS_SESSIONS_SURVEYS', response.data)
       })
@@ -1202,8 +1206,8 @@ const store = new Vuex.Store({
 
     },
     setSelectedRange (context, range) {
-      console.log('setSelectedRange triggered')
-      console.log('route.path is: ', context.state.route.path)
+      // console.log('setSelectedRange triggered')
+      // console.log('route.path is: ', context.state.route.path)
       context.commit('SET_SELECTED_RANGE', range)
 
       context.dispatch('REFRESH_ALL_DATA')
@@ -1386,6 +1390,7 @@ const store = new Vuex.Store({
       // set PHIPIII
       // console.log('in mutate SET_USER_PERMISSIONS with userPermissions: ', userPermissions)
       state.phipii = userPermissions.PHIPII
+      state.adaccount = userPermissions.ADAccount
     },
 
       // SET_CURRENT_CONSULT_COMMENT (state, comments) {

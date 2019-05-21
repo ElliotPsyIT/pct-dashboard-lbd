@@ -4,14 +4,14 @@
       <a data-toggle="dropdown">
         <i class="fa fa-cog fa-2x" @click="toggleDropDown"> </i>
       </a>
+      
       <ul class="dropdown-menu">
         <li class="header-title">Placeholder for Provider List</li>
-          <p v-for="provider in providers" :key="provider">
-            <span>
-              <input type=checkbox />
-              {{ provider }}
-            </span>
-          </p>
+        <li class="header-title"><button style="margin-bottom: 1rem;" @click="uncheckAll">Back to Site Level Data</button></li>
+          <div v-for="provider in providers" :key="provider.STAFFSID" ref="listProviders">
+            <input type=checkbox id="provider.STAFFNAME" @click="selectProvider(provider.STAFFNAME)"/>
+            <label :for="provider.STAFFNAME">{{ provider.STAFFNAME }}</label>
+          </div>
         <!-- <li v-for="name in siteProviderList" :key="name.index" class="badge filter">
           {{ name }}
         </li>       -->
@@ -89,13 +89,16 @@ import { mapGetters, mapActions } from 'vuex'
   export default {
     computed: {
       ...mapGetters([
-        'siteProviderList',
+        // 'siteProviderList',
+        'siteProviders','siteProviderSelected'
       ]),
       
     },
     props: ['color', 'image'],
     data () {
       return {
+        selectedProvider: '',
+        previousProvider: '',
         isOpen: false,
         providers: [],
         links: {
@@ -124,16 +127,62 @@ import { mapGetters, mapActions } from 'vuex'
     },
     methods: {
       ...mapActions([
-          'PROVIDER_INFO'
+          'PROVIDER_INFO','PROVIDER_SELECTED'
         ]),      
       providerlist () {
-        // console.log('in providerlist method triggered by cog')
-        // use list from store and clean it up
-        // this.providerlist
-        // console.log('just called providerlist action')
-        this.providers = [...new Set(this.siteProviderList)]
+        this.providers = [...new Set(this.siteProviders)]
       // console.log('in providersList after uniqed and providers is: ', this.providers)
-        
+      },
+      selectProvider (provider) {
+        // clean the provider name
+        provider = provider.trim()
+        let previous = this.previousProvider
+        console.log('entered selectProvider, provider is: ', provider )
+        console.log('entered selectProvider, previous is: ', previous)
+        // if there's a previousProvider, uncheck it
+        if (!previous) { 
+          this.previousProvider = provider
+          console.log('no previous, so update previous to: ', provider)
+          this.PROVIDER_SELECTED(provider)
+          return
+        } else if (previous != provider) { 
+          // uncheck previous. leaving one box checked at a time
+          console.log('there is a previous, not equal to provider')
+          console.log('previous: ', previous)
+          console.log('provider: ', provider)
+          this.$refs.listProviders.map(p => {
+            if (p.innerText.trim() == previous.trim()) {
+              console.log('unchecking previouProvider!')
+              p.childNodes[0].checked = false
+            }
+          })
+          // update the provide
+          this.previousProvider = provider
+          this.PROVIDER_SELECTED(provider)
+        } else { // there's a previous provider and is same as selected provider
+          console.log('Previous is same as Provider - leaving nothing checked')
+          console.log('Here need to tell store to remove provider CSS red border')
+          this.previousProvider = null
+          this.PROVIDER_SELECTED(null)
+        }
+        //save provider as previous before chosing new one
+        // this.previousProvider = provider
+        // store the provider
+        // this.PROVIDER_SELECTED(provider) // send selected provider to store action
+        // now if there was a previousProvider we need to uncheckit
+        // if (this.siteProviderSelected == this.previousProvider) {
+        //   this.$refs.listProviders.map(p => {
+        //     if (p.innerText.trim() == provider.trim()) {
+        //       console.log('MATCHED!!!!!!!!!!!!!!!!!!!!')
+        //       console.log(' childNode checked? ', p.childNodes[0].checked)              
+        //     }
+        //   })
+        // }
+        // this.selectedProvider = provider
+      },
+      uncheckAll () {
+        this.PROVIDER_SELECTED(null)
+        this.selectedProvider = null
       },
       toggleDropDown () {
         //identify list of providers

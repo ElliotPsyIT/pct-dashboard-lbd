@@ -12,12 +12,12 @@
         <div class="row d-flex justify-content-center">
 
           <div class="col-xl-3 col-md-3">
-            <stats-card>
+            <stats-card :class="(siteProviderSelected ? 'providerSelected' : '')">
               <div slot="header" class="icon-danger">
                 <i class="nc-icon nc-chart-pie-36 text-danger"></i>
               </div>
               <div slot="content">
-                <p class="card-category">No Show Appts/All ({{ siteEncounterApptNoShowTotal }}/{{ siteEncounterApptTotalStr}})</p>
+                <p class="card-category">No Show/All ({{ siteEncounterApptNoShowTotal }}/{{ siteEncounterApptTotalStr}})</p>
                 <h4 class="card-title">{{ notNumber(siteEncounterAppNoShowPercent) }}%</h4>
               </div>
             </stats-card>
@@ -29,7 +29,7 @@
                 <i class="nc-icon nc-simple-remove text-danger"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Any Cancelled Appts/All ({{ formatNumber(siteEncounterApptCancelTotal) }}/{{ siteEncounterApptTotalStr }})</p>
+                <p class="card-category">Cancelled/All ({{ formatNumber(siteEncounterApptCancelTotal) }}/{{ siteEncounterApptTotalStr }})</p>
                 <h4 class="card-title">{{ notNumber(siteEncounterAppCancelPercent) }}%</h4>
               </div>
             </stats-card>
@@ -66,13 +66,13 @@
         <div class="d-flex flex-row justify-content-center">
 
           <div class="col-md-12 ">
-            <card>
+            <card >
               <template slot="header">
                 <span>Hover Over Column Header to View Menu</span>
                 <button class="float-right" @click="gridOptions3.api.exportDataAsCsv()">Export to CSV</button>
               </template>
               <!-- {{siteEncounterApptProviderClinicNoShowTotal}} -->
-                <ag-grid-vue style="font-size: 12px; height: 400px" class="ag-theme-balham grid" 
+                <ag-grid-vue style="font-size: 12px; height: 400px;" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions3" 
                 :rowData="rowData3" 
                 :gridReady="onGridReady3"
@@ -132,7 +132,7 @@ export default {
       'siteEncounterApptCancelTotal',
       'siteEncounterApptTotalStr', // for display
       'siteEncounterApptTotal', // for computation
-
+      'siteProviderSelected',
     ]),
     
     siteEncounterAppNoShowPercent () {
@@ -280,6 +280,10 @@ export default {
 </script>
 
 <style>
+  .providerSelected {
+    border-color: red;
+  }
+
   .section-head {
     font-size: 2rem;
   }

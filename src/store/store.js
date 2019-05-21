@@ -7,46 +7,6 @@ import { addCommas, totalAndPercent, isSelectedDateRangeWhiteListed } from '../u
 import siteNames from '../../static/sites_orig.json'
 import dateRanges from '../../static/dateRanges.json'
 
-//Consults
-// import consultCount from '../../static/consult_count.json'
-// import consultPieChart from '../../static/consult_pie_chart.json'
-// import consultLineChart from '../../static/consult_line_chart.json'
-// import consultDetails from '../../static/consult_details.json'
-
-// Encounters
-// import encounterCount from '../../static/encounter_count.json'
-// import encounterLineChart from '../../static/encounter_line_chart.json'
-// import encounterPatientLineChart from '../../static/encounter_patient_line_chart.json'
-// import encounterCPT from '../../static/encounter_cpt.json'
-// import encounterCPTCategories from '../../static/encounter_cpt_categories.json'
-// import encounterPatientCPTCategories from '../../static/encounter_patient_cpt_categories.json'
-
-// Encounter Appointments
-// import encounterApptCount from '../../static/encounter_appointment_count.json'
-// import encounterApptCancelNoShow from '../../static/encounter_appointment_cancel_noshow.json'
-// import encounterApptClinicCancelNoShow from '../../static/encounter_appointment_clinic_cancel_noshow.json'
-
-// Providers
-// import providerCount from '../../static/provider_count.json'
-// import providerInfo from '../../static/provider_info.json'
-// import providerDetails from '../../static/provider_details.json'
-// import providerPatientDetailsCPT from '../../static/provider_patient_details_cpt.json'
-
-// Surveys
-// import surveyTotals from '../../static/survey_totals.json'
-// import surveyDetails from '../../static/survey_details.json'
-// import surveyPatientDetails from '../../static/survey_patient_details.json'
-
-// EBP
-// import ebpCount from '../../static/ebp_count.json'
-// import ebpInfo from '../../static/ebp_info.json'
-// import ebpDetails from '../../static/ebp_details.json'
-// import ebpPieChart from '../../static/ebp_pie_chart.json'
-// import ebpSummary from '../../static/ebp_summary.json'
-// import ebpPatientsCPTCategories from '../../static/ebp_patient_cpt_categories.json'
-// import ebpDetailsTypes from '../../static/ebp_details_types.json'
-// import ebpDetailsSessionsSurveys from '../../static/ebp_details_sessions_and_surveys.json'
-
 Vue.use(Vuex)
 
 // Access localStorage for previously stored site and daterange
@@ -70,6 +30,12 @@ function dateRangeRestrict () { // whitelist dateRange
   return whitelisted
 }
 
+function removeDuplicates(myArr, prop) {
+  return myArr.filter((obj, pos, arr) => {
+      return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+  });
+}
+
 // set default whitelisted dateRange for limiting data request size
 const defaultDateRange = 'threemonths' 
 
@@ -81,6 +47,7 @@ const store = new Vuex.Store({
     userFirstName: storeLocal.userFirstName || 'No',
     userLastName: storeLocal.userLastName || 'User Name',
 
+    selectedProvider: null,
     whitelisted: false,
 
     appVersion: '0.11.0',
@@ -421,16 +388,26 @@ const store = new Vuex.Store({
         .filter(site => site.dataType === 'providerPatientCount')
       return filteredArray.length == 0 ? 0 : filteredArray[0].countTotal
     },
-    siteProviderList: (state) => {
+    siteProviders: (state) => {
       let filteredArray = state.providerInfo
-        .filter(site => site.dataType === 'providerInfo')
-        .filter(site => site.StaPa === state.selectedSite)
-        .map(site => site.STAFFNAME )
-      //unique the provider names
-      console.log('siteProviderList filteredArray: ', filteredArray)
-      filteredArray = filteredArray.filter((el, i, a) => i === a.indexOf(el))
-      return filteredArray.length == 0 ? 0 : filteredArray // array of staffname objects?
+      let uniques = removeDuplicates(filteredArray, 'STAFFNAME')
+      console.log('uniques Providers is: ', uniques)
+      return uniques
     },
+    siteProviderSelected: (state) => {
+      console.log('return the selectedProvider: ', state.selectedProvider)
+      return state.selectedProvider
+    },
+    // siteProviderList: (state) => {
+    //   let filteredArray = state.providerInfo
+    //     .filter(site => site.dataType === 'providerInfo')
+    //     .filter(site => site.StaPa === state.selectedSite)
+    //     .map(site => { return { STAFFNAME: site.STAFFNAME, STAFFSID: site.STAFFSID } } )
+    //   //unique the provider names
+    //   console.log('siteProviderList filteredArray: ', filteredArray)
+    //   filteredArray = filteredArray.filter((el, i, a) => i === a.indexOf(el))
+    //   return filteredArray.length == 0 ? 0 : filteredArray // array of staffname objects?
+    // },
     siteProviderInfo: (state) => {
       // console.log('in the siteProviderInfo, the state.providerInfo data is: ', state.providerInfo)
       let filteredArray = state.providerInfo
@@ -884,6 +861,10 @@ const store = new Vuex.Store({
         context.commit('SET_SURVEY_PATIENT_DETAILS', response.data)
       })
 
+    },
+    PROVIDER_SELECTED (context, provider) {
+      console.log('PROVIDER_SELECTED action changed selectedProvider to: ', provider)
+      context.state.selectedProvider = provider
     },
     PROVIDER_COUNT (context) {
       // console.log('in PROVIDER_COUNT Action, check context here', context)

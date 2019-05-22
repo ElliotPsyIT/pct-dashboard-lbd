@@ -24,7 +24,7 @@
           </div>
 
           <div class="col-xl-3 col-md-3">
-            <stats-card>
+            <stats-card :class="(siteProviderSelected ? 'providerSelected' : '')">
               <div slot="header" class="icon-info">
                 <i class="nc-icon nc-simple-remove text-danger"></i>
               </div>
@@ -41,7 +41,9 @@
 
           <div class="col-md-8">
             <template>
-              <vue-highcharts :options="pieChartOptions"  ref="pieChart"></vue-highcharts>
+              <vue-highcharts :options="pieChartOptions"  ref="pieChart"
+              :class="(siteProviderSelected ? 'providerSelected' : '')"
+              ></vue-highcharts>
             </template>
           </div>
 
@@ -66,13 +68,14 @@
         <div class="d-flex flex-row justify-content-center">
 
           <div class="col-md-12 ">
-            <card >
+            <card :class="(siteProviderSelected ? 'providerSelected' : '')">
               <template slot="header">
                 <span>Hover Over Column Header to View Menu</span>
                 <button class="float-right" @click="gridOptions3.api.exportDataAsCsv()">Export to CSV</button>
               </template>
               <!-- {{siteEncounterApptProviderClinicNoShowTotal}} -->
-                <ag-grid-vue style="font-size: 12px; height: 400px;" class="ag-theme-balham grid" 
+                <ag-grid-vue style="font-size: 12px; height: 400px;" 
+                class="ag-theme-balham grid" 
                 :gridOptions="gridOptions3" 
                 :rowData="rowData3" 
                 :gridReady="onGridReady3"

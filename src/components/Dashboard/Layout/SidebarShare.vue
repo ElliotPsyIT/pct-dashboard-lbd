@@ -7,7 +7,7 @@
       
       <ul class="dropdown-menu">
         <li class="header-title">Placeholder for Provider List</li>
-        <li class="header-title"><button style="margin-bottom: 1rem;" @click="uncheckAll">Back to Site Level Data</button></li>
+        <!-- <li class="header-title"><button style="margin-bottom: 1rem;" @click="uncheckAll">Back to Site Level Data</button></li> -->
           <div v-for="provider in providers" :key="provider.STAFFSID" ref="listProviders">
             <input type=checkbox id="provider.STAFFNAME" @click="selectProvider(provider.STAFFNAME)"/>
             <label :for="provider.STAFFNAME">{{ provider.STAFFNAME }}</label>
@@ -136,51 +136,32 @@ import { mapGetters, mapActions } from 'vuex'
       selectProvider (provider) {
         // clean the provider name
         provider = provider.trim()
+        // set the previous provider for later comparision w/ current provider
         let previous = this.previousProvider
-        console.log('entered selectProvider, provider is: ', provider )
-        console.log('entered selectProvider, previous is: ', previous)
-        // if there's a previousProvider, uncheck it
+
         if (!previous) { 
+          // if there's no previousProvider, set it as current provider
           this.previousProvider = provider
-          console.log('no previous, so update previous to: ', provider)
-          this.PROVIDER_SELECTED(provider)
-          return
-        } else if (previous != provider) { 
+          this.PROVIDER_SELECTED(provider) // action to set in store
+        } 
+        else if (previous != provider) { 
           // uncheck previous. leaving one box checked at a time
-          console.log('there is a previous, not equal to provider')
-          console.log('previous: ', previous)
-          console.log('provider: ', provider)
           this.$refs.listProviders.map(p => {
             if (p.innerText.trim() == previous.trim()) {
-              console.log('unchecking previouProvider!')
               p.childNodes[0].checked = false
             }
           })
-          // update the provide
+          // set previous provider, and update the current provider
           this.previousProvider = provider
-          this.PROVIDER_SELECTED(provider)
-        } else { // there's a previous provider and is same as selected provider
-          console.log('Previous is same as Provider - leaving nothing checked')
-          console.log('Here need to tell store to remove provider CSS red border')
+          this.PROVIDER_SELECTED(provider) // action to set in store
+        } 
+        else { 
+          // there's a previous provider and is same as selected provider
           this.previousProvider = null
-          this.PROVIDER_SELECTED(null)
+          this.PROVIDER_SELECTED(null) // action to set in store
         }
-        //save provider as previous before chosing new one
-        // this.previousProvider = provider
-        // store the provider
-        // this.PROVIDER_SELECTED(provider) // send selected provider to store action
-        // now if there was a previousProvider we need to uncheckit
-        // if (this.siteProviderSelected == this.previousProvider) {
-        //   this.$refs.listProviders.map(p => {
-        //     if (p.innerText.trim() == provider.trim()) {
-        //       console.log('MATCHED!!!!!!!!!!!!!!!!!!!!')
-        //       console.log(' childNode checked? ', p.childNodes[0].checked)              
-        //     }
-        //   })
-        // }
-        // this.selectedProvider = provider
       },
-      uncheckAll () {
+      uncheckAll () { // in progress, only need if button needed to go to site level
         this.PROVIDER_SELECTED(null)
         this.selectedProvider = null
       },

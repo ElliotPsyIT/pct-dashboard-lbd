@@ -1,6 +1,8 @@
 <template>
     <transition name="fade" mode="out-in">
-    <div class="content" :key="selectedSite">
+
+    <div class="content" :key="selectedSite" :class="{'provider-selected' : siteProviderSelected}">
+      <!-- <button class="btn btn-danger float-right">Button</button> -->
       <div class="container-fluid">
         
         <!-- Section Header -->
@@ -12,7 +14,7 @@
         <div class="row d-flex justify-content-center">
 
           <div class="col-xl-3 col-md-3">
-            <stats-card :class="(siteProviderSelected ? 'providerSelected' : '')">
+            <stats-card >
               <div slot="header" class="icon-danger">
                 <i class="nc-icon nc-chart-pie-36 text-danger"></i>
               </div>
@@ -24,7 +26,7 @@
           </div>
 
           <div class="col-xl-3 col-md-3">
-            <stats-card :class="(siteProviderSelected ? 'providerSelected' : '')">
+            <stats-card >
               <div slot="header" class="icon-info">
                 <i class="nc-icon nc-simple-remove text-danger"></i>
               </div>
@@ -38,12 +40,12 @@
         </div>
 
         <div class="row d-flex justify-content-center">
+              <!-- :class="(siteProviderSelected ? 'provider-selected' : '')" -->
 
-          <div class="col-md-8">
+          <div class="col-md-8" >
             <template>
-              <vue-highcharts :options="pieChartOptions"  ref="pieChart"
-              :class="(siteProviderSelected ? 'providerSelected' : '')"
-              ></vue-highcharts>
+              <vue-highcharts :options="pieChartOptions"  ref="pieChart">
+              </vue-highcharts>
             </template>
           </div>
 
@@ -68,7 +70,7 @@
         <div class="d-flex flex-row justify-content-center">
 
           <div class="col-md-12 ">
-            <card :class="(siteProviderSelected ? 'providerSelected' : '')">
+            <card >
               <template slot="header">
                 <span>Hover Over Column Header to View Menu</span>
                 <button class="float-right" @click="gridOptions3.api.exportDataAsCsv()">Export to CSV</button>
@@ -149,7 +151,11 @@ export default {
     pieChartOptions () {
       return {
         chart:      { type: "pie", 
-                        options3d: { enabled: true, alpha: 45 }},
+                      options3d: { enabled: true, alpha: 45 },
+                      // borderColor: '#EBBA95',
+                      // borderWidth: 2,
+                      // type: "line"
+                     },
         title:      { text: 'Cancel NoShow Totals' },
         subtitle:   { text: 'Hover over sections for Patient data' },
         credits:    { enabled: false },
@@ -283,8 +289,9 @@ export default {
 </script>
 
 <style>
-  .providerSelected {
-    border-color: red;
+  
+  .provider-selected {
+    border: 4px solid red;
   }
 
   .section-head {

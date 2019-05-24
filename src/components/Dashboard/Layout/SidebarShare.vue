@@ -136,6 +136,14 @@ import { mapGetters, mapActions } from 'vuex'
       selectProvider (provider) {
         // clean the provider name
         provider = provider.trim()
+        // color the label to show selected
+        this.$refs.listProviders.map(p => {
+          if (p.innerText.trim() == provider.trim() ) {// it's the clicked provider
+            // make text red
+            // console.log('looking at this label style', p.childNodes[0].nextElementSibling.style) 
+            p.childNodes[0].nextElementSibling.style.color = 'red'
+          }
+        })
         // set the previous provider for later comparision w/ current provider
         let previous = this.previousProvider
 
@@ -148,7 +156,10 @@ import { mapGetters, mapActions } from 'vuex'
           // uncheck previous. leaving one box checked at a time
           this.$refs.listProviders.map(p => {
             if (p.innerText.trim() == previous.trim()) {
+              // console.log('p.childNodes are: ', p.childNodes)
+              // console.log('p.childNodes[0].nextElementSibling.innerText is: ', p.childNodes[0].nextElementSibling.innerText )
               p.childNodes[0].checked = false
+              p.childNodes[0].nextElementSibling.style.color = ''
             }
           })
           // set previous provider, and update the current provider
@@ -159,6 +170,14 @@ import { mapGetters, mapActions } from 'vuex'
           // there's a previous provider and is same as selected provider
           this.previousProvider = null
           this.PROVIDER_SELECTED(null) // action to set in store
+
+          this.$refs.listProviders.map(p => {
+          if (p.innerText.trim() == provider.trim() ) {// it's the clicked provider
+            // make text red
+            // console.log('looking at this label style', p.childNodes[0].nextElementSibling.style) 
+            p.childNodes[0].nextElementSibling.style.color = ''
+          }
+        })
         }
       },
       uncheckAll () { // in progress, only need if button needed to go to site level

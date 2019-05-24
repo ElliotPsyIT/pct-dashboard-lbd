@@ -8,6 +8,13 @@
           <h4 class="section-head">Consult Overall Summary</h4>
         </div>
 
+        <!-- ConsultsAll FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="consultsAll"/> 
+          </div>
+        </div>
+
         <div class="row d-flex justify-content-center">
               <div class="col-xl-3 col-md-4">
                 <stats-card >
@@ -80,6 +87,13 @@
           <h4 class="section-head">Consult Uniques and Statuses</h4>
         </div>
 
+        <!-- ConsultsAll FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="consultsUniquesAndStatuses"/> 
+          </div>
+        </div>
+
         <div class="row">
 
           <div class="col-md-6">
@@ -103,8 +117,15 @@
           <h4 class="section-head">Consult Details</h4>
         </div>
 
+        <!-- ConsultsDetails FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="consultDetails"/> 
+          </div>
+        </div>
+
         <div class="row">
-  <!--         
+          <!--         
           <div class="col-md-12">
             <card>
               <grid-table></grid-table>
@@ -275,6 +296,8 @@ import { AgGridVue } from "ag-grid-vue";
 import dateFormat from "dateformat"
 import axios from 'axios'
 
+import VueFaqAccordion from 'vue-faq-accordion'
+
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 // helpers
@@ -289,7 +312,8 @@ export default {
     StatsCard,
     VueHighcharts,
     // GridTable,
-    AgGridVue
+    AgGridVue,
+    VueFaqAccordion
   },
   data() {
     return {
@@ -298,7 +322,82 @@ export default {
       togglingCardStatus: false,
       pieSliceSelected: '',
       comments: '',
-    }
+      consultsAll: [
+        {
+          title: "Total Consults",
+          value: "Total Consults is the sum of consults from the selected date range that were set-up at the medical center with one or more stop codes. For PCT Clinics we use these PCT stop codes:<br/><br/>" +
+          "<b>Stop Codes:</b><br/><br/>" + 
+          "<u>516 PTSD - Group</u>:<br/>" +
+          "&nbsp;&nbsp;&nbsp; Records consultation and/or treatment follow-up provided to more than one individual.  " + 
+          "Treatment is provided to those patients with PTSD.  Includes provider and support services.  " + 
+          "Use the assigned CHAR4 Code if this activity takes place through a designated NEPEC PTSD Clinical Team (PCT).<br/><br/>" +
+          "<u>542 Telephone PTSD</u>:<br/>"	+ 
+          "&nbsp;&nbsp;&nbsp;Records patient consultation or medical care management, advice, and/or referral provided by telephone contact " + 
+          "between patient or patient's next-of-kin and/or the person(s) with whom the patient has a meaningful relationship, and clinical and/or professional staff assigned to the PCT.  <br/>" + 
+          "Includes the administrative and clinical services.  Provisions of 38 U.S.C. Section 7332 requires that records which reveal the identity, diagnosis, prognosis, or treatment of VA patients which relate to drug abuse, <br/>" + 
+          "alcoholism or alcohol abuse, infection with HIV, or sickle cell anemia, are strictly confidential, and may not be released or discussed unless there is a written consent from the individual.<br/><br/>" +
+          "<u>562 PTSD - Individual</u><br/>" +
+          "&nbsp;&nbsp;&nbsp;Records patient visit for consultation, evaluation, follow-up, and/or treatment provided to an individual with PTSD.  Use the assigned CHAR4 Code if this activity takes place through a NEPEC PTSD Clinical Team (PCT).  Includes provider and support services.",
+          category: "Consults Defined ..."
+        },
+        {
+          title: "Total Patients",
+          value: "These are the total number of unique patients among the total consults from the selected time period (see above for Total Consults defined).",
+          category: "Consults Defined ..."
+        },
+        {
+          title: "Pending",
+          value: "Pending consults are actionable consults, and therefore they are highlighted here in their own box. " + 
+          "In this box, notice the ability to 'Click to Filter PENDING'. Click that text and it will automatically filter " + 
+          "the Consult Statuses pie chart and the Consult Details table below to show PENDING consults only" +
+          " <br/><br/>All consults statuses " +
+          "(Pending, Active and others) are pulled from the Consult Box application.",
+          category: "Consults Defined ..."
+        },
+        {
+          title: "Active",
+          value: "Active consults are actionable consults, and therefore they are highlighted here in their own box. " + 
+          "In this box, notice the ability to 'Click to Filter ACTIVE'. Click that text and it will automatically filter " + 
+          "the Consult Statuses pie chart and the Consult Details table below to show ACTIVE consults only" +
+          " <br/><br/>All consults statuses " +
+          "(Pending, Active and others) are pulled from the Consult Box application.",
+          category: "Consults Defined ..."
+        },
+      ],
+      consultsUniquesAndStatuses: [
+        {
+          title : "Consults Over Time",
+          value: "This is a line (actually a spline) graph of monthly consults received for the period of time specified on this site's date range drop box selected at the top of this page. " +
+          "<br/><br/>For date ranges greater than one month, notice the last entry in the graph.  It may show what seems to be " + 
+          "an unusually small number of consults. " + 
+          "<ul><li>The reason is, the last month listed reflects the current month's data.  </li>" + 
+          "<li>If we are in the early part of the current month, e.g. it's the first or second week of the month, only the partial month up thru " + 
+          "yesterday is represented in the graph.</li>" + 
+          "<li>Therefore, only a partial month is available to be shown, accounting for the relatively smaller number.</li>" +
+          "</ul>",
+          category: "Consult Uniques and Statuses Defined ...",
+        },
+        {
+          title : "Consult Status",
+          value: "This is a pie chart that breaks down the total number of consults into consult status categories." +
+          "<br/><br/><b>NOTE:</b> <u>Clicking</u> on a pie slice will filter the Consult Details table below to show consults with only the selected consult status. ",
+          category: "Consult Uniques and Statuses Defined ...",
+        },
+      ],
+      consultDetails: [
+        {
+          title: "Consult Details",
+          value: "This is a table of individual consults configured with one or more of the PCT stop codes: <br/><br/>" +
+          "<b>Stop Codes:</b><br/>" + 
+          "<u>516 PTSD - Group</u>:<br/>" +
+          "<u>542 Telephone PTSD</u>:<br/>"	+ 
+          "<u>562 PTSD - Individual</u><br/>" +
+          "<br/>Each consult shows the site, consult date, patient, service requested, and consult status for the date range selected at the top of this page." ,
+          category: "Consult Details ...",
+        }
+      ]
+
+}
   },
   beforeMount() { 
   

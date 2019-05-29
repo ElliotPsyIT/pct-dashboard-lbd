@@ -393,7 +393,7 @@ export default {
           "<u>542 Telephone PTSD</u>:<br/>"	+ 
           "<u>562 PTSD - Individual</u><br/>" +
           "<br/>Each consult shows the site, consult date, patient, service requested, and consult status for the date range selected at the top of this page." ,
-          category: "Consult Details ...",
+          category: "Consult Details Defined...",
         }
       ]
 

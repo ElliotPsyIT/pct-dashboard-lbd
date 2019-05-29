@@ -50,7 +50,7 @@ const store = new Vuex.Store({
     selectedProvider: null,
     whitelisted: false,
 
-    appVersion: '0.11.0',
+    appVersion: '0.12.2',
     phipii: 0,
     adaccount: "",
     siteNames,

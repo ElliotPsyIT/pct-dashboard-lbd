@@ -8,6 +8,13 @@
           <h4 class="section-head">Provider, Clinic, Patient Stats</h4>
         </div>
 
+        <!--  FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="ProviderClinicPatientTotals"/> 
+          </div>
+        </div>
+
         <div class="row d-flex justify-content-center">
           
           <div class="col-xl-3 col-md-4">
@@ -53,6 +60,13 @@
           <h4 class="section-head">Provider Activity Summary</h4>
         </div>
 
+        <!--  FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="ProviderActivitySummary"/> 
+          </div>
+        </div>
+
         <div class="row justify-content-center">
           
           <div class="col-md-12 ">
@@ -89,6 +103,13 @@
           <h4 class="section-head">Provider Encounter Totals</h4>
         </div>
 
+        <!--  FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="ProviderEncounterTotals"/> 
+          </div>
+        </div>
+
         <div class="row justify-content-center">
           <div class="col-md-10">
             <card>
@@ -123,6 +144,13 @@
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Provider Patient Sessions</h4>
+        </div>
+
+        <!--  FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="ProviderPatientSessions"/> 
+          </div>
         </div>
 
         <div class="row d-flex justify-content-center ">
@@ -171,6 +199,8 @@ import Card from 'src/components/UIComponents/Cards/Card.vue'
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
 
+import VueFaqAccordion from 'vue-faq-accordion'
+
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -178,7 +208,46 @@ export default {
   components: {
     Card,
     StatsCard,
-    AgGridVue
+    AgGridVue,
+    VueFaqAccordion
+  },
+  data () {
+    return {
+      ProviderClinicPatientTotals: [
+        {
+          title: "Provider, Clinic, Patient Stats",
+          value: "Provider, Clinic and Patient summary totals below are counts taken from completed encounters.  The unique " +
+          "providers, clinics and patients shown in the 3 cards below are summed and reported.  See Encounter page for PCT encounters defined. ",
+          category: "Providers Clinics Patients Stats Defined..."
+        }
+      ],
+      ProviderActivitySummary: [
+        {
+          title: "Provider Activity Summary",
+          value: "The Provider Activity Summary table lists the counts of unique patients and visits from PCT encounters (see Encounter page for encounter definitions). " +
+          "<br/><br/>In addition, the table displays the number of visits (encounters) and percent of visits that are documented as EBP visits.",
+          category: "Provider Activity Summary Defined..."
+        }
+      ],
+      ProviderEncounterTotals: [
+        {
+          title: "Provider Encounter Totals",
+          value: "The Provider Encounter multi-level table lists each provider's number of encounter sessions along with the unique number of patients seen for " +
+          "each PCT clinic at each site where the provider practices. ",
+          category: "Provider Encounter Totals Defined..."
+        }
+      ],
+      ProviderPatientSessions: [
+        {
+          title: "Provider Patient Sessions (Experimental)",
+          value: "The Provider Patient Sessions multi-level table is similar to the Provider Encounter table above, except that here patients sessions and session CPT codes (session types) is displayed. " +
+          "Here, each provider's number of encounter sessions and session types are shown for each PCT clinic at each site where the provider practices. " +
+          "<br/><br/><font color='red'><b>NOTE:</b> This is an experimental table that may change as we hear about it usefulness from PCT Administrators.  Data from only a restricted date range are shown.  Our concern is that " +
+          "a wider date range may result in there being too much patient level data presented to be useful.</font>",
+          category: "Provider Patient Sessions Defined..."
+        }
+      ]
+    }
   },
   computed: {
     ...mapState([

@@ -663,6 +663,10 @@ export default {
       var consultCommentRequested = clickedField === 'OrderStatus' && 
         (orderStatus === 'ACTIVE' || orderStatus === 'PENDING')
         
+      // check if a non-linked cell was clicked
+      if (clickedField !== 'OrderStatus') {
+        this.show('You May Only Click on a Blue Underlined Status to see Consult Comments!')
+      }
 
       if ( consultCommentRequested && permission == 1) {
         // need cell and row 

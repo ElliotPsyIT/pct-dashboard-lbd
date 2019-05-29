@@ -713,7 +713,7 @@ export default {
       encountersAll: [
         {
           title: "PCT Clinic Definition",
-          value: "<b>Stop Codes:</b> All clinics are set-up at the medical center with one or more stop codes. For PCT Clinics we use these stop codes:<br/><br/>" +
+          value: "<b>Stop Codes:</b> All clinics are set-up at the medical center with one or more stop codes. For PCT Clinics we use these PCT stop codes:<br/><br/>" +
           "<u>516 PTSD - Group</u>:<br/>" +
           "&nbsp;&nbsp;&nbsp; Records consultation and/or treatment follow-up provided to more than one individual.  " + 
           "Treatment is provided to those patients with PTSD.  Includes provider and support services.  " + 
@@ -823,7 +823,7 @@ export default {
         {
           title: "CPT Details",
           value: "Encounter Counts from all PCT Clinics regardless of type of service provided.<br/><br/>" + 
-          "Also note an encounter may have multiple CPT codes. The CPT Details table below shows all the distinct CPT codes and code combinations using the  CPT Code standard names. <br/><br/>" +
+          "Also note an encounter may have multiple CPT codes. The CPT Details table below shows all the distinct CPT codes and code combinations using the CPT Code standard names. <br/><br/>" +
           "Notice, where there are CPT code combinations the individual CPT code names are separated by a bar \'|\' <br/><br/>",
           category: "CPT Details Defined ..."
         }

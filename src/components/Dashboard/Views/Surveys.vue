@@ -8,6 +8,13 @@
         <h4 class="section-head">Surveys Summary</h4>
       </div>
 
+        <!--  FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="SurveysSummary"/> 
+          </div>
+        </div>
+
       <div class="row d-flex justify-content-center">
       <!-- siteSurveyTotals -->
         <div class="col-xl-3 col-md-3">
@@ -26,6 +33,13 @@
         </div>
 
       </div>
+
+        <!--  FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="ClinicsProvidersPatients"/> 
+          </div>
+        </div>
 
       <!-- Section Header -->
       <div class="row d-flex justify-content-center ">
@@ -87,6 +101,13 @@
           <h4 class="section-head">Survey Types Given</h4>
         </div>
 
+        <!--  FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="SurveyTypesGiven"/> 
+          </div>
+        </div>
+
         <div class="row justify-content-center">
           <div class="col-md-6">
             <card>
@@ -116,6 +137,13 @@
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Surveys to Patients - By Provider</h4>
+        </div>
+
+        <!--  FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="SurveysToPatientsByProvider"/> 
+          </div>
         </div>
 
         <div class="row justify-content-center">
@@ -159,6 +187,8 @@ import Card from 'src/components/UIComponents/Cards/Card.vue'
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue"
 
+import VueFaqAccordion from 'vue-faq-accordion'
+
 import { mapState, mapGetters, mapActions } from 'vuex'
 // surveysGivenOverall
 export default {
@@ -166,14 +196,60 @@ export default {
   components: {
     Card,
     StatsCard,
-    AgGridVue
+    AgGridVue,
+    VueFaqAccordion
   },
-  // data () {
-  //   return {
+  data () {
+    return {
   //     gridOptions: null,
   //     gridOptions1: null,
-  //   }
-  // },
+      SurveysSummary: [
+        {
+          title: "Surveys Summary",
+          value: "These are the total number of surveys (measures) administered.  Only completed surveys are tallied and displayed here.",
+          category: "Surveys Summary Defined..."
+        }
+      ],
+      ClinicsProvidersPatients: [
+        {
+          title: "Clinics",
+          value: "These are the number of PCT clinics administering surveys among all PCT clinics at this site. The intent is to show how many PCT Clinics " +
+          "are administering surveys in the course of their activities.<br/><br/>" +
+          "The numerator is the number of PCT clinics (based on clinic PCT Stop Codes) administering surveys, and the denominator is the number of PCT clinics at this site.  ",
+          category: "Clinics Providers Patients Defined ..."
+        },
+        {
+          title: "Providers",
+          value: "These are the number of PCT providers administering surveys among all PCT providers at this site. The intent is to show how many PCT providers " +
+          "are administering surveys in the course of their activities.<br/><br/>" +
+          "The numerator is the number of PCT providers (based on PCT Stop Codes) administering surveys, and the denominator is the number of PCT providers seeing patients at this site.  ",
+          category: "Clinics Providers Patients Defined ..."
+        },
+        {
+          title: "Patients",
+          value: "These are the number of PCT patients administering surveys among all PCT patients at this site. The intent is to show the relative percentage of PCT patients " +
+          "are administerered surveys in the course of their assessment/treatment.<br/><br/>" +
+          "The numerator is the number of PCT patients (based on PCT Stop Codes) being administered surveys, and the denominator is the number of PCT patients with encounters at this site.  ",
+          category: "Clinics Providers Patients Defined ..."
+        }
+      ],
+      SurveyTypesGiven: [
+        {
+          title: "SurveyTypesGiven",
+          value: "Theses are counts of the number of surveys (measures) administered within PCT clinics at this site. ",
+          category: "Survey Types Given Defined..."
+        }
+      ],
+      SurveysToPatientsByProvider: [
+        {
+          title: "Surveys To Patients By Provider",
+          value: "The Surveys To Patients By Provider table lists the surveys and survey scores administered to each patient by each provider in each PCT Clinic. ",
+          category: "Surveys To Patients By Provider Defined..."
+        }
+      ]
+
+    }
+  },
   computed: {
     ...mapGetters([
       'siteSurveyTotals',

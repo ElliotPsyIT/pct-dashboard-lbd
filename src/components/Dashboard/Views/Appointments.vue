@@ -10,6 +10,12 @@
           <h4 class="section-head">No Show & Cancel Summary Stats</h4>
         </div>
       
+        <!-- appointmentNoShowCancelSummary FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="appointmentNoShowCancelSummary"/> 
+          </div>
+        </div>
       
         <div class="row d-flex justify-content-center">
 
@@ -54,6 +60,13 @@
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4> 
+        </div>
+
+        <!-- appointmentNoShowCancelSummary FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="appointmentNoShowCancelByClinicTable"/> 
+          </div>
         </div>
 
 <!-- Whitelist Warning -->
@@ -115,6 +128,8 @@ import { AgGridVue } from "ag-grid-vue";
 
 import { addCommas, totalAndPercent } from 'src/utils'
 
+import VueFaqAccordion from 'vue-faq-accordion'
+
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -124,7 +139,8 @@ export default {
     ChartCard,
     StatsCard,
     VueHighcharts,
-    AgGridVue
+    AgGridVue,
+    VueFaqAccordion
   },
   computed: {
     ...mapState([
@@ -156,7 +172,7 @@ export default {
                       // borderWidth: 2,
                       // type: "line"
                      },
-        title:      { text: 'Cancel NoShow Totals' },
+        title:      { text: 'Cancel No Show Totals' },
         subtitle:   { text: 'Hover over sections for Patient data' },
         credits:    { enabled: false },
         plotOptions: { pie: { innerSize: 100, depth: 45 },
@@ -282,6 +298,39 @@ export default {
   data() {
     return {
       gridOptions3: null,
+      appointmentNoShowCancelSummary: [
+        {
+          title: "No Show & Cancelled Summary",
+          value: "When clinic appointments are not 'Completed', the system identifies a reason.  For the PCT, two reasons particularly noteworthy are 'No Show' and 'Canceled' appointments.'<br/><br/>" +
+          "The two cards below tally '<b>No Show</b>' and '<b>Cancel</b>' appointments across all clinics, and show the percentage of all appointments with these two statuses.<br/><br/>" + 
+          "<b>NOTE:</b> No Show and Cancel appointments here are those identified for PCT Clinics only based on the PCT Stop Codes:<br/><br/>" +
+          "<b>Stop Codes:</b><br/>" + 
+          "<u>516 PTSD - Group</u>:<br/>" +
+          "<u>542 Telephone PTSD</u>:<br/>"	+ 
+          "<u>562 PTSD - Individual</u><br/>",
+          category: "No Show and Cancel Status Stats and Statuses Defined...",
+        },
+        {
+          title: "Pie Chart Appointment Statuses",
+          value: "The pie chart breaks down the numbers of incomplete appointments by their incomplete statuses. These are the possible statuses: <br/><br/>" +
+          " <u>NO-SHOW</u>:<br/> " +
+			    " <u>NO-SHOW & AUTO RE-BOOK</u>:<br/> " +
+          " <u>CANCELLED BY CLINIC</u>:<br/> " +
+			    " <u>CANCELLED BY CLINIC & AUTO RE-BOOK</u>:<br/> " + 
+			    " <u>CANCELLED BY PATIENT</u>:<br/> " +
+			    " <u>CANCELLED BY PATIENT & AUTO-REBOOK</u>:<br/> " + 
+			    " <u>NO ACTION TAKEN</u>:<br/> ",
+          category: "No Show and Cancel Status Stats and Statuses Defined...",
+        }
+      ],
+      appointmentNoShowCancelByClinicTable: [
+        {
+          title: "Clinic Level Cancel & No Show",
+          value: "In PCTs, Veterans are seen in a variety of provider clinics.  The table below tallies the number of No Show and Cancelled appointments " +
+          "by provider clinic.  Each clinic lists the total number of incomplete appointments by appointment status in separate rows.",
+          category:"Clinic Level Cancel & No Show Table Defined..."
+        }
+      ]
     }
   }
 }

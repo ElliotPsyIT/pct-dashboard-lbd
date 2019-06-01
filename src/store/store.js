@@ -1151,7 +1151,7 @@ const store = new Vuex.Store({
         context.dispatch('ENCOUNTER_LINE_CHART')
         context.dispatch('ENCOUNTER_PATIENT_LINE_CHART')
         context.dispatch('ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY') 
-        context.dispatch('ENCOUNTER_CATEGORIES_CPT') 
+        context.dispatch('ENCOUNTER_CPT_CATEGORIES') 
         context.dispatch('ENCOUNTER_CPT') 
         context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
       }

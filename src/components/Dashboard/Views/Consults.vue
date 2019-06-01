@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div class="content" :key="selectedSite">
+    <div class="content" :key="selectedRange">
       <div class="container-fluid">
 
         <!-- Section Header -->
@@ -325,7 +325,7 @@ export default {
       consultsAll: [
         {
           title: "Total Consults",
-          value: "Total Consults is the sum of consults from the selected date range that were set-up at the medical center with one or more stop codes. For PCT Clinics we use these PCT stop codes:<br/><br/>" +
+          value: "<u><b>Description</b></u>: Total Consults is the sum of consults from the selected date range that were set-up at the medical center with one or more stop codes. For PCT Clinics we use these PCT stop codes:<br/><br/>" +
           "<b>Stop Codes:</b><br/><br/>" + 
           "<u>516 PTSD - Group</u>:<br/>" +
           "&nbsp;&nbsp;&nbsp; Records consultation and/or treatment follow-up provided to more than one individual.  " + 
@@ -342,44 +342,43 @@ export default {
         },
         {
           title: "Total Patients",
-          value: "These are the total number of unique patients among the total consults from the selected time period (see above for Total Consults defined).",
+          value: "<u><b>Description</b></u>: These are the total number of unique patients among the total consults from the selected time period (see above for Total Consults defined).",
           category: "Consults Defined ..."
         },
         {
           title: "Pending",
-          value: "Pending consults are actionable consults, and therefore they are highlighted here in their own box. " + 
-          "In this box, notice the ability to 'Click to Filter PENDING'. Click that text and it will automatically filter " + 
-          "the Consult Statuses pie chart and the Consult Details table below to show PENDING consults only" +
-          " <br/><br/>All consults statuses " +
-          "(Pending, Active and others) are pulled from the Consult Box application.",
+          value: "<u><b>Description</b></u>: Pending consults are actionable consults, and therefore they are highlighted here in their own box. " + 
+          "(Pending, Active and others) are pulled from the Consult Box application." +
+           "<br/><br/>In the Pending box, notice the ability to 'Click to Filter PENDING'. <br/><br/>Click that text and it will automatically filter " + 
+          "the Consult Statuses pie chart and the Consult Details table below to show PENDING consults only",
           category: "Consults Defined ..."
         },
         {
           title: "Active",
-          value: "Active consults are actionable consults, and therefore they are highlighted here in their own box. " + 
-          "In this box, notice the ability to 'Click to Filter ACTIVE'. Click that text and it will automatically filter " + 
-          "the Consult Statuses pie chart and the Consult Details table below to show ACTIVE consults only" +
-          " <br/><br/>All consults statuses " +
-          "(Pending, Active and others) are pulled from the Consult Box application.",
+          value: "<u><b>Description</b></u>: Active consults are actionable consults, and therefore they are highlighted here in their own box. " + 
+          "(Pending, Active and others) are pulled from the Consult Box application." +
+          "<br/><br/>In the Active box, notice the ability to 'Click to Filter ACTIVE'. Click that text and it will automatically filter " + 
+          "the Consult Statuses pie chart and the Consult Details table below to show ACTIVE consults only",
           category: "Consults Defined ..."
         },
       ],
       consultsUniquesAndStatuses: [
         {
           title : "Consults Over Time",
-          value: "This is a line (actually a spline) graph of monthly consults received for the period of time specified on this site's date range drop box selected at the top of this page. " +
+          value: "<u><b>Description</b></u>: Consult Over Time is a line (actually a spline) graph of monthly consults received for the period of time specified on this site's date range drop box selected at the top of this page. " +
           "<br/><br/>For date ranges greater than one month, notice the last entry in the graph.  It may show what seems to be " + 
           "an unusually small number of consults. " + 
           "<ul><li>The reason is, the last month listed reflects the current month's data.  </li>" + 
-          "<li>If we are in the early part of the current month, e.g. it's the first or second week of the month, only the partial month up thru " + 
-          "yesterday is represented in the graph.</li>" + 
-          "<li>Therefore, only a partial month is available to be shown, accounting for the relatively smaller number.</li>" +
+          "<li>If we are in the early part of the current month, the first or second week of the month, only the partial month up thru " + 
+          "yesterday is tallied.</li>" + 
+          "<li>As a result, accounting for the partially completed current month a relatively smaller number of consults is apparent.</li>" +
           "</ul>",
           category: "Consult Uniques and Statuses Defined ...",
         },
         {
           title : "Consult Status",
-          value: "This is a pie chart that breaks down the total number of consults into consult status categories." +
+          value: "<u><b>Description</b></u>: The Consult Status pie chart displays the status of all consults pulled for the selected date range for this selected site. " + 
+          "The chart breaks down the number of consults into their respective consult status categories." +
           "<br/><br/><b>NOTE:</b> <u>Clicking</u> on a pie slice will filter the Consult Details table below to show consults with only the selected consult status. ",
           category: "Consult Uniques and Statuses Defined ...",
         },
@@ -387,7 +386,8 @@ export default {
       consultDetails: [
         {
           title: "Consult Details",
-          value: "This is a table of individual consults configured with one or more of the PCT stop codes: <br/><br/>" +
+          value: "<u><b>Description</b></u>: The Consult Details table displays information on each individual consult resulting from the selected date range for the selected site. " + 
+          "Consults listed are all those from the VistA Consult system that are configured with any of the following PCT stop codes: <br/><br/>" +
           "<b>Stop Codes:</b><br/>" + 
           "<u>516 PTSD - Group</u>:<br/>" +
           "<u>542 Telephone PTSD</u>:<br/>"	+ 
@@ -397,7 +397,7 @@ export default {
         }
       ]
 
-}
+    }
   },
   beforeMount() { 
   
@@ -411,13 +411,17 @@ export default {
       onCellClicked: this.onCellClicked,
       overlayLoadingTemplate: '<span class="ag-overlay-loading-center">Consult Comments Loading ...</span>',
     }
-
-
   },
   watch: {
     siteConsultPieChartSeries(newVal, oldVal) {
       // console.log('siteConsultPieChartSeries watcher triggered - oldVal: ', oldVal )
       // console.log('siteConsultPieChartSeries watcher triggered - newVal: ', newVal )
+    },
+    selectedRange(newVal, oldVal) {
+      // console.log('Oh, range change from: ', oldVal)
+      // console.log('Oh, range change to: ', newVal)
+      // doesn't work, not sure why not
+      // this.asyncValue(0) // reset the card data to show 'Loading ...'
     }
   },
   computed: {
@@ -539,6 +543,8 @@ export default {
       'CONSULT_DATA'
     ]),
     asyncValue(val) {
+      // only shows Loading on first load, and if site is changed
+      // doesn't show loading if date range is changed
       return val == 0 ? 'Loading...' : val
     },
     show (comments) { //simple dialog box for now

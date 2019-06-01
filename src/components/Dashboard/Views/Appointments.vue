@@ -1,7 +1,7 @@
 <template>
     <transition name="fade" mode="out-in">
 
-    <div class="content" :key="selectedSite" :class="{'provider-selected' : siteProviderSelected}">
+    <div class="content" :key="selectedRange" :class="{'provider-selected' : siteProviderSelected}">
       <!-- <button class="btn btn-danger float-right">Button</button> -->
       <div class="container-fluid">
         
@@ -25,7 +25,7 @@
                 <i class="nc-icon nc-chart-pie-36 text-danger"></i>
               </div>
               <div slot="content">
-                <p class="card-category">No Show/All ({{ siteEncounterApptNoShowTotal }}/{{ siteEncounterApptTotalStr}})</p>
+                <p class="card-category">No Show/All<br/> ({{ siteEncounterApptNoShowTotal }}/{{ siteEncounterApptTotalStr}})</p>
                 <h4 class="card-title">{{ notNumber(siteEncounterAppNoShowPercent) }}%</h4>
               </div>
             </stats-card>
@@ -228,7 +228,9 @@ export default {
       return val == 0 ? 'Loading...' : val
     },
     notNumber(val) {
-      return isNaN(val) ? 'Loading...' : val
+      // this.$nextTick(
+        return isNaN(val) ? 'Loading...' : val
+      // )
     },
     formatNumber(num) {
       return addCommas(num)
@@ -300,9 +302,10 @@ export default {
       gridOptions3: null,
       appointmentNoShowCancelSummary: [
         {
-          title: "No Show & Cancelled Summary",
-          value: "When clinic appointments are not 'Completed', the system identifies a reason.  For the PCT, two reasons particularly noteworthy are 'No Show' and 'Canceled' appointments.'<br/><br/>" +
-          "The two cards below tally '<b>No Show</b>' and '<b>Cancel</b>' appointments across all clinics, and show the percentage of all appointments with these two statuses.<br/><br/>" + 
+          title: "No Show & Cancelled Summary Cards",
+          value: "<u><b>Description</b></u>: Clinic appointments that have not been 'Completed' are tagged by the VistAsystem with a reason.  " + 
+          "For the PCT, two particularly noteworthy reasons are 'No Show' and 'Canceled' appointments.  These reasons, among others, contribute to an understanding of clinic efficiency'<br/><br/>" +
+          "The '<b>No Show</b>' and '<b>Cancel</b>' two cards below tally clinic appointments, showing the percentage of all appointments with these two statuses.<br/><br/>" + 
           "<b>NOTE:</b> No Show and Cancel appointments here are those identified for PCT Clinics only based on the PCT Stop Codes:<br/><br/>" +
           "<b>Stop Codes:</b><br/>" + 
           "<u>516 PTSD - Group</u>:<br/>" +
@@ -311,8 +314,8 @@ export default {
           category: "No Show and Cancel Status Stats and Statuses Defined...",
         },
         {
-          title: "Pie Chart Appointment Statuses",
-          value: "The pie chart breaks down the numbers of incomplete appointments by their incomplete statuses. These are the possible statuses: <br/><br/>" +
+          title: "Cancel No Show Pie Chart",
+          value: "<u><b>Description</b></u>: The Cancel No Show pie chart breaks down incomplete appointments by their statuses from the following possible statuses: <br/><br/>" +
           " <u>NO-SHOW</u>:<br/> " +
 			    " <u>NO-SHOW & AUTO RE-BOOK</u>:<br/> " +
           " <u>CANCELLED BY CLINIC</u>:<br/> " +
@@ -326,8 +329,9 @@ export default {
       appointmentNoShowCancelByClinicTable: [
         {
           title: "Clinic Level Cancel & No Show",
-          value: "In PCTs, Veterans are seen in a variety of provider clinics.  The table below tallies the number of No Show and Cancelled appointments " +
-          "by provider clinic.  Each clinic lists the total number of incomplete appointments by appointment status in separate rows.",
+          value: "<u><b>Description</b></u>: In PCTs, Veterans are seen in a variety of provider clinics.  The table below tallies the number of No Show and Cancelled appointments " +
+          "by provider clinic.  In each table row, the total number of incomplete appointments are listed by appointment status in comparison with the total number of clinic appointments." +
+          "Displaying the number of incomplete appointment along with the total number of appointments allows for estimating the rate of each incomplete appointment type (no show, cancel, etc).",
           category:"Clinic Level Cancel & No Show Table Defined..."
         }
       ]

@@ -151,6 +151,9 @@
 
     //   }
     // },
+    directives: {
+      'sticky': VueSticky
+    },
     watch:{
       siteSelected (val) {
         // my new value in val. Perform your

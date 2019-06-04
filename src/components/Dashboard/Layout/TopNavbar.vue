@@ -1,5 +1,6 @@
 <template>
-  <nav class="navbar navbar-expand-lg">
+  
+  <nav class="navbar navbar-expand-lg" style="position: fixed; z-index: 1000; min-width: 100vw;">
     <div class="container-fluid">
       <!-- <a class="navbar-brand" href="#">{{routeName}}</a> -->
       <button type="button"
@@ -119,6 +120,7 @@
       </div>
     </div>
   </nav>
+
 </template>
 <script>
   import { mapState, mapActions } from 'vuex'
@@ -149,6 +151,9 @@
 
     //   }
     // },
+    directives: {
+      'sticky': VueSticky
+    },
     watch:{
       siteSelected (val) {
         // my new value in val. Perform your
@@ -197,6 +202,7 @@
         activeNotifications: false,
         // selectedSite: '',
         // selectedRange: ''
+        shouldStick: true,
       }
     },
     methods: {

@@ -1011,6 +1011,8 @@ export default {
     this.EBP_PIE_CHART()
     this.EBP_DETAILS_TYPES()
     this.EBP_DETAILS_SESSIONS_SURVEYS()
+
+    this.CURRRENT_PAGE('ebp')
   },
   methods: {
    ...mapActions([
@@ -1019,6 +1021,8 @@ export default {
       'EBP_PIE_CHART',
       'EBP_DETAILS_TYPES',
       'EBP_DETAILS_SESSIONS_SURVEYS',
+
+      'CURRENT_PAGE'
     ]),
     addCommas,
     onGridReady() {

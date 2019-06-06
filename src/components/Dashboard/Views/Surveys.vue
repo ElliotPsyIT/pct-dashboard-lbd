@@ -298,12 +298,16 @@ export default {
     this.SURVEY_TOTALS()
     this.SURVEY_DETAILS()
     this.SURVEY_PATIENT_DETAILS()
+
+    this.CURRENT_PAGE('survey')
   },
    methods: {
     ...mapActions([
       'SURVEY_TOTALS',
       'SURVEY_DETAILS',
-      'SURVEY_PATIENT_DETAILS'
+      'SURVEY_PATIENT_DETAILS',
+
+      'CURRENT_PAGE',
     ]),     
     createColDefs() {
       return [

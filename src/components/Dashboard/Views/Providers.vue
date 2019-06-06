@@ -312,13 +312,17 @@ export default {
     this.PROVIDER_DETAILS()
     this.PROVIDER_PATIENT_DETAILS_CPT()
     this.PROVIDER_INFO()
+
+    this.CURRENT_PAGE('provider')
   },
   methods: {
     ...mapActions([
       'PROVIDER_COUNT',
       'PROVIDER_DETAILS',
       'PROVIDER_PATIENT_DETAILS_CPT',
-      'PROVIDER_INFO'
+      'PROVIDER_INFO',
+
+      'CURRENT_PAGE'
     ]),
     asyncValue(val) {
       return val == 0 ? 'Loading...' : val

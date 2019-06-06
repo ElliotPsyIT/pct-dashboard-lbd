@@ -50,7 +50,9 @@ const store = new Vuex.Store({
     selectedProvider: null,
     whitelisted: false,
 
-    appVersion: '0.12.2',
+    currentpage: '',
+
+    appVersion: '0.12.4',
     phipii: 0,
     adaccount: "",
     siteNames,
@@ -604,7 +606,6 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
 
-
     // siteEBPClinics: (state) => {
     //   let filteredArray = state.ebpInfo
     //     .filter(site => site.StaPa === state.selectedSite)
@@ -739,7 +740,31 @@ const store = new Vuex.Store({
     //   return filteredArray[0] ? filteredArray[0].NumPsychotherapyByType : 0
     // },
 
+    canFilterByProvider: (state) => {
+      let page = state.currentpage
+      console.log('in getter canFilterByProvider and state.currentpage is: ', state.currentpage)
+      let providerFilterAllowed = {
+        dashboard: false,
+        consult: false,
+        appointment: false,
+        encounter: true,
+        provider: true,
+        survey: true,
+        ebp: true,
+      }
+  
+      if(providerFilterAllowed.hasOwnProperty(page)){
+        // console.log('providerFilterAllowed is: ', providerFilterAllowed[page])
+        return providerFilterAllowed[page]
+      } else {
+        // console.log('oops page is not defined!!')
+        return false
+      } 
+    },
+  
   },
+  
+ 
 
   // ACTIONS
   actions: {
@@ -1194,6 +1219,10 @@ const store = new Vuex.Store({
       context.dispatch('REFRESH_ALL_DATA')
 
     },
+    CURRENT_PAGE (context, page) {
+      // console.log('in action CURRENT_PAGE and received this page name: ', page)
+      context.commit('SET_CURRENT_PAGE', page)
+    },
     CURRENT_USER (context) {
       const path = 'pct.cgi'
       const params = 'format=who'
@@ -1364,6 +1393,10 @@ const store = new Vuex.Store({
       //   state.userFirstName = 'No'
       //   state.userLastName = 'User Identified'
       // }
+    },
+    SET_CURRENT_PAGE (state, page) {
+      // console.log('in mutations, set state.currentpage to: ', page)
+      state.currentpage = page
     },
     SET_USER_PERMISSIONS (state, userPermissions) {
       // userPermissions is an object with this format

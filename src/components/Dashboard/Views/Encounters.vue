@@ -868,6 +868,7 @@ export default {
       'siteEncounterCPTPatientsGrpOnly',
       'siteEncounterCPTPatientsBoth',
       
+      
     ]),
     siteEncounterCPTIndividualPercent() {
       let percent = (+this.siteEncounterCPTIndividual / +this.siteEncounterTotal) * 100
@@ -991,6 +992,8 @@ export default {
     this.ENCOUNTER_CPT_CATEGORIES()
     this.ENCOUNTER_CPT()
     this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
+    // call action to signal the active page
+    this.CURRENT_PAGE('encounter')
   },
   methods: { 
     ...mapActions([
@@ -1001,6 +1004,7 @@ export default {
       'ENCOUNTER_CPT_CATEGORIES',
       'ENCOUNTER_CPT',
       'ENCOUNTER_PATIENT_CPT_CATEGORIES',
+      'CURRENT_PAGE'
 
         ]),
     formatNumber(num) {

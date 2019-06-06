@@ -1,8 +1,8 @@
 <template>
   <div class="user">
     <div class="photo"> 
-      <img src="static/img/default-avatar.png" alt="avatar"/>
-      <!-- <i class="nc-icon nc-circle-09"></i> -->
+      <!-- <img src="static/img/default-avatar.png" alt="avatar"/> -->
+      <i class="fa fa-user fa-2x"></i>
     </div>
     <div class="info">
       <a data-toggle="collapse" :aria-expanded="!isClosed" @click.stop="toggleMenu" href="#">

@@ -1,8 +1,8 @@
 <template>
-  <div class="fixed-plugin" style="position: fixed;" v-click-outside="closeDropDown">
+  <div class="fixed-plugin" style="position: fixed;" v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
     <div class="dropdown show-dropdown" :class="{show: isOpen}">
       <a data-toggle="dropdown">
-        <i class="fa fa-cog fa-2x" @click="toggleDropDown"> </i>
+        <i class="fa fa-user fa-2x" @click="toggleDropDown"> </i>
       </a>
       
       <ul class="dropdown-menu">
@@ -84,19 +84,23 @@ import Vue from 'vue'
 //   Vue.use(SocialSharing)
 //   Vue.use(VueGitHubButtons, {useCache: true})
 
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
     computed: {
       ...mapGetters([
         // 'siteProviderList',
-        'siteProviders','siteProviderSelected'
+        'siteProviders','siteProviderSelected','canFilterByProvider'
       ]),
-      
+
+      ...mapState([
+        'currentpage'
+      ]),
     },
     props: ['color', 'image'],
     data () {
       return {
+        enableProviderIcon: true,
         selectedProvider: '',
         previousProvider: '',
         isOpen: false,
@@ -124,14 +128,17 @@ import { mapGetters, mapActions } from 'vuex'
     },
     mounted() {
       this.PROVIDER_INFO()
+      console.log('this.currentpage is: ', this.currentpage )
     },
     methods: {
       ...mapActions([
           'PROVIDER_INFO','PROVIDER_SELECTED'
-        ]),      
+        ]), 
       providerlist () {
         this.providers = [...new Set(this.siteProviders)]
       // console.log('in providersList after uniqed and providers is: ', this.providers)
+        this.enableProviderIcon = this.canFilterByProvider
+        console.log('in SidebarShare enableProvider is: ', this.enableProviderIcon)
       },
       selectProvider (provider) {
         // clean the provider name
@@ -141,7 +148,7 @@ import { mapGetters, mapActions } from 'vuex'
           if (p.innerText.trim() == provider.trim() ) {// it's the clicked provider
             // make text red
             // console.log('looking at this label style', p.childNodes[0].nextElementSibling.style) 
-            p.childNodes[0].nextElementSibling.style.color = 'red'
+            p.childNodes[0].nextElementSibling.style.background = 'lightgrey'
           }
         })
         // set the previous provider for later comparision w/ current provider
@@ -159,7 +166,7 @@ import { mapGetters, mapActions } from 'vuex'
               // console.log('p.childNodes are: ', p.childNodes)
               // console.log('p.childNodes[0].nextElementSibling.innerText is: ', p.childNodes[0].nextElementSibling.innerText )
               p.childNodes[0].checked = false
-              p.childNodes[0].nextElementSibling.style.color = ''
+              p.childNodes[0].nextElementSibling.style.background = ''
             }
           })
           // set previous provider, and update the current provider
@@ -175,7 +182,7 @@ import { mapGetters, mapActions } from 'vuex'
           if (p.innerText.trim() == provider.trim() ) {// it's the clicked provider
             // make text red
             // console.log('looking at this label style', p.childNodes[0].nextElementSibling.style) 
-            p.childNodes[0].nextElementSibling.style.color = ''
+            p.childNodes[0].nextElementSibling.style.background = ''
           }
         })
         }
@@ -209,6 +216,13 @@ import { mapGetters, mapActions } from 'vuex'
     }
   }
 </script>
+
+<style>
+  .hide {
+    display: none;
+  }
+</style>
+
 <style lang="scss">
   @import "~assets/sass/lbd/variables";
   /* fixed plugin on the right */

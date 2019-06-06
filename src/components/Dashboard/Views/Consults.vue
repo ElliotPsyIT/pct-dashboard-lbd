@@ -536,11 +536,15 @@ export default {
     // action gets Consult Details from server
     this.CONSULT_DETAILS()
     this.CONSULT_DATA()
+    
+    this.CURRENT_PAGE('consult')
   },
   methods: {
     ...mapActions([
       'CONSULT_DETAILS',
-      'CONSULT_DATA'
+      'CONSULT_DATA',
+
+      'CURRENT_PAGE'
     ]),
     asyncValue(val) {
       // only shows Loading on first load, and if site is changed

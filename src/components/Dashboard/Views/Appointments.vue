@@ -217,12 +217,16 @@ export default {
     this.APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS()
     this.APPOINTMENT_CANCEL_NOSHOW_TOTALS()
     this.APPOINTMENT_COUNT()
+
+    this.CURRENT_PAGE('appointment')
   },
   methods: {
     ...mapActions([
       'APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS',
       'APPOINTMENT_CANCEL_NOSHOW_TOTALS',
-      'APPOINTMENT_COUNT'
+      'APPOINTMENT_COUNT',
+
+      'CURRENT_PAGE'
     ]),
     asyncValue(val) {
       return val == 0 ? 'Loading...' : val
@@ -344,7 +348,8 @@ export default {
 <style>
   
   .provider-selected {
-    border: 4px solid red;
+    /* border: 4px solid red; */
+    background-color: lightgray;
   }
 
   .section-head {

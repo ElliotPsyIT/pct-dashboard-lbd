@@ -7,6 +7,10 @@
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Dashboard</p>
       </sidebar-link>
+      <sidebar-link to="/admin/definitions">
+        <i class="nc-icon nc-bullet-list-67"></i>
+        <p>Definitions</p>
+      </sidebar-link>
       <sidebar-link to="/admin/consults">
         <i class="nc-icon nc-email-85"></i>
         <p>Consults</p>
@@ -31,6 +35,7 @@
         <i class="nc-icon nc-notes"></i>
         <p>EBPs</p>
       </sidebar-link>
+      
       <!-- <sidebar-link to="/admin/icons">
         <i class="nc-icon nc-circle-09"></i>
         <p>Icons</p>

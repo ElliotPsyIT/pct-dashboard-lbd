@@ -11,6 +11,8 @@ import Providers from 'src/components/Dashboard/Views/Providers.vue'
 import Surveys from 'src/components/Dashboard/Views/Surveys.vue'
 import EBP from 'src/components/Dashboard/Views/EBP.vue'
 
+import Definitions from 'src/components/Dashboard/Views/DataDefinitions.vue'
+
 // import Icons from 'src/components/Dashboard/Views/Icons.vue'
 
 
@@ -60,6 +62,11 @@ const routes = [
         name: 'EBP',
         component: EBP
       },
+      {
+        path: 'definitions',
+        name: 'Defintions',
+        component: Definitions
+      }
       // {
       //   path: 'icons',
       //   name: 'Icons',

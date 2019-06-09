@@ -216,21 +216,21 @@ export default {
           value: "<u><b>Description</b></u>: These are the number of PCT clinics administering surveys among all PCT clinics at this site. The intent is to show how many PCT Clinics " +
           "are administering surveys in the course of their activities.<br/><br/>" +
           "The numerator is the number of PCT clinics (based on clinic PCT Stop Codes) administering surveys, and the denominator is the number of PCT clinics at this site.  ",
-          category: "Clinics Providers Patients Defined ..."
+          category: "Clinics, Providers, Patients Defined ..."
         },
         {
           title: "Providers",
           value: "<u><b>Description</b></u>:These are the number of PCT providers administering surveys among all PCT providers at this site. The intent is to show how many PCT providers " +
           "are administering surveys in the course of their activities.<br/><br/>" +
           "The numerator is the number of PCT providers (based on PCT Stop Codes) administering surveys, and the denominator is the number of PCT providers seeing patients at this site.  ",
-          category: "Clinics Providers Patients Defined ..."
+          category: "Clinics, Providers, Patients Defined ..."
         },
         {
           title: "Patients",
           value: "<u><b>Description</b></u>:These are the number of PCT patients administering surveys among all PCT patients at this site. The intent is to show the relative percentage of PCT patients " +
           "are administerered surveys in the course of their assessment/treatment.<br/><br/>" +
           "The numerator is the number of PCT patients (based on PCT Stop Codes) being administered surveys, and the denominator is the number of PCT patients with encounters at this site.  ",
-          category: "Clinics Providers Patients Defined ..."
+          category: "Clinics, Providers, Patients Defined ..."
         }
       ],
       SurveyTypesGiven: [

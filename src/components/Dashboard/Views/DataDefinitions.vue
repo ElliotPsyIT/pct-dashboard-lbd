@@ -221,6 +221,23 @@ unique patients with a <span style='color:#C45911'>group psychotherapy CPT code
 
 </template>
 
+<script>
+
+import { mapActions } from 'vuex'
+
+export default {
+    mounted() {
+        this.CURRENT_PAGE('definition')
+    },
+    methods: {
+        ...mapActions([
+        'CURRENT_PAGE'
+        ])
+    }
+}
+
+</script>
+
 <style>
 <!--
  /* Font Definitions */

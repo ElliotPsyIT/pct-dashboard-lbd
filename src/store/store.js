@@ -51,8 +51,17 @@ const store = new Vuex.Store({
     whitelisted: false,
 
     currentpage: '',
-
-    appVersion: '0.12.4',
+    providerFilterAllowed: {
+      dashboard: false,
+      definition: false,
+      consult: false,
+      appointment: false,
+      encounter: true,
+      provider: true,
+      survey: true,
+      ebp: true,
+    },
+    appVersion: '0.12.5',
     phipii: 0,
     adaccount: "",
     siteNames,
@@ -393,7 +402,7 @@ const store = new Vuex.Store({
     siteProviders: (state) => {
       let filteredArray = state.providerInfo
       let uniques = removeDuplicates(filteredArray, 'STAFFNAME')
-      console.log('uniques Providers is: ', uniques)
+      // console.log('uniques Providers is: ', uniques)
       return uniques
     },
     siteProviderSelected: (state) => {
@@ -742,20 +751,12 @@ const store = new Vuex.Store({
 
     canFilterByProvider: (state) => {
       let page = state.currentpage
-      console.log('in getter canFilterByProvider and state.currentpage is: ', state.currentpage)
-      let providerFilterAllowed = {
-        dashboard: false,
-        consult: false,
-        appointment: false,
-        encounter: true,
-        provider: true,
-        survey: true,
-        ebp: true,
-      }
+      let filterAllowed = state.providerFilterAllowed
+      // console.log('in getter canFilterByProvider and state.currentpage is: ', state.currentpage)
   
-      if(providerFilterAllowed.hasOwnProperty(page)){
-        // console.log('providerFilterAllowed is: ', providerFilterAllowed[page])
-        return providerFilterAllowed[page]
+      if(filterAllowed.hasOwnProperty(page)){
+        // console.log('filterAllowed is: ', filterAllowed[page])
+        return filterAllowed[page]
       } else {
         // console.log('oops page is not defined!!')
         return false
@@ -888,7 +889,7 @@ const store = new Vuex.Store({
 
     },
     PROVIDER_SELECTED (context, provider) {
-      console.log('PROVIDER_SELECTED action changed selectedProvider to: ', provider)
+      // console.log('PROVIDER_SELECTED action changed selectedProvider to: ', provider)
       context.state.selectedProvider = provider
     },
     PROVIDER_COUNT (context) {

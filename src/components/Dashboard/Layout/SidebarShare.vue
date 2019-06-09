@@ -1,8 +1,8 @@
 <template>
   <div class="fixed-plugin" style="position: fixed;" v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
-    <div class="dropdown show-dropdown" :class="{show: isOpen}">
+    <div class="dropdown show-dropdown" :class="{show: isOpen}" @click="toggleDropDown">
       <a data-toggle="dropdown">
-        <i class="fa fa-user fa-2x" @click="toggleDropDown"> </i>
+        <i class="fa fa-user fa-2x" > </i>
       </a>
       
       <ul class="dropdown-menu">
@@ -127,18 +127,19 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       }
     },
     mounted() {
-      this.PROVIDER_INFO()
-      console.log('this.currentpage is: ', this.currentpage )
+      this.PROVIDER_INFO() //
+      // console.log('this.currentpage is: ', this.currentpage )
     },
     methods: {
       ...mapActions([
           'PROVIDER_INFO','PROVIDER_SELECTED'
         ]), 
       providerlist () {
+        // console.log('providerlist method was called!')
         this.providers = [...new Set(this.siteProviders)]
-      // console.log('in providersList after uniqed and providers is: ', this.providers)
+      // console.log('in providersList after uniqued and providers is: ', this.providers)
         this.enableProviderIcon = this.canFilterByProvider
-        console.log('in SidebarShare enableProvider is: ', this.enableProviderIcon)
+        // console.log('in SidebarShare enableProvider is: ', this.enableProviderIcon)
       },
       selectProvider (provider) {
         // clean the provider name
@@ -192,9 +193,18 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         this.selectedProvider = null
       },
       toggleDropDown () {
+        console.log('clicked toggleDropDown')
+        console.log('this.provider is: ', this.provider)
+        console.log('this.previousProvider is: ', this.previousProvider)
         //identify list of providers
         this.providerlist()
-        this.isOpen = !this.isOpen
+ 
+        // only close if a provider was set (previousProvider) and is now unset (null)
+        if (this.previousProvider == null) {
+          this.isOpen = !this.isOpen
+        } else {
+          this.isOpen = true
+        }
       },
       closeDropDown () {
         this.isOpen = false

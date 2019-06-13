@@ -193,9 +193,9 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         this.selectedProvider = null
       },
       toggleDropDown () {
-        console.log('clicked toggleDropDown')
-        console.log('this.provider is: ', this.provider)
-        console.log('this.previousProvider is: ', this.previousProvider)
+        // console.log('clicked toggleDropDown')
+        // console.log('this.provider is: ', this.provider)
+        // console.log('this.previousProvider is: ', this.previousProvider)
         //identify list of providers
         this.providerlist()
  

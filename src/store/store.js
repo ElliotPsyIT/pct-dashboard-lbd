@@ -61,7 +61,7 @@ const store = new Vuex.Store({
       survey: true,
       ebp: true,
     },
-    appVersion: '0.12.5',
+    appVersion: '0.12.6',
     phipii: 0,
     adaccount: "",
     siteNames,
@@ -406,7 +406,7 @@ const store = new Vuex.Store({
       return uniques
     },
     siteProviderSelected: (state) => {
-      console.log('return the selectedProvider: ', state.selectedProvider)
+      // console.log('return the selectedProvider: ', state.selectedProvider)
       return state.selectedProvider
     },
     // siteProviderList: (state) => {
@@ -1271,6 +1271,8 @@ const store = new Vuex.Store({
       })
     },
   },
+
+  // mutations
   mutations: {
     SET_EBP_PIE_CHART(state, ebpPieChart) {
       // console.log('in mutate SET_EBP_SUMMARY and ebpSummary data : ', ebpSummary)

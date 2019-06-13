@@ -2,102 +2,122 @@
   <div class="content">
     <div class="container-fluid">
 
-<div class="jumbotron d-flex flex-row">
+<div class="jumbotron d-flex flex-row" style="height: 340px;">
   <div class="mr-4">
     <img src="../../../../static/img/nat-center-ptsd.jpg">
   </div>
-  <div class="mb-2">
-    <h1>Welcome to PCT PTSD Dashboard</h1> 
+  <div class="mb-2 ">
+    <h1>PTSD Clinical Team Dashboard</h1> 
 
-    <p class="category "><b>Select Your Site <i class="bold nc-icon nc-stre-up text-primary"></i></b> From Drop Down Above </p>
-    <p class="category "><b>To View Details <i class="bold nc-icon nc-stre-left text-primary"></i></b> Use Left Sidebar</p>
+    <p class="category "><b>Select Station AND Date Range <i class="bold nc-icon nc-stre-up text-primary"></i></b> From Drop Downs Above </p>
+    <p class="category "><b>View Details <i class="bold nc-icon nc-stre-left text-primary"></i></b> Use Left Sidebar</p>
   </div>
+  
 </div>
 
 <hr/>
 
 <div class="row d-flex justify-content-around">
   
-  <div class="col-md-3 ">
+  <div class="col-md-2 ">
     <card>
-      <template slot="header">
-        <div class="category">Consults</div>
-      </template>
-          <h6 class="text-muted">PCT Consults, Statuses and Details </h6>
+      <!-- <template slot="header"> -->
+        <!-- <div class="category">Consults</div> -->
+      <!-- </template> -->
+      <router-link :to="{path:'/admin/consults'}">
+        <div class="page-link" >Consults</div>
+      </router-link>
+      <!-- <a href="#/admin/consults">
+        <div class="page-link" >Consults</div>
+      </a> -->
+      <h6 class="text-muted">PCT Consults, Statuses and Details </h6>
+      
+    </card>
+  </div>
+
+<div class="col-md-2 ">
+    <card >
+      <!-- <template slot="header">
+        <div class="category">Encounters</div>
+      </template> -->
+       <!-- <a href="#/admin/appointments">
+        <div class="page-link" >App'ts</div>
+      </a> -->
+      <router-link :to="{path:'/admin/appointments'}">
+        <div class="page-link" >App'ts</div>
+      </router-link>
+      <h6 class="text-muted">No Shows, Cancels </h6>
         
-      <template slot="footer">
-        <hr>
-        <!-- <div class="stats">
-          <i class="fa fa-history"></i> Consult Page
-        </div> -->
-      </template>
+      
     </card>
-  </div>
+</div>
 
-  <div class="col-md-3 ">
+  <div class="col-md-2 ">
     <card>
-      <template slot="header">
+      <!-- <template slot="header">
         Encounters
-      </template>
-        <h6 class="text-muted">Encounters, No Show / Cancel, CPT Categories</h6>
-      <template slot="footer">
-        <hr>
-        <!-- <div class="stats">
-          <i class="fa fa-history"></i> Encounters Page
-        </div> -->
-      </template>
+      </template> -->
+       <!-- <a href="#/admin/encounters">
+        <div class="page-link" >Encounters</div>
+      </a> -->
+      <router-link :to="{path:'/admin/encounters'}">
+        <div class="page-link" >Encounters</div>
+      </router-link>
+      <h6 class="text-muted">Encounter Counts, CPT Categories</h6>
+      
     </card>
   </div>
 
-  <div class="col-md-3 ">
+  <div class="col-md-2 ">
     <card>
-      <template slot="header">
+      <!-- <template slot="header">
         Providers
-      </template>
+      </template> -->
+      <!-- <a href="#/admin/providers">
+        <div class="page-link" >Providers</div>
+      </a> -->
+      <router-link :to="{path:'/admin/providers'}">
+        <div class="page-link" >Providers</div>
+      </router-link>
 
-        <h6 class="text-muted">Providers, Clinics and Patient Stats</h6>
+      <h6 class="text-muted">Providers, Clinics and Patient Stats</h6>
 
-      <template slot="footer">
-        <hr>
-        <!-- <div class="stats">
-          <i class="fa fa-history"></i> Providers Page
-        </div> -->
-      </template>
+     
     </card>
   </div>
 
 
-  <div class="col-md-3 ">
+  <div class="col-md-2 ">
     <card>
-      <template slot="header">
+      <!-- <template slot="header">
         Surveys
-      </template>
-
+      </template> -->
+      <!-- <a href="#/admin/surveys">
+        <div class="page-link" >Surveys</div>
+      </a> -->
+      <router-link :to="{path:'/admin/surveys'}">
+        <div class="page-link" >Surveys</div>
+      </router-link>
         <h6 class="text-muted">PCT Surveys by Providers and by Patients</h6>
 
-      <template slot="footer">
-        <hr>
-        <!-- <div class="stats">
-          <i class="fa fa-history"></i> Surveys Page
-        </div> -->
-      </template>
+     
     </card>
   </div>
 
-  <div class="col-md-3 ">
+  <div class="col-md-2 ">
     <card>
-      <template slot="header">
+      <!-- <template slot="header">
         EBPs
-      </template>
+      </template> -->
+      <!-- <a href="#/admin/ebps">
+        <div class="page-link" >EBPs</div>
+      </a> -->
+      <router-link :to="{path:'/admin/ebps'}">
+        <div class="page-link" >EBPs</div>
+      </router-link>
+      <h6 class="text-muted">EBP Session counts and Therapy Types</h6>
 
-        <h6 class="text-muted">EBP Session counts and Therapy Types</h6>
-
-      <template slot="footer">
-        <hr>
-        <!-- <div class="stats">
-          <i class="fa fa-history"></i> Surveys Page
-        </div> -->
-      </template>
+  
     </card>
   </div>
 
@@ -482,6 +502,17 @@
   }
 </script>
 <style>
+ .page-link {
+   color: black; 
+   text-decoration: underline; 
+   margin-bottom: .5rem;
+   border-color: transparent;
+   padding: 3px;
+ }
 
+ .page-link:hover {
+   color: darkolivegreen;
+   text-decoration: underline; 
+ }
 </style>
 

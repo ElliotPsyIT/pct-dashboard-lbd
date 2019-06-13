@@ -34,36 +34,7 @@
       <sidebar-link to="/admin/ebp">
         <i class="nc-icon nc-notes"></i>
         <p>EBPs</p>
-      </sidebar-link>
-      
-      <!-- <sidebar-link to="/admin/icons">
-        <i class="nc-icon nc-circle-09"></i>
-        <p>Icons</p>
-      </sidebar-link> -->
-      <!-- <sidebar-link to="/admin/providers">
-        <i class="nc-icon nc-circle-09"></i>
-        <p>Providers</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/table-list">
-        <i class="nc-icon nc-notes"></i>
-        <p>Table list</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/typography">
-        <i class="nc-icon nc-paper-2"></i>
-        <p>Typography</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/icons">
-        <i class="nc-icon nc-atom"></i>
-        <p>Icons</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/maps">
-        <i class="nc-icon nc-pin-3"></i>
-        <p>Maps</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/notifications">
-        <i class="nc-icon nc-bell-55"></i>
-        <p>Notifications</p>
-      </sidebar-link> -->
+      </sidebar-link> 
     </side-bar>
     <div class="main-panel">
       <top-navbar></top-navbar>
@@ -73,7 +44,7 @@
                      :sidebarMini.sync="sidebarMini"
                      :image.sync="sidebarBackgroundImage">>
       </sidebar-share>
-      <dashboard-content @click="toggleSidebar">
+      <dashboard-content @click="toggleSidebar" >
 
       </dashboard-content>
 
@@ -124,3 +95,7 @@
   }
 
 </script>
+
+<style>
+  
+</style

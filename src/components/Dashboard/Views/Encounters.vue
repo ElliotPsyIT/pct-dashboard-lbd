@@ -1,7 +1,7 @@
 <template>
   <transition name="fade" mode="out-in">
     <div class="content" :key="selectedSite">
-      <div class="container-fluid">
+      <div class="container-fluid" :class="{provider: changeBackgroundColor}">
         
         <!-- Section Header -->
         <!-- <div class="row d-flex justify-content-center ">
@@ -867,9 +867,14 @@ export default {
       'siteEncounterCPTPatientsIndOnly',
       'siteEncounterCPTPatientsGrpOnly',
       'siteEncounterCPTPatientsBoth',
-      
+
+      'siteProviderSelected'
       
     ]),
+    changeBackgroundColor () {
+        // console.log('in changeBackgroundColor which is: ', this.siteProviderSelected)
+        return this.siteProviderSelected || false
+    },      
     siteEncounterCPTIndividualPercent() {
       let percent = (+this.siteEncounterCPTIndividual / +this.siteEncounterTotal) * 100
       return precise_round(percent, 1)
@@ -1167,6 +1172,11 @@ export default {
 }
 </script>
 <style>
+
+  .provider {
+    background-color: lightgrey;
+  }
+
   .section-head {
     font-size: 2rem;
   }

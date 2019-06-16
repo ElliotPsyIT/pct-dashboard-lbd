@@ -6,7 +6,7 @@
       </a>
       
       <ul class="dropdown-menu">
-        <li class="header-title">Placeholder for Provider List</li>
+        <li class="header-title">Site Provider List</li>
         <!-- <li class="header-title"><button style="margin-bottom: 1rem;" @click="uncheckAll">Back to Site Level Data</button></li> -->
           <div v-for="provider in providers" :key="provider.STAFFSID" ref="listProviders">
             <input type=checkbox id="provider.STAFFNAME" @click="selectProvider(provider.STAFFNAME)"/>
@@ -147,7 +147,6 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         // color the label to show selected
         this.$refs.listProviders.map(p => {
           if (p.innerText.trim() == provider.trim() ) {// it's the clicked provider
-            // make text red
             // console.log('looking at this label style', p.childNodes[0].nextElementSibling.style) 
             p.childNodes[0].nextElementSibling.style.background = 'lightgrey'
           }

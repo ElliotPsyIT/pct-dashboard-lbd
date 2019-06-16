@@ -1,8 +1,15 @@
 <template>
-  
-  <nav class="navbar navbar-expand-lg" style="position: fixed; z-index: 1000; min-width: 100vw;">
+  <!-- <transition name="fade" mode="out-in"> -->
+  <nav class="navbar navbar-expand-lg" style="position: fixed; z-index: 1000; min-width: 100vw; ">
     <div class="container-fluid">
-      <!-- <a class="navbar-brand" href="#">{{routeName}}</a> -->
+
+      <!-- placeholder for provider filter -->
+      <fade-transition :duration="duration">
+        <span v-if="showProvider()" class="px-2" >
+          <a class="navbar-brand px-2" href="#" style="color: black; background-color: lightgrey;">{{selectedProvider}}</a>
+        </span>
+      </fade-transition>
+
       <button type="button"
               class="navbar-toggler navbar-toggler-right"
               :class="{toggled: $sidebar.showSidebar}"
@@ -14,6 +21,7 @@
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
       </button>
+      
       <div class="collapse navbar-collapse ">
         <ul class="nav navbar-nav mx-auto py-0">
           <!-- <li class="nav-item">
@@ -39,22 +47,7 @@
               <span class="d-lg-block">&nbsp;Search</span>
             </a>
           </li> -->
-          <!-- <drop-down title="Stations">
-            <a class="dropdown-item" href="#">VISN 1 Station 1</a>
-            <a class="dropdown-item" href="#">VISN 1 Station 2</a>
-            <a class="dropdown-item" href="#">VISN 1 Station 3</a>
-            <a class="dropdown-item" href="#">VISN 1 Station 4</a>
-            <a class="dropdown-item" href="#">VISN 1 Station 5</a>
-            <div class="divider">Visn 2</div>
-            <a class="dropdown-item" href="#">VISN 2</a>
-          </drop-down>
-          <drop-down title="Date Range">
-            <a class="dropdown-item" href="#">Last Month</a>
-            <a class="dropdown-item" href="#">Last 3 Months</a>
-            <a class="dropdown-item" href="#">Last 6 Months</a>
-            <div class="divider"></div>
-            <a class="dropdown-item" href="#">Last Year</a>
-          </drop-down> -->
+          
           <li class="nav-item py-0 mr-2">
           <form class="form-inline">
             <div class="form-group">  <!--  pt-1 py-0 -->
@@ -126,7 +119,13 @@
   import { mapState, mapActions } from 'vuex'
   import NProgress from 'nprogress'
 
+  import {FadeTransition} from 'vue2-transitions'
+
   export default {
+    components: {
+      FadeTransition,
+    },
+    
     // beforeMount  () {
     //   console.log('topnav beforeMount, selectedSite is: ', this.selectedSite)
     // },
@@ -165,6 +164,14 @@
          NProgress.start()
         // console.log('watcher for siteSelected triggered with new value of: ', val)
          NProgress.done()
+      },
+      selectedProvider (newVal, oldVal) {
+        // when triggered, if there was a previous provider
+        // and allow the showProvider method to animate in the new provider
+        // console.log('watch on selectedProvider is triggered with: ', this.selectedProvider)
+        // console.log('this is the newVal ', newVal)
+        // console.log('this is the oldVal ', oldVal)
+        
       }
     },
     computed: {
@@ -172,7 +179,7 @@
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
       },
-      ...mapState(['siteNames','dateRanges','selectedSite','selectedRange']),
+      ...mapState(['siteNames','dateRanges','selectedSite','selectedRange','selectedProvider']),
       siteSelected: {
         get () {
           // return this.$store.selectedSite
@@ -200,9 +207,25 @@
         // selectedSite: '',
         // selectedRange: ''
         shouldStick: true,
+        duration: 1000,
+        showName: false,
+        previousProvider: false,
+        newProvider: false,
       }
     },
     methods: {
+      showProvider(val) {
+        // console.log('showProvider is triggered with this selectedProvider: ', this.selectedProvider)
+
+        let previousProviderSelected = this.previousProvider 
+        // console.log('previousProviderSelected: ', previousProviderSelected)
+        let newProviderSelected = this.newProvider
+        // console.log('newProviderSelected: ', previousProviderSelected)
+        let pageLoad = !previousProviderSelected  && !newProviderSelected
+        // console.log('pageload: ', pageLoad)        
+        // no previous provider selected - either page load, or new provider selected
+        return this.selectedProvider
+      },
       ...mapActions(
         ['setSelectedSite','setSelectedRange']
       ),
@@ -225,6 +248,19 @@
   }
 
 </script>
-<style >
+<style scoped>
 
+ /* fade page in and out when site changes */
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .1s
+  }
+
+  .fade-enter,
+  .fade-leave-to
+    /* .fade-leave-active in <2.1.8 */
+  {
+    opacity: 0
+  }
+  
 </style>

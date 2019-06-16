@@ -61,7 +61,7 @@ const store = new Vuex.Store({
       survey: true,
       ebp: true,
     },
-    appVersion: '0.12.6',
+    appVersion: '0.12.7',
     phipii: 0,
     adaccount: "",
     siteNames,

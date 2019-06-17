@@ -54,14 +54,14 @@ const store = new Vuex.Store({
     providerFilterAllowed: {
       dashboard: false,
       definition: false,
-      consult: false,
-      appointment: false,
-      encounter: true,
-      provider: true,
-      survey: true,
-      ebp: true,
+      consults: false,
+      appointments: false,
+      encounters: true,
+      providers: true,
+      surveys: true,
+      ebps: true,
     },
-    appVersion: '0.12.7',
+    appVersion: '0.12.8',
     phipii: 0,
     adaccount: "",
     siteNames,
@@ -750,15 +750,21 @@ const store = new Vuex.Store({
     // },
 
     canFilterByProvider: (state) => {
-      let page = state.currentpage
-      let filterAllowed = state.providerFilterAllowed
-      // console.log('in getter canFilterByProvider and state.currentpage is: ', state.currentpage)
+      let path = state.route.path 
+      let regx = /\/(\w+)$/ //find currentpage
+      let pageObj = regx.exec(path)
+      // console.log('in canFilterByProvider, pageObj is: ', pageObj)
+      let page = pageObj[1]
+      // console.log('in canFilterByProvider, page is: ', page)
+      // console.log('state.providerFilterAllowed: ', state.providerFilterAllowed)
+    // console.log('just trying state.providerFilterAllowed.consults: ', state.providerFilterAllowed.consults)
+    //   console.log('in getter canFilterByProvider, state.providerFilterAllowed for this page is: ', state.providerFilterAllowed[page])
   
-      if(filterAllowed.hasOwnProperty(page)){
-        // console.log('filterAllowed is: ', filterAllowed[page])
-        return filterAllowed[page]
+      if(state.providerFilterAllowed[page]){
+        // console.log('filterAllowed is: ', state.providerFilterAllowed[page])
+        return state.providerFilterAllowed[page]
       } else {
-        // console.log('oops page is not defined!!')
+        // console.log('filterAllowed is NO!!: ', state.providerFilterAllowed[page])
         return false
       } 
     },

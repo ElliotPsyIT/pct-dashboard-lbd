@@ -56,10 +56,10 @@ const store = new Vuex.Store({
       definition: false,
       consults: false,
       appointments: false,
-      encounters: true,
-      providers: true,
-      surveys: true,
-      ebps: true,
+      encounters: false,
+      providers: false,
+      surveys: false,
+      ebps: false,
     },
     appVersion: '0.12.8',
     phipii: 0,
@@ -896,7 +896,7 @@ const store = new Vuex.Store({
     },
     PROVIDER_SELECTED (context, provider) {
       // console.log('PROVIDER_SELECTED action changed selectedProvider to: ', provider)
-      context.state.selectedProvider = provider
+      context.state.selectedProvider = provider     // next step is getting the encounter data filtered by providerSID
     },
     PROVIDER_COUNT (context) {
       // console.log('in PROVIDER_COUNT Action, check context here', context)

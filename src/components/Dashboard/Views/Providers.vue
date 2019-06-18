@@ -3,6 +3,8 @@
     <div class="content" :key="selectedSite">
       <div class="container-fluid">
         
+              Scroll Position {{scrollPosition}}
+
           <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Provider, Clinic, Patient Stats</h4>
@@ -265,6 +267,11 @@ export default {
       'siteProviderClinicCount',
       'siteProviderPatientCount'
     ]),
+    scrollPosition () {
+      console.log('scroll window.innerHeight: ', window.innerHeight)
+      console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+      console.log('window.pageYOffset: ', window.pageYOffset)    
+    },
     rowData1 () { 
       // console.log('in computed, this.siteProviderDetails is: ', this.siteProviderDetails)
       return this.siteProviderDetails }, // siteProviderDetails/Provider Encounters Details

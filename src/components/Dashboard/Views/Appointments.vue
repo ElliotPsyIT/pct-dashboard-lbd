@@ -5,6 +5,8 @@
       <!-- <button class="btn btn-danger float-right">Button</button> -->
       <div class="container-fluid">
         
+              Scroll Position {{scrollPosition}}
+
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">No Show & Cancel Summary Stats</h4>
@@ -155,7 +157,12 @@ export default {
       'siteEncounterApptTotal', // for computation
       'siteProviderSelected',
     ]),
-    
+    scrollPosition () {
+      console.log('scroll window.innerHeight: ', window.innerHeight)
+      console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+      console.log('window.pageYOffset: ', window.pageYOffset)    
+    },
+
     siteEncounterAppNoShowPercent () {
       return Math.round((this.siteEncounterApptNoShowTotal/this.siteEncounterApptTotal) * 100)
     },

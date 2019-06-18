@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade" mode="out-in">
+  <transition name="fade" mode="out-in" >
     <div class="content" :key="selectedSite">
       <div class="container-fluid" :class="{provider: changeBackgroundColor}">
         
@@ -7,7 +7,7 @@
         <!-- <div class="row d-flex justify-content-center ">
           <h4 class="section-head">No Show & Cancel Summary Stats</h4>
         </div> -->
-      
+      Scroll Position {{scrollPosition}}
       
         <!-- <div class="row d-flex justify-content-center"> -->
 
@@ -871,6 +871,11 @@ export default {
       'siteProviderSelected'
       
     ]),
+    scrollPosition () {
+      console.log('scroll window.innerHeight: ', window.innerHeight)
+      console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+      console.log('window.pageYOffset: ', window.pageYOffset)    
+    },
     changeBackgroundColor () {
         // console.log('in changeBackgroundColor which is: ', this.siteProviderSelected)
         return this.siteProviderSelected || false

@@ -3,6 +3,8 @@
     <div class="content" :key="selectedSite">
       <div class="container-fluid">
 
+              Scroll Position {{scrollPosition}}
+
        <!-- Section Headers -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">EBPs</h4>
@@ -870,6 +872,11 @@ export default {
     ]),
     ...mapState(['selectedSite']), //siteALLSessions
 
+    scrollPosition () {
+      console.log('scroll window.innerHeight: ', window.innerHeight)
+      console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+      console.log('window.pageYOffset: ', window.pageYOffset)    
+    },
 
     siteEBPSessionsAnyPercent () {
       return Math.round((this.siteEBPSessionsAny/this.siteALLSessions) * 100)
@@ -1012,7 +1019,7 @@ export default {
     this.EBP_DETAILS_TYPES()
     this.EBP_DETAILS_SESSIONS_SURVEYS()
 
-    this.CURRRENT_PAGE('ebp')
+    // this.CURRRENT_PAGE('ebp')
   },
   methods: {
    ...mapActions([
@@ -1022,7 +1029,7 @@ export default {
       'EBP_DETAILS_TYPES',
       'EBP_DETAILS_SESSIONS_SURVEYS',
 
-      'CURRENT_PAGE'
+      // 'CURRENT_PAGE'
     ]),
     addCommas,
     onGridReady() {

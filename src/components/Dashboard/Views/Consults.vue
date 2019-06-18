@@ -433,6 +433,11 @@ export default {
       'siteConsultPendingTotal','siteConsultPieChartSeries','siteConsultLineChartSeries',
       'siteConsultDetails'
     ]),
+    scrollPosition () {
+      console.log('scroll window.innerHeight: ', window.innerHeight)
+      console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+      console.log('window.pageYOffset: ', window.pageYOffset)    
+    },
     cardStatusTextPending () {
       return {
         'text-big' : this.cardClickedConsultStatus === 'PENDING' &&

@@ -2,7 +2,9 @@
   <transition name="fade" mode="out-in">
     <div class="content" :key="selectedSite">
       <div class="container-fluid">
-        
+
+              Scroll Position {{scrollPosition}}
+
       <!-- Section Header -->
       <div class="row d-flex justify-content-center ">
         <h4 class="section-head">Surveys Summary</h4>
@@ -262,7 +264,11 @@ export default {
       'siteSurveyPatientDetails'
     ]),
     ...mapState(['selectedSite']),
-
+    scrollPosition () {
+      console.log('scroll window.innerHeight: ', window.innerHeight)
+      console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+      console.log('window.pageYOffset: ', window.pageYOffset)    
+    },
     rowData () {
       // console.log('here is siteSurveyDetails from store ', this.siteSurveyDetails)
       return this.siteSurveyDetails // filters when site changes

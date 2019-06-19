@@ -1,4 +1,7 @@
 <template>
+    <div class="container-fluid">
+
+      Scroll Position {{scrollPosition}}
 
 <div class=WordSection1 style='padding: 3rem;'>
 
@@ -218,7 +221,7 @@ unique patients with a <span style='color:#C45911'>group psychotherapy CPT code
 
 </div>
 
-
+    </div>
 </template>
 
 <script>
@@ -233,7 +236,13 @@ export default {
         ...mapActions([
         'CURRENT_PAGE'
         ])
-    }
+	},
+	computed: {
+	  scrollPosition () {
+		// console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+		console.log('window.pageYOffset: ', window.pageYOffset)    
+      },
+	}
 }
 
 </script>

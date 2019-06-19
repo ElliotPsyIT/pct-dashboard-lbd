@@ -265,8 +265,6 @@ export default {
     ]),
     ...mapState(['selectedSite']),
     scrollPosition () {
-      console.log('scroll window.innerHeight: ', window.innerHeight)
-      console.log('document.body.scrollHeight: ', document.body.scrollHeight)
       console.log('window.pageYOffset: ', window.pageYOffset)    
     },
     rowData () {

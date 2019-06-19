@@ -3,6 +3,8 @@
     <div class="content" :key="selectedRange">
       <div class="container-fluid">
 
+              Scroll Position {{scrollPosition}}
+
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Consult Overall Summary</h4>
@@ -434,8 +436,6 @@ export default {
       'siteConsultDetails'
     ]),
     scrollPosition () {
-      console.log('scroll window.innerHeight: ', window.innerHeight)
-      console.log('document.body.scrollHeight: ', document.body.scrollHeight)
       console.log('window.pageYOffset: ', window.pageYOffset)    
     },
     cardStatusTextPending () {

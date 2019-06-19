@@ -2,6 +2,8 @@
   <div class="content">
     <div class="container-fluid">
 
+      Scroll Position {{scrollPosition}}
+
 <div class="jumbotron d-flex flex-row" style="height: 340px;">
   <div class="mr-4">
     <img src="../../../../static/img/nat-center-ptsd.jpg">
@@ -403,8 +405,12 @@
       StatsCard
     },
     computed: {
-        ...mapState(['selectedSite', 'selectedRange']),
+      ...mapState(['selectedSite', 'selectedRange']),
         // ...mapGetters(['nationalConsultTotal','nationalConsultStatuses'])
+      scrollPosition () {
+        // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+        console.log('window.pageYOffset: ', window.pageYOffset)    
+      },
     },
     created () {
       if (this.selectedSite || this.selectedRange) {

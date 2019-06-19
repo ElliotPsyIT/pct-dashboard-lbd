@@ -38,14 +38,14 @@ const router = new VueRouter({
   // mode: 'history',
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      console.log('in saved position!')
+      // console.log('in saved position!')
         return savedPosition;
     }
     if (to.hash) {
-      console.log('to.hash is: ', to.hash)
+      // console.log('to.hash is: ', to.hash)
         return { selector: to.hash };
     }
-    console.log('in scrollbehavior but neither savedPosition or to.hash triggered!!')
+    // console.log('in scrollbehavior but neither savedPosition or to.hash triggered!!')
     return { x: 0, y: 0 };
   },
   routes, // short for routes: routes

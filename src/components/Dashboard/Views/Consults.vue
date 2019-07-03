@@ -296,7 +296,6 @@ import VueHighcharts from 'vue2-highcharts'
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
 import dateFormat from "dateformat"
-import axios from 'axios'
 
 import VueFaqAccordion from 'vue-faq-accordion'
 
@@ -402,7 +401,7 @@ export default {
     }
   },
   beforeMount() { 
-  
+    
     this.gridOptions = {
       columnDefs: this.createColDefs(),
       rowData: this.rowData, // computed prop
@@ -433,7 +432,7 @@ export default {
     ...mapGetters([
       'siteConsultTotal','siteConsultPatientTotal','siteConsultActiveTotal',
       'siteConsultPendingTotal','siteConsultPieChartSeries','siteConsultLineChartSeries',
-      'siteConsultDetails'
+      'siteConsultDetails','getRunMode'
     ]),
     scrollPosition () {
       console.log('window.pageYOffset: ', window.pageYOffset)    

@@ -50,6 +50,7 @@ const store = new Vuex.Store({
     selectedProvider: null,
     whitelisted: false,
 
+    runMode: '',
     currentpage: '',
     providerFilterAllowed: {
       dashboard: false,
@@ -111,7 +112,10 @@ const store = new Vuex.Store({
     userAccount: (state) => {
       return state.adaccount
     },
-  
+    getRunMode: (state) => {
+      // development mode? - for use in tracking user action
+      return process.env.NODE_ENV == 'development' ? process.env.NODE_ENV : ''
+    },
     siteConsultTotal: (state) => {
       // console.log('in store getters, state is: ', state)
       // console.log('in siteConsultTotal, state.consultDataCount is: ', state.consultDataCount)

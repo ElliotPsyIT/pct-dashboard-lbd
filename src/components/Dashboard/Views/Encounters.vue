@@ -320,7 +320,7 @@
                 <i class="nc-icon-outline nc-multiple-11 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group Education ({{ asyncValue(formatNumber(siteEncounterCPTGroupEducation.total)) }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
+                <p class="card-category">Group Education ({{ asyncValue(formatNumber(siteEncounterCPTGroupEducation.total), 'Group Ed') }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
                 <h4 class="card-title">{{ siteEncounterCPTGroupEducation.percent }}%</h4>
               </div>
             </stats-card>
@@ -334,7 +334,7 @@
                 <i class="nc-icon-outline nc-single-folded-content text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Assessment CPT ({{ asyncValue(formatNumber(siteEncounterCPTAssessment.total)) }}/{{asyncValue(formatNumber(siteEncounterTotal))}})</p>
+                <p class="card-category">Assessment CPT ({{ asyncValue(formatNumber(siteEncounterCPTAssessment.total), 'Assessment') }}/{{asyncValue(formatNumber(siteEncounterTotal))}})</p>
                 <h4 class="card-title">{{ siteEncounterCPTAssessment.percent }}%</h4>
               </div>
               </stats-card>
@@ -1019,9 +1019,9 @@ export default {
     formatNumber(num) {
       return addCommas(num)
     },
-    asyncValue(val) {
-      // console.log('running asyncValue, val is: ', val)
-      return val == 0 ? 'Loading...' : val
+    asyncValue(val, v) {
+      let startingValue = val == 0 ? 'Loading...' : val
+      return startingValue
     },
     createColDefs() {
       return [

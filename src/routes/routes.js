@@ -64,7 +64,7 @@ const routes = [
       },
       {
         path: 'definitions',
-        name: 'Defintions',
+        name: 'Definitions',
         component: Definitions
       }
       // {

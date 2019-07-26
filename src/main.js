@@ -80,9 +80,16 @@ new Vue({
   render: h => h(App),
   router,
   store,
+  watch: {
+    '$route' (to, from) {
+      if (to != 'undefined' && from != 'undefined') {    
+        this.$store.dispatch('LOG_USAGE', { to, from})
+      }
+    }
+  },
   mounted() {   
     this.$store.dispatch('CURRENT_USER')
     this.$store.dispatch('USER_PERMISSIONS')
-
+    
   }
 })

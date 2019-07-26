@@ -36,6 +36,34 @@ function removeDuplicates(myArr, prop) {
   });
 }
 
+function usageParams (state) {
+
+  function cleanAccountString (str) { 
+    // replace backslash and forwardslash with underscore
+    let newStr = str.replace(/\/|\\/g, "_");
+    // remove leading and trailing underscore
+    if (newStr.charAt(0) == '_' | newStr.charAt(-1) ) 
+      newStr = newStr.slice(1)
+      return newStr
+  }
+  
+  // let currentPage = state.currentPage || page
+  let currentPage = state.route.name
+  
+  let usageParams = ''
+  usageParams = 
+  'format='         + 'usage' +
+  '&page='          + currentPage.toLowerCase()  +
+  '&staPa='         + state.selectedSite +
+  '&dateRange='     + state.selectedRange +
+  '&userFirstName=' + state.userFirstName + 
+  '&userLastName='  + state.userLastName + 
+  '&adaccount='     + cleanAccountString(state.adaccount)
+ 
+  // console.log('usageParams is: ', usageParams)
+  return usageParams 
+}
+
 // set default whitelisted dateRange for limiting data request size
 const defaultDateRange = 'threemonths' 
 
@@ -775,16 +803,28 @@ const store = new Vuex.Store({
   
   },
   
- 
-
+  
   // ACTIONS
   actions: {
+    LOG_USAGE (context, pages) { 
+
+      const params = usageParams(context.state) //, context.state.route.name)
+
+      const path = 'pct.cgi'
+
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        console.log('returned from submitting usage, no action to take')
+      })
+
+    },
     EBP_PIE_CHART (context) {
       // console.log('in EBP_PIE_CHART Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=ebp_pie_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
+      // let params = 'format=ebp_pie_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      let params = 'format=ebp_pie_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+
       axios.get(`${path}?${params}`)
       .then(response => { 
         // console.log('IN EBP_PIE_CHART ebp summary details from server is: ', typeof )
@@ -1163,12 +1203,19 @@ const store = new Vuex.Store({
         // console.log('in USER_PERMISSIONS, got this data back: ', response.data)
         //
         context.commit('SET_USER_PERMISSIONS', response.data[0])
+        // call LOG_USAGE
+        // console.log('in USER_PERMISSION returned promise and committed permissions, here is the state: ', context.state)
+        context.dispatch('LOG_USAGE') // needed to track entry into app
+        // console.log('just call LOG_USAGE, here is the state: ', context.state)
       })
 
     },
     REFRESH_ALL_DATA (context) {
+      console.log('refresh all data!')
       // be sure provider info is updated with new site (primarily for providerlist)
       context.dispatch('PROVIDER_INFO')
+      // update the user since this page could be entered anytime
+      context.dispatch('USER_PERMISSIONS')
 
       if (context.state.route.path == '/admin/consults') {
         // console.log('calling Action CONSULT_DETAILS')
@@ -1415,7 +1462,7 @@ const store = new Vuex.Store({
       // userPermissions is an object with this format
       // {Surname: "Fielstein0", GivenName: "Elliot", ADAccount: "VHA09\VHATVHFIELSE0", PHIPII: "1", Sta3n: "653"}
       // set PHIPIII
-      // console.log('in mutate SET_USER_PERMISSIONS with userPermissions: ', userPermissions)
+      // console.log('in mutate SET_USER_PERMISSIONS with userPermissions: ', userPermissions)      // console.log('in mutate SET_USER_PERMISSIONS state.adaccount is: ', state.adaccount)
       state.phipii = userPermissions.PHIPII
       state.adaccount = userPermissions.ADAccount
     },

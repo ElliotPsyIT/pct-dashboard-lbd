@@ -394,7 +394,7 @@
   import LTable from 'src/components/UIComponents/Table.vue'
   import Checkbox from 'src/components/UIComponents/Inputs/Checkbox.vue'
 
-  import { mapState } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     components: {
@@ -412,6 +412,14 @@
         console.log('window.pageYOffset: ', window.pageYOffset)    
       },
     },
+     mounted() {
+        this.CURRENT_PAGE('overview')
+    },
+    methods: {
+        ...mapActions([
+        'CURRENT_PAGE'
+        ])
+	  }, 
     created () {
       if (this.selectedSite || this.selectedRange) {
         // console.log('overview created - yes been here before')

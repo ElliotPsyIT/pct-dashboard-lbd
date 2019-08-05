@@ -1215,6 +1215,7 @@ const store = new Vuex.Store({
       // be sure provider info is updated with new site (primarily for providerlist)
       context.dispatch('PROVIDER_INFO')
       // update the user since this page could be entered anytime
+      context.dispatch('CURRENT_USER')
       context.dispatch('USER_PERMISSIONS')
 
       if (context.state.route.path == '/admin/consults') {

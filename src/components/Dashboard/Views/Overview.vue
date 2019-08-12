@@ -9,7 +9,7 @@
     <img src="../../../../static/img/nat-center-ptsd.jpg">
   </div>
   <div class="mb-2 ">
-    <h1>PTSD Clinical Team Dashboard</h1> 
+    <h1>PTSD Clinic Dashboard</h1> 
 
     <p class="category "><b>Select Station AND Date Range <i class="bold nc-icon nc-stre-up text-primary"></i></b> From Drop Downs Above </p>
     <p class="category "><b>View Details <i class="bold nc-icon nc-stre-left text-primary"></i></b> Use Left Sidebar</p>

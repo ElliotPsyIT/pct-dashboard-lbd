@@ -9,7 +9,7 @@
 Dashboard Data Definitions</p>
 
 <div style="margin-bottom: -30px;">
-    <img src="../../../../static/data_definitions_heading.png">
+    <img src="../../../../static/new_ptsd_dashboard_definitions_image.png">
 </div>
 
 <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
@@ -23,19 +23,19 @@ Tab</u></b></p>
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>a.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Total
 Consults = all consults made to stop codes 516, 562 (from here on out called <span
-style='color:#1F4E79'>PCT stop codes</span>)</p>
+style='color:#1F4E79'>PTSD stop codes</span>)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>b.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Total
-Patients = all patients seen in <span style='color:#1F4E79'>PCT stop codes </span></p>
+Patients = all patients seen in <span style='color:#1F4E79'>PTSD stop codes </span></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>c.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Pending
-– all pending <span style='color:#1F4E79'>PCT consults </span></p>
+– all pending <span style='color:#1F4E79'>PTSD consults </span></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>d.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Active
-– all active <span style='color:#1F4E79'>PCT consults </span></p>
+– all active <span style='color:#1F4E79'>PTSD consults </span></p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in'>&nbsp;</p>
 
@@ -46,12 +46,12 @@ Shows &amp; Cancellations Tab</u></b></p>
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>a.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>No
 Show Appts/All = appointments marked as “no show”/all appointments in <span
-style='color:#2E74B5'>PCT stop codes</span></p>
+style='color:#2E74B5'>PTSD stop codes</span></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
 >b.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span>Any Cancelled Appts/All = appointments marked as “cancelled”/all
-appointments in <span style='color:#2E74B5'>PCT stop codes</span></p>
+appointments in <span style='color:#2E74B5'>PTSD stop codes</span></p>
 
 <p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
 
@@ -61,34 +61,34 @@ Tab</u></b></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>a.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Total
-Encounters = total number of encounters in <span style='color:#2E74B5'>PCT stop
+Encounters = total number of encounters in <span style='color:#2E74B5'>PTSD stop
 codes</span>.  Includes all CPT codes.</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>b.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Patient
-Uniques = unique patients to the clinic seen in <span style='color:#2E74B5'>PCT
+Uniques = unique patients to the clinic seen in <span style='color:#2E74B5'>PTSD
 stop codes</span>.  Includes all CPT codes.</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
 >c.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span>Individual = <span style='color:#00B050'>Individual psychotherapy
-CPT codes </span>in <span style='color:#2E74B5'>PCT stop codes</span>/all CPT
-codes in <span style='color:#2E74B5'>PCT stop codes</span></p>
+CPT codes </span>in <span style='color:#2E74B5'>PTSD stop codes</span>/all CPT
+codes in <span style='color:#2E74B5'>PTSD stop codes</span></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>d.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Group
-= <span style='color:#C45911'>Group psychotherapy CPT codes </span>in PCT stop
-codes/all CPT codes in PCT stop codes</p>
+= <span style='color:#C45911'>Group psychotherapy CPT codes </span>in PTSD stop
+codes/all CPT codes in PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>e.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Individual
 Tx Only = Unique patients receiving <span style='color:#00B050'>individual
-psychotherapy CPT codes </span>only within PCT stop codes</p>
+psychotherapy CPT codes </span>only within PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>f.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span>Group Tx Only = Unique patients receiving <span style='color:#C45911'>group
-psychotherapy CPT codes </span>only within PCT stop codes</p>
+psychotherapy CPT codes </span>only within PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
 >g.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -98,27 +98,27 @@ psychotherapy CPT codes</span></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>h.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Telephone
-CPT = number of telephone CPT codes in PCT stop codes/all CPT codes in PCT</p>
+CPT = number of telephone CPT codes in PTSD stop codes/all CPT codes in PTSD</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>i.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span>Group Education = number of group educ CPT codes in PCT stop codes/all
-CPT codes in PCT</p>
+</span>Group Education = number of group educ CPT codes in PTSD stop codes/all
+CPT codes in PTSD</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>j.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span>Assessment CPT = number of assessment CPT codes in PCT stop codes/all
-CPT codes in PCT</p>
+</span>Assessment CPT = number of assessment CPT codes in PTSD stop codes/all
+CPT codes in PTSD</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>k.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Prolonged
-Service = number of prolonged service CPT codes in PCT stop codes/all CPT codes
-in PCT</p>
+Service = number of prolonged service CPT codes in PTSD stop codes/all CPT codes
+in PTSD</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>l.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span>Family Services = number of family services CPT codes in PCT stop
-codes/all CPT codes in PCT</p>
+</span>Family Services = number of family services CPT codes in PTSD stop
+codes/all CPT codes in PTSD</p>
 
 <p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
 
@@ -128,15 +128,15 @@ Tab</u></b></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>a.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Total
-Providers = number of providers using PCT stop codes</p>
+Providers = number of providers using PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>b.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Total
-Clinics = number of clinics using PCT stop codes</p>
+Clinics = number of clinics using PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>c.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Total
-Patients = number of unique patients in PCT stop codes (all CPT codes)</p>
+Patients = number of unique patients in PTSD stop codes (all CPT codes)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in'>&nbsp;</p>
 
@@ -146,20 +146,20 @@ Tab</u></b></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>a.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Total
-Surveys Given = total number of survey measures given in PCT stop codes (all
+Surveys Given = total number of survey measures given in PTSD stop codes (all
 CPT codes)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>b.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Surveys
-administered in PCT Clinics/Total number of PCT clinics</p>
+administered in PTSD Clinics/Total number of PTSD clinics</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>c.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Providers
-administering surveys/Total number of PCT providers</p>
+administering surveys/Total number of PTSD providers</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>d.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Patients
-receiving surveys/Total unique PCT patients </p>
+receiving surveys/Total unique PTSD patients </p>
 
 <p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
 
@@ -169,53 +169,53 @@ Tab</u></b></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>a.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>EBPs
-Sessions = number of psychotherapy sessions in PCT stop codes <a
+Sessions = number of psychotherapy sessions in PTSD stop codes <a
 name="_Hlk3804024">(all <u>Psychotherapy CPT Codes</u>)</a> with an EBP
-template/ all <u>Psychotherapy CPT Codes</u> sessions within PCT stop codes</p>
+template/ all <u>Psychotherapy CPT Codes</u> sessions within PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>b.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>EBPs
-Patients = number of unique patients with an EBP template within PCT stop
-codes/total unique patients with a psychotherapy encounter in PCT stop codes</p>
+Patients = number of unique patients with an EBP template within PTSD stop
+codes/total unique patients with a psychotherapy encounter in PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>c.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>PE
 or CPT Sessions = number of psychotherapy sessions (all <u>Psychotherapy CPT
-Codes</u>) in PCT stop codes with a PE or CPT template/ all <u>Psychotherapy
-CPT Codes</u> sessions within PCT stop codes</p>
+Codes</u>) in PTSD stop codes with a PE or CPT template/ all <u>Psychotherapy
+CPT Codes</u> sessions within PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>d.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>PE
 or CPT Patients = number of unique patients with at least one PE or CPT
-template within PCT stop codes/total unique patients with a psychotherapy
-encounter in PCT stop codes </p>
+template within PTSD stop codes/total unique patients with a psychotherapy
+encounter in PTSD stop codes </p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>e.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Individual
 Tx EBPs Sessions = number of <span style='color:#00B050'>individual CPT
-psychotherapy </span>codes with an EBP template with the PCT/ total <span
+psychotherapy </span>codes with an EBP template with the PTSD/ total <span
 style='color:#00B050'>individual psychotherapy CPT code </span>sessions within
-PCT stop codes</p>
+PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>f.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span>Individual TX EBPs Patients = number of unique patients with at least
-one individual EBP template within PCT stop codes/total unique patients with an
+one individual EBP template within PTSD stop codes/total unique patients with an
 <span style='color:#00B050'>individual psychotherapy CPT code</span> encounter
-in PCT stop codes</p>
+in PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>g.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Group
 Tx EBPs Sessions = number of <span style='color:#C45911'>group CPT
-psychotherapy codes </span>with an EBP template with the PCT/ total group
-psychotherapy CPT code sessions within PCT stop codes</p>
+psychotherapy codes </span>with an EBP template with the PTSD/ total group
+psychotherapy CPT code sessions within PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>h.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Group
 Tx EBPs Patients = number of unique patients with a <span style='color:#C45911'>group
-psychotherapy CPT codes </span>with a group EBP template within PCT stop codes/total
+psychotherapy CPT codes </span>with a group EBP template within PTSD stop codes/total
 unique patients with a <span style='color:#C45911'>group psychotherapy CPT code
-</span>in PCT stop codes</p>
+</span>in PTSD stop codes</p>
 
 <p class=MsoListParagraphCxSpLast> </p>
 

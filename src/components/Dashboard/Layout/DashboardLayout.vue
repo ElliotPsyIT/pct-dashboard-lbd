@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <side-bar title="PCT Admin">
+    <side-bar title="PTSD Admin">
       <user-menu></user-menu>
       <mobile-menu slot="content"></mobile-menu>
       <sidebar-link to="/admin/overview">

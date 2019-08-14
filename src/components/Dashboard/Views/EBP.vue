@@ -128,7 +128,7 @@
                 <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="IndividualTxEBPPatients">Patients ({{siteEBPPatientsIndPercent}}/{{addCommas(siteALLPatientsInd)}})</p>
+                <p class="card-category" v-tooltip.top-center="IndividualTxEBPPatients">Patients ({{siteEBPPatientsInd}}/{{addCommas(siteALLPatientsInd)}})</p>
                 <h4 class="card-title">{{siteEBPPatientsIndPercent}}%</h4>
               </div>
             </stats-card>

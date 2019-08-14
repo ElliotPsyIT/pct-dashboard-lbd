@@ -262,7 +262,7 @@ export default {
     
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin-top:0in;
+	{/*margin-top:0in;*/
 	margin-right:0in;
 	margin-bottom:8.0pt;
 	margin-left:0in;
@@ -270,7 +270,7 @@ export default {
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
 p.MsoCommentText, li.MsoCommentText, div.MsoCommentText
-	{mso-style-link:"Comment Text Char";
+	{/*mso-style-link:"Comment Text Char";*/
 	margin-top:0in;
 	margin-right:0in;
 	margin-bottom:8.0pt;
@@ -278,7 +278,7 @@ p.MsoCommentText, li.MsoCommentText, div.MsoCommentText
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
 p.MsoCommentSubject, li.MsoCommentSubject, div.MsoCommentSubject
-	{mso-style-link:"Comment Subject Char";
+	{/*mso-style-link:"Comment Subject Char";*/
 	margin-top:0in;
 	margin-right:0in;
 	margin-bottom:8.0pt;
@@ -287,7 +287,7 @@ p.MsoCommentSubject, li.MsoCommentSubject, div.MsoCommentSubject
 	font-family:"Calibri",sans-serif;
 	font-weight:bold;}
 p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-link:"Balloon Text Char";
+	{/*mso-style-link:"Balloon Text Char";*/
 	margin:0in;
 	margin-bottom:.0001pt;
 	font-size:9.0pt;
@@ -326,16 +326,16 @@ p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxS
 	line-height:107%;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
-span.CommentTextChar
+/*span.CommentTextChar
 	{mso-style-name:"Comment Text Char";
 	mso-style-link:"Comment Text";}
 span.CommentSubjectChar
 	{mso-style-name:"Comment Subject Char";
 	mso-style-link:"Comment Subject";
-	font-weight:bold;}
+	font-weight:bold;}*/
 span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-link:"Balloon Text";
+	{/*mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";*/
 	font-family:"Segoe UI",sans-serif;}
 .MsoChpDefault
 	{font-family:"Calibri",sans-serif;}
@@ -345,8 +345,8 @@ span.BalloonTextChar
 @page WordSection1
 	{size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
+/*div.WordSection1
+	{page:WordSection1;}*/
  /* List Definitions */
  ol
 	{margin-bottom:0in;}

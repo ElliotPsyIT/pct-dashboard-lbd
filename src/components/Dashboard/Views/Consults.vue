@@ -551,9 +551,11 @@ export default {
       'CURRENT_PAGE'
     ]),
     asyncValue(val) {
-      // only shows Loading on first load, and if site is changed
-      // doesn't show loading if date range is changed
-      return val == 0 ? 'Loading...' : val
+      // show 'Loading..' with default value set to 0
+      let v = val == 0 ? 'Loading...' : val
+      // then, if no resulting numbers (Pending can return nothing)
+      // change 'Loading...' to show 0
+      return v == 'Loading...' ? 0 : v
     },
     show (comments) { //simple dialog box for now
       // console.log('in show getting these comments: ', comments)

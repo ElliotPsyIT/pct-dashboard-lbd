@@ -678,11 +678,13 @@ export default {
       var permission = this.$store.state.phipii
       var consultCommentRequested = clickedField === 'OrderStatus' && 
         (orderStatus === 'ACTIVE' || orderStatus === 'PENDING')
-        
+      var consultCommentInvalidRequest = clickedField === 'OrderStatus' && 
+        (orderStatus !== 'ACTIVE' || orderStatus !== 'PENDING')
       // check if a non-linked cell was clicked
-      if (clickedField !== 'OrderStatus') {
+      if (clickedField !== 'OrderStatus' || consultCommentInvalidRequest) {
         this.show('You May Only Click on a Blue Underlined Status to see Consult Comments!')
       }
+
 
       if ( consultCommentRequested && permission == 1) {
         // need cell and row 

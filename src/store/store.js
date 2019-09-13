@@ -43,8 +43,8 @@ function usageParams (state) {
     let newStr = str.replace(/\/|\\/g, "_");
     // remove leading and trailing underscore
     if (newStr.charAt(0) == '_' | newStr.charAt(-1) ) 
-      newStr = newStr.slice(1)
-      return newStr
+      newStr = newStr.slice(1) 
+    return newStr
   }
   
   // let currentPage = state.currentPage || page
@@ -90,7 +90,7 @@ const store = new Vuex.Store({
       surveys: false,
       ebps: false,
     },
-    appVersion: '0.13.2',
+    appVersion: '0.13.4',
     phipii: 0,
     adaccount: "",
     siteNames,

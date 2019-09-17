@@ -677,13 +677,13 @@ export default {
       var orderStatus = selectedRows[0].OrderStatus
       var permission = this.$store.state.phipii
       var consultCommentRequested = clickedField === 'OrderStatus' && 
-        (orderStatus === 'ACTIVE' || orderStatus === 'PENDING')
+        (orderStatus === 'ACTIVE' || orderStatus === 'PENDING' || orderStatus === 'SCHEDULED')
       var consultCommentInvalidRequest = clickedField === 'OrderStatus' && 
-        (orderStatus !== 'ACTIVE' || orderStatus !== 'PENDING')
+        (orderStatus !== 'ACTIVE' || orderStatus !== 'PENDING' || orderStatus !== 'SCHEDULED')
       // check if a non-linked cell was clicked
-      if (clickedField !== 'OrderStatus' || consultCommentInvalidRequest) {
-        this.show('You May Only Click on a Blue Underlined Status to see Consult Comments!')
-      }
+      // if (clickedField !== 'OrderStatus' || consultCommentInvalidRequest) {
+      //   this.show('You May Only Click on a Blue Underlined Status to see Consult Comments!')
+      // }
 
 
       if ( consultCommentRequested && permission == 1) {
@@ -825,7 +825,7 @@ export default {
               cellRenderer: (params) => {
                 let comments = params.data.ConsultActivityComments
                 // console.log('checking the consult comments in consult details: ', comments)
-                if ((params.value === 'PENDING' || params.value === 'ACTIVE')) {
+                if ((params.value === 'PENDING' || params.value === 'ACTIVE' || params.value === 'SCHEDULED')) {
                   // console.log('status: ', params.value)
                   // console.log('comments: ', comments)
                   if (comments == 1) { // there are comments for this consult

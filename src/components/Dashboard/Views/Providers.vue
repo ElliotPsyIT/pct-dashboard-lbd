@@ -75,7 +75,8 @@
             <card>
               <template slot="header">
                 <span>Hover Over Column Header to View Menu</span>
-                <button class="float-right" @click="gridOptions3.api.exportDataAsCsv()">Export to CSV</button>
+                <!-- <button class="float-right" @click="gridOptions3.api.exportDataAsCsv()">Export to CSV</button> -->
+                <button class="float-right" @click="exportCSVgridOptions3">Export to CSV</button>
               </template>
                 <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions3" 
@@ -332,6 +333,23 @@ export default {
     asyncValue(val) {
       return val == 0 ? 'Loading...' : val
     },
+    exportCSVgridOptions3() {
+      this.gridOptions3.api.exportDataAsCsv( {
+        processCellCallback: (params) => {
+          if (params.column.colId == "visitEBPpercent") {
+            // need params.node.data to access the grid columns
+            // see below in cellRenderer for similar formating of output values
+            let encounters = params.node.data.numEncounters
+            let encountersEBP = params.node.data.numEncountersEBP === null ? 0 : params.node.data.numEncountersEBP
+            let encountersEBPpercent= params.node.data.PercentageEncountersCPT === null ? 0 : params.node.data.PercentageEncountersCPT
+          
+            return `${encountersEBP} (${encountersEBPpercent}%)`
+          }
+          return params.value
+        }
+       
+      })
+    },
     createColDefs1() { //experimental
     return [
         { headerName: "Provider (# Sessions Total)", 
@@ -474,14 +492,16 @@ export default {
               //   return `${encounters} / ${encountersEBP} (${encountersEBPpercent}%)`
             },
             { headerName: "Visit EBPs (%)", 
-              field: "numEncounters", 
+              field: "visitEBPpercent", 
               width: 30, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agNumberColumnFilter",
               cellRenderer: (params) => {
+                // console.log('params.data is: ', params.data)
                 let encounters = params.data.numEncounters
                 let encountersEBP = params.data.numEncountersEBP === null ? 0 : params.data.numEncountersEBP
                 let encountersEBPpercent= params.data.PercentageEncountersCPT === null ? 0 : params.data.PercentageEncountersCPT
+                
                 return `${encountersEBP} (${encountersEBPpercent}%)`
               }
             },

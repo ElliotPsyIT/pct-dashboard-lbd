@@ -343,7 +343,8 @@ export default {
             let encountersEBP = params.node.data.numEncountersEBP === null ? 0 : params.node.data.numEncountersEBP
             let encountersEBPpercent= params.node.data.PercentageEncountersCPT === null ? 0 : params.node.data.PercentageEncountersCPT
           
-            return `${encountersEBP} (${encountersEBPpercent}%)`
+            // return `${encountersEBP} (${encountersEBPpercent}%)`
+            return `${encountersEBP}`
           }
           return params.value
         }

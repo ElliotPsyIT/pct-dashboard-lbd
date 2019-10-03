@@ -344,9 +344,17 @@ export default {
             let encountersEBPpercent= params.node.data.PercentageEncountersCPT === null ? 0 : params.node.data.PercentageEncountersCPT
           
             // return `${encountersEBP} (${encountersEBPpercent}%)`
-            return `${encountersEBP}`
+            return `${encountersEBP}` // just return value not percent
           }
           return params.value
+        },
+        processHeaderCallback: (params) => {
+          // return custom header name
+          if (params.column.getColDef().headerName == "Visit EBPs (%)") {
+            return 'Visit EBPs'
+          } 
+          // return grid header name
+          return params.column.colDef.headerName
         }
        
       })

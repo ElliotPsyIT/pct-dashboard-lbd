@@ -13,7 +13,11 @@
 
     <p class="category "><b>Select Station AND Date Range <i class="bold nc-icon nc-stre-up text-primary"></i></b> From Drop Downs Above </p>
     <p class="category "><b>View Details <i class="bold nc-icon nc-stre-left text-primary"></i></b> Use Left Sidebar</p>
+    <p class="category news">NEW! Restricted Access to Patient Level Data Base on PHI/PII Permissions</p>
+
   </div>
+
+
   
 </div>
 
@@ -527,6 +531,11 @@
  .page-link:hover {
    color: darkolivegreen;
    text-decoration: underline; 
+ }
+
+ .news {
+   color: red;
+   text-decoration: underline;
  }
 </style>
 

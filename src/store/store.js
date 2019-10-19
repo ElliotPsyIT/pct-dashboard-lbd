@@ -90,7 +90,7 @@ const store = new Vuex.Store({
       surveys: false,
       ebps: false,
     },
-    appVersion: '0.13.8',
+    appVersion: '0.14.0',
     phipii: 0,
     adaccount: "",
     siteNames,

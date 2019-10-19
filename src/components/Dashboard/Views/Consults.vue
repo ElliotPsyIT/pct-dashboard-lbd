@@ -119,7 +119,7 @@
           <h4 class="section-head">Consult Details</h4>
         </div>
 
-        <div v-hide="phipii">
+        <div v-if="!phipii">
           <div class="row d-flex justify-content-center">
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
@@ -129,7 +129,7 @@
         </div>
 
   <!-- Show table only with PHIPII -->
-      <div v-show="phipii">
+      <div v-else-if="phipii">
         <!-- ConsultsDetails FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
           <div style="width: 60%; margin-bottom: 10px;">
@@ -151,7 +151,7 @@
             </card>
           </div> -->
           
-          <div class="col-md-12" v-show="phipii">
+          <div class="col-md-12">
             <card>
               <template slot="header">
                 <span>Consult Details (Hover Over a Header to Filter the Column)</span>

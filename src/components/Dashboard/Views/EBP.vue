@@ -558,7 +558,7 @@
           <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
         </div>
 
-        <div v-hide="phipii">
+        <div v-if="!phipii">
           <div class="row d-flex justify-content-center">
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
@@ -568,7 +568,7 @@
         </div>
 
   <!-- Show table only with PHIPII -->
-      <div v-show="phipii">
+      <div v-else-if="phipii">
 
         <!-- Providers EBPs And Surveys By Clinic And Patient Summary FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
@@ -883,7 +883,7 @@ export default {
       // 'siteEBPPatientsCPTBoth',
 
     ]),
-    ...mapState(['selectedSite']), //siteALLSessions
+    ...mapState(['selectedSite', 'phipii']), //siteALLSessions
 
     scrollPosition () {
       console.log('window.pageYOffset: ', window.pageYOffset)    

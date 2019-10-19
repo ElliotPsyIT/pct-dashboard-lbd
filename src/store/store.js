@@ -1200,12 +1200,16 @@ const store = new Vuex.Store({
       // axios.get('pct.cgi?format=who')
       axios.get(`${path}?${params}`)
       .then(response => { 
-        // console.log('in USER_PERMISSIONS, got this data back: ', response.data)
-        //
-        context.commit('SET_USER_PERMISSIONS', response.data[0])
+        console.log('in USER_PERMISSIONS, got this data back: ', response.data)
+        // response.data[0] is the first row
+        // instead, need the row of the current StaPa
+        
+        // context.commit('SET_USER_PERMISSIONS', response.data[0]) 
+        context.commit('SET_USER_PERMISSIONS', response.data) 
+        
         // call LOG_USAGE
         // console.log('in USER_PERMISSION returned promise and committed permissions, here is the state: ', context.state)
-        context.dispatch('LOG_USAGE') // needed to track entry into app
+        //context.dispatch('LOG_USAGE') // needed to track entry into app
         // console.log('just call LOG_USAGE, here is the state: ', context.state)
       })
 
@@ -1460,12 +1464,34 @@ const store = new Vuex.Store({
       state.currentpage = page
     },
     SET_USER_PERMISSIONS (state, userPermissions) {
-      // userPermissions is an object with this format
-      // {Surname: "Fielstein0", GivenName: "Elliot", ADAccount: "VHA09\VHATVHFIELSE0", PHIPII: "1", Sta3n: "653"}
+      // userPermissions is an ARRAY with each value an object with this format
+      // {Surname: "Fielstein0", GivenName: "Elliot", 
+      // ADAccount: "VHA09\VHATVHFIELSE0", PHIPII: "1", Sta3n: "653"}
       // set PHIPIII
       // console.log('in mutate SET_USER_PERMISSIONS with userPermissions: ', userPermissions)      // console.log('in mutate SET_USER_PERMISSIONS state.adaccount is: ', state.adaccount)
-      state.phipii = userPermissions.PHIPII
-      state.adaccount = userPermissions.ADAccount
+      
+      // need to find whether the currentSite is listed
+      //console.log('userPermissions is a: ', typeof userPermissions)
+      // console.log('userPermissions: ', userPermissions)
+      // console.log('state is: ', state)
+      
+      // set the ADAccount
+      let ADAccount = userPermissions[0].ADAccount
+      // determine if this account has PHIPII access to the selectedSite
+      let permissions = {
+        phipii: 0,
+        adaccount: ADAccount
+      }
+      userPermissions.map(function (permissionRow) {
+        // does this site match the current site
+        if (permissionRow.Sta3n == state.selectedSite && permissionRow.PHIPII == 1) {
+          // console.log('we have a match!')
+          permissions.phipii = permissionRow.PHIPII
+          permissions.adaccount = permissionRow.ADAccount
+        }
+      } )
+      state.phipii = permissions.phipii
+      state.adaccount = permissions.adaccount
     },
 
       // SET_CURRENT_CONSULT_COMMENT (state, comments) {

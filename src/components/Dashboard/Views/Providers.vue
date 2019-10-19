@@ -149,6 +149,18 @@
           <h4 class="section-head">Provider Patient Sessions</h4>
         </div>
 
+         <div v-hide="phipii">
+          <div class="row d-flex justify-content-center">
+            <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
+          </div>
+          <div class="row d-flex justify-content-center ">
+            <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
+          </div>
+        </div>
+
+  <!-- Show table only with PHIPII -->
+      <div v-show="phipii">
+
         <!--  FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
           <div style="width: 60%; margin-bottom: 10px;">
@@ -190,6 +202,9 @@
           </div>
 
         </div>
+      <!-- Display if PHIPII -->
+      </div> 
+
 
       </div> <!-- End container-fluid -->
     </div> <!-- End content -->
@@ -302,7 +317,8 @@ export default {
       // groupHideOpenParents: true, 
       autoGroupColumnDef: {
         headerName: 'Staff / Patient',
-        field: 'InitialsAndL4',
+        // field: 'InitialsAndL4',
+        field: 'NL4',
         // field: 'LocationName'
         suppressPropertyNamesCheck: true
       },
@@ -559,6 +575,10 @@ export default {
 <style>
   .section-head {
     font-size: 2rem;
+  }
+
+  .phipii-warning {
+    font-size: 1rem;
   }
 
   /* fade page in and out when site changes */

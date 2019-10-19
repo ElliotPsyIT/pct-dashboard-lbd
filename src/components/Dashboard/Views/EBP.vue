@@ -558,6 +558,17 @@
           <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
         </div>
 
+        <div v-hide="phipii">
+          <div class="row d-flex justify-content-center">
+            <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
+          </div>
+          <div class="row d-flex justify-content-center ">
+            <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
+          </div>
+        </div>
+
+  <!-- Show table only with PHIPII -->
+      <div v-show="phipii">
 
         <!-- Providers EBPs And Surveys By Clinic And Patient Summary FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
@@ -592,6 +603,8 @@
           </div>
 
         </div> 
+      <!-- Display if PHIPII -->
+      </div> 
 
       </div>
     <!-- </div> -->
@@ -1072,7 +1085,8 @@ export default {
     createColDefs1() { //experimental
       return [
         { headerName: "Patients", 
-          field: "InitialsAndL4", 
+          // field: "InitialsAndL4", 
+          field: "NL4", 
           width: 80, 
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter"
@@ -1158,17 +1172,22 @@ export default {
 }
 </script>
 <style>
-.section-head {
-   font-size: 2rem;
-}
+  .section-head {
+    font-size: 2rem;
+  }
 
-hr.style1 {
-	border-top: 3px double #8c8b8b;
-}
+  .phipii-warning {
+    font-size: 1rem;
+  }
 
-/* fade page in and out when site changes */
 
-.fade-enter-active,
+  hr.style1 {
+    border-top: 3px double #8c8b8b;
+  }
+
+  /* fade page in and out when site changes */
+
+  .fade-enter-active,
   .fade-leave-active {
     transition: opacity .1s
   }

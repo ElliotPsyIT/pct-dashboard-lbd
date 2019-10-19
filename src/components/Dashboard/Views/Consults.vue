@@ -119,6 +119,17 @@
           <h4 class="section-head">Consult Details</h4>
         </div>
 
+        <div v-hide="phipii">
+          <div class="row d-flex justify-content-center">
+            <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
+          </div>
+          <div class="row d-flex justify-content-center ">
+            <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
+          </div>
+        </div>
+
+  <!-- Show table only with PHIPII -->
+      <div v-show="phipii">
         <!-- ConsultsDetails FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
           <div style="width: 60%; margin-bottom: 10px;">
@@ -126,6 +137,7 @@
           </div>
         </div>
 
+  <!-- Consult Details Table Data -->
         <div class="row">
           <!--         
           <div class="col-md-12">
@@ -139,7 +151,7 @@
             </card>
           </div> -->
           
-          <div class="col-md-12">
+          <div class="col-md-12" v-show="phipii">
             <card>
               <template slot="header">
                 <span>Consult Details (Hover Over a Header to Filter the Column)</span>
@@ -164,6 +176,8 @@
           </div>
 
         </div>
+      <!-- Display if PHIPII -->
+      </div> 
 
         <!-- <div class="row">
 
@@ -427,7 +441,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'selectedSite', 'selectedRange'
+      'selectedSite', 'selectedRange','phipii'
     ]),
     ...mapGetters([
       'siteConsultTotal','siteConsultPatientTotal','siteConsultActiveTotal',
@@ -540,7 +554,8 @@ export default {
     // action gets Consult Details from server
     this.CONSULT_DETAILS()
     this.CONSULT_DATA()
-    
+    // potentially trigger USER_PERMISSIONS here
+    //this.USER_PERMISSIONS()
     this.CURRENT_PAGE('consult')
   },
   methods: {
@@ -807,7 +822,8 @@ export default {
               }
             },
             { headerName: "Patient", 
-              field: "InitialsAndL4", 
+              // field: "InitialsAndL4", 
+              field: "NL4",               
               width: 70, 
               cellStyle: { 'text-align': "left" },
               filter: "agtextColumnFilter" 
@@ -987,6 +1003,10 @@ export default {
 
   .section-head {
     font-size: 2rem;
+  }
+
+  .phipii-warning {
+    font-size: 1rem;
   }
 
   /* fade page in and out when site changes */

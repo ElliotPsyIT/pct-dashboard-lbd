@@ -6,26 +6,21 @@
     </div>
     <div class="info">
       <a data-toggle="collapse" :aria-expanded="!isClosed" @click.stop="toggleMenu" href="#">
-           <span>
+           <span><u>
              <!-- {{title}} -->
              {{ userFirstName }} {{userLastName}}
              <b class="caret"></b>
-          </span>
+          </u></span>
       </a>
       <div class="clearfix"></div>
       <div>
         <!-- <el-collapse-transition> -->
+        
           <ul class="nav" v-show="!isClosed">
             <slot>
               <li>
                 <a class="profile-dropdown" href="#pablo">
-                  <span class="sidebar-mini">PHI/PII: </span>
-                  <span class="sidebar-normal">{{permissions}}</span>
-                </a>
-              </li>
-              <li>
-                <a class="profile-dropdown" href="#pablo">
-                  <span class="sidebar-mini">Current Site: </span>
+                  <span class="sidebar-mini">Selected Site: </span>
                   <span class="sidebar-normal">{{selectedSite}}</span>
                 </a>
               </li>
@@ -33,6 +28,29 @@
                 <a class="profile-dropdown" href="#pablo">
                   <span class="sidebar-mini">User: </span>
                   <span class="sidebar-normal">{{userAccount}}</span>
+                </a>
+              </li>
+              <li>
+                <a class="profile-dropdown" href="#pablo">
+                  <span class="sidebar-mini">PHI/PII: </span>
+                  <span class="sidebar-normal">{{permissions}}</span>
+                </a>
+              </li>              
+              
+              <li>
+                <a data-toggle="collapse" :aria-expanded="!isClosedPermissions" @click.stop="togglePermissions" href="#">
+                <!-- <a class="profile-dropdown" href="#pablo"> -->
+                  <span class="sidebar-mini"><u>Privileges To Sites:</u> </span>
+                </a>
+              </li>
+              <li v-show="!isClosedPermissions">
+                <a data-toggle="collapse" :aria-expanded="!isClosedPermissions" @click.stop="togglePermissions" href="#">
+                  <span v-for="site in allphipii" v-bind:key="site.Sta3n">
+                    <a class="profile-dropdown" href="#pablo">
+                      <span class="sidebar-mini"></span>
+                      <span class="sidebar-normal">{{site.Sta3n}}</span>
+                    </a>
+                  </span>
                 </a>
               </li>
             </slot>
@@ -58,7 +76,8 @@ import { mapState, mapGetters } from 'vuex'
     },
      computed: {
       ...mapState([
-        'userFirstName', 'userLastName', 'selectedSite'
+        'userFirstName', 'userLastName', 'selectedSite',
+        'allphipii'
       ]),
       ...mapGetters([
         'userPHI', 'userAccount'
@@ -71,12 +90,17 @@ import { mapState, mapGetters } from 'vuex'
     data () {
       return {
         isClosed: true,
+        isClosedPermissions: true,
         hasPermissions: false
       }
     },
     methods: {  
       toggleMenu () {
         this.isClosed = !this.isClosed
+      },
+      togglePermissions () {
+        console.log('in togglePermissions, isClosedPermissions: ', this.isClosedPermissions)
+        this.isClosedPermissions = !this.isClosedPermissions
       }
     }
   }

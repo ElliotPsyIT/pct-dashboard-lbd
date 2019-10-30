@@ -92,6 +92,7 @@ const store = new Vuex.Store({
     },
     appVersion: '0.14.0',
     phipii: 0,
+    allphipii: [],
     adaccount: "",
     siteNames,
     dateRanges,
@@ -1196,8 +1197,13 @@ const store = new Vuex.Store({
       // let sta3n = sta3nArr[1]
       // console.log('in user_permissions action, staPa is: ', staPa)
       // console.log('in user_permissions action, sta3n is: ', sta3n[1])
+      
+      // run this w/ an ADAccount for testing in dev
+      //const params = 'format=user_permissions&staPa=' + staPa + '&fakeAccount=' + 'VHA05\\VHABALRomerE'
+      
+      // run this during usual dev
       const params = 'format=user_permissions&staPa=' + staPa
-      // axios.get('pct.cgi?format=who')
+      
       axios.get(`${path}?${params}`)
       .then(response => { 
         console.log('in USER_PERMISSIONS, got this data back: ', response.data)
@@ -1477,21 +1483,28 @@ const store = new Vuex.Store({
       
       // set the ADAccount
       let ADAccount = userPermissions[0].ADAccount
-      // determine if this account has PHIPII access to the selectedSite
-      let permissions = {
+      // hold for PHIPII access to selectedSite
+      let permissionSite = {
         phipii: 0,
         adaccount: ADAccount
       }
+      let permissionAllSites = []
       userPermissions.map(function (permissionRow) {
         // does this site match the current site
         if (permissionRow.Sta3n == state.selectedSite && permissionRow.PHIPII == 1) {
           // console.log('we have a match!')
-          permissions.phipii = permissionRow.PHIPII
-          permissions.adaccount = permissionRow.ADAccount
+          permissionSite.phipii = permissionRow.PHIPII
+          permissionSite.adaccount = permissionRow.ADAccount
         }
-      } )
-      state.phipii = permissions.phipii
-      state.adaccount = permissions.adaccount
+        else if (permissionRow.PHIPII == 1 && (permissionRow.Sta3n != 0 && permissionRow.Sta3n != -1)) {
+          let site = { Sta3n: permissionRow.Sta3n }
+          permissionAllSites.push(site)
+        } 
+      })
+      state.phipii = permissionSite.phipii
+      state.adaccount = permissionSite.adaccount
+      console.log('permissionAllSites: ', permissionAllSites)
+      state.allphipii = permissionAllSites
     },
 
       // SET_CURRENT_CONSULT_COMMENT (state, comments) {

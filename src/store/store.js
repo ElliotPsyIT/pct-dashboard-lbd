@@ -90,7 +90,7 @@ const store = new Vuex.Store({
       surveys: false,
       ebps: false,
     },
-    appVersion: '0.14.0',
+    appVersion: '0.14.1',
     phipii: 0,
     allphipii: [],
     adaccount: "",
@@ -1488,15 +1488,23 @@ const store = new Vuex.Store({
         phipii: 0,
         adaccount: ADAccount
       }
+      // need to account for VISN 2, 15, 23 w/ multiple sites per VistA sys
+      // pull out 3 digits Sta3n from selected site
+      let numberPattern = /^(\d\d\d)/g;
+      let selectedSta3n = state.selectedSite.match( numberPattern );
+      console.log(selectedSta3n);
+      // capture sites permissions
       let permissionAllSites = []
+      // iterate through returned list of permissions
       userPermissions.map(function (permissionRow) {
+        
         // does this site match the current site
-        if (permissionRow.Sta3n == state.selectedSite && permissionRow.PHIPII == 1) {
+        if (permissionRow.Sta3n == selectedSta3n && permissionRow.PHIPII == 1) {
           // console.log('we have a match!')
           permissionSite.phipii = permissionRow.PHIPII
           permissionSite.adaccount = permissionRow.ADAccount
         }
-        else if (permissionRow.PHIPII == 1 && (permissionRow.Sta3n != 0 && permissionRow.Sta3n != -1)) {
+        if (permissionRow.PHIPII == 1 && (permissionRow.Sta3n != 0 && permissionRow.Sta3n != -1)) {
           let site = { Sta3n: permissionRow.Sta3n }
           permissionAllSites.push(site)
         } 

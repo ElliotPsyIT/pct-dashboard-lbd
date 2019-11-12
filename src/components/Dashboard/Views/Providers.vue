@@ -531,6 +531,20 @@ export default {
                 return `${encountersEBP} (${encountersEBPpercent}%)`
               }
             },
+            { headerName: "Patient EBPs (%)", 
+              field: "patientEBPpercent", 
+              width: 30, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agNumberColumnFilter",
+              cellRenderer: (params) => {
+                // console.log('params.data is: ', params.data)
+                let patients = params.data.numPatients
+                let patientsEBP = params.data.numPatientsEBP === null ? 0 : params.data.numPatientsEBP
+                let patientsEBPpercent= params.data.PercentagePatientsCPT === null ? 0 : params.data.PercentagePatientsCPT
+                
+                return `${patientsEBP} (${patientsEBPpercent}%)`
+              }
+            },
             
           ]
         }

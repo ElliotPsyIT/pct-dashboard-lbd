@@ -316,7 +316,7 @@ export default {
     this.gridOptions2 = {
       // groupHideOpenParents: true, 
       autoGroupColumnDef: {
-        headerName: 'Staff / Patient',
+        headerName: 'Staff / Site / Clinic / Patient',
         // field: 'InitialsAndL4',
         field: 'NL4',
         // field: 'LocationName'
@@ -418,6 +418,7 @@ export default {
         {
           headerName: "Staff Name",  
           field: "StaffName", 
+          width: 150, 
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter",
           rowGroup: true,
@@ -425,7 +426,7 @@ export default {
         },
         { headerName: "Institution", 
           field: "InstitutionName", 
-          width: 200, 
+          width: 100, 
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter",
           rowGroup: true,
@@ -433,7 +434,7 @@ export default {
         },
         { headerName: "Clinic (# Sessions)", 
           field: "LocationName", 
-          width: 100, 
+          width: 200, 
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter",
           rowGroup: true,
@@ -447,16 +448,16 @@ export default {
         // },
         { headerName: "CPT Name", 
           field: "CPTName", 
-          width: 150, 
+          width: 350, 
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter"
         },
-        { headerName: "Sessions", 
-          field: "EncountersByProvider", 
-          width: 100, 
-          cellStyle: { 'text-align': "left" } ,
-          filter: "agNumberColumnFilter"
-        },
+        // { headerName: "Sessions", 
+        //   field: "EncountersByProvider", 
+        //   width: 100, 
+        //   cellStyle: { 'text-align': "left" } ,
+        //   filter: "agNumberColumnFilter"
+        // },
         // { headerName: "Date", 
         //   field: "VisitDateTime", 
         //   width: 150, 

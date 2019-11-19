@@ -362,13 +362,27 @@ export default {
             // return `${encountersEBP} (${encountersEBPpercent}%)`
             return `${encountersEBP}` // just return value not percent
           }
+  
+          if (params.column.colId == "patientEBPpercent") {
+            // need params.node.data to access the grid columns
+            // see below in cellRenderer for similar formating of output values
+            let patients = params.node.data.numPatients
+            let patientsEBP = params.node.data.numPatientsEBP === null ? 0 : params.node.data.numPatientsEBP
+            let patientsEBPpercent= params.node.data.PercentagePatientsCPT === null ? 0 : params.node.data.PercentagePatientsCPT
+          
+            // return `${encountersEBP} (${encountersEBPpercent}%)`
+            return `${patientsEBP}` // just return value not percent
+          }
           return params.value
         },
         processHeaderCallback: (params) => {
           // return custom header name
           if (params.column.getColDef().headerName == "Visit EBPs (%)") {
             return 'Visit EBPs'
-          } 
+          }
+          if (params.column.getColDef().headerName == "Patient EBPs (%)") {
+            return 'Patient EBPs'
+          }  
           // return grid header name
           return params.column.colDef.headerName
         }

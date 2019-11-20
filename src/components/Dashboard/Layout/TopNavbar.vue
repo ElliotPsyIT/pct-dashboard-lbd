@@ -47,13 +47,26 @@
               <span class="d-lg-block">&nbsp;Search</span>
             </a>
           </li> -->
-          
           <li class="nav-item py-0 mr-2">
           <form class="form-inline">
-            <div class="form-group">  <!--  pt-1 py-0 -->
+            <div class="form-group">  
               <label for="station">
                 <div class="px-2">
-                  <span class="h5 "><strong>Station</strong></span>  <!-- pr-3 mb-4 -->
+                  <span class="h5 "><strong>Station</strong></span> 
+                </div> 
+                <div style="max-width: 450px">
+                 <treeselect v-model="value" :multiple="true" :options="siteNames" />
+                </div>
+              </label>
+            </div>
+          </form>
+          </li>
+          <!-- <li class="nav-item py-0 mr-2">
+          <form class="form-inline">
+            <div class="form-group">  
+              <label for="station">
+                <div class="px-2">
+                  <span class="h5 "><strong>Station</strong></span>  
                 </div>
                 <div>
                 <select v-model="siteSelected" class="form-control" id="station">
@@ -66,7 +79,7 @@
               </label>
             </div>
           </form>
-          </li>
+          </li> -->
           <li class="nav-item py-0">
           <form class="form-inline">
             <div class="form-group "> <!-- pt-1 pl-3 ml-4 -->
@@ -121,9 +134,15 @@
 
   import {FadeTransition} from 'vue2-transitions'
 
+   // import the component
+  import Treeselect from '@riophae/vue-treeselect'
+  // import the styles
+  import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+
   export default {
     components: {
       FadeTransition,
+      Treeselect,
     },
     
     // beforeMount  () {
@@ -211,6 +230,27 @@
         showName: false,
         previousProvider: false,
         newProvider: false,
+        // define the default value
+        value: null,
+        // define options
+        options:
+        [ {
+          id: 'a',
+          label: 'a',
+          children: [ {
+            id: 'aa',
+            label: 'aa',
+          }, {
+            id: 'ab',
+            label: 'ab',
+          } ],
+        }, {
+          id: 'b',
+          label: 'b',
+        }, {
+          id: 'c',
+          label: 'c',
+        } ],
       }
     },
     methods: {

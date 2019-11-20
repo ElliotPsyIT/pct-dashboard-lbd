@@ -9,7 +9,6 @@
 {"VISN":"1","Sta3n":"689","StaPa":"689","InstitutionName":"CONNECTICUT HCS","InstitutionNameLong":"(V01) (689) CONNECTICUT HCS"},
 {"VISN":"2","Sta3n":"526","StaPa":"526","InstitutionName":"BRONX VAMC","InstitutionNameLong":"(V02) (526) BRONX VAMC"},
 {"VISN":"2","Sta3n":"528","StaPa":"528","InstitutionName":"UPSTATE NEW YORK HCS","InstitutionNameLong":"(V02) (528) UPSTATE NEW YORK HCS"},
-{"VISN":"2","Sta3n":"528","StaPa":"528A5","InstitutionName":"CANANDAIGUA VA MEDICAL CENTER","InstitutionNameLong":"(V02) (528A5) CANANDAIGUA VA MEDICAL CENTER"},
 {"VISN":"2","Sta3n":"528","StaPa":"528A6","InstitutionName":"BATH VA MEDICAL CENTER","InstitutionNameLong":"(V02) (528A6) BATH VA MEDICAL CENTER"},
 {"VISN":"2","Sta3n":"528","StaPa":"528A7","InstitutionName":"SYRACUSE VA MEDICAL CENTER","InstitutionNameLong":"(V02) (528A7) SYRACUSE VA MEDICAL CENTER"},
 {"VISN":"2","Sta3n":"528","StaPa":"528A8","InstitutionName":"SAMUEL S. STRATTON VAMC","InstitutionNameLong":"(V02) (528A8) SAMUEL S. STRATTON VAMC"},
@@ -78,8 +77,8 @@
 {"VISN":"12","Sta3n":"607","StaPa":"607","InstitutionName":"WILLIAM S. MIDDLETON VAMC","InstitutionNameLong":"(V12) (607) WILLIAM S. MIDDLETON VAMC"},
 {"VISN":"12","Sta3n":"676","StaPa":"676","InstitutionName":"TOMAH VAMC","InstitutionNameLong":"(V12) (676) TOMAH VAMC"},
 {"VISN":"12","Sta3n":"695","StaPa":"695","InstitutionName":"MILWAUKEE VAMC","InstitutionNameLong":"(V12) (695) MILWAUKEE VAMC"},
-{"VISN":"15","Sta3n":"589","StaPa":"589","InstitutionName":"VA HEARTLAND - WEST VISN 15","InstitutionNameLong":"(V15) (589) VA HEARTLAND - WEST VISN 15"},
-{"VISN":"15","Sta3n":"589","StaPa":"589A4","InstitutionName":"COLUMBIA MO VAMC","InstitutionNameLong":"(V15) (589A4) COLUMBIA MO VAMC"},
+{"VISN":"15","Sta3n":"589","StaPa":"589","InstitutionName":"VA HEARTLAND - WEST VISN 15","InstitutionNameLong":"(V15) (589) VA HEARTLAND - WEST","field6":"VISN 15"},
+{"VISN":"15","Sta3n":"589","StaPa":"589A4","InstitutionName":"COLUMBIA MO VAMC","InstitutionNameLong":"(V15) (589A4) COLUMBIA","field6":"MO VAMC"},
 {"VISN":"15","Sta3n":"589","StaPa":"589A5","InstitutionName":"EASTERN KS HCS TOPEKA DIV","InstitutionNameLong":"(V15) (589A5) EASTERN KS HCS TOPEKA DIV"},
 {"VISN":"15","Sta3n":"589","StaPa":"589A7","InstitutionName":"ROBERT J. DOLE VAMC","InstitutionNameLong":"(V15) (589A7) ROBERT J. DOLE VAMC"},
 {"VISN":"15","Sta3n":"657","StaPa":"657","InstitutionName":"ST. LOUIS MO VAMC-JC DIVISION","InstitutionNameLong":"(V15) (657) ST. LOUIS MO VAMC-JC DIVISION"},
@@ -139,6 +138,5 @@
 {"VISN":"23","Sta3n":"636","StaPa":"636","InstitutionName":"VA NWIHS OMAHA DIVISION","InstitutionNameLong":"(V23) (636) VA NWIHS OMAHA DIVISION"},
 {"VISN":"23","Sta3n":"636","StaPa":"636A6","InstitutionName":"VA CIHS DES MOINES DIVISION","InstitutionNameLong":"(V23) (636A6) VA CIHS DES MOINES DIVISION"},
 {"VISN":"23","Sta3n":"636","StaPa":"636A8","InstitutionName":"IOWA CITY HCS","InstitutionNameLong":"(V23) (636A8) IOWA CITY HCS"},
-{"VISN":"23","Sta3n":"656","StaPa":"656","InstitutionName":"ST. CLOUD VA HCS","InstitutionNameLong":"(V23) (656) ST. CLOUD VA HCS"},
-{"VISN":"(141 rows affected)"}
+{"VISN":"23","Sta3n":"656","StaPa":"656","InstitutionName":"ST. CLOUD VA HCS","InstitutionNameLong":"(V23) (656) ST. CLOUD VA HCS"}
 ]

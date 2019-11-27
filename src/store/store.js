@@ -85,8 +85,8 @@ const store = new Vuex.Store({
       definition: false,
       consults: false,
       appointments: false,
-      encounters: false,
-      providers: false,
+      encounters: true,
+      providers: true,
       surveys: false,
       ebps: false,
     },
@@ -97,6 +97,8 @@ const store = new Vuex.Store({
     siteNames,
     dateRanges,
     
+    institutions: [],
+
     consultDataPie: [],
     consultDataLine: [],
     consultDataCount: [],
@@ -114,7 +116,6 @@ const store = new Vuex.Store({
     encounterApptCount: [],
     encounterApptClinicCancelNoShow: [],
     
-
     providerCount: [],
     providerInfo: [],
     providerDetails: [],
@@ -145,6 +146,21 @@ const store = new Vuex.Store({
       // development mode? - for use in tracking user action
       return process.env.NODE_ENV == 'development' ? process.env.NODE_ENV : ''
     },
+
+    siteInstitutions: (state) => {
+      console.log('in siteInstitutions getter, and state.institutions is: ', state.institutions)
+      // for now, return the incoming array of institution objects
+      return state.institutions
+      
+      // let uniques = state.institutions.map(site => {
+      //   console.log('site.InstitutionName is: ', site.InstitutionName) // [{staPa: 'ddd', institutionName: 'wwwwww'}]
+      //   return site.InstitutionName
+      // } )
+      // console.log('after getting unique InstitutionNames, uniques are: ', uniques)
+      // return uniques
+    },
+
+    // Consults
     siteConsultTotal: (state) => {
       // console.log('in store getters, state is: ', state)
       // console.log('in siteConsultTotal, state.consultDataCount is: ', state.consultDataCount)
@@ -1206,7 +1222,7 @@ const store = new Vuex.Store({
       
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('in USER_PERMISSIONS, got this data back: ', response.data)
+        // console.log('in USER_PERMISSIONS, got this data back: ', response.data)
         // response.data[0] is the first row
         // instead, need the row of the current StaPa
         
@@ -1222,8 +1238,12 @@ const store = new Vuex.Store({
     },
     REFRESH_ALL_DATA (context) {
       console.log('refresh all data!')
-      // be sure provider info is updated with new site (primarily for providerlist)
+      // be sure provider info is updated with new site or new date range 
       context.dispatch('PROVIDER_INFO')
+      
+      // be sure the institution info is updated with new site or new date range
+      context.dispatch('GET_INSTITUTIONS')
+
       // update the user since this page could be entered anytime
       context.dispatch('CURRENT_USER')
       context.dispatch('USER_PERMISSIONS')
@@ -1271,6 +1291,37 @@ const store = new Vuex.Store({
         context.dispatch('EBP_DETAILS_SESSIONS_SURVEYS') 
       }
 
+    },
+    GET_INSTITUTIONS (context) {
+      console.log('GET_INSTITUTIONS action called!')
+
+      const path = 'pct.cgi'
+      // need StaPa
+      let staPa = context.state.selectedSite
+      // need Date Range
+      let dateRange = context.state.selectedRange
+      // need Data Domain
+      let route = context.state.route.path
+      let domain = route.split("/").pop()
+
+      // console.log('getting user, axios get: ', `${path}?${params}`)
+      // run this during usual dev
+      const params = 'format=get_institutions' +
+      '&staPa=' + staPa + 
+      '&dateRange=' + dateRange +
+      '&domain=' + domain 
+      
+      //verify params
+      console.log('Call for institution data params: ', params)
+      console.log('path and params: ', `${path}?${params}`)
+
+      axios.get(`${path}?${params}`)
+      .then(response => { 
+        console.log('response.data is: ', response.data)
+
+        context.commit('SET_INSTITUTIONS', response.data) 
+ 
+      })
     },
     setSelectedSite (context, site) {
       // console.log('setSelectedSite triggered')
@@ -1511,8 +1562,14 @@ const store = new Vuex.Store({
       })
       state.phipii = permissionSite.phipii
       state.adaccount = permissionSite.adaccount
-      console.log('permissionAllSites: ', permissionAllSites)
+      // console.log('permissionAllSites: ', permissionAllSites)
       state.allphipii = permissionAllSites
+    },
+    SET_INSTITUTIONS(state, institutions) {
+
+      console.log('in SET_INSTITUTIONS: ', institutions)
+      state.institutions = institutions
+
     },
 
       // SET_CURRENT_CONSULT_COMMENT (state, comments) {

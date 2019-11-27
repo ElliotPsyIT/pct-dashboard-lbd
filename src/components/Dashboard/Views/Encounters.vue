@@ -1003,6 +1003,7 @@ export default {
     this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
     // call action to signal the active page
     this.CURRENT_PAGE('encounter')
+    this.GET_INSTITUTIONS()
   },
   methods: { 
     ...mapActions([
@@ -1013,7 +1014,8 @@ export default {
       'ENCOUNTER_CPT_CATEGORIES',
       'ENCOUNTER_CPT',
       'ENCOUNTER_PATIENT_CPT_CATEGORIES',
-      'CURRENT_PAGE'
+      'CURRENT_PAGE',
+      'GET_INSTITUTIONS'
 
         ]),
     formatNumber(num) {

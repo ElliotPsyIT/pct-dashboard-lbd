@@ -1,31 +1,40 @@
 <template>
-  <div class="fixed-plugin" style="position: fixed;" v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
-    <div class="dropdown show-dropdown" :class="{show: isOpen}" @click="toggleDropDown">
-      <a data-toggle="dropdown">
+  <div class="fixed-plugin" style="position: fixed; width: 80px;" v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
+    <div class="dropdown py-2" :class="{show: isOpen}" >
+      <!-- options to show on sidebar -->
+      Drill Down
+      <hr/>
+      <a @click="toggleSites">
+        <span class="text-center">
+        <i class="fa fa-home fa-2x" > </i>
+        </span>
+        <div>&nbsp;HCS Sites&nbsp;</div>
+      </a>
+      <hr/>
+      <a @click="toggleProviders">
         <i class="fa fa-user fa-2x" > </i>
+        <div>&nbsp;Providers&nbsp;</div>
       </a>
       
+      <!-- sidebar icon clicked -- v-if to determine what data to show --> 
       <ul class="dropdown-menu">
-        <li class="header-title">Site Provider List</li>
-        <!-- <li class="header-title"><button style="margin-bottom: 1rem;" @click="uncheckAll">Back to Site Level Data</button></li> -->
+        <div v-if="chooseProvider">
+          <li  class="header-title">Site Provider List</li>
           <div v-for="provider in providers" :key="provider.STAFFSID" ref="listProviders">
             <input type=checkbox id="provider.STAFFNAME" @click="selectProvider(provider.STAFFNAME)"/>
             <label :for="provider.STAFFNAME">{{ provider.STAFFNAME }}</label>
           </div>
-        <!-- <li v-for="name in siteProviderList" :key="name.index" class="badge filter">
-          {{ name }}
-        </li>       -->
-        <!-- <li class="colors-line text-center">
-          <a class="switch-trigger background-color">
-            <span v-for="item in sidebarColors" :key="item.index" class="badge filter"
-                  :class="[`badge-${item.color}`,{active:item.active}]"
-                  :data-color="item.color"
-                  @click="changeSidebarBackground(item)">
+        </div>
+        <div v-if="chooseSite">
+          <li  class="header-title">Institutions List</li>
+          <div v-for="institution in institutions" :key="institution.InstitutionName" ref="listInstitutions">
+            <input type=checkbox id="institution.InstitutionName" @click="selectInstitution(institution.InstitutionName)"/>
+            <label :for="institution.InstitutionName">{{ institution.InstitutionName }}</label>
+          </div>
+        </div>
 
-            </span>
-          </a>
-        </li> -->
-        <li class="header-title">Additional Section Placeholder</li>
+        
+        <!-- <li class="header-title">Additional Section Placeholder</li> -->
         <!-- <li v-for="image in images"
             :key="image.src"
             :class="{active: image.active}">
@@ -34,22 +43,22 @@
                  :src="image.src"
                  alt="..."></a>
         </li> -->
-        <li class="button-container">
-          <!-- <div class="">
+        <!-- <li class="button-container">
+          <div class="">
             <a :href="links.download" class="btn btn-info btn-block btn-fill">Free Download</a>
-          </div> -->
-        </li>
+          </div>
+        </li> -->
 
-        <li class="button-container">
-          <!-- <div class="">
+        <!-- <li class="button-container">
+          <div class="">
             <a :href="links.documentation" target="_blank" class="btn btn-danger btn-block btn-fill">Documentation</a>
-          </div> -->
-        </li>
+          </div>
+        </li> -->
 
-        <li class="header-title">A Message here!</li>
+        <!-- <li class="header-title">A Message here!</li> -->
 
-        <li class="button-container">
-          <!-- <social-sharing url="https://cristijora.github.io/vue-light-bootstrap-dashboard/" inline-template
+        <!-- <li class="button-container">
+          <social-sharing url="https://cristijora.github.io/vue-light-bootstrap-dashboard/" inline-template
                           title="Vue Light Bootstrap Dashboard - Free Admin Template for Vue.js"
                           hashtags="vuejs, dashboard, bootstrap" twitter-user="creativetim">
             <div>
@@ -63,13 +72,13 @@
                 <i class="fa fa-fw fa-twitter"></i>
               </network>
             </div>
-          </social-sharing> -->
-        </li>
+          </social-sharing>
+        </li> -->
 
-        <li class="button-container">
-          <!-- <gh-btns-star slug="cristijora/vue-light-bootstrap-dashboard" show-count></gh-btns-star>
-          <gh-btns-fork slug="cristijora/vue-light-bootstrap-dashboard" show-count></gh-btns-fork> -->
-        </li>
+        <!-- <li class="button-container">
+          <gh-btns-star slug="cristijora/vue-light-bootstrap-dashboard" show-count></gh-btns-star>
+          <gh-btns-fork slug="cristijora/vue-light-bootstrap-dashboard" show-count></gh-btns-fork>
+        </li> -->
 
       </ul>
     </div>
@@ -90,7 +99,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     computed: {
       ...mapGetters([
         // 'siteProviderList',
-        'siteProviders','siteProviderSelected','canFilterByProvider'
+        'siteProviders','siteProviderSelected','canFilterByProvider','siteInstitutions'
       ]),
 
       ...mapState([
@@ -100,11 +109,14 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     props: ['color', 'image'],
     data () {
       return {
+        chooseProvider: false,
+        chooseSite: false,
         enableProviderIcon: true,
         selectedProvider: '',
         previousProvider: '',
         isOpen: false,
         providers: [],
+        institutions: [],
         links: {
           documentation: 'https://cristijora.github.io/vue-light-bootstrap-dashboard/documentation/#/getting-started',
           download: 'https://github.com/cristijora/vue-light-bootstrap-dashboard/archive/master.zip'
@@ -129,18 +141,70 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     mounted() {
       this.PROVIDER_INFO() //
       // console.log('this.currentpage is: ', this.currentpage )
+      this.GET_INSTITUTIONS()
     },
     methods: {
       ...mapActions([
-          'PROVIDER_INFO','PROVIDER_SELECTED'
+          'PROVIDER_INFO','PROVIDER_SELECTED','GET_INSTITUTIONS'
         ]), 
+      // assign store sites and provider lists to local data vars
+      institutionlist () {
+        console.log('in institutionlist method, this.siteInstitutions getter is: ', this.siteInstitutions)
+        this.institutions = this.siteInstitutions
+        // console.log('chooseSite is: ', this.chooseSite)
+        // console.log('chooseProvider is: ', this.chooseProvider)
+      },
       providerlist () {
         // console.log('providerlist method was called!')
         this.providers = [...new Set(this.siteProviders)]
       // console.log('in providersList after uniqued and providers is: ', this.providers)
         this.enableProviderIcon = this.canFilterByProvider
         // console.log('in SidebarShare enableProvider is: ', this.enableProviderIcon)
+        // console.log('chooseSite is: ', this.chooseSite)
+        // console.log('chooseProvider is: ', this.chooseProvider)
       },
+      // set flags for sites and provider for determine which list to show in template
+      toggleSites () {
+        // console.log('i am toggleSites, and here this.siteInstitutions getter is:', this.siteInstitutions)
+        if (this.chooseSite == true) {
+          // toggle the chooseSite flag
+          this.chooseSite = false
+          this.isOpen = false
+        } else {
+          this.chooseSite = true
+          this.isOpen = true
+        }
+
+        this.chooseProvider = false
+        // get the institution data into local data var
+        this.institutionlist()
+      },
+      toggleProviders () {
+       if (this.chooseProvider == true) {
+          // toggle the chooseSite flag
+          this.chooseProvider = false
+          this.isOpen = false
+        } else {
+          this.chooseProvider = true
+          this.isOpen = true
+        }
+        // console.log('clicked toggleDropDown')
+        // console.log('this.provider is: ', this.provider)
+        // console.log('this.previousProvider is: ', this.previousProvider)
+        //identify list of providers
+        
+         this.chooseSite = false
+         // get provider data into local data var
+        this.providerlist()
+ 
+        // only close if a provider was set (previousProvider) and is now unset (null)
+        // if (this.previousProvider == null) {
+        //   this.isOpen = !this.isOpen
+        // } else {
+        //   this.isOpen = true
+        // }
+      },
+      // support for the provider mini-application work flow - selecting and deselecting
       selectProvider (provider) {
         // clean the provider name
         provider = provider.trim()
@@ -191,23 +255,10 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         this.PROVIDER_SELECTED(null)
         this.selectedProvider = null
       },
-      toggleDropDown () {
-        // console.log('clicked toggleDropDown')
-        // console.log('this.provider is: ', this.provider)
-        // console.log('this.previousProvider is: ', this.previousProvider)
-        //identify list of providers
-        this.providerlist()
- 
-        // only close if a provider was set (previousProvider) and is now unset (null)
-        if (this.previousProvider == null) {
-          this.isOpen = !this.isOpen
-        } else {
-          this.isOpen = true
-        }
-      },
       closeDropDown () {
         this.isOpen = false
       },
+      // from original sidebar change of colors and images
       toggleList (list, itemToActivate) {
         list.forEach((listItem) => {
           listItem.active = false

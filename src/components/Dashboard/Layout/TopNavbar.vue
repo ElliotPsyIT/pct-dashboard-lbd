@@ -47,21 +47,32 @@
               <span class="d-lg-block">&nbsp;Search</span>
             </a>
           </li> -->
-          <li class="nav-item py-0 mr-2">
-          <form class="form-inline">
+          <!-- <li class="nav-item py-0 px-4">
+            <form class="form-horizontal">
+              <div class="form-group "> 
+              
+                  <div style="max-width: 450px">
+                    <treeselect v-model="value"  :options="options" placeholder="Select Station"/>
+                  </div>
+
+              </div>
+            </form>
+          </li> -->
+          <!-- <li class="nav-item py-0 mr-2">
+          <form class="form-horizontal"> 
             <div class="form-group">  
-              <label for="station">
+              <label for="station">  
                 <div class="px-2">
-                  <span class="h5 "><strong>Station</strong></span> 
+                  <span class="h5 px-2"><strong>Station</strong></span> 
                 </div> 
                 <div style="max-width: 450px">
-                 <treeselect v-model="value" :multiple="true" :options="siteNames" />
+                  <treeselect v-model="value" :multiple="true" :options="options" />
                 </div>
               </label>
-            </div>
-          </form>
-          </li>
-          <!-- <li class="nav-item py-0 mr-2">
+             </div>
+           </form>
+          </li> -->
+          <li class="nav-item py-0 mr-2">
           <form class="form-inline">
             <div class="form-group">  
               <label for="station">
@@ -79,7 +90,7 @@
               </label>
             </div>
           </form>
-          </li> -->
+          </li>
           <li class="nav-item py-0">
           <form class="form-inline">
             <div class="form-group "> <!-- pt-1 pl-3 ml-4 -->
@@ -233,24 +244,23 @@
         // define the default value
         value: null,
         // define options
-        options:
-        [ {
-          id: 'a',
-          label: 'a',
-          children: [ {
-            id: 'aa',
-            label: 'aa',
-          }, {
-            id: 'ab',
-            label: 'ab',
-          } ],
-        }, {
-          id: 'b',
-          label: 'b',
-        }, {
-          id: 'c',
-          label: 'c',
-        } ],
+        options:[
+        {id:"402",label:"(V01) (402) VA MAINE HCS"},
+        {id:"405",label:"(V01) (405) WHITE RIVER JCT VAMROC"},
+        {id:"518",label:"(V01) (518) EDITH NOURSE ROGERS VAMC"},
+        {id:"523",label:"(V01) (523) BOSTON HCS VAMC"},
+        {id:"608",label:"(V01) (608) MANCHESTER VAMC"},
+        {id:"631",label:"(V01) (631) VA CNTRL WSTRN MASSCHUSETS HCS"},
+        {id:"650",label:"(V01) (650) PROVIDENCE VAMC"},
+        {id:"689",label:"(V01) (689) CONNECTICUT HCS"}
+        ],
+        // normalizer(node) {
+        //   console.log('node is: ', node)
+        //   return {
+        //     id: node.StaPa,
+        //     label: node.InstitutionNameLong
+        //   }
+        // }
       }
     },
     methods: {

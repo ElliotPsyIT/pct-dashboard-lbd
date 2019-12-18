@@ -1,32 +1,42 @@
 <template>
-  <div class="fixed-plugin" style="position: fixed; width: 80px;" v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
-    <div class="dropdown py-2" :class="{show: isOpen}" >
-      <!-- options to show on sidebar -->
-      Drill Down
-      <hr/>
-      <a @click="toggleSites">
-        <span class="text-center">
-        <i class="fa fa-home fa-2x" > </i>
-        </span>
-        <div>&nbsp;HCS Sites&nbsp;</div>
-      </a>
-      <hr/>
-      <a @click="toggleProviders">
-        <i class="fa fa-user fa-2x" > </i>
-        <div>&nbsp;Providers&nbsp;</div>
-      </a>
-      
-      <!-- sidebar icon clicked -- v-if to determine what data to show --> 
-      <ul class="dropdown-menu">
+  <div class="fixed-plugin" style="position: fixed; width: 50px;" v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
+    <div class="dropdown " :class="{show: isOpen}" >
+        <!-- options to show on sidebar -->
+      <div class="image-stack" style="margin-top: 10px;" @click="toggleProviders">
+        <div class="image-stack__item image-stack__item--top">
+          <i class="fa fa-user fa-2x" > </i>
+        </div>
+        <div class="image-stack__item image-stack__item--bottom">
+          <i class="fa fa-user fa-2x" > </i>
+        </div>
+      </div>
+      <p style="text-transform: uppercase; font-size: .8rem; font-weight: bold;">Staff</p>
+      <div class="image-stack" @click="toggleSites">
+        <div class="image-stack__item image-stack__item--top">
+          <i class="fa fa-building fa-2x" > </i>
+        </div>
+        <div class="image-stack__item image-stack__item--bottom">
+          <i class="fa fa-building fa-2x" > </i>
+        </div>
+      </div>
+      <p style="text-transform: uppercase; font-size: .8rem; font-weight: bold;">Sites</p>
+
+    
+      <!-- How Sidebar Works -->
+      <!--    when =sidebar icon clicked -- v-if to determine what data to show --> 
+      <!-- How to Modify Sidebar Size and Placement  -->
+      <!--    style left: -303px width: 290px is base from _sidebar-and-main-panel.scss -->
+      <!--    increase negative left to widen dropdown to left, and increase positive width to widen right -->
+      <ul class="dropdown-menu" style="left: -353px !important; width: 340px;">
         <div v-if="chooseProvider">
-          <li  class="header-title">Site Provider List</li>
+          <li  class="header-title">Providers</li>
           <div v-for="provider in providers" :key="provider.STAFFSID" ref="listProviders">
             <input type=checkbox id="provider.STAFFNAME" @click="selectProvider(provider.STAFFNAME)"/>
             <label :for="provider.STAFFNAME">{{ provider.STAFFNAME }}</label>
           </div>
         </div>
         <div v-if="chooseSite">
-          <li  class="header-title">Institutions List</li>
+          <li  class="header-title">Institutions</li>
           <div v-for="institution in institutions" :key="institution.InstitutionName" ref="listInstitutions">
             <input type=checkbox id="institution.InstitutionName" @click="selectInstitution(institution.InstitutionName)"/>
             <label :for="institution.InstitutionName">{{ institution.InstitutionName }}</label>
@@ -281,6 +291,29 @@ import { mapState, mapGetters, mapActions } from 'vuex'
   .hide {
     display: none;
   }
+
+/* OVERLAP THE FA IMAGES */
+  /* clearfix */
+.image-stack::after {
+  content: ' ';
+  display: table;
+  clear: both;
+}
+
+.image-stack__item--top {
+    float: left;
+    width: 66%;
+    margin-right: -100%;
+    padding-top: 15%; /* arbitrary */
+    position: relative;
+    z-index: 1;
+}
+
+.image-stack__item--bottom {
+    float: right;
+    width: 75%;
+}
+
 </style>
 
 <style lang="scss">
@@ -317,6 +350,8 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     width: 290px;
     border-radius: 10px;
     padding: 10px;
+    overflow: scroll;
+    max-height: 400px;
   }
 
   .fixed-plugin .dropdown-menu:after, .fixed-plugin .dropdown-menu:before {

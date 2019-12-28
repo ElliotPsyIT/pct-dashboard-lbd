@@ -1,6 +1,6 @@
 <template>
   <div class="fixed-plugin" style="position: fixed; width: 50px;" v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
-    <div class="dropdown " :class="{show: isOpen}" >
+    <div class="dropdown show-dropdown" :class="{show: isOpen}" >
         <!-- options to show on sidebar -->
       <div class="image-stack" style="margin-top: 10px;" @click="toggleProviders">
         <div class="image-stack__item image-stack__item--top">
@@ -27,7 +27,8 @@
       <!-- How to Modify Sidebar Size and Placement  -->
       <!--    style left: -303px width: 290px is base from _sidebar-and-main-panel.scss -->
       <!--    increase negative left to widen dropdown to left, and increase positive width to widen right -->
-      <ul class="dropdown-menu" style="left: -353px !important; width: 340px;">
+      <ul class="dropdown-menu" style="left: -453px !important; width: 440px; margin-top: 10px;">
+        <!-- {{ institutions }} -->
         <div v-if="chooseProvider">
           <li  class="header-title">Providers</li>
           <div v-for="provider in providers" :key="provider.STAFFSID" ref="listProviders">
@@ -35,15 +36,32 @@
             <label :for="provider.STAFFNAME">{{ provider.STAFFNAME }}</label>
           </div>
         </div>
-        <div v-if="chooseSite">
+        <!-- <div v-if="chooseSite">
           <li  class="header-title">Institutions</li>
           <div v-for="institution in institutions" :key="institution.InstitutionName" ref="listInstitutions">
             <input type=checkbox id="institution.InstitutionName" @click="selectInstitution(institution.InstitutionName)"/>
             <label :for="institution.InstitutionName">{{ institution.InstitutionName }}</label>
           </div>
-        </div>
+        </div> -->
 
-        
+        <!-- Use treeselect as alternative to using text boxes -->
+        <div v-if="chooseSite">
+          <div style="text-align: center; margin-bottom: 10px;">
+            {{ selectedSiteName.StaPa}} {{ selectedSiteName.InstitutionName }} 
+          </div>
+          <li style="width: 100%; height: auto;">
+            <treeselect
+            v-model="value"
+            :multiple="true"
+            :options="options"
+            :load-options="loadOptions"
+            placeholder="Select Sites to Filter Data on This Page ..."
+            :alwaysOpen=true
+            @input="selectInstitutions"
+            >
+            </treeselect>
+          </li>
+        </div>
         <!-- <li class="header-title">Additional Section Placeholder</li> -->
         <!-- <li v-for="image in images"
             :key="image.src"
@@ -96,25 +114,32 @@
 </template>
 <script>
 import Vue from 'vue'
-//   import SocialSharing from 'vue-social-sharing'
-//   import VueGitHubButtons from 'vue-github-buttons'
-//   import 'vue-github-buttons/dist/vue-github-buttons.css'
 
-//   Vue.use(SocialSharing)
-//   Vue.use(VueGitHubButtons, {useCache: true})
+import Treeselect from '@riophae/vue-treeselect'
+import { LOAD_ROOT_OPTIONS} from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
 import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
+    components: {
+      Treeselect
+    },
     computed: {
       ...mapGetters([
         // 'siteProviderList',
-        'siteProviders','siteProviderSelected','canFilterByProvider','siteInstitutions'
+        'siteProviders','siteProviderSelected','canFilterByProvider',
+        'siteInstitutions'
       ]),
 
       ...mapState([
-        'currentpage'
+        'currentpage','selectedSite','siteNames'
       ]),
+
+     selectedSiteName () {
+        return this.siteNames.find(o => o.StaPa === this.selectedSite)
+     }
+
     },
     props: ['color', 'image'],
     data () {
@@ -145,7 +170,10 @@ import { mapState, mapGetters, mapActions } from 'vuex'
           {src: 'static/img/sidebar-3.jpg', active: false},
           {src: 'static/img/sidebar-4.jpg', active: false},
           {src: 'static/img/sidebar-5.jpg', active: true}
-        ]
+        ],
+        // for treeselect
+        value: null,
+        options: null, // signals delayed root level options - see optionLoader below
       }
     },
     mounted() {
@@ -157,12 +185,18 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       ...mapActions([
           'PROVIDER_INFO','PROVIDER_SELECTED','GET_INSTITUTIONS'
         ]), 
+      loadOptions({ action, parentNode, callback}) {
+        if (action === LOAD_ROOT_OPTIONS) {
+          // this is the delayed load of the treeselect options 
+          this.options = this.institutions
+                   
+          callback() // treeselect internal callback signalling ready
+        }
+      },
       // assign store sites and provider lists to local data vars
       institutionlist () {
-        console.log('in institutionlist method, this.siteInstitutions getter is: ', this.siteInstitutions)
+        // console.log('in institutionlist method, this.siteInstitutions getter is: ', this.siteInstitutions)
         this.institutions = this.siteInstitutions
-        // console.log('chooseSite is: ', this.chooseSite)
-        // console.log('chooseProvider is: ', this.chooseProvider)
       },
       providerlist () {
         // console.log('providerlist method was called!')
@@ -213,6 +247,12 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         // } else {
         //   this.isOpen = true
         // }
+      },
+      selectInstitutions (institutionSIDs) {
+        console.log('selected site InstitutinoName: ', this.selectedSiteName.InstitutionName)
+        console.log('selected site StaPa: ', this.selectedSiteName.StaPa)
+        console.log('institutions being selected: ', institutionSIDs)
+
       },
       // support for the provider mini-application work flow - selecting and deselecting
       selectProvider (provider) {
@@ -346,8 +386,8 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
   .fixed-plugin .dropdown-menu {
     right: 80px;
-    left: auto;
-    width: 290px;
+    /*left: auto; */
+    width: 530px; /*290px - widen sidebar here, and need to modify left in large scale @media query; */
     border-radius: 10px;
     padding: 10px;
     overflow: scroll;
@@ -602,6 +642,9 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
     .fixed-plugin .dropdown.show .dropdown-menu {
       opacity: 1;
+      /* add here for wider and longer sidebar */
+      left: -540px !important; /* widen sidebar from the left */
+      height: 500px;
 
       -webkit-transform: translateY(-50%);
       -moz-transform: translateY(-50%);

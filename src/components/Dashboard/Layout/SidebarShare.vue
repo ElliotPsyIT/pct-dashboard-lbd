@@ -1,25 +1,30 @@
 <template>
-  <div class="fixed-plugin" style="position: fixed; width: 50px;" v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
+  <div class="fixed-plugin" style="position: fixed; width: 35px;" v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
     <div class="dropdown show-dropdown" :class="{show: isOpen}" >
         <!-- options to show on sidebar -->
       <div class="image-stack" style="margin-top: 10px;" @click="toggleProviders">
         <div class="image-stack__item image-stack__item--top">
-          <i class="fa fa-user fa-2x" > </i>
+          <!-- <i class="fa fa-user fa-2x" > </i> -->
+          <i class="fa fa-user" > </i>
+
         </div>
         <div class="image-stack__item image-stack__item--bottom">
-          <i class="fa fa-user fa-2x" > </i>
+          <!-- <i class="fa fa-user fa-2x" > </i> -->
+          <i class="fa fa-user" > </i>
         </div>
       </div>
-      <p style="text-transform: uppercase; font-size: .8rem; font-weight: bold;">Staff</p>
+      <p style="text-transform: uppercase; font-size: .6rem; font-weight: normal;">Staff</p>
       <div class="image-stack" @click="toggleSites">
         <div class="image-stack__item image-stack__item--top">
-          <i class="fa fa-building fa-2x" > </i>
+          <!-- <i class="fa fa-building fa-2x" > </i> -->
+          <i class="fa fa-building" > </i>
         </div>
         <div class="image-stack__item image-stack__item--bottom">
-          <i class="fa fa-building fa-2x" > </i>
+          <!-- <i class="fa fa-building fa-2x" > </i> -->
+          <i class="fa fa-building" > </i>
         </div>
       </div>
-      <p style="text-transform: uppercase; font-size: .8rem; font-weight: bold;">Sites</p>
+      <p style="text-transform: uppercase; font-size: .6rem; font-weight: normal;">Sites</p>
 
     
       <!-- How Sidebar Works -->
@@ -342,7 +347,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 .image-stack__item--top {
     float: left;
-    width: 66%;
+    width: 85%;
     margin-right: -100%;
     padding-top: 15%; /* arbitrary */
     position: relative;
@@ -371,9 +376,13 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     top: 150px;
     right: 0;
     width: 64px;
-    background: rgba(0, 0, 0, .3);
+    // background: rgba(0, 0, 0, .3);
+    background: transparent;
     z-index: 1031;
     border-radius: 8px 0 0 8px;
+    border-color: grey;
+    border-width: 1px;  
+    border-style: solid none solid solid;
     text-align: center;
   }
 

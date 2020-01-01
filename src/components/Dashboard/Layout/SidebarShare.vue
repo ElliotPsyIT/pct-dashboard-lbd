@@ -138,10 +138,11 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       ]),
 
       ...mapState([
-        'currentpage','selectedSite','siteNames'
+        'currentpage','selectedSite','siteNames','institutions'
       ]),
 
      selectedSiteName () {
+       console.log('SidebarShare treeseelect selectedSite is: ', this.selected)
         return this.siteNames.find(o => o.StaPa === this.selectedSite)
      }
 
@@ -156,7 +157,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         previousProvider: '',
         isOpen: false,
         providers: [],
-        institutions: [],
+        institutionsSelected: [],
         links: {
           documentation: 'https://cristijora.github.io/vue-light-bootstrap-dashboard/documentation/#/getting-started',
           download: 'https://github.com/cristijora/vue-light-bootstrap-dashboard/archive/master.zip'
@@ -185,6 +186,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       this.PROVIDER_INFO() //
       // console.log('this.currentpage is: ', this.currentpage )
       this.GET_INSTITUTIONS()
+      console.log('SidebarShare mounted and GET_INSTITUTIONS action called!')
     },
     methods: {
       ...mapActions([
@@ -193,16 +195,17 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       loadOptions({ action, parentNode, callback}) {
         if (action === LOAD_ROOT_OPTIONS) {
           // this is the delayed load of the treeselect options 
+          console.log('in loadOptions institutions are: ', this.institutions)
           this.options = this.institutions
                    
           callback() // treeselect internal callback signalling ready
         }
       },
       // assign store sites and provider lists to local data vars
-      institutionlist () {
-        // console.log('in institutionlist method, this.siteInstitutions getter is: ', this.siteInstitutions)
-        this.institutions = this.siteInstitutions
-      },
+      // institutionlist () {
+      //   // console.log('in institutionlist method, this.siteInstitutions getter is: ', this.siteInstitutions)
+      //   this.institutions = this.siteInstitutions
+      // },
       providerlist () {
         // console.log('providerlist method was called!')
         this.providers = [...new Set(this.siteProviders)]
@@ -214,19 +217,26 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       },
       // set flags for sites and provider for determine which list to show in template
       toggleSites () {
-        // console.log('i am toggleSites, and here this.siteInstitutions getter is:', this.siteInstitutions)
+        console.log('In toggleSites - chooseSite is: ', this.chooseSite)
+        console.log('In toggleSites - isOpen is: ', this.isOpen)
+
         if (this.chooseSite == true) {
           // toggle the chooseSite flag
+          console.log('Setting chooseSite and isOpen to false!')
           this.chooseSite = false
           this.isOpen = false
         } else {
+          console.log('Setting chooseSite and isOpen to true!')
+          console.log('And setting options to update treeselect!')
+          this.options = this.institutions
           this.chooseSite = true
           this.isOpen = true
         }
 
         this.chooseProvider = false
+
         // get the institution data into local data var
-        this.institutionlist()
+        // this.institutionlist()
       },
       toggleProviders () {
        if (this.chooseProvider == true) {
@@ -257,7 +267,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         console.log('selected site InstitutinoName: ', this.selectedSiteName.InstitutionName)
         console.log('selected site StaPa: ', this.selectedSiteName.StaPa)
         console.log('institutions being selected: ', institutionSIDs)
-
+        this.institutionsSelected = institutionSIDs
       },
       // support for the provider mini-application work flow - selecting and deselecting
       selectProvider (provider) {
@@ -310,8 +320,11 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         this.PROVIDER_SELECTED(null)
         this.selectedProvider = null
       },
-      closeDropDown () {
+      closeDropDown () { // click away from sidebar and close it
         this.isOpen = false
+        // and tell the sidebar chooseProvider and chooseSite it's closed
+        this.chooseProvider = false
+        this.chooseSite = false
       },
       // from original sidebar change of colors and images
       toggleList (list, itemToActivate) {

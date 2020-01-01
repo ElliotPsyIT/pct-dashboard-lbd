@@ -8,6 +8,9 @@
         <span v-if="showProvider()" class="px-2" >
           <a class="navbar-brand px-2" href="#" style="color: black; background-color: lightgrey;">{{selectedProvider}}</a>
         </span>
+         <!-- <span v-if="showInstitution()" class="px-2" >
+          <a class="navbar-brand px-2" href="#" style="color: black; background-color: lightgrey;">{{selectedInstitution}}</a>
+        </span> -->
       </fade-transition>
 
       <button type="button"
@@ -276,6 +279,7 @@
         // no previous provider selected - either page load, or new provider selected
         return this.selectedProvider
       },
+      
       ...mapActions(
         ['setSelectedSite','setSelectedRange']
       ),

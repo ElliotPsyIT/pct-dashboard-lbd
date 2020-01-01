@@ -1003,7 +1003,8 @@ export default {
     this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
     // call action to signal the active page
     this.CURRENT_PAGE('encounter')
-    this.GET_INSTITUTIONS()
+    // not needed since REFRESH_DATA is called with each site
+    // this.GET_INSTITUTIONS()
   },
   methods: { 
     ...mapActions([

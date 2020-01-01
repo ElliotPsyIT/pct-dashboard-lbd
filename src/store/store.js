@@ -98,6 +98,7 @@ const store = new Vuex.Store({
     dateRanges,
     
     institutions: [],
+    selectedInstitutions: [],
 
     consultDataPie: [],
     consultDataLine: [],
@@ -955,6 +956,9 @@ const store = new Vuex.Store({
       })
 
     },
+    INSTITUTIONS_SELECTED (context, institutions) {
+      context.state.selectedInstitutions = institutions
+    },
     PROVIDER_SELECTED (context, provider) {
       // console.log('PROVIDER_SELECTED action changed selectedProvider to: ', provider)
       context.state.selectedProvider = provider     // next step is getting the encounter data filtered by providerSID
@@ -1312,15 +1316,19 @@ const store = new Vuex.Store({
       '&domain=' + domain 
       
       //verify params
-      console.log('Call for institution data params: ', params)
-      console.log('path and params: ', `${path}?${params}`)
+      // console.log('Call for institution data params: ', params)
+      // console.log('path and params: ', `${path}?${params}`)
 
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('response.data is: ', response.data)
+        console.log('GET_INSTITIONS action response.data is: ', response.data)
 
         context.commit('SET_INSTITUTIONS', response.data) 
  
+      })
+      .catch(function (error) {
+        // handle error
+        console.log('GET_INSTITUTION action error: ', error);
       })
     },
     setSelectedSite (context, site) {
@@ -1543,7 +1551,7 @@ const store = new Vuex.Store({
       // pull out 3 digits Sta3n from selected site
       let numberPattern = /^(\d\d\d)/g;
       let selectedSta3n = state.selectedSite.match( numberPattern );
-      console.log(selectedSta3n);
+      // console.log(selectedSta3n);
       // capture sites permissions
       let permissionAllSites = []
       // iterate through returned list of permissions

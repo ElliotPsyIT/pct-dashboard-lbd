@@ -92,20 +92,29 @@
         
         <div class="row d-flex justify-content-center">
  
+           <!-- <fade-transition :duration="duration"> -->
+          <!-- </fade-transition> -->
+
         <div class="col-xl-3 col-md-3">
+          
+          
             <stats-card>
             <div slot="header" class="icon-warning">
               <i class="nc-icon-outline nc-layers-3 text-warning"></i>
             </div>
             <div slot="content">
               <p class="card-category">Total Encounters</p>
-              <h4 class="card-title">{{ asyncValue(formatNumber(siteEncounterTotal)) }}</h4>
+              <h4 class="card-title">
+                {{ asyncValue(formatNumber(siteEncounterTotal)) }}
+              </h4>
+
             </div>
             <!-- <div slot="footer">
                 <i class="fa fa-refresh"></i>With Duplicates
             </div> -->
             </stats-card>
-          </div>
+
+        </div>
 
           <div class="col-xl-3 col-md-3">
             <stats-card>
@@ -702,7 +711,7 @@ export default {
     StatsCard,
     VueHighcharts,
     AgGridVue,
-    VueFaqAccordion
+    VueFaqAccordion,
   },
   data() {
     return {
@@ -710,6 +719,7 @@ export default {
       gridOptions2: null,
       // gridOptions3: null,
       // FAQ
+      duration: 2000,
       encountersAll: [
         {
           title: "PCT Clinic (Stop Code) Definition",
@@ -841,7 +851,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'selectedSite', 'selectedRange'
+      'selectedSite', 'selectedRange', 'selectedInstitutions'
     ]),
     ...mapGetters([
       'siteEncounterTotal', // all distinct visitsid w/ CPT filtering
@@ -868,7 +878,7 @@ export default {
       'siteEncounterCPTPatientsGrpOnly',
       'siteEncounterCPTPatientsBoth',
 
-      'siteProviderSelected'
+      'siteProviderSelected',
       
     ]),
     scrollPosition () {
@@ -876,8 +886,9 @@ export default {
       console.log('window.pageYOffset: ', window.pageYOffset)    
     },
     changeBackgroundColor () {
-        // console.log('in changeBackgroundColor which is: ', this.siteProviderSelected)
-        return this.siteProviderSelected || false
+        // console.log('in changeBackgroundColor siteProviderSelected is: ', this.siteProviderSelected)
+        // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
+        return this.siteProviderSelected || this.selectedInstitutions.length > 0 || false
     },      
     siteEncounterCPTIndividualPercent() {
       let percent = (+this.siteEncounterCPTIndividual / +this.siteEncounterTotal) * 100
@@ -1192,7 +1203,7 @@ export default {
 
 .fade-enter-active,
   .fade-leave-active {
-    transition: opacity .1s
+    transition: opacity .5s
   }
 
   .fade-enter,

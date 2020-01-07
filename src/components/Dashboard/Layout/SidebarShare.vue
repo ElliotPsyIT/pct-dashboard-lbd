@@ -1,20 +1,26 @@
 <template>
-  <div class="fixed-plugin" style="position: fixed; width: 35px;" v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
+  <div class="fixed-plugin" style="position: fixed; width: 35px; " v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
     <div class="dropdown show-dropdown" :class="{show: isOpen}" >
-        <!-- options to show on sidebar -->
-      <div class="image-stack" style="margin-top: 10px;" @click="toggleProviders">
-        <div class="image-stack__item image-stack__item--top">
-          <!-- <i class="fa fa-user fa-2x" > </i> -->
-          <i class="fa fa-user" > </i>
+       <!-- PROVIDERS IMAGE -->
+      <div class="image-stack" style="margin-top: 10px; " @click="toggleProviders">
+        <div style="padding-bottom: 5px; border-bottom: 1px dotted;">
+          <div style="font-size: .7rem;">Filter<br/>By</div>
+          <!-- <i class="fa fa-filter"></i> -->
+          <!-- <hr/> -->
+        </div>
+        <!-- <div style="cursor: pointer; padding-top: 14px;">
+          <div class="image-stack__item image-stack__item--top">
+            <i class="fa fa-user" > </i>
+          </div>
+          <div class="image-stack__item image-stack__item--bottom">
+            <i class="fa fa-user" > </i>
+          </div>
+        </div> 
+        <p style="text-transform: uppercase; font-size: .6rem; font-weight: normal; cursor: pointer;">Staff</p> -->
 
-        </div>
-        <div class="image-stack__item image-stack__item--bottom">
-          <!-- <i class="fa fa-user fa-2x" > </i> -->
-          <i class="fa fa-user" > </i>
-        </div>
       </div>
-      <p style="text-transform: uppercase; font-size: .6rem; font-weight: normal;">Staff</p>
-      <div class="image-stack" @click="toggleSites">
+      <!-- INSTIUTION IMAGE -->
+      <div class="image-stack" @click="toggleSites" style="cursor: pointer; padding-top: 10px;">
         <div class="image-stack__item image-stack__item--top">
           <!-- <i class="fa fa-building fa-2x" > </i> -->
           <i class="fa fa-building" > </i>
@@ -24,16 +30,10 @@
           <i class="fa fa-building" > </i>
         </div>
       </div>
-      <p style="text-transform: uppercase; font-size: .6rem; font-weight: normal;">Sites</p>
-
-    
-      <!-- How Sidebar Works -->
-      <!--    when =sidebar icon clicked -- v-if to determine what data to show --> 
-      <!-- How to Modify Sidebar Size and Placement  -->
-      <!--    style left: -303px width: 290px is base from _sidebar-and-main-panel.scss -->
-      <!--    increase negative left to widen dropdown to left, and increase positive width to widen right -->
+      
+      <!-- DROPDOWN - PROVIDERS -->
+      <p style="text-transform: uppercase; font-size: .6rem; font-weight: normal; cursor: pointer;">Sites</p>
       <ul class="dropdown-menu" style="left: -453px !important; width: 440px; margin-top: 10px;">
-        <!-- {{ institutions }} -->
         <div v-if="chooseProvider">
           <li  class="header-title">Providers</li>
           <div v-for="provider in providers" :key="provider.STAFFSID" ref="listProviders">
@@ -41,78 +41,33 @@
             <label :for="provider.STAFFNAME">{{ provider.STAFFNAME }}</label>
           </div>
         </div>
-        <!-- <div v-if="chooseSite">
-          <li  class="header-title">Institutions</li>
-          <div v-for="institution in institutions" :key="institution.InstitutionName" ref="listInstitutions">
-            <input type=checkbox id="institution.InstitutionName" @click="selectInstitution(institution.InstitutionName)"/>
-            <label :for="institution.InstitutionName">{{ institution.InstitutionName }}</label>
-          </div>
-        </div> -->
 
-        <!-- Use treeselect as alternative to using text boxes -->
+        <!-- DROPDOWN - INSTITUTIONS -->
+        <!-- vue-treeselect widget to allow multiple selections and tags -->
         <div v-if="chooseSite">
           <div style="text-align: center; margin-bottom: 10px;">
             {{ selectedSiteName.StaPa}} {{ selectedSiteName.InstitutionName }} 
           </div>
-          <li style="width: 100%; height: auto;">
-            <treeselect
-            v-model="value"
-            :multiple="true"
-            :options="options"
-            :load-options="loadOptions"
-            placeholder="Select Sites to Filter Data on This Page ..."
-            :alwaysOpen=true
-            @input="selectInstitutions"
-            >
-            </treeselect>
-          </li>
+          <div >
+            <li style="width: 100%; height: auto; ">
+              <treeselect
+              v-model="value"
+              :multiple="true"
+              :options="options"
+              :load-options="loadOptions"
+              placeholder="Select Site(s) to Filter Data ..."
+              :alwaysOpen=true
+              @input="selectedInstitutions"
+              >
+              </treeselect>
+            </li>
+          </div>
+          <!-- <div> 
+            <button class="btn my-1" @click="filterSites"> 
+                  Filter Data  
+            </button> 
+          </div>  -->
         </div>
-        <!-- <li class="header-title">Additional Section Placeholder</li> -->
-        <!-- <li v-for="image in images"
-            :key="image.src"
-            :class="{active: image.active}">
-          <a class="img-holder switch-trigger dropdown-item">
-            <img @click="changeSidebarImage(image)"
-                 :src="image.src"
-                 alt="..."></a>
-        </li> -->
-        <!-- <li class="button-container">
-          <div class="">
-            <a :href="links.download" class="btn btn-info btn-block btn-fill">Free Download</a>
-          </div>
-        </li> -->
-
-        <!-- <li class="button-container">
-          <div class="">
-            <a :href="links.documentation" target="_blank" class="btn btn-danger btn-block btn-fill">Documentation</a>
-          </div>
-        </li> -->
-
-        <!-- <li class="header-title">A Message here!</li> -->
-
-        <!-- <li class="button-container">
-          <social-sharing url="https://cristijora.github.io/vue-light-bootstrap-dashboard/" inline-template
-                          title="Vue Light Bootstrap Dashboard - Free Admin Template for Vue.js"
-                          hashtags="vuejs, dashboard, bootstrap" twitter-user="creativetim">
-            <div>
-              <network network="facebook" class="btn btn-facebook btn-icon">
-                <i class="fa fa-fw fa-facebook"></i>
-              </network>
-              <network network="pinterest" class="btn btn-pinterest btn-icon">
-                <i class="fa fa-fw fa-pinterest"></i>
-              </network>
-              <network network="twitter" class="btn btn-twitter btn-icon">
-                <i class="fa fa-fw fa-twitter"></i>
-              </network>
-            </div>
-          </social-sharing>
-        </li> -->
-
-        <!-- <li class="button-container">
-          <gh-btns-star slug="cristijora/vue-light-bootstrap-dashboard" show-count></gh-btns-star>
-          <gh-btns-fork slug="cristijora/vue-light-bootstrap-dashboard" show-count></gh-btns-fork>
-        </li> -->
-
       </ul>
     </div>
   </div>
@@ -130,68 +85,59 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     components: {
       Treeselect
     },
+    mounted() {
+      // Retrive the providers for selected Station
+      this.PROVIDER_INFO() //
+      // console.log('this.currentpage is: ', this.currentpage )
+      
+      // Retrieve the institutions for selected Station
+      this.GET_INSTITUTIONS()
+      // console.log('SidebarShare mounted and GET_INSTITUTIONS action called!')
+    },
+    props: ['color', 'image'],
     computed: {
       ...mapGetters([
         // 'siteProviderList',
         'siteProviders','siteProviderSelected','canFilterByProvider',
         'siteInstitutions'
       ]),
-
       ...mapState([
         'currentpage','selectedSite','siteNames','institutions'
       ]),
 
-     selectedSiteName () {
-       console.log('SidebarShare treeseelect selectedSite is: ', this.selected)
+      // iDENTIFY THE CURRENT TREESELECT SELECTED SITE(INSTITUTION)
+      selectedSiteName () {
+        console.log('SidebarShare treeseelect selectedSite is: ', this.selected)
         return this.siteNames.find(o => o.StaPa === this.selectedSite)
-     }
-
+      }
     },
-    props: ['color', 'image'],
     data () {
       return {
+        //flags for provider and institution
         chooseProvider: false,
         chooseSite: false,
+        //flag allowing provider/institutions filtering
         enableProviderIcon: true,
+        //flags for provider selections and deselection
         selectedProvider: '',
         previousProvider: '',
+        //default for sidebar is closed
         isOpen: false,
+        // data for selected providers and institutions
         providers: [],
         institutionsSelected: [],
-        links: {
-          documentation: 'https://cristijora.github.io/vue-light-bootstrap-dashboard/documentation/#/getting-started',
-          download: 'https://github.com/cristijora/vue-light-bootstrap-dashboard/archive/master.zip'
-        },
-        sidebarColors: [
-          {color: '', active: false},
-          {color: 'azure', active: false},
-          {color: 'green', active: false},
-          {color: 'blue', active: true},
-          {color: 'orange', active: false},
-          {color: 'red', active: false},
-          {color: 'purple', active: false}
-        ],
-        images: [
-          {src: 'static/img/sidebar-1.jpg', active: false},
-          {src: 'static/img/sidebar-3.jpg', active: false},
-          {src: 'static/img/sidebar-4.jpg', active: false},
-          {src: 'static/img/sidebar-5.jpg', active: true}
-        ],
-        // for treeselect
+        // flags for vue-treeselect
         value: null,
         options: null, // signals delayed root level options - see optionLoader below
       }
     },
-    mounted() {
-      this.PROVIDER_INFO() //
-      // console.log('this.currentpage is: ', this.currentpage )
-      this.GET_INSTITUTIONS()
-      console.log('SidebarShare mounted and GET_INSTITUTIONS action called!')
-    },
     methods: {
       ...mapActions([
-          'PROVIDER_INFO','PROVIDER_SELECTED','GET_INSTITUTIONS'
+          'PROVIDER_INFO','PROVIDER_SELECTED','GET_INSTITUTIONS',
+          'INSTITUTIONS_SELECTED'
         ]), 
+
+      // treeselect API for asynch loading (institutions for Station)
       loadOptions({ action, parentNode, callback}) {
         if (action === LOAD_ROOT_OPTIONS) {
           // this is the delayed load of the treeselect options 
@@ -201,11 +147,8 @@ import { mapState, mapGetters, mapActions } from 'vuex'
           callback() // treeselect internal callback signalling ready
         }
       },
-      // assign store sites and provider lists to local data vars
-      // institutionlist () {
-      //   // console.log('in institutionlist method, this.siteInstitutions getter is: ', this.siteInstitutions)
-      //   this.institutions = this.siteInstitutions
-      // },
+
+      // Collect the Provider Names for current HCS station to display
       providerlist () {
         // console.log('providerlist method was called!')
         this.providers = [...new Set(this.siteProviders)]
@@ -215,32 +158,38 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         // console.log('chooseSite is: ', this.chooseSite)
         // console.log('chooseProvider is: ', this.chooseProvider)
       },
-      // set flags for sites and provider for determine which list to show in template
+      filterSites () {
+        // obtain the select sites for submission to filter data
+        // call an action that will use these sites
+        console.log('In filterSites - selected these institutions: ', this.institutionsSelected)
+      },
+      // Site Icon click handler to show/hide the Institution/Site sidebar
       toggleSites () {
-        console.log('In toggleSites - chooseSite is: ', this.chooseSite)
-        console.log('In toggleSites - isOpen is: ', this.isOpen)
+        // console.log('In toggleSites - chooseSite is: ', this.chooseSite)
+        // console.log('In toggleSites - isOpen is: ', this.isOpen)
 
         if (this.chooseSite == true) {
           // toggle the chooseSite flag
-          console.log('Setting chooseSite and isOpen to false!')
+          // console.log('Setting chooseSite and isOpen to false!')
           this.chooseSite = false
           this.isOpen = false
         } else {
-          console.log('Setting chooseSite and isOpen to true!')
-          console.log('And setting options to update treeselect!')
+          // console.log('Setting chooseSite and isOpen to true!')
+          // console.log('And setting options to update treeselect!')
           this.options = this.institutions
           this.chooseSite = true
           this.isOpen = true
         }
 
+        // Next, disable the Provider sidebar when Site sidebar invoked
         this.chooseProvider = false
 
-        // get the institution data into local data var
-        // this.institutionlist()
       },
+
+      // Provider Icon click handler to show/hide the Provider sidebar
       toggleProviders () {
+       // First, management the Provider sidebar open/close
        if (this.chooseProvider == true) {
-          // toggle the chooseSite flag
           this.chooseProvider = false
           this.isOpen = false
         } else {
@@ -252,24 +201,27 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         // console.log('this.previousProvider is: ', this.previousProvider)
         //identify list of providers
         
-         this.chooseSite = false
-         // get provider data into local data var
+        // Next, disable the Site sidebar when Provider  is invoked
+        this.chooseSite = false
+
+        // Now, call providerlist to collect/display Stations providers
         this.providerlist()
  
-        // only close if a provider was set (previousProvider) and is now unset (null)
-        // if (this.previousProvider == null) {
-        //   this.isOpen = !this.isOpen
-        // } else {
-        //   this.isOpen = true
-        // }
       },
-      selectInstitutions (institutionSIDs) {
-        console.log('selected site InstitutinoName: ', this.selectedSiteName.InstitutionName)
-        console.log('selected site StaPa: ', this.selectedSiteName.StaPa)
+      // Treeselect Click Handler for saving selected site(s)
+      selectedInstitutions (institutionSIDs) {
+        // console.log('selected site InstitutinoName: ', this.selectedSiteName.InstitutionName)
+        // console.log('selected site StaPa: ', this.selectedSiteName.StaPa)
         console.log('institutions being selected: ', institutionSIDs)
         this.institutionsSelected = institutionSIDs
+
+        // call action to pass in institutionsSelected to store
+        //    and trigger a page refresh that updates all data
+        this.INSTITUTIONS_SELECTED(this.institutionsSelected) 
       },
-      // support for the provider mini-application work flow - selecting and deselecting
+
+      // Provider Filter mini-application work flow
+      // - selecting/deselecting individual provider for data filtering
       selectProvider (provider) {
         // clean the provider name
         provider = provider.trim()
@@ -316,17 +268,20 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         })
         }
       },
-      uncheckAll () { // in progress, only need if button needed to go to site level
+      // In progress, only need if button needed to go to site level
+      uncheckAll () { 
         this.PROVIDER_SELECTED(null)
         this.selectedProvider = null
       },
-      closeDropDown () { // click away from sidebar and close it
+      closeDropDown () { 
+        // if user clicks away from sidebar, close it
         this.isOpen = false
-        // and tell the sidebar chooseProvider and chooseSite it's closed
+        // then, tell the sidebar provider and site selection flags it's closed
         this.chooseProvider = false
         this.chooseSite = false
       },
-      // from original sidebar change of colors and images
+
+      // (3 METHODS from original sidebar options) Change Image or Background Color 
       toggleList (list, itemToActivate) {
         list.forEach((listItem) => {
           listItem.active = false
@@ -357,7 +312,6 @@ import { mapState, mapGetters, mapActions } from 'vuex'
   display: table;
   clear: both;
 }
-
 .image-stack__item--top {
     float: left;
     width: 85%;
@@ -366,7 +320,6 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     position: relative;
     z-index: 1;
 }
-
 .image-stack__item--bottom {
     float: right;
     width: 75%;
@@ -375,6 +328,14 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 </style>
 
 <style lang="scss">
+
+/* How to Modify Sidebar Size and Placement  
+
+   left: -303px width: 290px is base, from _sidebar-and-main-panel.scss 
+   to widen:
+    increase negative left, widens sidebar dropdown to left, 
+    at same time, increase positive width similarly to widen to right */
+
   @import "~assets/sass/lbd/variables";
   /* fixed plugin on the right */
   .fixed-plugin li > a,

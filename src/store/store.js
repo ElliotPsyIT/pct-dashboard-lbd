@@ -64,6 +64,29 @@ function usageParams (state) {
   return usageParams 
 }
 
+//REFACTOR: SET PARAMS FOR AXIOS REQUEST CENTRALLY
+function setParams (format, state) {
+  // IDENTIFY ALL RELEVANT PARAMS FOR OBTAINING DATA, AND FILTERING
+  let coreParams = 
+  'format='         + format +
+  '&staPa='         + state.selectedSite +
+  '&dateRange='     + state.selectedRange 
+  
+  let institutions = state.selectedInstitutions ? 
+                     state.selectedInstitutions.join(',') :
+                     []
+
+  //state.selectedInstitutions.length > 0 ?
+  let optionalParams =
+  (state.selectedProvider ? `&providerSID=${state.selectedProvider}` : '') +
+  (state.selectedInstitutions.length > 0 ? `&institutionSID=${state.selectedInstitutions}` : '')
+
+  // console.log('in setParams, coreParams is: ', coreParams)
+  // console.log('in setParams, institutions is: ', institutions)
+  // console.log('in setParams, optionalParams is: ', optionalParams)
+  return coreParams + optionalParams
+}
+
 // set default whitelisted dateRange for limiting data request size
 const defaultDateRange = 'threemonths' 
 
@@ -121,6 +144,7 @@ const store = new Vuex.Store({
     providerInfo: [],
     providerDetails: [],
     providerPatientDetailsCPT: [],
+    selectedProvider: '',
 
     surveyTotals: [],
     surveyDetails: [],
@@ -957,11 +981,21 @@ const store = new Vuex.Store({
 
     },
     INSTITUTIONS_SELECTED (context, institutions) {
+      // filter by institutions selected
+      //    set the selectedInstitutions in state
       context.state.selectedInstitutions = institutions
+      //    refresh the page -> setParams should now use selectedInstitutions
+      //       in its data queries
+      context.dispatch('REFRESH_ALL_DATA')
+
+      //should we use MUTATIONS FOR SETTING selectedInstitutions instead??
+
+      //context.commit('SET_INSTITUTIONS_SELECTED', institutions)
     },
     PROVIDER_SELECTED (context, provider) {
       // console.log('PROVIDER_SELECTED action changed selectedProvider to: ', provider)
       context.state.selectedProvider = provider     // next step is getting the encounter data filtered by providerSID
+      // respond to selected provider but requesting new filtered data
     },
     PROVIDER_COUNT (context) {
       // console.log('in PROVIDER_COUNT Action, check context here', context)
@@ -1022,13 +1056,17 @@ const store = new Vuex.Store({
       })
 
     },
+
+    /******************** ENCOUNTERS *************** */
     ENCOUNTER_PATIENT_LINE_CHART (context) {
       // console.log('in ENCOUNTER_PATIENT_LINE_CHART Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_patient_line_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'encounter_patient_line_chart'
+      const allparams = setParams(format, context.state)
+
+      // const params = 'format=encounter_patient_line_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got ENCOUNTER_PATIENT_LINE_CHART from server')
         // console.log('ENCOUNTER_PATIENT_LINE_CHART response.data is: ', response.data)
@@ -1039,11 +1077,13 @@ const store = new Vuex.Store({
     }, 
     ENCOUNTER_LINE_CHART (context) {
       // console.log('in ENCOUNTER_LINE_CHART Action, check context here', context)
-          
+      
       const path = 'pct.cgi'
-      const params = 'format=encounter_line_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'encounter_line_chart'
+      const allparams = setParams(format, context.state)
+      
+      // const params = 'format=encounter_line_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got ENCOUNTER_LINE_CHART from server')
         // console.log('ENCOUNTER_LINE_CHART response.data is: ', response.data)
@@ -1055,10 +1095,17 @@ const store = new Vuex.Store({
     ENCOUNTER_COUNT (context) {
       // console.log('in ENCOUNTER_CPT Action, check context here', context)
           
+      // const params = 'format='      + 'encounter_count' +
+      //                '&staPa='      + context.state.selectedSite + 
+      //                '&dateRange='  + context.state.selectedRange
+      
+      // define 'format' for request and set all parameters
       const path = 'pct.cgi'
-      const params = 'format=encounter_count&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'encounter_count'
+      const allparams = setParams(format, context.state)
+      // console.log('Verify ENCOUNTER_COUNT parameters to request data: ', allparams)
+
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got ENCOUNTER_COUNT from server')
         // console.log('ENCOUNTER_COUNT response.data is: ', response.data)
@@ -1071,9 +1118,11 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_cpt&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'encounter_cpt'
+      const allparams = setParams(format, context.state)
+ 
+      // const params = 'format=encounter_cpt&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got consult details from server')
         // console.log('ENCOUNTER_CPT response.data is: ', response.data)
@@ -1086,9 +1135,11 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_cpt_categories_psychotherapy&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'encounter_cpt_categories_psychotherapy'
+      const allparams = setParams(format, context.state)
+ 
+      // const params = 'format=encounter_cpt_categories_psychotherapy&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY details from server')
         // console.log('ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY response.data is: ', response.data)
@@ -1101,9 +1152,11 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT_CATEGORIES Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_cpt_categories&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'encounter_cpt_categories'
+      const allparams = setParams(format, context.state)
+ 
+      // const params = 'format=encounter_cpt_categories&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got ENCOUNTER_CPT_CATEGORIES details from server')
         // console.log('ENCOUNTER_CPT_CATEGORIES response.data is: ', response.data)
@@ -1116,9 +1169,11 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_patient_cpt_categories&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'encounter_patient_cpt_categories'
+      const allparams = setParams(format, context.state)
+ 
+      // const params = 'format=encounter_patient_cpt_categories&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got ENCOUNTER_PATIENT_CPT_CATEGORIES details from server')
         // console.log('ENCOUNTER_PATIENT_CPT_CATEGORIES response.data is: ', response.data)
@@ -1127,6 +1182,8 @@ const store = new Vuex.Store({
       })
 
     },
+
+    /****************** APPOINTMENTS ******************* */
     APPOINTMENT_COUNT (context) {
       // console.log('in APP_COUNTS Action, check context here', context)
           
@@ -1321,7 +1378,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('GET_INSTITIONS action response.data is: ', response.data)
+        console.log('GET_INSTITIONS action') // response.data is: ', response.data)
 
         context.commit('SET_INSTITUTIONS', response.data) 
  
@@ -1576,7 +1633,16 @@ const store = new Vuex.Store({
     SET_INSTITUTIONS(state, institutions) {
 
       console.log('in SET_INSTITUTIONS: ', institutions)
-      state.institutions = institutions
+      // state.institutions = institutions
+      // institutions.map(i => { console.log(i.label)})
+      let sortedInstitutions = institutions.sort(function(a, b) {
+        if (a.label.toLowerCase() < b.label.toLowerCase()) return -1;
+        if (a.label.toLowerCase() > b.label.toLowerCase()) return 1;
+        return 0;
+      })
+      // console.log('sortedInstitutions is: ', sortedInstitutions)
+      
+      state.institutions = sortedInstitutions
 
     },
 

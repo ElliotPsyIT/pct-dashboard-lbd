@@ -5,12 +5,17 @@
 
       <!-- placeholder for provider filter -->
       <fade-transition :duration="duration">
-        <span v-if="showProvider()" class="px-2" >
-          <a class="navbar-brand px-2" href="#" style="color: black; background-color: lightgrey;">{{selectedProvider}}</a>
-        </span>
-         <!-- <span v-if="showInstitution()" class="px-2" >
-          <a class="navbar-brand px-2" href="#" style="color: black; background-color: lightgrey;">{{selectedInstitution}}</a>
+        <!-- <span v-if="showProvider()" class="px-2" > -->
+        <!-- <span v-if="selectedProvider" class="px-2" >
+          <a class="navbar-brand px-2" href="#" 
+             style="color: black; background-color: lightgrey;"
+          >{{selectedProvider}}</a>
         </span> -->
+        <span v-if="institutionsSelected" class="px-2" >
+          <a class="navbar-brand px-2" href="#" 
+             style="color: black; background-color: lightgrey;"
+          >{{capitalizeFirstLetter(currentpage)}} Data Filtered on Page</a>
+        </span>
       </fade-transition>
 
       <button type="button"
@@ -198,21 +203,24 @@
         // console.log('watcher for siteSelected triggered with new value of: ', val)
          NProgress.done()
       },
-      selectedProvider (newVal, oldVal) {
-        // when triggered, if there was a previous provider
-        // and allow the showProvider method to animate in the new provider
-        // console.log('watch on selectedProvider is triggered with: ', this.selectedProvider)
-        // console.log('this is the newVal ', newVal)
-        // console.log('this is the oldVal ', oldVal)
+      // selectedProvider (newVal, oldVal) {
+      //   // when triggered, if there was a previous provider
+      //   // and allow the showProvider method to animate in the new provider
+      //   // console.log('watch on selectedProvider is triggered with: ', this.selectedProvider)
+      //   // console.log('this is the newVal ', newVal)
+      //   // console.log('this is the oldVal ', oldVal)
         
-      }
+      // }
+      
     },
     computed: {
       routeName () {
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
       },
-      ...mapState(['siteNames','dateRanges','selectedSite','selectedRange','selectedProvider']),
+      ...mapState(['siteNames','dateRanges','selectedSite',
+                   'selectedRange','selectedProvider','selectedInstitutions',
+                   'currentpage']),
       siteSelected: {
         get () {
           // return this.$store.selectedSite
@@ -232,6 +240,9 @@
           // this.$store.dispatch('setSelectedRange', range)
           this.setSelectedRange(range)
         }   
+      },
+      institutionsSelected () {
+        return this.selectedInstitutions.length > 0 || false
       }
     },
     data () {
@@ -267,18 +278,18 @@
       }
     },
     methods: {
-      showProvider(val) {
-        // console.log('showProvider is triggered with this selectedProvider: ', this.selectedProvider)
+      // showProvider(val) {
+      //   // console.log('showProvider is triggered with this selectedProvider: ', this.selectedProvider)
 
-        let previousProviderSelected = this.previousProvider 
-        // console.log('previousProviderSelected: ', previousProviderSelected)
-        let newProviderSelected = this.newProvider
-        // console.log('newProviderSelected: ', previousProviderSelected)
-        let pageLoad = !previousProviderSelected  && !newProviderSelected
-        // console.log('pageload: ', pageLoad)        
-        // no previous provider selected - either page load, or new provider selected
-        return this.selectedProvider
-      },
+      //   let previousProviderSelected = this.previousProvider 
+      //   // console.log('previousProviderSelected: ', previousProviderSelected)
+      //   let newProviderSelected = this.newProvider
+      //   // console.log('newProviderSelected: ', previousProviderSelected)
+      //   let pageLoad = !previousProviderSelected  && !newProviderSelected
+      //   console.log('pageload: ', pageLoad)        
+      //   no previous provider selected - either page load, or new provider selected
+      //   return this.selectedProvider
+      // },
       
       ...mapActions(
         ['setSelectedSite','setSelectedRange']

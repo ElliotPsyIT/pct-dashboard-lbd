@@ -1,7 +1,7 @@
 <template>
   <transition name="fade" mode="out-in" >
     <div class="content" :key="selectedSite">
-      <div class="container-fluid" :class="{provider: changeBackgroundColor}">
+      <div class="container-fluid" :class="{filtering: changeBackgroundColor}">
         
         <!-- Section Header -->
         <!-- <div class="row d-flex justify-content-center ">
@@ -705,6 +705,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'encounters',
+ 
   components: {
     Card,
     ChartCard,
@@ -712,6 +713,40 @@ export default {
     VueHighcharts,
     AgGridVue,
     VueFaqAccordion,
+  },
+  beforeMount() { 
+    this.gridOptions = {
+      columnDefs:  this.createColDefs(),
+      rowData: this.rowData, // computed prop
+      suppressPropertyNamesCheck: true
+    }
+    
+    this.gridOptions2 = {
+      columnDefs:  this.createColDefs2(),
+      rowData: this.rowData, // computed prop
+      suppressPropertyNamesCheck: true
+    }
+     
+    // this.gridOptions3 = {
+    //   columnDefs:  this.createColDefs3(),
+    //   rowData: this.rowData, // computed prop
+    //   suppressPropertyNamesCheck: true
+    // }
+    
+  },
+  mounted() {
+    this.ENCOUNTER_COUNT()
+    this.ENCOUNTER_LINE_CHART()
+    this.ENCOUNTER_PATIENT_LINE_CHART()
+    this.ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY()
+    this.ENCOUNTER_CPT_CATEGORIES()
+    this.ENCOUNTER_CPT()
+    this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
+    // call action to signal the active page
+    this.CURRENT_PAGE('encounter')
+    // might be needed to assure institutions are available
+    //    when app is opened and saved station is used
+    this.GET_INSTITUTIONS()
   },
   data() {
     return {
@@ -984,39 +1019,7 @@ export default {
     // },
 
   },
-  beforeMount() { 
-    this.gridOptions = {
-      columnDefs:  this.createColDefs(),
-      rowData: this.rowData, // computed prop
-      suppressPropertyNamesCheck: true
-    }
-    
-    this.gridOptions2 = {
-      columnDefs:  this.createColDefs2(),
-      rowData: this.rowData, // computed prop
-      suppressPropertyNamesCheck: true
-    }
-     
-    // this.gridOptions3 = {
-    //   columnDefs:  this.createColDefs3(),
-    //   rowData: this.rowData, // computed prop
-    //   suppressPropertyNamesCheck: true
-    // }
-    
-  },
-  mounted() {
-    this.ENCOUNTER_COUNT()
-    this.ENCOUNTER_LINE_CHART()
-    this.ENCOUNTER_PATIENT_LINE_CHART()
-    this.ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY()
-    this.ENCOUNTER_CPT_CATEGORIES()
-    this.ENCOUNTER_CPT()
-    this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
-    // call action to signal the active page
-    this.CURRENT_PAGE('encounter')
-    // not needed since REFRESH_DATA is called with each site
-    // this.GET_INSTITUTIONS()
-  },
+
   methods: { 
     ...mapActions([
       'ENCOUNTER_COUNT',
@@ -1191,7 +1194,7 @@ export default {
 </script>
 <style>
 
-  .provider {
+  .filtering {
     background-color: lightgrey;
   }
 

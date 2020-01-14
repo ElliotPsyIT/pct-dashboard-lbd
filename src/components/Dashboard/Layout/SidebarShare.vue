@@ -1,9 +1,11 @@
 <template>
-  <div class="fixed-plugin" style="position: fixed; width: 35px; " v-click-outside="closeDropDown" :class="{hide: !canFilterByProvider}">
-    <div class="dropdown show-dropdown" :class="{show: isOpen}" >
+  <div class="fixed-plugin" style="position: fixed; width: 35px; " v-click-outside="closeDropDown" 
+      :class="{hide: !canFilterByProvider}">
+    <div class="dropdown show-dropdown" :class="{show: isOpen}">
        <!-- PROVIDERS IMAGE -->
-      <div class="image-stack" style="margin-top: 10px; " @click="toggleProviders">
-        <div style="padding-bottom: 5px; border-bottom: 1px dotted;">
+      <div class="image-stack" style="margin-top: 10px; " @click="toggleProviders"
+      >
+        <div style="padding-bottom: 5px; border-bottom: 1px dotted;" >
           <div style="font-size: .7rem;">Filter<br/>By</div>
           <!-- <i class="fa fa-filter"></i> -->
           <!-- <hr/> -->
@@ -44,7 +46,7 @@
 
         <!-- DROPDOWN - INSTITUTIONS -->
         <!-- vue-treeselect widget to allow multiple selections and tags -->
-        <div v-if="chooseSite">
+        <div v-if="isOpen">
           <div style="text-align: center; margin-bottom: 10px;">
             {{ selectedSiteName.StaPa}} {{ selectedSiteName.InstitutionName }} 
           </div>
@@ -82,6 +84,7 @@ import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
+    
     components: {
       Treeselect
     },
@@ -95,22 +98,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       // console.log('SidebarShare mounted and GET_INSTITUTIONS action called!')
     },
     props: ['color', 'image'],
-    computed: {
-      ...mapGetters([
-        // 'siteProviderList',
-        'siteProviders','siteProviderSelected','canFilterByProvider',
-        'siteInstitutions'
-      ]),
-      ...mapState([
-        'currentpage','selectedSite','siteNames','institutions'
-      ]),
-
-      // iDENTIFY THE CURRENT TREESELECT SELECTED SITE(INSTITUTION)
-      selectedSiteName () {
-        console.log('SidebarShare treeseelect selectedSite is: ', this.selected)
-        return this.siteNames.find(o => o.StaPa === this.selectedSite)
-      }
-    },
+    
     data () {
       return {
         //flags for provider and institution
@@ -129,6 +117,39 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         // flags for vue-treeselect
         value: null,
         options: null, // signals delayed root level options - see optionLoader below
+      }
+    },
+    computed: {
+      ...mapState([
+        'currentpage','selectedSite','siteNames','institutions','institutionSidebarShow'
+      ]),
+
+      ...mapGetters([
+        // 'siteProviderList',
+        'siteProviders','siteProviderSelected','canFilterByProvider',
+        'siteInstitutions'
+      ]),
+      
+      // iDENTIFY THE CURRENT TREESELECT SELECTED SITE(INSTITUTION)
+      selectedSiteName () {
+        console.log('SidebarShare treeseelect selectedSite is: ', this.selected)
+        return this.siteNames.find(o => o.StaPa === this.selectedSite)
+      }
+    },
+    watch: {
+      institutionSidebarShow() { //says the filter button has been pushed
+        // sync with chooseSite
+        // this.chooseSite = this.institutionSidebarShow
+        // console.log('in Encounter watch institutionSidebarShow is: ', this.institutionSidebarShow)
+        // console.log('in Encounter watch isOpen is: ', this.isOpen)
+        // console.log('in Encounter watch chooseSite is: ', this.chooseSite)
+        // if(this.chooseSite == true && this.isOpen == true) {
+        //   // sidebar is open, close it
+        //   this.chooseSite = false;
+        // }
+
+        // now call the fn that manages sidebar
+        this.toggleSites()
       }
     },
     methods: {
@@ -167,18 +188,24 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       toggleSites () {
         // console.log('In toggleSites - chooseSite is: ', this.chooseSite)
         // console.log('In toggleSites - isOpen is: ', this.isOpen)
+        // console.log('In toggleSites, this.institutionSidebarShow: ', this.institutionSidebarShow)
 
         if (this.chooseSite == true) {
+        // if (this.institutionSidebarShow == true) {
+
           // toggle the chooseSite flag
-          // console.log('Setting chooseSite and isOpen to false!')
+          console.log('Setting chooseSite and isOpen to false!')
           this.chooseSite = false
           this.isOpen = false
+          // trigger
         } else {
-          // console.log('Setting chooseSite and isOpen to true!')
+          console.log('Setting chooseSite and isOpen to true!')
           // console.log('And setting options to update treeselect!')
           this.options = this.institutions
           this.chooseSite = true
           this.isOpen = true
+          // console.log('In toggleSites - chooseSite updated to: ', this.chooseSite)
+          // console.log('In toggleSites - isOpen updated to: ', this.isOpen)
         }
 
         // Next, disable the Provider sidebar when Site sidebar invoked
@@ -360,14 +387,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     text-align: center;
   }
 
-  .fixed-plugin .fa-cog {
-    color: #FFFFFF;
-    padding: 10px;
-    border-radius: 0 0 6px 6px;
-    width: auto;
-  }
-
-  .fixed-plugin .dropdown-menu {
+   .fixed-plugin .dropdown-menu {
     right: 80px;
     /*left: auto; */
     width: 530px; /*290px - widen sidebar here, and need to modify left in large scale @media query; */
@@ -382,6 +402,14 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     margin-left: auto;
     left: auto;
   }
+
+ .fixed-plugin .fa-cog {
+    color: #FFFFFF;
+    padding: 10px;
+    border-radius: 0 0 6px 6px;
+    width: auto;
+  }
+
 
   .fixed-plugin .fa-circle-thin {
     color: #FFFFFF;
@@ -625,7 +653,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
     .fixed-plugin .dropdown.show .dropdown-menu {
       opacity: 1;
-      /* add here for wider and longer sidebar */
+      /* add here for wider and longer sidebar w/ media query > 992px */
       left: -540px !important; /* widen sidebar from the left */
       height: 500px;
 

@@ -109,11 +109,11 @@ const store = new Vuex.Store({
       consults: false,
       appointments: false,
       encounters: true,
-      providers: true,
+      providers: false,
       surveys: false,
       ebps: false,
     },
-    appVersion: '0.14.3',
+    appVersion: '0.14.4',
     phipii: 0,
     allphipii: [],
     adaccount: "",
@@ -122,6 +122,7 @@ const store = new Vuex.Store({
     
     institutions: [],
     selectedInstitutions: [],
+    institutionSidebarShow: false,
 
     consultDataPie: [],
     consultDataLine: [],
@@ -1353,6 +1354,11 @@ const store = new Vuex.Store({
       }
 
     },
+    INSTITUTIONS_FILTER (context) {
+      // action to show sidebar for selecting/filtering institutions
+      console.log('in INSTITUTIONS_FILTER action!')
+      context.commit('SET_INSTITUTIONS_FILTER')
+    },
     GET_INSTITUTIONS (context) {
       console.log('GET_INSTITUTIONS action called!')
 
@@ -1645,6 +1651,12 @@ const store = new Vuex.Store({
       state.institutions = sortedInstitutions
 
     },
+    SET_INSTITUTIONS_FILTER(state) {
+      // console.log('in SET_INSTITUTIONS_FILTER where state.institutionSidebarShow is: ', state.institutionSidebarShow)
+      // toggle institutionSidebarShow
+      state.institutionSidebarShow = !state.institutionSidebarShow
+      // console.log('in SET_INSTITUTIONS_FILTER and changed state.institutionSidebarShow to: ', state.institutionSidebarShow)
+    }
 
       // SET_CURRENT_CONSULT_COMMENT (state, comments) {
     //   console.log('here I commit the current consult comment, that I will have gotten')

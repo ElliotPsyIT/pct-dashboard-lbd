@@ -1,5 +1,6 @@
 <template>
   <!-- <transition name="fade" mode="out-in"> -->
+  <div>
   <nav class="navbar navbar-expand-lg" style="position: fixed; z-index: 1000; min-width: 100vw; ">
     <div class="container-fluid">
 
@@ -11,11 +12,12 @@
              style="color: black; background-color: lightgrey;"
           >{{selectedProvider}}</a>
         </span> -->
-        <span v-if="institutionsSelected" class="px-2" >
-          <a class="navbar-brand px-2" href="#" 
-             style="color: black; background-color: lightgrey;"
-          >{{capitalizeFirstLetter(currentpage)}} Data Filtered on Page</a>
-        </span>
+        <!-- <span v-if="institutionsSelected" class="px-2" > -->
+        <!-- <span v-if="siteSelected" class="px-2 " >
+          <a class="" href="#" @click="filterInstitutions"
+             style="color: black; background-color: lightgrey; padding: 5px; border-radius: 5px;"
+          >Filter Data for {{capitalizeFirstLetter(currentpage)}}s </a>
+        </span> -->
       </fade-transition>
 
       <button type="button"
@@ -30,8 +32,8 @@
         <span class="navbar-toggler-bar burger-lines"></span>
       </button>
       
-      <div class="collapse navbar-collapse ">
-        <ul class="nav navbar-nav mx-auto py-0">
+      <div class="collapse navbar-collapse" >
+        <ul class="nav navbar-nav py-0">
           <!-- <li class="nav-item">
             <a class="nav-link" href="#" data-toggle="dropdown">
               <i class="nc-icon nc-palette"></i>
@@ -80,13 +82,20 @@
              </div>
            </form>
           </li> -->
+          <!-- <li class="nav-item py-0 mr-2 " :class="{hide: !canFilterByProvider}">
+            <span v-if="siteSelected" class="px-2 "   >
+              <a class="fixed-plugin"  href="#" @click.prevent="filterInstitutions"
+                style="margin-left: 17px; text-decoration: underline; color: black; background-color: lightgrey; padding: 5px; border-radius: 5px; font-size: .7rem; border-style: solid;"
+              >Sites Filter for {{capitalizeFirstLetter(currentpage)}}s </a>
+            </span>
+          </li> -->
           <li class="nav-item py-0 mr-2">
           <form class="form-inline">
             <div class="form-group">  
-              <label for="station">
-                <div class="px-2">
+              <!-- <label for="station"> -->
+                <!-- <div class="px-2">
                   <span class="h5 "><strong>Station</strong></span>  
-                </div>
+                </div> -->
                 <div>
                 <select v-model="siteSelected" class="form-control" id="station">
                   <option value="" disabled>Select Medical Center...</option>
@@ -95,30 +104,37 @@
                   </option>
                 </select>
                 </div>
-              </label>
+              <!-- </label> -->
             </div>
           </form>
           </li>
           <li class="nav-item py-0">
           <form class="form-inline">
             <div class="form-group "> <!-- pt-1 pl-3 ml-4 -->
-              <label for="dataRange">
-                <div class="px-2">
-                  <span class="h5 "><strong>Date Range</strong></span> <!-- pr-3 mb-4 -->
-                </div>
+              <!-- <label for="dataRange"> -->
+                <!-- <div class="px-2">
+                  <span class="h5 "><strong>Date Range</strong></span>
+                </div> -->
                 <div>
                   <select v-model="rangeSelected" class="form-control" id="dateRange">
-                    <option value="" disabled>Select Date Range ...</option>
+                    <option value="" disabled>Select Dates ...</option>
                     <option v-for="range in dateRanges" :value="range.name" :key="range.name">
                         {{ range.dateRange }}
                       </option>
                   </select>
                 </div>
-              </label>
+              <!-- </label> -->
             </div>
           </form>
           </li>
-          </ul>
+          <li>
+             <span v-if="siteSelected" class="px-2 ml-5" :class="{hide: !canFilterByProvider}"  >
+              <a  href="#" @click.prevent="filterInstitutions"
+                style="margin-left: 17px; text-decoration: underline; color: black; background-color: lightgrey; padding: 5px; border-radius: 5px; font-size: .7rem; border-style: solid;"
+              >Sites Filter for {{capitalizeFirstLetter(currentpage)}}s </a>
+             </span>
+          </li>
+        </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="#">
@@ -145,10 +161,17 @@
       </div>
     </div>
   </nav>
-
+  <!-- <nav class="navbar navbar-expand-lg" style="position: fixed; margin-top: 43px; z-index: 1000; min-width: 100vw; ">
+    <span v-if="siteSelected" class="px-2 "   >
+      <a href="#" @click.prevent="filterInstitutions"
+        style="margin-left: 17px; text-decoration: underline; color: black; background-color: lightgrey; padding: 5px; border-radius: 5px; font-size: .7rem; border-style: solid;"
+      >Sites Filter for {{capitalizeFirstLetter(currentpage)}}s </a>
+    </span>
+  </nav> -->
+  </div>
 </template>
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
   import NProgress from 'nprogress'
 
   import {FadeTransition} from 'vue2-transitions'
@@ -221,6 +244,7 @@
       ...mapState(['siteNames','dateRanges','selectedSite',
                    'selectedRange','selectedProvider','selectedInstitutions',
                    'currentpage']),
+      ...mapGetters(['canFilterByProvider']),
       siteSelected: {
         get () {
           // return this.$store.selectedSite
@@ -292,8 +316,13 @@
       // },
       
       ...mapActions(
-        ['setSelectedSite','setSelectedRange']
+        ['setSelectedSite','setSelectedRange','INSTITUTIONS_FILTER']
       ),
+      // trigger action to open sidebar to select/filter institutions
+      filterInstitutions () {
+        console.log('triggered filterInstitutions in TopNavBar to call action INSTITUTIONS_FILTER')
+        this.INSTITUTIONS_FILTER()
+      },
       capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
       },
@@ -326,6 +355,37 @@
     /* .fade-leave-active in <2.1.8 */
   {
     opacity: 0
+  }
+
+   .fixed-plugin {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 150px;
+    /* background: rgba(0, 0, 0, .3); */
+    background: transparent;
+    z-index: 1031;
+    border-radius: 8px 0 0 8px;
+    border-color: grey;
+    border-width: 1px;  
+    border-style: solid none solid solid;
+    text-align: center;
+  }
+
+   .fixed-plugin .dropdown-menu {
+    right: 80px;
+    /*left: auto; */
+    width: 530px; /*290px - widen sidebar here, and need to modify left in large scale @media query; */
+    border-radius: 10px;
+    padding: 10px;
+    overflow: scroll;
+    max-height: 400px;
+  }
+
+  .fixed-plugin .dropdown-menu:after, .fixed-plugin .dropdown-menu:before {
+    right: 10px;
+    margin-left: auto;
+    left: auto;
   }
   
 </style>

@@ -2,15 +2,13 @@
   <div class="fixed-plugin" style="position: fixed; width: 35px; " v-click-outside="closeDropDown" 
       :class="{hide: !canFilterByProvider}">
     <div class="dropdown show-dropdown" :class="{show: isOpen}">
-       <!-- PROVIDERS IMAGE -->
-      <div class="image-stack" style="margin-top: 10px; " @click="toggleProviders"
-      >
+      
+      <!-- PROVIDERS IMAGE -->
+      <!-- <div class="image-stack" style="margin-top: 10px; " @click="toggleProviders">
         <div style="padding-bottom: 5px; border-bottom: 1px dotted;" >
           <div style="font-size: .7rem;">Filter<br/>By</div>
-          <!-- <i class="fa fa-filter"></i> -->
-          <!-- <hr/> -->
         </div>
-        <!-- <div style="cursor: pointer; padding-top: 14px;">
+        <div style="cursor: pointer; padding-top: 14px;">
           <div class="image-stack__item image-stack__item--top">
             <i class="fa fa-user" > </i>
           </div>
@@ -18,24 +16,22 @@
             <i class="fa fa-user" > </i>
           </div>
         </div> 
-        <p style="text-transform: uppercase; font-size: .6rem; font-weight: normal; cursor: pointer;">Staff</p> -->
+        <p style="text-transform: uppercase; font-size: .6rem; font-weight: normal; cursor: pointer;">Staff</p>
+      </div> -->
 
-      </div>
       <!-- INSTIUTION IMAGE -->
-      <div class="image-stack" @click="toggleSites" style="cursor: pointer; padding-top: 10px;">
+      <!-- <div class="image-stack" @click="toggleSites" style="cursor: pointer; padding-top: 10px;">
         <div class="image-stack__item image-stack__item--top">
-          <!-- <i class="fa fa-building fa-2x" > </i> -->
           <i class="fa fa-building" > </i>
         </div>
         <div class="image-stack__item image-stack__item--bottom">
-          <!-- <i class="fa fa-building fa-2x" > </i> -->
           <i class="fa fa-building" > </i>
         </div>
-      </div>
+      </div> -->
       
       <!-- DROPDOWN - PROVIDERS -->
-      <p style="text-transform: uppercase; font-size: .6rem; font-weight: normal; cursor: pointer;">Sites</p>
-      <ul class="dropdown-menu" style="left: -453px !important; width: 440px; margin-top: 10px;">
+      <!-- <p style="text-transform: uppercase; font-size: .6rem; font-weight: normal; cursor: pointer;">Sites</p> -->
+      <ul class="dropdown-menu" style="left: -453px !important; width: 440px; margin-top: 10px; ">
         <div v-if="chooseProvider">
           <li  class="header-title">Providers</li>
           <div v-for="provider in providers" :key="provider.STAFFSID" ref="listProviders">
@@ -46,12 +42,12 @@
 
         <!-- DROPDOWN - INSTITUTIONS -->
         <!-- vue-treeselect widget to allow multiple selections and tags -->
-        <div v-if="isOpen">
-          <div style="text-align: center; margin-bottom: 10px;">
+        <div v-if="isOpen" >
+          <!-- <div style="text-align: center; margin-bottom: 10px; ">
             {{ selectedSiteName.StaPa}} {{ selectedSiteName.InstitutionName }} 
-          </div>
+          </div> -->
           <div >
-            <li style="width: 100%; height: auto; ">
+            <li style="margin-left: 10px; width: 100%; display:inline; vertical-align:middle; border-color: red;  box-shadow:rgba(0, 0, 0, 0);">
               <treeselect
               v-model="value"
               :multiple="true"
@@ -64,11 +60,7 @@
               </treeselect>
             </li>
           </div>
-          <!-- <div> 
-            <button class="btn my-1" @click="filterSites"> 
-                  Filter Data  
-            </button> 
-          </div>  -->
+
         </div>
       </ul>
     </div>
@@ -104,16 +96,16 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         //flags for provider and institution
         chooseProvider: false,
         chooseSite: false,
-        //flag allowing provider/institutions filtering
-        enableProviderIcon: true,
-        //flags for provider selections and deselection
+        enableProviderIcon: true,  // display flag for filtering
+
         selectedProvider: '',
         previousProvider: '',
-        //default for sidebar is closed
-        isOpen: false,
-        // data for selected providers and institutions
         providers: [],
-        institutionsSelected: [],
+
+        isOpen: false,             //default for sidebar is closed
+
+        // data for selected providers and institutions
+        // institutionsSelected: [],
         // flags for vue-treeselect
         value: null,
         options: null, // signals delayed root level options - see optionLoader below
@@ -121,7 +113,8 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     },
     computed: {
       ...mapState([
-        'currentpage','selectedSite','siteNames','institutions','institutionSidebarShow'
+        'currentpage','selectedSite','siteNames','institutions',
+        'institutionSidebarShow'
       ]),
 
       ...mapGetters([
@@ -130,35 +123,44 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         'siteInstitutions'
       ]),
       
-      // iDENTIFY THE CURRENT TREESELECT SELECTED SITE(INSTITUTION)
+      // SELECTED SITE(INSTITUTION) IN TREESELECT
       selectedSiteName () {
-        console.log('SidebarShare treeseelect selectedSite is: ', this.selected)
+        // console.log('SidebarShare treeseelect selectedSite is: ', this.selected)
         return this.siteNames.find(o => o.StaPa === this.selectedSite)
-      }
+      },
+      // CREATE OBJ OF INSTITUTIONS TO USE THEIR NAMES
+      institutionsNames () {
+        // we should also set a list of institution names
+        const arrayToObject = (array, keyField) =>
+          array.reduce((obj, item) => {
+            // console.log('item is: ', item)
+            obj[item[keyField]] = item
+            return obj
+          }, {})
+        
+        return arrayToObject(this.institutions, 'id')
+      },
     },
     watch: {
-      institutionSidebarShow() { //says the filter button has been pushed
-        // sync with chooseSite
-        // this.chooseSite = this.institutionSidebarShow
-        // console.log('in Encounter watch institutionSidebarShow is: ', this.institutionSidebarShow)
-        // console.log('in Encounter watch isOpen is: ', this.isOpen)
-        // console.log('in Encounter watch chooseSite is: ', this.chooseSite)
-        // if(this.chooseSite == true && this.isOpen == true) {
-        //   // sidebar is open, close it
-        //   this.chooseSite = false;
-        // }
+      // VUEX STATE of sidebar show/hide status when Site Filter Clicked
+      institutionSidebarShow() { 
 
-        // now call the fn that manages sidebar
+        // trigger show/hide sidebar handler
         this.toggleSites()
       }
     },
     methods: {
       ...mapActions([
-          'PROVIDER_INFO','PROVIDER_SELECTED','GET_INSTITUTIONS',
-          'INSTITUTIONS_SELECTED'
+          // PROVIDER
+          'PROVIDER_INFO','PROVIDER_SELECTED',
+          // SITES
+          'GET_INSTITUTIONS',
+          'INSTITUTIONS_SELECTED','INSTITUTIONS_FILTER',
         ]), 
 
-      // treeselect API for asynch loading (institutions for Station)
+      /*
+          INSTITUTION/SITE AND TREESELECT
+      */
       loadOptions({ action, parentNode, callback}) {
         if (action === LOAD_ROOT_OPTIONS) {
           // this is the delayed load of the treeselect options 
@@ -169,51 +171,60 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         }
       },
 
-      // Collect the Provider Names for current HCS station to display
-      providerlist () {
-        // console.log('providerlist method was called!')
-        this.providers = [...new Set(this.siteProviders)]
-      // console.log('in providersList after uniqued and providers is: ', this.providers)
-        this.enableProviderIcon = this.canFilterByProvider
-        // console.log('in SidebarShare enableProvider is: ', this.enableProviderIcon)
-        // console.log('chooseSite is: ', this.chooseSite)
-        // console.log('chooseProvider is: ', this.chooseProvider)
+      // SELECTE SITES click handler (TREESELECT) to VUEX save selected site(s)
+      selectedInstitutions (institutionSIDs) {
+        // create the selected institution names
+        let names = institutionSIDs.map(sid => this.institutionsNames[sid].label)
+        
+        // build object of arrays to send to central VUEX state
+        let institutionsChoosen = { 'sids': institutionSIDs, 'names': names}
+
+        // VUEX action to  store selected sites
+        this.INSTITUTIONS_SELECTED(institutionsChoosen) 
       },
-      filterSites () {
-        // obtain the select sites for submission to filter data
-        // call an action that will use these sites
-        console.log('In filterSites - selected these institutions: ', this.institutionsSelected)
+
+      // VUE CLICK AWAY - click handler
+      closeDropDown (e) { // from cick_away        
+        // do not consider the site filter button click as a 'click away'
+        if (e.srcElement.name === 'siteFilterClick') return
+
+        // usual case, close the sidebar
+        this.isOpen = false
+
+        // tell sidebar provider and site selection flags 
+        // it's closed
+        // this.chooseProvider = false
+        // this.chooseSite = false
+
       },
-      // Site Icon click handler to show/hide the Institution/Site sidebar
+
+      // Institution/Site click handler to show/hide sidebar
       toggleSites () {
-        // console.log('In toggleSites - chooseSite is: ', this.chooseSite)
-        // console.log('In toggleSites - isOpen is: ', this.isOpen)
-        // console.log('In toggleSites, this.institutionSidebarShow: ', this.institutionSidebarShow)
+               
+        // load institutions after togling
+        this.options = this.institutions
 
-        if (this.chooseSite == true) {
-        // if (this.institutionSidebarShow == true) {
-
-          // toggle the chooseSite flag
-          console.log('Setting chooseSite and isOpen to false!')
-          this.chooseSite = false
-          this.isOpen = false
-          // trigger
-        } else {
-          console.log('Setting chooseSite and isOpen to true!')
-          // console.log('And setting options to update treeselect!')
-          this.options = this.institutions
-          this.chooseSite = true
-          this.isOpen = true
-          // console.log('In toggleSites - chooseSite updated to: ', this.chooseSite)
-          // console.log('In toggleSites - isOpen updated to: ', this.isOpen)
-        }
+        // just toggle isOpen to show/hide
+        this.isOpen = !this.isOpen
 
         // Next, disable the Provider sidebar when Site sidebar invoked
-        this.chooseProvider = false
+        // this.chooseProvider = false
 
       },
 
-      // Provider Icon click handler to show/hide the Provider sidebar
+      /*
+          PROVIDER AND TREESELECT
+      */
+      // Provider Names to display
+      providerlist () {
+        // list of provider uniques
+        this.providers = [...new Set(this.siteProviders)]
+        
+        // Privider Icon Show/Hide
+        this.enableProviderIcon = this.canFilterByProvider
+
+      },
+      // Provider Icon click handler to show/hide the sidebar
       toggleProviders () {
        // First, management the Provider sidebar open/close
        if (this.chooseProvider == true) {
@@ -223,10 +234,6 @@ import { mapState, mapGetters, mapActions } from 'vuex'
           this.chooseProvider = true
           this.isOpen = true
         }
-        // console.log('clicked toggleDropDown')
-        // console.log('this.provider is: ', this.provider)
-        // console.log('this.previousProvider is: ', this.previousProvider)
-        //identify list of providers
         
         // Next, disable the Site sidebar when Provider  is invoked
         this.chooseSite = false
@@ -234,17 +241,6 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         // Now, call providerlist to collect/display Stations providers
         this.providerlist()
  
-      },
-      // Treeselect Click Handler for saving selected site(s)
-      selectedInstitutions (institutionSIDs) {
-        // console.log('selected site InstitutinoName: ', this.selectedSiteName.InstitutionName)
-        // console.log('selected site StaPa: ', this.selectedSiteName.StaPa)
-        console.log('institutions being selected: ', institutionSIDs)
-        this.institutionsSelected = institutionSIDs
-
-        // call action to pass in institutionsSelected to store
-        //    and trigger a page refresh that updates all data
-        this.INSTITUTIONS_SELECTED(this.institutionsSelected) 
       },
 
       // Provider Filter mini-application work flow
@@ -295,25 +291,21 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         })
         }
       },
-      // In progress, only need if button needed to go to site level
-      uncheckAll () { 
-        this.PROVIDER_SELECTED(null)
-        this.selectedProvider = null
-      },
-      closeDropDown () { 
-        // if user clicks away from sidebar, close it
-        this.isOpen = false
-        // then, tell the sidebar provider and site selection flags it's closed
-        this.chooseProvider = false
-        this.chooseSite = false
-      },
 
-      // (3 METHODS from original sidebar options) Change Image or Background Color 
+      /*
+        ORIGIN SIDEBAR METHODS 
+      */
+      //  Change Image or Background Color 
       toggleList (list, itemToActivate) {
         list.forEach((listItem) => {
           listItem.active = false
         })
         itemToActivate.active = true
+      },
+      // In progress, only need if button needed to go to site level
+      uncheckAll () { 
+        this.PROVIDER_SELECTED(null)
+        this.selectedProvider = null
       },
       changeSidebarBackground (item) {
         this.$emit('update:color', item.color)
@@ -381,20 +373,27 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     background: transparent;
     z-index: 1031;
     border-radius: 8px 0 0 8px;
-    border-color: grey;
+    border-color: grey; /* border color on icon for sidebarshare */
     border-width: 1px;  
-    border-style: solid none solid solid;
+    border-style: none none none none; /* border on icon for sidebarshare */
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0); /* clear the box shadow */
     text-align: center;
   }
 
    .fixed-plugin .dropdown-menu {
     right: 80px;
     /*left: auto; */
-    width: 530px; /*290px - widen sidebar here, and need to modify left in large scale @media query; */
+    
+    /* Widen sidebar here * 
+    /* Also modify left in large scale @media query; */
+    width: 530px; 
     border-radius: 10px;
     padding: 10px;
-    overflow: scroll;
-    max-height: 400px;
+    overflow: hidden;
+    background: transparent;
+    max-height: 300px;
+    border-color: transparent;
+   
   }
 
   .fixed-plugin .dropdown-menu:after, .fixed-plugin .dropdown-menu:before {
@@ -642,7 +641,8 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       transform: translateY(-50%);
       top: 27px;
       opacity: 0;
-
+      border-color: transparent;
+      box-shadow: 1px 2px 3px rgba(0, 0, 0, 0); /* clear the box shadow */
       transform-origin: 0 0;
     }
 
@@ -656,6 +656,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       /* add here for wider and longer sidebar w/ media query > 992px */
       left: -540px !important; /* widen sidebar from the left */
       height: 500px;
+      background: transparent;
 
       -webkit-transform: translateY(-50%);
       -moz-transform: translateY(-50%);

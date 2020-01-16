@@ -122,6 +122,7 @@ const store = new Vuex.Store({
     
     institutions: [],
     selectedInstitutions: [],
+    selectedInstitutionsNames: [],
     institutionSidebarShow: false,
 
     consultDataPie: [],
@@ -982,16 +983,19 @@ const store = new Vuex.Store({
 
     },
     INSTITUTIONS_SELECTED (context, institutions) {
-      // filter by institutions selected
-      //    set the selectedInstitutions in state
-      context.state.selectedInstitutions = institutions
-      //    refresh the page -> setParams should now use selectedInstitutions
-      //       in its data queries
-      context.dispatch('REFRESH_ALL_DATA')
+      // these selected institutions is an object with sids and names properties 
 
       //should we use MUTATIONS FOR SETTING selectedInstitutions instead??
-
       //context.commit('SET_INSTITUTIONS_SELECTED', institutions)
+      
+      // console.log('in INSTITUTIONS_SELECTED, institutions are: ', institutions)
+      //    set the selectedInstitutions in state
+      context.state.selectedInstitutions = institutions['sids'] // replace with institutions.sids
+      context.state.selectedInstitutionsNames = institutions['names']
+
+      //    refresh the page -> setParams should now use selectedInstitutions
+      context.dispatch('REFRESH_ALL_DATA')
+
     },
     PROVIDER_SELECTED (context, provider) {
       // console.log('PROVIDER_SELECTED action changed selectedProvider to: ', provider)
@@ -1356,11 +1360,11 @@ const store = new Vuex.Store({
     },
     INSTITUTIONS_FILTER (context) {
       // action to show sidebar for selecting/filtering institutions
-      console.log('in INSTITUTIONS_FILTER action!')
+      // console.log('in INSTITUTIONS_FILTER action!')
       context.commit('SET_INSTITUTIONS_FILTER')
     },
     GET_INSTITUTIONS (context) {
-      console.log('GET_INSTITUTIONS action called!')
+      // console.log('GET_INSTITUTIONS action called!')
 
       const path = 'pct.cgi'
       // need StaPa
@@ -1379,12 +1383,12 @@ const store = new Vuex.Store({
       '&domain=' + domain 
       
       //verify params
-      // console.log('Call for institution data params: ', params)
-      // console.log('path and params: ', `${path}?${params}`)
+      console.log('Call for institution data params: ', params)
+      console.log('path and params: ', `${path}?${params}`)
 
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('GET_INSTITIONS action') // response.data is: ', response.data)
+        console.log('GET_INSTITUTIONS action') // response.data is: ', response.data)
 
         context.commit('SET_INSTITUTIONS', response.data) 
  
@@ -1646,9 +1650,13 @@ const store = new Vuex.Store({
         if (a.label.toLowerCase() > b.label.toLowerCase()) return 1;
         return 0;
       })
-      // console.log('sortedInstitutions is: ', sortedInstitutions)
       
+      // what are these institutions at this point
+      // console.log('sortedInstitutions: ', sortedInstitutions)
       state.institutions = sortedInstitutions
+
+    },
+    SET_INSTITUTIONS_NAME(state, institutions) {
 
     },
     SET_INSTITUTIONS_FILTER(state) {

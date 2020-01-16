@@ -2,12 +2,15 @@
   <transition name="fade" mode="out-in" >
     <div class="content" :key="selectedSite">
       <div class="container-fluid" :class="{filtering: changeBackgroundColor}">
-        
-        <!-- Section Header -->
-        <!-- <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">No Show & Cancel Summary Stats</h4>
-        </div> -->
-      Scroll Position {{scrollPosition}}
+         Scroll Position {{scrollPosition}}
+
+        <!-- Show Filtered Sites -->
+        <div v-if="changeBackgroundColor">
+          <div class="row d-flex justify-content-center " style="position: fixed; z-index: 500;">
+            <div style="font-size: .7rem; border: solid 1px grey;">{{ selectedInstitutionsNames }}</div>
+          </div>
+        </div>
+     
       
         <!-- <div class="row d-flex justify-content-center"> -->
 
@@ -886,7 +889,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'selectedSite', 'selectedRange', 'selectedInstitutions'
+      'selectedSite', 'selectedRange', 'selectedInstitutions','selectedInstitutionsNames',
+      'institutionSidebarShow',
     ]),
     ...mapGetters([
       'siteEncounterTotal', // all distinct visitsid w/ CPT filtering
@@ -1030,7 +1034,8 @@ export default {
       'ENCOUNTER_CPT',
       'ENCOUNTER_PATIENT_CPT_CATEGORIES',
       'CURRENT_PAGE',
-      'GET_INSTITUTIONS'
+      'GET_INSTITUTIONS',
+      'INSTITUTIONS_FILTER',
 
         ]),
     formatNumber(num) {

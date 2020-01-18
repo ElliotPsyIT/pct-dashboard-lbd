@@ -113,8 +113,8 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     },
     computed: {
       ...mapState([
-        'currentpage','selectedSite','siteNames','institutions',
-        'institutionSidebarShow'
+        'currentpage','selectedSite','selectedRange', 'siteNames','institutions',
+        'institutionSidebarShow',
       ]),
 
       ...mapGetters([
@@ -147,6 +147,25 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
         // trigger show/hide sidebar handler
         this.toggleSites()
+      },
+      selectedSite () {
+        // TRIGGER RESET OF SELECTED SITES ON TREESELECT
+
+        // FIRST RESET LISTED/SELECTED INSTITUTIONS (TWO-WAY BINDING)
+        this.value.length = 0
+        
+        // CREATE SELECTED INSTITUTIONS OBJ 
+        // from selectedInstitutions obj makeup
+        let sids = new Array()
+        let names = new Array()
+        let institutionsChoosen = { 'sids': sids, 'names': names }
+        
+        /*
+        SEND VUEX MESSAGE TO RESET SELECTED INSTITUTIONS
+           THAT WILL TRIGGER CURRENT PAGE TO RETURN TO NORMAL BACKGROUND
+        */
+        this.INSTITUTIONS_SELECTED(institutionsChoosen) 
+      
       }
     },
     methods: {
@@ -160,6 +179,9 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
       /*
           INSTITUTION/SITE AND TREESELECT
+
+          TODO: WHEN NEW STATION SELECTED, RE-INITIALIZE TREESELECT
+
       */
       loadOptions({ action, parentNode, callback}) {
         if (action === LOAD_ROOT_OPTIONS) {
@@ -171,16 +193,24 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         }
       },
 
-      // SELECTE SITES click handler (TREESELECT) to VUEX save selected site(s)
-      selectedInstitutions (institutionSIDs) {
+      // SELECT SITES click handler (TREESELECT) to VUEX save selected site(s)
+      selectedInstitutions (institutionSIDs) { // array of SIDs
+        console.log('in treeselect selectedInstitution click handler, monitoring institutionsSIDs: ', institutionSIDs)
+        
         // create the selected institution names
         let names = institutionSIDs.map(sid => this.institutionsNames[sid].label)
         
         // build object of arrays to send to central VUEX state
         let institutionsChoosen = { 'sids': institutionSIDs, 'names': names}
 
-        // VUEX action to  store selected sites
+        // VUEX action to  store selected INSTITUTIONS
         this.INSTITUTIONS_SELECTED(institutionsChoosen) 
+      },
+
+      // EXPERIMENTAL METHOD TO RESET-TREESELECT
+      resetInstitutions () {
+        // reset treeselect w/ call selectedInstitutions with empty array
+        this.selectedInstitutions([]);
       },
 
       // VUE CLICK AWAY - click handler

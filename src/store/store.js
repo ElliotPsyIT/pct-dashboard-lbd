@@ -988,7 +988,7 @@ const store = new Vuex.Store({
       //should we use MUTATIONS FOR SETTING selectedInstitutions instead??
       //context.commit('SET_INSTITUTIONS_SELECTED', institutions)
       
-      // console.log('in INSTITUTIONS_SELECTED, institutions are: ', institutions)
+      console.log('in INSTITUTIONS_SELECTED, institutions are: ', institutions)
       //    set the selectedInstitutions in state
       context.state.selectedInstitutions = institutions['sids'] // replace with institutions.sids
       context.state.selectedInstitutionsNames = institutions['names']
@@ -1383,12 +1383,12 @@ const store = new Vuex.Store({
       '&domain=' + domain 
       
       //verify params
-      console.log('Call for institution data params: ', params)
-      console.log('path and params: ', `${path}?${params}`)
+      // console.log('Call for institution data params: ', params)
+      // console.log('path and params: ', `${path}?${params}`)
 
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('GET_INSTITUTIONS action') // response.data is: ', response.data)
+        // console.log('GET_INSTITUTIONS action') // response.data is: ', response.data)
 
         context.commit('SET_INSTITUTIONS', response.data) 
  
@@ -1399,7 +1399,10 @@ const store = new Vuex.Store({
       })
     },
     setSelectedSite (context, site) {
-      // console.log('setSelectedSite triggered')
+      console.log('STATION setSelectedSite triggered')
+      // SOMEHOW CALL AN ACTION TO SET A FLAG TO SIGNAL TO
+      // SIDEBARSHARE THAT IT NEEDS TO RESET THE TREESELECT
+
       // console.log('route.path is: ', context.state.route.path)
       context.commit('SET_SELECTED_SITE', site)
 
@@ -1654,9 +1657,6 @@ const store = new Vuex.Store({
       // what are these institutions at this point
       // console.log('sortedInstitutions: ', sortedInstitutions)
       state.institutions = sortedInstitutions
-
-    },
-    SET_INSTITUTIONS_NAME(state, institutions) {
 
     },
     SET_INSTITUTIONS_FILTER(state) {

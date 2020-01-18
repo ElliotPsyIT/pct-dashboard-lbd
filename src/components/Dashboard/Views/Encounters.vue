@@ -7,7 +7,14 @@
         <!-- Show Filtered Sites -->
         <div v-if="changeBackgroundColor">
           <div class="row d-flex justify-content-center " style="position: fixed; z-index: 500;">
-            <div style="font-size: .7rem; border: solid 1px grey;">{{ selectedInstitutionsNames }}</div>
+            <div style="font-size: .7rem; border: solid 1px grey; ">
+                {{ selectedInstitutionsNames }}
+            </div>
+            <!-- <div >
+              <span v-for="site in selectedInstitutionsNames" :key="site" style="font-size: .7rem; "> 
+              {{ site }} + 
+              </span>
+            </div> -->
           </div>
         </div>
      
@@ -751,6 +758,143 @@ export default {
     //    when app is opened and saved station is used
     this.GET_INSTITUTIONS()
   },
+  
+  computed: {
+    ...mapState([
+      'selectedSite', 'selectedRange', 'selectedInstitutions',
+      'selectedInstitutionsNames', 'institutionSidebarShow',
+    ]),
+    ...mapGetters([
+      'siteEncounterTotal', // all distinct visitsid w/ CPT filtering
+      'siteEncounterPatientTotal', // all distinct patientSID w/ CPT filtering
+      'siteEncounterLineChartSeries',
+      'siteEncounterPatientLineChartSeries',
+
+      // 'siteEncounterApptClinicNoShowTotal',
+      // 'siteEncounterApptCancelNoShowPieChart',
+      // 'siteEncounterApptNoShowTotal',
+      // 'siteEncounterApptCancelTotal',
+      'siteEncounterApptTotalStr', // for display
+      // 'siteEncounterApptTotal', // for computation
+      
+      'siteEncounterCPTTotal',
+      'siteEncounterCPTCategories',
+      'siteEncounterCPTIndividual',
+      'siteEncounterCPTGroup',
+      'siteEncounterCPTGroupEducation',
+      'siteEncounterCPTAssessment',
+      'siteEncounterCPTTelephone',
+      'siteEncounterCPTProlongedService',
+      'siteEncounterCPTPatientsIndOnly',
+      'siteEncounterCPTPatientsGrpOnly',
+      'siteEncounterCPTPatientsBoth',
+
+      'siteProviderSelected',
+      
+    ]),
+    scrollPosition () {
+      // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+      console.log('window.pageYOffset: ', window.pageYOffset)    
+    },
+    changeBackgroundColor () {
+        // console.log('in changeBackgroundColor siteProviderSelected is: ', this.siteProviderSelected)
+        // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
+        return this.siteProviderSelected || this.selectedInstitutions.length > 0 || false
+    },      
+    siteEncounterCPTIndividualPercent() {
+      let percent = (+this.siteEncounterCPTIndividual / +this.siteEncounterTotal) * 100
+      return precise_round(percent, 1)
+    },
+    siteEncounterCPTGroupPercent() {
+      let percent = (+this.siteEncounterCPTGroup / +this.siteEncounterTotal) * 100
+      return precise_round(percent, 1)
+    },
+    // siteEncounterAppNoShowPercent () {
+    //   return Math.round((this.siteEncounterApptNoShowTotal/this.siteEncounterTotal) * 100)
+    // },
+
+    // siteEncounterAppCancelPercent () {
+    //   return Math.round((this.siteEncounterApptCancelTotal/this.siteEncounterTotal) * 100)
+    //   // return precise_round((this.siteEBPSessionsPECPT/this.siteALLSessions) * 100, 1) 
+    // },
+
+    // pieChartOptions () {
+    //   return {
+    //     chart:      { type: "pie", 
+    //                   options3d: { enabled: true, alpha: 45 }},
+    //     title:      { text: 'Cancel NoShow Totals' },
+    //     subtitle:   { text: 'Hover over sections for Patient data' },
+    //     credits:    { enabled: false },
+    //     plotOptions: { pie: { innerSize: 100, depth: 45 },
+    //                    series: { allowPointSelect: true }},
+    //     series: [
+    //       {
+    //         name: "patient totals",
+    //         events: {
+    //             click: function (event) {
+    //               console.log('pie slice clicked, here is event: ', event)
+    //               let points = this.chart.getSelectedPoints()
+    //               console.log('getSelectedPoints: ', typeof points[0])
+    //             }
+    //         },
+    //         data: this.siteEncounterApptCancelNoShowPieChart,
+    //         dataLabels: {
+    //           formatter: function () {
+    //             // console.log('this.point is: ', this.point)
+    //             return this.point.name + ':<br/>' + '(' + this.y + ')'
+    //             // return `${this.point.name}:<br/>(${this.y})`
+    //           }
+    //         }
+    //       }
+    //     ]
+    //   }
+    // },
+    lineChartOptions () {
+      return {
+        chart: {  type: "spline" },
+        title: {  text: 'Encounters and Unique Patients' },
+        subtitle: {  text: "Monthly Counts" },
+        xAxis: {
+          categories: this.siteEncounterLineChartSeries.months
+        },
+        yAxis: {
+          title: { text: "Monthly Data" },
+          labels: {
+            formatter: function() { return this.value; }
+          }
+        },
+        tooltip: { crosshairs: true, shared: true },
+        credits: { enabled: false },
+        plotOptions: {
+          spline: {
+            marker: { radius: 4, lineColor: "#666666", lineWidth: 1 }
+          },
+          series: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        },
+        series: [{
+          name: 'Monthly Encounters',
+          data: this.siteEncounterLineChartSeries.series
+        },{
+          name: 'Monthly Patients',
+          data: this.siteEncounterPatientLineChartSeries.series
+        }]
+      }
+    },
+    rowData () {
+      return this.siteEncounterCPTTotal // filters when site changes
+    },
+    rowData2 () {
+      return this.siteEncounterCPTCategories // filters when site changes
+    },
+    // rowData3 () {
+    //   return this.siteEncounterApptClinicNoShowTotal // filters when site changes    
+    // },
+
+  },
   data() {
     return {
       gridOptions: null,
@@ -887,143 +1031,6 @@ export default {
       ]
     }
   },
-  computed: {
-    ...mapState([
-      'selectedSite', 'selectedRange', 'selectedInstitutions','selectedInstitutionsNames',
-      'institutionSidebarShow',
-    ]),
-    ...mapGetters([
-      'siteEncounterTotal', // all distinct visitsid w/ CPT filtering
-      'siteEncounterPatientTotal', // all distinct patientSID w/ CPT filtering
-      'siteEncounterLineChartSeries',
-      'siteEncounterPatientLineChartSeries',
-
-      // 'siteEncounterApptClinicNoShowTotal',
-      // 'siteEncounterApptCancelNoShowPieChart',
-      // 'siteEncounterApptNoShowTotal',
-      // 'siteEncounterApptCancelTotal',
-      'siteEncounterApptTotalStr', // for display
-      // 'siteEncounterApptTotal', // for computation
-      
-      'siteEncounterCPTTotal',
-      'siteEncounterCPTCategories',
-      'siteEncounterCPTIndividual',
-      'siteEncounterCPTGroup',
-      'siteEncounterCPTGroupEducation',
-      'siteEncounterCPTAssessment',
-      'siteEncounterCPTTelephone',
-      'siteEncounterCPTProlongedService',
-      'siteEncounterCPTPatientsIndOnly',
-      'siteEncounterCPTPatientsGrpOnly',
-      'siteEncounterCPTPatientsBoth',
-
-      'siteProviderSelected',
-      
-    ]),
-    scrollPosition () {
-      // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
-      console.log('window.pageYOffset: ', window.pageYOffset)    
-    },
-    changeBackgroundColor () {
-        // console.log('in changeBackgroundColor siteProviderSelected is: ', this.siteProviderSelected)
-        // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
-        return this.siteProviderSelected || this.selectedInstitutions.length > 0 || false
-    },      
-    siteEncounterCPTIndividualPercent() {
-      let percent = (+this.siteEncounterCPTIndividual / +this.siteEncounterTotal) * 100
-      return precise_round(percent, 1)
-    },
-    siteEncounterCPTGroupPercent() {
-      let percent = (+this.siteEncounterCPTGroup / +this.siteEncounterTotal) * 100
-      return precise_round(percent, 1)
-    },
-    // siteEncounterAppNoShowPercent () {
-    //   return Math.round((this.siteEncounterApptNoShowTotal/this.siteEncounterTotal) * 100)
-    // },
-
-    // siteEncounterAppCancelPercent () {
-    //   return Math.round((this.siteEncounterApptCancelTotal/this.siteEncounterTotal) * 100)
-    //   // return precise_round((this.siteEBPSessionsPECPT/this.siteALLSessions) * 100, 1) 
-    // },
-
-    // pieChartOptions () {
-    //   return {
-    //     chart:      { type: "pie", 
-    //                   options3d: { enabled: true, alpha: 45 }},
-    //     title:      { text: 'Cancel NoShow Totals' },
-    //     subtitle:   { text: 'Hover over sections for Patient data' },
-    //     credits:    { enabled: false },
-    //     plotOptions: { pie: { innerSize: 100, depth: 45 },
-    //                    series: { allowPointSelect: true }},
-    //     series: [
-    //       {
-    //         name: "patient totals",
-    //         events: {
-    //             click: function (event) {
-    //               console.log('pie slice clicked, here is event: ', event)
-    //               let points = this.chart.getSelectedPoints()
-    //               console.log('getSelectedPoints: ', typeof points[0])
-    //             }
-    //         },
-    //         data: this.siteEncounterApptCancelNoShowPieChart,
-    //         dataLabels: {
-    //           formatter: function () {
-    //             // console.log('this.point is: ', this.point)
-    //             return this.point.name + ':<br/>' + '(' + this.y + ')'
-    //             // return `${this.point.name}:<br/>(${this.y})`
-    //           }
-    //         }
-    //       }
-    //     ]
-    //   }
-    // },
-    lineChartOptions () {
-      return {
-        chart: {  type: "spline" },
-        title: {  text: 'Encounters and Unique Patients' },
-        subtitle: {  text: "Monthly Counts" },
-        xAxis: {
-          categories: this.siteEncounterLineChartSeries.months
-        },
-        yAxis: {
-          title: { text: "Monthly Data" },
-          labels: {
-            formatter: function() { return this.value; }
-          }
-        },
-        tooltip: { crosshairs: true, shared: true },
-        credits: { enabled: false },
-        plotOptions: {
-          spline: {
-            marker: { radius: 4, lineColor: "#666666", lineWidth: 1 }
-          },
-          series: {
-            dataLabels: {
-              enabled: true
-            }
-          }
-        },
-        series: [{
-          name: 'Monthly Encounters',
-          data: this.siteEncounterLineChartSeries.series
-        },{
-          name: 'Monthly Patients',
-          data: this.siteEncounterPatientLineChartSeries.series
-        }]
-      }
-    },
-    rowData () {
-      return this.siteEncounterCPTTotal // filters when site changes
-    },
-    rowData2 () {
-      return this.siteEncounterCPTCategories // filters when site changes
-    },
-    // rowData3 () {
-    //   return this.siteEncounterApptClinicNoShowTotal // filters when site changes    
-    // },
-
-  },
-
   methods: { 
     ...mapActions([
       'ENCOUNTER_COUNT',

@@ -71,10 +71,6 @@ function setParams (format, state) {
   'format='         + format +
   '&staPa='         + state.selectedSite +
   '&dateRange='     + state.selectedRange 
-  
-  let institutions = state.selectedInstitutions ? 
-                     state.selectedInstitutions.join(',') :
-                     []
 
   //state.selectedInstitutions.length > 0 ?
   let optionalParams =
@@ -109,7 +105,7 @@ const store = new Vuex.Store({
       consults: false,
       appointments: false,
       encounters: true,
-      providers: false,
+      providers: true,
       surveys: false,
       ebps: false,
     },
@@ -983,7 +979,8 @@ const store = new Vuex.Store({
 
     },
     INSTITUTIONS_SELECTED (context, institutions) {
-      // these selected institutions is an object with sids and names properties 
+      // THIS NEEDS TO SIMPLY HANDLE SIDS
+      //    NAMES SHOULD BE MANAGED ELSEWHERE
 
       //should we use MUTATIONS FOR SETTING selectedInstitutions instead??
       //context.commit('SET_INSTITUTIONS_SELECTED', institutions)
@@ -997,6 +994,8 @@ const store = new Vuex.Store({
       context.dispatch('REFRESH_ALL_DATA')
 
     },
+
+    /* PROVIDERS */
     PROVIDER_SELECTED (context, provider) {
       // console.log('PROVIDER_SELECTED action changed selectedProvider to: ', provider)
       context.state.selectedProvider = provider     // next step is getting the encounter data filtered by providerSID
@@ -1006,9 +1005,12 @@ const store = new Vuex.Store({
       // console.log('in PROVIDER_COUNT Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=provider_count&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      // const params = 'format=provider_count&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      const format = 'provider_count'
+      const allparams = setParams(format, context.state)
+
+      axios.get(`${path}?${allparams}`)
+      // axios.get(`${path}?${params}`)
       .then(response => { 
         // console.log('got PROVIDER_COUNT from server')
         // console.log('response.data is: ', response.data)
@@ -1019,11 +1021,12 @@ const store = new Vuex.Store({
     },
     PROVIDER_DETAILS (context) {
       // console.log('in PROVIDER_DETAILS Action, check context here', context)
-                
       const path = 'pct.cgi'
-      const params = 'format=provider_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      // const params = 'format=provider_count&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      const format = 'provider_details'
+      const allparams = setParams(format, context.state)
+
+      axios.get(`${path}?${allparams}`)                
       .then(response => { 
         // console.log('got consult details from server')
         // console.log('response.data is: ', response.data)
@@ -1036,9 +1039,11 @@ const store = new Vuex.Store({
       // console.log('in PROVIDER_INFO Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=provider_info&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'provider_info'
+      // const params = 'format=provider_info&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      const allparams = setParams(format, context.state)
+      
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got PROVIDER_INFO from server')
         // console.log('response.data is: ', response.data)
@@ -1051,9 +1056,11 @@ const store = new Vuex.Store({
       // console.log('in PROVIDER_PATIENT_DETAILS_CPT Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=provider_patient_details_cpt&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'provider_patient_details_cpt'
+      // const params = 'format=provider_patient_details_cpt&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      const allparams = setParams(format, context.state)
+
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got provider_patient_details_cpt from server', response.data)
         // console.log('check context before commit: ', context)
@@ -1359,8 +1366,8 @@ const store = new Vuex.Store({
 
     },
     INSTITUTIONS_FILTER (context) {
-      // action to show sidebar for selecting/filtering institutions
-      // console.log('in INSTITUTIONS_FILTER action!')
+
+      //TRIGGER FLAGE FOR SIDEBAR SHOW/HIDE TOGGLE
       context.commit('SET_INSTITUTIONS_FILTER')
     },
     GET_INSTITUTIONS (context) {
@@ -1375,7 +1382,6 @@ const store = new Vuex.Store({
       let route = context.state.route.path
       let domain = route.split("/").pop()
 
-      // console.log('getting user, axios get: ', `${path}?${params}`)
       // run this during usual dev
       const params = 'format=get_institutions' +
       '&staPa=' + staPa + 
@@ -1388,7 +1394,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${params}`)
       .then(response => { 
-        // console.log('GET_INSTITUTIONS action') // response.data is: ', response.data)
+        console.log('IN GET_INSTITUTIONS action') //: response.data is: ', response.data)
 
         context.commit('SET_INSTITUTIONS', response.data) 
  
@@ -1644,18 +1650,29 @@ const store = new Vuex.Store({
       state.allphipii = permissionAllSites
     },
     SET_INSTITUTIONS(state, institutions) {
-
       console.log('in SET_INSTITUTIONS: ', institutions)
-      // state.institutions = institutions
-      // institutions.map(i => { console.log(i.label)})
+
+      // FIRST SORT INSTITUTIONS BY NAME FOR TREESELECT USE
+      // IS AWARE OF THE FORMAT OF INSTITUTINOS COMING FROM DB SERVER
       let sortedInstitutions = institutions.sort(function(a, b) {
         if (a.label.toLowerCase() < b.label.toLowerCase()) return -1;
         if (a.label.toLowerCase() > b.label.toLowerCase()) return 1;
         return 0;
       })
+      // HERE PUT THESE NAMES IN new state.institutionsNames
+      // state.institutionsNames = sortedInstitutions
+
+      // NOW PUT SIDS INTO STATE
+      // state.institutionsSIDs = institutions.map(inst => {
+        // return inst.id
+      // })
+
       
-      // what are these institutions at this point
-      // console.log('sortedInstitutions: ', sortedInstitutions)
+      // WHY CAN'T THIS MUTATION SET
+      //  state.selectedInstitutions
+      //  state.selectedInstitutionsName
+      // THEY CAN THEN BE AVAILABLE IN SIDEBARSHARE TO MANAGE
+      //   -- selectedInstitutionsName USED TO DISPLAY IN DATA PAGES
       state.institutions = sortedInstitutions
 
     },

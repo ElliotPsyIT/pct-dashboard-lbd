@@ -127,11 +127,11 @@
             </div>
           </form>
           </li>
-          <li>
-             <span v-if="siteSelected" class="px-2 ml-5" :class="{hide: !canFilterByProvider}"  >
+          <li class="nav-item py-0">  <!-- border-style: solid; {{capitalizeFirstLetter(currentpage)}}s -->
+             <span v-if="siteSelected" class="" :class="{hide: !canFilterByProvider}"  >
               <a name="siteFilterClick" href="#" @click.prevent="filterInstitutions"
-                style="margin-left: 17px; text-decoration: underline; color: black; background-color: lightgrey; padding: 5px; border-radius: 5px; font-size: .7rem; border-style: solid;"
-              >Sites Filter for {{capitalizeFirstLetter(currentpage)}}s </a>
+                style="margin-left: 8px; color: black; background-color: rgba(255, 255, 255, 0.96); padding: 8px; border-radius: 5px; font-size: .9rem; border: 1px solid; border-color: #cbd5e0;" 
+              >Click to Filter By Sites for This Page  </a>
              </span>
           </li>
         </ul>

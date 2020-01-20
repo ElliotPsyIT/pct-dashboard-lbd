@@ -1,10 +1,18 @@
 <template>
   <transition name="fade" mode="out-in">
     <div class="content" :key="selectedSite">
-      <div class="container-fluid">
-        
-              Scroll Position {{scrollPosition}}
+      <div class="container-fluid" :class="{filtering: changeBackgroundColor}">
+         Scroll Position {{scrollPosition}}
 
+        <!-- Show Filtered Sites -->
+        <div v-if="changeBackgroundColor">
+          <div class="row d-flex justify-content-center " style="position: fixed; z-index: 500;">
+            <div style="font-size: .7rem; border: solid 1px grey; ">
+                {{ selectedInstitutionsNames }}
+            </div>
+          </div>
+        </div>
+     
           <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Provider, Clinic, Patient Stats</h4>
@@ -294,7 +302,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'selectedSite', 'selectedRange',  'phipii'
+      'selectedSite', 'selectedRange',  'phipii', 'selectedInstitutions',
+      'selectedInstitutionsNames',
     ]),
     ...mapGetters([
       'siteProviderDetailsCPT',
@@ -308,6 +317,12 @@ export default {
       'siteProviderClinicCount',
       'siteProviderPatientCount'
     ]),
+    changeBackgroundColor () {
+        // console.log('in changeBackgroundColor siteProviderSelected is: ', this.siteProviderSelected)
+        // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
+        // return this.siteProviderSelected || this.selectedInstitutions.length > 0 || false
+        return this.selectedInstitutions.length > 0 || false
+    },      
     scrollPosition () {
       console.log('window.pageYOffset: ', window.pageYOffset)    
     },
@@ -361,6 +376,10 @@ export default {
     this.PROVIDER_INFO()
 
     this.CURRENT_PAGE('provider')
+    // might be needed to assure institutions are available
+    //    when app is opened and saved station is used
+    this.GET_INSTITUTIONS()
+
   },
   methods: {
     ...mapActions([
@@ -369,7 +388,8 @@ export default {
       'PROVIDER_PATIENT_DETAILS_CPT',
       'PROVIDER_INFO',
 
-      'CURRENT_PAGE'
+      'CURRENT_PAGE',
+      'GET_INSTITUTIONS',
     ]),
     asyncValue(val) {
       return val == 0 ? 'Loading...' : val
@@ -613,6 +633,11 @@ export default {
 
 </script>
 <style>
+  /* institutions being filtered */
+   .filtering {
+    background-color: lightgrey;
+  }
+
   .section-head {
     font-size: 2rem;
   }

@@ -82,7 +82,9 @@ new Vue({
   store,
   watch: {
     '$route' (to, from) {
-      if (to != 'undefined' && from != 'undefined') {    
+      // console.log('watching route as: ', this.$route)
+      if (to != 'undefined' && from != 'undefined') {   
+        // console.log('calling LOC_USAGE FROM ROUTE: ', this.$route) 
         this.$store.dispatch('LOG_USAGE', { to, from})
       }
     }

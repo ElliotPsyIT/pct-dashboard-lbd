@@ -10,11 +10,6 @@
             <div style="font-size: .7rem; border: solid 1px grey; ">
                 {{ selectedInstitutionsNames }}
             </div>
-            <!-- <div >
-              <span v-for="site in selectedInstitutionsNames" :key="site" style="font-size: .7rem; "> 
-              {{ site }} + 
-              </span>
-            </div> -->
           </div>
         </div>
      
@@ -762,7 +757,7 @@ export default {
   computed: {
     ...mapState([
       'selectedSite', 'selectedRange', 'selectedInstitutions',
-      'selectedInstitutionsNames', 'institutionSidebarShow',
+      'selectedInstitutionsNames',
     ]),
     ...mapGetters([
       'siteEncounterTotal', // all distinct visitsid w/ CPT filtering
@@ -799,7 +794,8 @@ export default {
     changeBackgroundColor () {
         // console.log('in changeBackgroundColor siteProviderSelected is: ', this.siteProviderSelected)
         // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
-        return this.siteProviderSelected || this.selectedInstitutions.length > 0 || false
+        // return this.siteProviderSelected || this.selectedInstitutions.length > 0 || false
+        return this.selectedInstitutions.length > 0 || false
     },      
     siteEncounterCPTIndividualPercent() {
       let percent = (+this.siteEncounterCPTIndividual / +this.siteEncounterTotal) * 100
@@ -1042,7 +1038,6 @@ export default {
       'ENCOUNTER_PATIENT_CPT_CATEGORIES',
       'CURRENT_PAGE',
       'GET_INSTITUTIONS',
-      'INSTITUTIONS_FILTER',
 
         ]),
     formatNumber(num) {

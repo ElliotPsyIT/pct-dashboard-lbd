@@ -133,7 +133,7 @@
           </li>
           <li class="nav-item py-0">  <!-- border-style: solid; {{capitalizeFirstLetter(currentpage)}}s -->
              <span v-if="siteSelected" class="" :class="{hide: !canFilterByProvider}"  >
-              <a name="siteFilterClick" href="#" @click.prevent="filterInstitutions"
+              <a name="siteFilterClick" href="#" @click.prevent="filterInstitutionsShowHide"
                 style="margin-left: 12px; color: #696969; background-color: rgba(255, 255, 255, 0.96); padding: 8px; border-radius: 5px; font-size: 1rem; border: 1px solid; border-color: #cbd5e0;" 
               >SITE DATA FILTER </a>
              </span>
@@ -320,12 +320,12 @@
       // },
       
       ...mapActions(
-        ['setSelectedSite','setSelectedRange','INSTITUTIONS_FILTER']
+        ['setSelectedSite','setSelectedRange','INSTITUTIONS_FILTER_SHOWHIDE']
       ),
       // trigger action to open sidebar to select/filter institutions
-      filterInstitutions () {
-        console.log('triggered filterInstitutions in TopNavBar to call action INSTITUTIONS_FILTER')
-        this.INSTITUTIONS_FILTER()
+      filterInstitutionsShowHide () {
+        console.log('triggered filterInstitutionsShowHide in TopNavBar to call action INSTITUTIONS_FILTER')
+        this.INSTITUTIONS_FILTER_SHOWHIDE()
       },
       capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)

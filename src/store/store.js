@@ -990,18 +990,14 @@ const store = new Vuex.Store({
 
     },
     INSTITUTIONS_SELECTED (context, institutions) {
-      // THIS NEEDS TO SIMPLY HANDLE SIDS
-      //    NAMES SHOULD BE MANAGED ELSEWHERE
-
-      //should we use MUTATIONS FOR SETTING selectedInstitutions instead??
-      //context.commit('SET_INSTITUTIONS_SELECTED', institutions)
       
       console.log('in INSTITUTIONS_SELECTED, institutions are: ', institutions)
-      //    set the selectedInstitutions in state
-      context.state.selectedInstitutions = institutions['sids'] // replace with institutions.sids
-      context.state.selectedInstitutionsNames = institutions['names']
+      
+      // synchonous to assure state.selectedInstitutions & state.selectedInstitutionsNames
+      // are set before refreshing all data
+      context.commit('SET_INSTITUTIONS_SELECTED', institutions)
 
-      //    refresh the page -> setParams should now use selectedInstitutions
+      // refresh the page -> setParams should now use selectedInstitutions
       context.dispatch('REFRESH_ALL_DATA')
 
     },
@@ -1376,10 +1372,10 @@ const store = new Vuex.Store({
       }
 
     },
-    INSTITUTIONS_FILTER (context) {
+    INSTITUTIONS_FILTER_SHOWHIDE (context) {
 
       //TRIGGER FLAGE FOR SIDEBAR SHOW/HIDE TOGGLE
-      context.commit('SET_INSTITUTIONS_FILTER')
+      context.commit('SET_INSTITUTIONS_FILTER_SHOWHIDE')
     },
     GET_INSTITUTIONS (context) {
       // console.log('GET_INSTITUTIONS action called!')
@@ -1687,11 +1683,18 @@ const store = new Vuex.Store({
       state.institutions = sortedInstitutions
 
     },
-    SET_INSTITUTIONS_FILTER(state) {
-      // console.log('in SET_INSTITUTIONS_FILTER where state.institutionSidebarShow is: ', state.institutionSidebarShow)
+    SET_INSTITUTIONS_SELECTED(state, institutions) {
+      //    set the selectedInstitutions in state
+      state.selectedInstitutions = institutions['sids'] // replace with institutions.sids
+      state.selectedInstitutionsNames = institutions['names']
+
+    },
+
+    SET_INSTITUTIONS_FILTER_SHOWHIDE(state) {
+      // console.log('in SET_INSTITUTIONS_FILTER_SHOWHIDE where state.institutionSidebarShow is: ', state.institutionSidebarShow)
       // toggle institutionSidebarShow
       state.institutionSidebarShow = !state.institutionSidebarShow
-      // console.log('in SET_INSTITUTIONS_FILTER and changed state.institutionSidebarShow to: ', state.institutionSidebarShow)
+      // console.log('in SET_INSTITUTIONS_FILTER_SHOWHIDE and changed state.institutionSidebarShow to: ', state.institutionSidebarShow)
     }
 
       // SET_CURRENT_CONSULT_COMMENT (state, comments) {

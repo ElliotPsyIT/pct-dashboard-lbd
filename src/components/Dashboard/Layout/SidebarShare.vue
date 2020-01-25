@@ -86,8 +86,9 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       // console.log('IN MOUNTED: this.currentpage is: ', this.currentpage )
       
       // Retrieve the institutions for selected Station
+      console.log('IN SidebarShare MOUNTED GET_INSTITUTIONS from selectedSite: ', this.selectedSite)
       this.GET_INSTITUTIONS()
-      // console.log('IN MOUNTED AFTER GET_INSTITUTIONS: SidebarShare mounted and GET_INSTITUTIONS action called!')
+    
     },
     props: ['color', 'image'],
     
@@ -158,9 +159,10 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       // WATCH VUEX selectedSite to RESET TREESELECT
       selectedSite () {
 
-        // TRUNCATE TREESELECT SELECTED INSTITUTIONS (TWO-WAY BINDING)
-        // BUG: selectedSite may be triggered w/ no institutionsSelected
+        // TREESELECT SELECTED INSTITUTIONS (TWO-WAY BINDING)
+        //  Station Changed!! So reset the institutions user selected for filtering
         if(this.institutionsSelected != undefined) {
+          console.log('User institutions selected reset because new stations!')
           this.institutionsSelected.length = 0
           
           // CREATE 'institutionsChoosen',
@@ -432,7 +434,9 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     background: transparent;
     max-height: 300px;
     border-color: transparent;
-   
+    transition: all 1s;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
   }
 
   .fixed-plugin .dropdown-menu:after, .fixed-plugin .dropdown-menu:before {

@@ -107,7 +107,7 @@ const store = new Vuex.Store({
       encounters: true,
       providers: true,
       surveys: false,
-      ebps: false,
+      ebp: true,
     },
     appVersion: '0.14.4',
     phipii: 0,
@@ -522,6 +522,8 @@ const store = new Vuex.Store({
       let filteredArray = state.providerDetails
         .filter(site => {
           // ** Note: selectedSite is cast to number for comparison
+          // console.log('in siteProviderDetails, StaPa: ', site.StaPa)
+          // console.log('in siteProviderDetails selectedSite is: ', state.selectedSite)
           return site.StaPa === state.selectedSite
         })
       return filteredArray.length == 0 ? 0 : filteredArray
@@ -829,8 +831,8 @@ const store = new Vuex.Store({
       let page = pageObj[1]
       // console.log('in canFilterByProvider, page is: ', page)
       // console.log('state.providerFilterAllowed: ', state.providerFilterAllowed)
-    // console.log('just trying state.providerFilterAllowed.consults: ', state.providerFilterAllowed.consults)
-    //   console.log('in getter canFilterByProvider, state.providerFilterAllowed for this page is: ', state.providerFilterAllowed[page])
+    // console.log('just trying state.providerFilterAllowed.ebp: ', state.providerFilterAllowed.ebp)
+      // console.log('in getter canFilterByProvider, state.providerFilterAllowed for this page is: ', state.providerFilterAllowed[page])
   
       if(state.providerFilterAllowed[page]){
         // console.log('filterAllowed is: ', state.providerFilterAllowed[page])
@@ -860,14 +862,15 @@ const store = new Vuex.Store({
     },
     EBP_PIE_CHART (context) {
       // console.log('in EBP_PIE_CHART Action, check context here', context)
-                
-      const path = 'pct.cgi'
-      // let params = 'format=ebp_pie_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      let params = 'format=ebp_pie_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
 
-      axios.get(`${path}?${params}`)
+      const path = 'pct.cgi'
+      // const params = 'format=ebp_pie_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      const format = 'ebp_pie_chart'
+      const allparams = setParams(format, context.state)
+
+      axios.get(`${path}?${allparams}`)     
       .then(response => { 
-        // console.log('IN EBP_PIE_CHART ebp summary details from server is: ', typeof )
+        console.log('IN EBP_PIE_CHART ebp summary details from server is: ', response.data )
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_EBP_PIE_CHART', response.data)
@@ -876,11 +879,13 @@ const store = new Vuex.Store({
     },
     EBP_SUMMARY (context) {
       // console.log('in EBP_SUMMARY Action, check context here', context)
-                
+
       const path = 'pct.cgi'
-      const params = 'format=ebp_summary&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      // const params = 'format=ebp_summary&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      const format = 'ebp_summary'
+      const allparams = setParams(format, context.state)
+
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('IN EBP_SUMMARY ebp summary details from server is: ', typeof )
         // console.log('response.data is: ', response.data)
@@ -893,9 +898,11 @@ const store = new Vuex.Store({
       // console.log('in EBP_DETAILS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=ebp_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      // const params = 'format=ebp_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      const format = 'ebp_details'
+      const allparams = setParams(format, context.state)
+
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got consult details from server')
         // console.log('response.data is: ', response.data)
@@ -908,9 +915,11 @@ const store = new Vuex.Store({
       // console.log('in EBP_DETAILS_TYPES Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=ebp_details_types&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      // const params = 'format=ebp_details_types&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      const format = 'ebp_details_types'
+      const allparams = setParams(format, context.state)
+
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
@@ -922,9 +931,11 @@ const store = new Vuex.Store({
       // console.log('in EBP_DETAILS_SESSIONS_SURVEYS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=ebp_details_sessions_surveys&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      // const params = 'format=ebp_details_sessions_surveys&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      const format = 'ebp_details_sessions_surveys'
+      const allparams = setParams(format, context.state)
+
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got consult details from server')
         // console.log('EBP_DETAILS_SESSIONS_SURVEYS response.data is: ', response.data)
@@ -1029,7 +1040,7 @@ const store = new Vuex.Store({
       axios.get(`${path}?${allparams}`)                
       .then(response => { 
         // console.log('got consult details from server')
-        // console.log('response.data is: ', response.data)
+        console.log('provider_details response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_PROVIDER_DETAILS', response.data)
       })
@@ -1046,7 +1057,7 @@ const store = new Vuex.Store({
       axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got PROVIDER_INFO from server')
-        // console.log('response.data is: ', response.data)
+        // console.log('PROVIDER_INFO server response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_PROVIDER_INFO', response.data)
       })
@@ -1394,7 +1405,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('IN GET_INSTITUTIONS action') //: response.data is: ', response.data)
+        console.log('IN GET_INSTITUTIONS action, response.data is: ', response.data)
 
         context.commit('SET_INSTITUTIONS', response.data) 
  
@@ -1514,7 +1525,7 @@ const store = new Vuex.Store({
       state.providerCount = providerCount
     },
     SET_PROVIDER_DETAILS(state, providerDetails) {
-      // console.log('in mutate SET_PROVIDER_DETAILS and state is: ', state)
+      // console.log('in mutate SET_PROVIDER_DETAILS and providerDetails is: ', providerDetails)
       state.providerDetails = providerDetails
     },
     SET_PROVIDER_INFO(state, providerInfo) {
@@ -1650,7 +1661,7 @@ const store = new Vuex.Store({
       state.allphipii = permissionAllSites
     },
     SET_INSTITUTIONS(state, institutions) {
-      console.log('in SET_INSTITUTIONS: ', institutions)
+      // console.log('in SET_INSTITUTIONS: ', institutions)
 
       // FIRST SORT INSTITUTIONS BY NAME FOR TREESELECT USE
       // IS AWARE OF THE FORMAT OF INSTITUTINOS COMING FROM DB SERVER

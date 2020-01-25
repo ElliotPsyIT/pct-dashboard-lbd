@@ -20,7 +20,7 @@
         </span> -->
       </fade-transition>
 
-      <button type="button"
+      <!-- <button type="button"
               class="navbar-toggler navbar-toggler-right"
               :class="{toggled: $sidebar.showSidebar}"
               aria-controls="navigation-index"
@@ -30,10 +30,14 @@
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
-      </button>
+      </button> -->
       
-      <div class="collapse navbar-collapse" >
-        <ul class="nav navbar-nav py-0">
+      <!-- <div class="collapse navbar-collapse " > -->
+      <div class="collapse navbar-collapse " >
+
+        <!-- <ul class="nav navbar-nav py-0"> -->
+        <ul class="nav navbar-nav py-0" >
+
           <!-- <li class="nav-item">
             <a class="nav-link" href="#" data-toggle="dropdown">
               <i class="nc-icon nc-palette"></i>
@@ -130,20 +134,20 @@
           <li class="nav-item py-0">  <!-- border-style: solid; {{capitalizeFirstLetter(currentpage)}}s -->
              <span v-if="siteSelected" class="" :class="{hide: !canFilterByProvider}"  >
               <a name="siteFilterClick" href="#" @click.prevent="filterInstitutions"
-                style="margin-left: 8px; color: black; background-color: rgba(255, 255, 255, 0.96); padding: 8px; border-radius: 5px; font-size: .9rem; border: 1px solid; border-color: #cbd5e0;" 
-              >Click to Filter By Sites for This Page  </a>
+                style="margin-left: 12px; color: #696969; background-color: rgba(255, 255, 255, 0.96); padding: 8px; border-radius: 5px; font-size: 1rem; border: 1px solid; border-color: #cbd5e0;" 
+              >SITE DATA FILTER </a>
              </span>
           </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
+        <!-- <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <!-- {{ selectedSite }}   {{ selectedRange }} -->
+              {{ selectedSite }}   {{ selectedRange }}
             </a>
           </li>
           <li class="nav-item">
           </li>
-          <!-- <drop-down title="Dropdown">
+          <drop-down title="Dropdown">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
             <a class="dropdown-item" href="#">Something</a>
@@ -151,13 +155,13 @@
             <a class="dropdown-item" href="#">Something</a>
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
-          </drop-down> -->
+          </drop-down>
           <li class="nav-item">
-            <!-- <a href="#" class="nav-link">
+            <a href="#" class="nav-link">
               Log out
-            </a> -->
+            </a>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </nav>

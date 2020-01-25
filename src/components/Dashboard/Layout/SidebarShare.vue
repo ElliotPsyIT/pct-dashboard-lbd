@@ -83,11 +83,11 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     mounted() {
       // Retrive the providers for selected Station
       this.PROVIDER_INFO() //
-      console.log('IN MOUNTED: this.currentpage is: ', this.currentpage )
+      // console.log('IN MOUNTED: this.currentpage is: ', this.currentpage )
       
       // Retrieve the institutions for selected Station
       this.GET_INSTITUTIONS()
-      console.log('IN MOUNTED AFTER GET_INSTITUTIONS: SidebarShare mounted and GET_INSTITUTIONS action called!')
+      // console.log('IN MOUNTED AFTER GET_INSTITUTIONS: SidebarShare mounted and GET_INSTITUTIONS action called!')
     },
     props: ['color', 'image'],
     

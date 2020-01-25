@@ -1,10 +1,20 @@
 <template>
   <transition name="fade" mode="out-in">
     <div class="content" :key="selectedSite">
-      <div class="container-fluid">
+      <div class="container-fluid" :class="{filtering: changeBackgroundColor}">
 
               Scroll Position {{scrollPosition}}
 
+
+        <!-- Show Filtered Sites -->
+        <div v-if="changeBackgroundColor">
+          <div class="row d-flex justify-content-center " style="position: fixed; z-index: 500;">
+            <div style="font-size: .7rem; border: solid 1px grey; ">
+                {{ selectedInstitutionsNames }}
+            </div>
+          </div>
+        </div>
+     
        <!-- Section Headers -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">EBPs</h4>
@@ -832,7 +842,12 @@ export default {
       ]
     }
   },
+  
   computed: {
+    ...mapState(['selectedSite', 'phipii',
+      'selectedInstitutions', 'selectedInstitutionsNames'
+    ]), //siteALLSessions
+
     ...mapGetters([
       'siteEBPSessionsAny',
       'siteALLSessions',
@@ -883,8 +898,13 @@ export default {
       // 'siteEBPPatientsCPTBoth',
 
     ]),
-    ...mapState(['selectedSite', 'phipii']), //siteALLSessions
-
+    
+    changeBackgroundColor () {
+        // console.log('in changeBackgroundColor siteProviderSelected is: ', this.siteProviderSelected)
+        // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
+        // return this.siteProviderSelected || this.selectedInstitutions.length > 0 || false
+        return this.selectedInstitutions.length > 0 || false
+    },      
     scrollPosition () {
       console.log('window.pageYOffset: ', window.pageYOffset)    
     },
@@ -1031,6 +1051,8 @@ export default {
     this.EBP_DETAILS_SESSIONS_SURVEYS()
 
     // this.CURRRENT_PAGE('ebp')
+
+    this.GET_INSTITUTIONS()
   },
   methods: {
    ...mapActions([
@@ -1040,7 +1062,9 @@ export default {
       'EBP_DETAILS_TYPES',
       'EBP_DETAILS_SESSIONS_SURVEYS',
 
-      // 'CURRENT_PAGE'
+      'CURRENT_PAGE',
+      'GET_INSTITUTIONS',
+
     ]),
     addCommas,
     onGridReady() {
@@ -1172,6 +1196,10 @@ export default {
 }
 </script>
 <style>
+  .filtering {
+    background-color: lightgrey;
+  }
+
   .section-head {
     font-size: 2rem;
   }

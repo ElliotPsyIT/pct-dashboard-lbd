@@ -7,12 +7,12 @@
         <!-- Show Filtered Sites -->
         <div v-if="changeBackgroundColor">
           <div class="row d-flex justify-content-center " style="position: fixed; z-index: 500;">
-            <div style="font-size: .7rem; border: solid 1px grey; ">
-                {{ selectedInstitutionsNames }}
-            </div>
+              <div style="font-size: .7rem; border: solid 1px grey; ">
+                  {{ selectedInstitutionsNames }}
+              </div>
           </div>
         </div>
-     
+
       
         <!-- <div class="row d-flex justify-content-center"> -->
 
@@ -110,7 +110,12 @@
             <div slot="content">
               <p class="card-category">Total Encounters</p>
               <h4 class="card-title">
-                {{ asyncValue(formatNumber(siteEncounterTotal)) }}
+                <transition name="fade" mode="out-in">
+                  <span :key="siteEncounterTotal">
+                    {{ asyncValue(formatNumber(siteEncounterTotal)) }}
+                  </span>
+              </transition>
+                <!-- {{ asyncValue(formatNumber(siteEncounterTotal)) }} -->
               </h4>
 
             </div>
@@ -128,7 +133,13 @@
               </div>
               <div slot="content">
                 <p class="card-category">Patient Uniques</p>
-                <h4 class="card-title">{{ asyncValue(formatNumber(siteEncounterPatientTotal))}}</h4>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterPatientTotal">
+                      {{ asyncValue(formatNumber(siteEncounterPatientTotal)) }}
+                    </span>
+                  </transition>
+                </h4>
               </div>
               <!-- <div slot="footer">
                 <i class="fa fa-calendar-o"></i>No Duplicates
@@ -173,7 +184,13 @@
               </div>
               <div slot="content">
                 <p class="card-category">Individual<br/>({{ asyncValue(formatNumber(siteEncounterCPTIndividual)) }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
-                <h4 class="card-title">{{ siteEncounterCPTIndividualPercent}}%</h4>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTIndividualPercent">
+                      {{ siteEncounterCPTIndividualPercent}}%
+                    </span>
+                  </transition>
+                </h4>
               </div>
               </stats-card>
           
@@ -187,7 +204,13 @@
               </div>
               <div slot="content">
                 <p class="card-category">Group<br/> ({{ asyncValue(formatNumber(siteEncounterCPTGroup)) }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
-                <h4 class="card-title">{{siteEncounterCPTGroupPercent }}%</h4>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTGroupPercent">
+                      {{ siteEncounterCPTGroupPercent}}%
+                    </span>
+                  </transition>
+                </h4>
               </div>
             </stats-card>
 
@@ -210,7 +233,13 @@
               </div>
               <div slot="content">
                 <p class="card-category">Individual Tx Only </p>
-                <h4 class="card-title">{{ asyncValue(formatNumber(siteEncounterCPTPatientsIndOnly)) }} Pts</h4>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTPatientsIndOnly">
+                      {{ asyncValue(formatNumber(siteEncounterCPTPatientsIndOnly)) }} Pts
+                    </span>
+                  </transition>
+                </h4>
               </div>
               </stats-card>
           
@@ -224,7 +253,13 @@
               </div>
               <div slot="content">
                 <p class="card-category">Group Tx Only </p>
-              <h4 class="card-title">{{ asyncValue(formatNumber(siteEncounterCPTPatientsGrpOnly)) }} Pts</h4>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTPatientsGrpOnly">
+                      {{ asyncValue(formatNumber(siteEncounterCPTPatientsGrpOnly)) }} Pts
+                    </span>
+                  </transition>
+                </h4>
               </div>
               </stats-card>
           
@@ -238,7 +273,13 @@
               </div>
               <div slot="content">
                 <p class="card-category">Both Ind and Grp Tx </p>
-                <h4 class="card-title">{{ asyncValue(formatNumber(siteEncounterCPTPatientsBoth)) }} Pts</h4>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTPatientsBoth">
+                      {{ asyncValue(formatNumber(siteEncounterCPTPatientsBoth)) }} Pts
+                    </span>
+                  </transition>
+                </h4>
               </div>
               </stats-card>
           
@@ -321,7 +362,13 @@
               </div>
               <div slot="content">
                 <p class="card-category">Telephone CPT ({{ asyncValue(formatNumber(siteEncounterCPTTelephone.total)) }}/{{ asyncValue(formatNumber(siteEncounterTotal)) }})</p>
-                <h4 class="card-title">{{ asyncValue(siteEncounterCPTTelephone.percent) }}%</h4>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTTelephone.percent">
+                      {{ asyncValue(siteEncounterCPTTelephone.percent) }}%
+                    </span>
+                  </transition>
+                </h4>
               </div>
             </stats-card>
 
@@ -335,7 +382,13 @@
               </div>
               <div slot="content">
                 <p class="card-category">Group Education ({{ asyncValue(formatNumber(siteEncounterCPTGroupEducation.total), 'Group Ed') }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
-                <h4 class="card-title">{{ siteEncounterCPTGroupEducation.percent }}%</h4>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTGroupEducation.percent">
+                      {{ asyncValue(siteEncounterCPTGroupEducation.percent) }}%
+                    </span>
+                  </transition>
+                </h4>
               </div>
             </stats-card>
 
@@ -349,7 +402,13 @@
               </div>
               <div slot="content">
                 <p class="card-category">Assessment CPT ({{ asyncValue(formatNumber(siteEncounterCPTAssessment.total), 'Assessment') }}/{{asyncValue(formatNumber(siteEncounterTotal))}})</p>
-                <h4 class="card-title">{{ siteEncounterCPTAssessment.percent }}%</h4>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTAssessment.percent">
+                      {{ asyncValue(siteEncounterCPTAssessment.percent) }}%
+                    </span>
+                  </transition>
+                </h4>
               </div>
               </stats-card>
 
@@ -363,7 +422,14 @@
               </div>
               <div slot="content">
                 <p class="card-category">Prolonged Service ({{ asyncValue(formatNumber(siteEncounterCPTProlongedService.total)) }}/{{asyncValue(formatNumber(siteEncounterTotal))}})</p>
-                <h4 class="card-title">{{ siteEncounterCPTProlongedService.percent }}%</h4>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTProlongedService.percent">
+                      {{ asyncValue(siteEncounterCPTProlongedService.percent) }}%
+                    </span>
+                  </transition>
+                  {{ siteEncounterCPTProlongedService.percent }}%
+                </h4>
               </div>
               </stats-card>
 
@@ -1219,9 +1285,22 @@ export default {
   .fade-enter,
   .fade-leave-to
     /* .fade-leave-active in <2.1.8 */
-
   {
     opacity: 0
   }
+
+/* slide and fade */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
 
 </style>

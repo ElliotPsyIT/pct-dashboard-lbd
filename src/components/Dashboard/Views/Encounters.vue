@@ -361,11 +361,11 @@
                 <i class="nc-icon-outline nc-phone-2 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Telephone CPT ({{ asyncValue(formatNumber(siteEncounterCPTTelephone.total)) }}/{{ asyncValue(formatNumber(siteEncounterTotal)) }})</p>
+                <p class="card-category">Telephone CPT ({{ formatNumber(siteEncounterCPTTelephone.total) }}/{{ formatNumber(siteEncounterTotal) }})</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTTelephone.percent">
-                      {{ asyncValue(siteEncounterCPTTelephone.percent) }}%
+                      {{ siteEncounterCPTTelephone.percent }}%
                     </span>
                   </transition>
                 </h4>
@@ -381,11 +381,11 @@
                 <i class="nc-icon-outline nc-multiple-11 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group Education ({{ asyncValue(formatNumber(siteEncounterCPTGroupEducation.total), 'Group Ed') }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
+                <p class="card-category">Group Education ({{ formatNumber(siteEncounterCPTGroupEducation.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTGroupEducation.percent">
-                      {{ asyncValue(siteEncounterCPTGroupEducation.percent) }}%
+                      {{ siteEncounterCPTGroupEducation.percent }}%
                     </span>
                   </transition>
                 </h4>
@@ -401,11 +401,11 @@
                 <i class="nc-icon-outline nc-single-folded-content text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Assessment CPT ({{ asyncValue(formatNumber(siteEncounterCPTAssessment.total), 'Assessment') }}/{{asyncValue(formatNumber(siteEncounterTotal))}})</p>
+                <p class="card-category">Assessment CPT ({{ formatNumber(siteEncounterCPTAssessment.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTAssessment.percent">
-                      {{ asyncValue(siteEncounterCPTAssessment.percent) }}%
+                      {{ siteEncounterCPTAssessment.percent }}%
                     </span>
                   </transition>
                 </h4>
@@ -421,14 +421,13 @@
                 <i class="nc-icon nc-refresh-02 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Prolonged Service ({{ asyncValue(formatNumber(siteEncounterCPTProlongedService.total)) }}/{{asyncValue(formatNumber(siteEncounterTotal))}})</p>
+                <p class="card-category">Prolonged Service ({{ formatNumber(siteEncounterCPTProlongedService.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTProlongedService.percent">
-                      {{ asyncValue(siteEncounterCPTProlongedService.percent) }}%
+                      {{ siteEncounterCPTProlongedService.percent }}%
                     </span>
                   </transition>
-                  {{ siteEncounterCPTProlongedService.percent }}%
                 </h4>
               </div>
               </stats-card>
@@ -1110,7 +1109,9 @@ export default {
       return addCommas(num)
     },
     asyncValue(val, v) {
+      // if (v == 'Group Ed') console.log('Group Ed asyncValue coming in val is: ', val)
       let startingValue = val == 0 ? 'Loading...' : val
+      // if (v == 'Group Ed') console.log('Group Ed startingValue going out is: ', startingValue)      
       return startingValue
     },
     createColDefs() {

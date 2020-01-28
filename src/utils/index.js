@@ -1,3 +1,4 @@
+import { SortController } from "ag-grid";
 
 
 export function addCommas(intNum) {
@@ -14,6 +15,28 @@ export function totalAndPercent(arr) {
   let group = arr.length != 0 ? addCommas(+arr[0].totalNum) : 0
   let percent = arr.length != 0 ? arr[0].PercentageCPT : 0
   return { 'total' : group, 'percent' : percent}
+}
+
+export function totalAndPercent2(filteredArray) {
+  // what is comingin
+  // console.log('in totalAndPercent2 filteredArray is: ', filteredArray)
+
+  // helper to sum total and percents for regex matches
+  const arrSum = arr => arr.reduce((a,b) => a + +b, 0)
+
+  // compute sum
+  let sums = filteredArray.map(a => a.totalNum )
+  let sumTotal = arrSum(sums)
+
+  // compute percentage
+  let percents = filteredArray.map(a => a.PercentageCPT )
+  let percentTotal = arrSum(percents)
+  // console.log('arrSum for percentTotal is: ', percentTotal)
+
+  // create return object with total and percent
+  let Obj = { 'total' : sumTotal.toString(), 'percent' : parseFloat(percentTotal).toFixed(1).toString()}
+  // console.log('totalAndPercent2 returns Obj: ', Obj)
+  return Obj
 }
 
 export function arrayEmpty(arr) {

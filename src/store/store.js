@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import axios from 'axios'
 
-import { addCommas, totalAndPercent, isSelectedDateRangeWhiteListed } from '../utils'
+import { addCommas, totalAndPercent, totalAndPercent2, isSelectedDateRangeWhiteListed } from '../utils'
 import siteNames from '../../static/sites_orig.json'
 import dateRanges from '../../static/dateRanges.json'
 
@@ -333,33 +333,47 @@ const store = new Vuex.Store({
     siteEncounterCPTTelephone: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.StaPa === state.selectedSite) 
-        // .filter(site => site.CPTCategory === 'Telephone')
-        .filter(site => site.CPTCategory.match('Telephone') ) 
-      return totalAndPercent(filteredArray)
+        .filter(site => {
+          // regex matches multiple CPT types including where Group Ed is combined w/ other CPTs
+          return /Telephone/.test(site.CPTCategory)
+        })
+      // try new totalAndPercent2(filteredArray)
+      return totalAndPercent2(filteredArray)
     },
     // total for Prolonged Service CPT Category (large set of CPTs)
     siteEncounterCPTProlongedService: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.StaPa === state.selectedSite) 
         // .filter(site => site.CPTCategory === 'Prolonged Service')
-        .filter(site => site.CPTCategory.match('Prolonged Service') ) 
-      return totalAndPercent(filteredArray)
+        .filter(site => {
+          // regex matches multiple CPT types including where this CPT is combined w/ other CPTs
+          return /Prolonged Service/.test(site.CPTCategory)
+        })        
+
+      return totalAndPercent2(filteredArray)
     },
     // total for Specific CPT Category (large set of CPTs)
     siteEncounterCPTAssessment: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.StaPa === state.selectedSite) 
-        // .filter(site => site.CPTCategory === 'Assessment')
-        .filter(site => site.CPTCategory.match('Assessment') ) 
-      return totalAndPercent(filteredArray)
+        .filter(site => {
+          // regex matches multiple CPT types including where this CPT is combined w/ other CPTs
+          return /Assessment/.test(site.CPTCategory)
+        })
+
+      return totalAndPercent2(filteredArray)
     },
     // total for Specific CPT Category (large set of CPTs)
     siteEncounterCPTGroupEducation: (state) => {
+      // matches both Group Education string exactly, and if in string with other CPTs
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.StaPa === state.selectedSite) 
-        // .filter(site => site.CPTCategory === 'Health and Behavior (Group) Education')
-        .filter(site => site.CPTCategory.match('Health and Behavior \(Group\) Education') ) 
-      return totalAndPercent(filteredArray)
+        .filter(site => {
+          // regex matches multiple CPT types including where this CPT is combined w/ other CPTs
+          return /Health and Behavior \(Group\)/.test(site.CPTCategory)
+        })
+      
+      return totalAndPercent2(filteredArray)
     },
 
     // like siteEncounterCPTIndividual's large CPTs - but Ind Therapy Category and no Grp Therapy

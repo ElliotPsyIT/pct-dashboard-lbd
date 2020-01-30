@@ -1005,7 +1005,7 @@ const store = new Vuex.Store({
     },
     INSTITUTIONS_SELECTED (context, institutions) {
       
-      console.log('in INSTITUTIONS_SELECTED, institutions are: ', institutions)
+      // console.log('in INSTITUTIONS_SELECTED, institutions are: ', institutions)
       
       // synchonous to assure state.selectedInstitutions & state.selectedInstitutionsNames
       // are set before refreshing all data
@@ -1415,7 +1415,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('IN GET_INSTITUTIONS action, response.data is: ', response.data)
+        // console.log('IN GET_INSTITUTIONS action, response.data is: ', response.data)
 
         context.commit('SET_INSTITUTIONS', response.data) 
  
@@ -1426,7 +1426,7 @@ const store = new Vuex.Store({
       })
     },
     setSelectedSite (context, site) {
-      console.log('STATION setSelectedSite triggered')
+      // console.log('STATION setSelectedSite triggered')
       // SOMEHOW CALL AN ACTION TO SET A FLAG TO SIGNAL TO
       // SIDEBARSHARE THAT IT NEEDS TO RESET THE TREESELECT
 

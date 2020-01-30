@@ -6,7 +6,7 @@
 
         <!-- Show Filtered Sites -->
         <div v-if="changeBackgroundColor">
-          <div class="row d-flex justify-content-center " style="position: fixed; z-index: 500;">
+          <div class="row d-flex justify-content-center " style="position: fixed; right: 50px; z-index: 500;">
               <div style="font-size: .7rem; border: solid 1px grey; ">
                   {{ selectedInstitutionsNames }}
               </div>
@@ -183,7 +183,12 @@
                 <i class="nc-icon-outline nc-single-01 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Individual<br/>({{ asyncValue(formatNumber(siteEncounterCPTIndividual)) }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
+                <p class="card-category">Individual<br/>
+                  <transition name="fade" mode="out-in"> 
+                   ({{ formatNumber(siteEncounterCPTIndividual) }}/
+                    {{ formatNumber(siteEncounterTotal) }})
+                  </transition>
+                </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTIndividualPercent">
@@ -203,7 +208,12 @@
                 <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group<br/> ({{ asyncValue(formatNumber(siteEncounterCPTGroup)) }}/{{asyncValue(formatNumber(siteEncounterTotal)) }})</p>
+                <p class="card-category">Group<br/> 
+                  <transition name="fade" mode="out-in"> 
+                    ({{ formatNumber(siteEncounterCPTGroup) }}/
+                    {{ formatNumber(siteEncounterTotal) }})
+                  </transition>
+                </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTGroupPercent">

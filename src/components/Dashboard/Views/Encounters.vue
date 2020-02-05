@@ -512,7 +512,9 @@ export default {
   
   computed: {
     ...mapState([
-      'selectedSite', 'selectedRange', 'selectedInstitutions',
+      'selectedSite', 
+      'selectedRange', 
+      'selectedInstitutions',
       'selectedInstitutionsNames',
     ]),
     ...mapGetters([

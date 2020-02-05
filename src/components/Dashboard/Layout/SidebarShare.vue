@@ -206,7 +206,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
       // TREESELECT click handler -- VUEX save selected site(s)
       selectInstitutions (institutionSIDs) { // array of SIDs
-        console.log('in treeselect selectedInstitution click handler, monitoring institutionsSIDs: ', institutionSIDs)
+        // console.log('in treeselect selectedInstitution click handler, monitoring institutionsSIDs: ', institutionSIDs)
         
         // create the selected institution names
         // MAY NOT NEED THIS HERE - LATER USE this.institutionsNames

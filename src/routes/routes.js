@@ -33,7 +33,7 @@ const routes = [
         component: Overview
       },
       {
-        path: 'consults',
+        path: 'consult',
         name: 'Consults',
         component: Consults
       },
@@ -53,7 +53,7 @@ const routes = [
         component: Providers
       },
       {
-        path: 'surveys',
+        path: 'survey',
         name: 'Surveys',
         component: Surveys
       },

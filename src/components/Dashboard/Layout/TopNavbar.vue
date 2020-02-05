@@ -324,7 +324,7 @@
       ),
       // trigger action to open sidebar to select/filter institutions
       filterInstitutionsShowHide () {
-        console.log('triggered filterInstitutionsShowHide in TopNavBar to call action INSTITUTIONS_FILTER')
+        // console.log('triggered filterInstitutionsShowHide in TopNavBar to call action INSTITUTIONS_FILTER')
         this.INSTITUTIONS_FILTER_SHOWHIDE()
       },
       capitalizeFirstLetter (string) {

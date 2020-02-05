@@ -1,9 +1,18 @@
 <template>
   <transition name="fade" mode="out-in">
     <div class="content" :key="selectedSite">
-      <div class="container-fluid">
+      <div class="container-fluid" :class="{filtering: changeBackgroundColor}">
 
               Scroll Position {{scrollPosition}}
+
+        <!-- Show Filtered Sites -->
+        <div v-if="changeBackgroundColor">
+          <div class="row d-flex justify-content-center " style="position: fixed; right: 50px; z-index: 500;">
+              <div style="font-size: .7rem; border: solid 1px grey; ">
+                  {{ selectedInstitutionsNames }}
+              </div>
+          </div>
+        </div>
 
       <!-- Section Header -->
       <div class="row d-flex justify-content-center ">
@@ -204,6 +213,12 @@ import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue"
 
 import VueFaqAccordion from 'vue-faq-accordion'
+import {
+  SurveysSummary,
+  ClinicsProvidersPatients,
+  SurveyTypesGiven,
+  SurveysToPatientsByProvider
+} from '../Documentation/surveys_doc.js'
 
 import { mapState, mapGetters, mapActions } from 'vuex'
 // surveysGivenOverall
@@ -219,52 +234,57 @@ export default {
     return {
   //     gridOptions: null,
   //     gridOptions1: null,
-      SurveysSummary: [
-        {
-          title: "Surveys Summary",
-          value: "<u><b>Description</b></u>: These are the total number of surveys (measures) administered.  Only completed surveys are tallied and displayed here.",
-          category: "Surveys Summary Defined..."
-        }
-      ],
-      ClinicsProvidersPatients: [
-        {
-          title: "Clinics",
-          value: "<u><b>Description</b></u>: These are the number of PCT clinics administering surveys among all PCT clinics at this site. The intent is to show how many PCT Clinics " +
-          "are administering surveys in the course of their activities.<br/><br/>" +
-          "The numerator is the number of PCT clinics (based on clinic PCT Stop Codes) administering surveys, and the denominator is the number of PCT clinics at this site.  ",
-          category: "Clinics, Providers, Patients Defined ..."
-        },
-        {
-          title: "Providers",
-          value: "<u><b>Description</b></u>:These are the number of PCT providers administering surveys among all PCT providers at this site. The intent is to show how many PCT providers " +
-          "are administering surveys in the course of their activities.<br/><br/>" +
-          "The numerator is the number of PCT providers (based on PCT Stop Codes) administering surveys, and the denominator is the number of PCT providers seeing patients at this site.  ",
-          category: "Clinics, Providers, Patients Defined ..."
-        },
-        {
-          title: "Patients",
-          value: "<u><b>Description</b></u>:These are the number of PCT patients administering surveys among all PCT patients at this site. The intent is to show the relative percentage of PCT patients " +
-          "are administerered surveys in the course of their assessment/treatment.<br/><br/>" +
-          "The numerator is the number of PCT patients (based on PCT Stop Codes) being administered surveys, and the denominator is the number of PCT patients with encounters at this site.  ",
-          category: "Clinics, Providers, Patients Defined ..."
-        }
-      ],
-      SurveyTypesGiven: [
-        {
-          title: "SurveyTypesGiven",
-          value: "<u><b>Description</b></u>: Theses are counts of the number of surveys (measures) administered within PCT clinics at this site. ",
-          category: "Survey Types Given Defined..."
-        }
-      ],
-      SurveysToPatientsByProvider: [
-        {
-          title: "Surveys To Patients By Provider",
-          value: "<u><b>Description</b></u>: The Surveys To Patients By Provider table lists the surveys and survey scores administered to each patient by each provider in each PCT Clinic. " +
-          "<br/><br/><font color='red'><b>NOTE:</b> While most PCT administered surveys are listed in the table with a total score on one table row (e.g. PCL-5, PHQ9), several of the FY19 screening measures are listed by individual item score - one row per item (e.g. PHQ2-I9, CSSRS). " +
-          "As a result, at first glance it may appear that a screening measure is incorrectly duplicated, but a closer look will reveal the multiple rows are correctly listing item level scores. ",
-          category: "Surveys To Patients By Provider Defined..."
-        }
-      ]
+  SurveysSummary: SurveysSummary,
+  ClinicsProvidersPatients: ClinicsProvidersPatients,
+  SurveyTypesGiven: SurveyTypesGiven,
+  SurveysToPatientsByProvider: SurveysToPatientsByProvider,
+
+      // SurveysSummary: [
+      //   {
+      //     title: "Surveys Summary",
+      //     value: "<u><b>Description</b></u>: These are the total number of surveys (measures) administered.  Only completed surveys are tallied and displayed here.",
+      //     category: "Surveys Summary Defined..."
+      //   }
+      // ],
+      // ClinicsProvidersPatients: [
+      //   {
+      //     title: "Clinics",
+      //     value: "<u><b>Description</b></u>: These are the number of PCT clinics administering surveys among all PCT clinics at this site. The intent is to show how many PCT Clinics " +
+      //     "are administering surveys in the course of their activities.<br/><br/>" +
+      //     "The numerator is the number of PCT clinics (based on clinic PCT Stop Codes) administering surveys, and the denominator is the number of PCT clinics at this site.  ",
+      //     category: "Clinics, Providers, Patients Defined ..."
+      //   },
+      //   {
+      //     title: "Providers",
+      //     value: "<u><b>Description</b></u>:These are the number of PCT providers administering surveys among all PCT providers at this site. The intent is to show how many PCT providers " +
+      //     "are administering surveys in the course of their activities.<br/><br/>" +
+      //     "The numerator is the number of PCT providers (based on PCT Stop Codes) administering surveys, and the denominator is the number of PCT providers seeing patients at this site.  ",
+      //     category: "Clinics, Providers, Patients Defined ..."
+      //   },
+      //   {
+      //     title: "Patients",
+      //     value: "<u><b>Description</b></u>:These are the number of PCT patients administering surveys among all PCT patients at this site. The intent is to show the relative percentage of PCT patients " +
+      //     "are administerered surveys in the course of their assessment/treatment.<br/><br/>" +
+      //     "The numerator is the number of PCT patients (based on PCT Stop Codes) being administered surveys, and the denominator is the number of PCT patients with encounters at this site.  ",
+      //     category: "Clinics, Providers, Patients Defined ..."
+      //   }
+      // ],
+      // SurveyTypesGiven: [
+      //   {
+      //     title: "SurveyTypesGiven",
+      //     value: "<u><b>Description</b></u>: Theses are counts of the number of surveys (measures) administered within PCT clinics at this site. ",
+      //     category: "Survey Types Given Defined..."
+      //   }
+      // ],
+      // SurveysToPatientsByProvider: [
+      //   {
+      //     title: "Surveys To Patients By Provider",
+      //     value: "<u><b>Description</b></u>: The Surveys To Patients By Provider table lists the surveys and survey scores administered to each patient by each provider in each PCT Clinic. " +
+      //     "<br/><br/><font color='red'><b>NOTE:</b> While most PCT administered surveys are listed in the table with a total score on one table row (e.g. PCL-5, PHQ9), several of the FY19 screening measures are listed by individual item score - one row per item (e.g. PHQ2-I9, CSSRS). " +
+      //     "As a result, at first glance it may appear that a screening measure is incorrectly duplicated, but a closer look will reveal the multiple rows are correctly listing item level scores. ",
+      //     category: "Surveys To Patients By Provider Defined..."
+      //   }
+      // ]
 
     }
   },
@@ -276,8 +296,18 @@ export default {
       'siteSurveyPatientTotals',
       'siteSurveyDetails',
       'siteSurveyPatientDetails',
+
     ]),
-    ...mapState(['selectedSite','phipii']),
+    ...mapState([
+      'selectedSite',
+      'phipii',
+      'selectedInstitutions',
+      'selectedInstitutionsNames'
+    ]),
+    changeBackgroundColor () {
+        // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
+        return this.selectedInstitutions.length > 0 || false
+    },      
     scrollPosition () {
       console.log('window.pageYOffset: ', window.pageYOffset)    
     },
@@ -318,6 +348,7 @@ export default {
     this.SURVEY_PATIENT_DETAILS()
 
     this.CURRENT_PAGE('survey')
+    this.GET_INSTITUTIONS()
   },
    methods: {
     ...mapActions([
@@ -326,6 +357,7 @@ export default {
       'SURVEY_PATIENT_DETAILS',
 
       'CURRENT_PAGE',
+      'GET_INSTITUTIONS',
     ]),     
     createColDefs() {
       return [
@@ -417,6 +449,11 @@ export default {
 }
 </script>
 <style>
+
+  .filtering {
+    background-color: lightgrey;
+  }
+
   /* fade page in and out when site changes */
   .section-head {
     font-size: 2rem;

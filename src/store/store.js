@@ -102,11 +102,11 @@ const store = new Vuex.Store({
     providerFilterAllowed: {
       dashboard: false,
       definition: false,
-      consults: false,
-      appointments: false,
+      consult: true,
+      appointments: true,
       encounters: true,
       providers: true,
-      surveys: false,
+      survey: true,
       ebp: true,
     },
     appVersion: '0.14.4',
@@ -447,6 +447,7 @@ const store = new Vuex.Store({
     siteEncounterApptTotalStr: (state) => { // with commas for display
       let filteredArray = state.encounterApptCount
         .filter(site => site.StaPa === state.selectedSite)
+        // console.log('filteredArray in siteEncounterApptTotalStr in store is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : addCommas(filteredArray[0].appointmentCount)
     },
     siteEncounterApptTotal: (state) => { // without commas for computation
@@ -548,7 +549,7 @@ const store = new Vuex.Store({
       let sumGivenOverall = state.surveyTotals
         .filter(site => site.StaPa === state.selectedSite && 
           site.dataType == 'surveysGivenOverall')
-      // console.log('sumGivenOverall is: ', sumGivenOverall)
+      console.log('sumGivenOverall is: ', sumGivenOverall)
       let sumGivenTotal = sumGivenOverall.length == 0 ? 0 : +sumGivenOverall[0].sumTotal
 
       return { surveysGivenOverall: sumGivenTotal }
@@ -797,7 +798,7 @@ const store = new Vuex.Store({
           // ** Note: selectedSite is cast to number for comparison
           return site.StaPa === state.selectedSite
         })
-        // console.log('from siteEBPDetailsSessionsSurveys: ', filteredArray)
+        console.log('from siteEBPDetailsSessionsSurveys: ', filteredArray)
       return filteredArray.length == 0 ? [] : filteredArray
     },
     // ebpDetailSessionSurvey
@@ -945,7 +946,6 @@ const store = new Vuex.Store({
       // console.log('in EBP_DETAILS_SESSIONS_SURVEYS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      // const params = 'format=ebp_details_sessions_surveys&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
       const format = 'ebp_details_sessions_surveys'
       const allparams = setParams(format, context.state)
 
@@ -962,9 +962,12 @@ const store = new Vuex.Store({
       // console.log('in SURVEY_DETAILS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=survey_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'survey_details'
+      const allparams = setParams(format, context.state)
+
+      // const params = 'format=survey_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got consult details from server')
         // console.log('response.data is: ', response.data)
@@ -977,9 +980,11 @@ const store = new Vuex.Store({
       // console.log('in SURVEY_TOTALS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=survey_totals&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'survey_totals'
+      const allparams = setParams(format, context.state)
+      // const params = 'format=survey_totals&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+     
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got SURVEY_TOTALS  from server')
         // console.log('response.data is: ', response.data)
@@ -992,9 +997,11 @@ const store = new Vuex.Store({
       // console.log('in SURVEY_PATIENT_DETAILS Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const params = 'format=survey_patient_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'survey_patient_details'
+      const allparams = setParams(format, context.state)
+      // const params = 'format=survey_patient_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got SURVEY_PATIENT_DETAILS  from server')
         // console.log('response.data is: ', response.data)
@@ -1221,9 +1228,11 @@ const store = new Vuex.Store({
       // console.log('in APP_COUNTS Action, check context here', context)
           
       const path = 'pct.cgi'
-      const params = 'format=encounter_appt_count&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'encounter_appt_count'
+      const allparams = setParams(format, context.state)
+      // const params = 'format=encounter_appt_count&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got APP_COUNTS from server')
         // console.log('response.data is: ', response.data)
@@ -1236,9 +1245,11 @@ const store = new Vuex.Store({
       // console.log('in APPOINTMENT_CANCEL_NOSHOW_TOTALS Action, check context here', context)
     
       const path = 'pct.cgi'
-      const params = 'format=encounter_appt_cancel_noshow&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'encounter_appt_cancel_noshow'
+      const allparams = setParams(format, context.state)
+      // const params = 'format=encounter_appt_cancel_noshow&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got consult details from server')
         // console.log('response.data is: ', response.data)
@@ -1251,10 +1262,11 @@ const store = new Vuex.Store({
       // console.log('in APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS Action, check context here', context)
 
       const path = 'pct.cgi'
-      const params = 'format=encounter_appt_clinic_cancel_noshow&staPa=' + context.state.selectedSite + 
-      '&dateRange=' + context.state.selectedRange
+      const format = 'encounter_appt_clinic_cancel_noshow'
+      const allparams = setParams(format, context.state)
+      // const params = 'format=encounter_appt_clinic_cancel_noshow&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
 
-      axios.get(`${path}?${params}`)
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got consult details from server')
         // console.log('response.data is: ', response.data)
@@ -1263,13 +1275,17 @@ const store = new Vuex.Store({
       })
       
     },
+
+    /* CONSULT ACTIONS */
     CONSULT_DATA (context) {
       // console.log('in CONSULT_DATA Action, check context here', context)
     
       const path = 'pct.cgi'
-      const params = 'format=consult_data&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'consult_data'
+      const allparams = setParams(format, context.state)
+      // const params = 'format=consult_data&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         
         // convert string to object
@@ -1287,9 +1303,11 @@ const store = new Vuex.Store({
       // console.log('in CONSULT_DETAILS Action, check context here', context)
     
       const path = 'pct.cgi'
-      const params = 'format=consult_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      // axios.get('pct.cgi?format=who')
-      axios.get(`${path}?${params}`)
+      const format = 'consult_details'
+      const allparams = setParams(format, context.state)
+      // const params = 'format=consult_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+     
+      axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got consult details from server')
         // console.log('CONSULT_DETAILS response.data is: ', response.data)
@@ -1331,7 +1349,7 @@ const store = new Vuex.Store({
 
     },
     REFRESH_ALL_DATA (context) {
-      console.log('refresh all data!')
+      // console.log('refresh all data!')
       // be sure provider info is updated with new site or new date range 
       context.dispatch('PROVIDER_INFO')
       
@@ -1342,7 +1360,7 @@ const store = new Vuex.Store({
       context.dispatch('CURRENT_USER')
       context.dispatch('USER_PERMISSIONS')
 
-      if (context.state.route.path == '/admin/consults') {
+      if (context.state.route.path == '/admin/consult') {
         // console.log('calling Action CONSULT_DETAILS')
         context.dispatch('CONSULT_DATA')
         context.dispatch('CONSULT_DETAILS')
@@ -1370,7 +1388,7 @@ const store = new Vuex.Store({
         context.dispatch('PROVIDER_INFO') 
         context.dispatch('PROVIDER_PATIENT_DETAILS_CPT') 
       }
-      if (context.state.route.path == '/admin/surveys') {
+      if (context.state.route.path == '/admin/survey') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
         context.dispatch('SURVEY_TOTALS')
         context.dispatch('SURVEY_DETAILS') 

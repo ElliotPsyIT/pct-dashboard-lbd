@@ -3,10 +3,19 @@
 
     <div class="content" :key="selectedRange" :class="{'provider-selected' : siteProviderSelected}">
       <!-- <button class="btn btn-danger float-right">Button</button> -->
-      <div class="container-fluid">
+      <div class="container-fluid" :class="{filtering: changeBackgroundColor}">
         
               Scroll Position {{scrollPosition}}
 
+        <!-- Show Filtered Sites -->
+        <div v-if="changeBackgroundColor">
+          <div class="row d-flex justify-content-center " style="position: fixed; z-index: 500;">
+            <div style="font-size: .7rem; border: solid 1px grey; ">
+                {{ selectedInstitutionsNames }}
+            </div>
+          </div>
+        </div>
+     
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">No Show & Cancel Summary Stats</h4>
@@ -27,7 +36,7 @@
                 <i class="nc-icon nc-chart-pie-36 text-danger"></i>
               </div>
               <div slot="content">
-                <p class="card-category">No Show/All<br/> ({{ siteEncounterApptNoShowTotal }}/{{ siteEncounterApptTotalStr}})</p>
+                <p class="card-category">No Show/All<br/> ({{ formatNumber(siteEncounterApptNoShowTotal) }}/{{ siteEncounterApptTotalStr}})</p>
                 <h4 class="card-title">{{ notNumber(siteEncounterAppNoShowPercent) }}%</h4>
               </div>
             </stats-card>
@@ -64,7 +73,7 @@
           <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4> 
         </div>
 
-        <!-- appointmentNoShowCancelSummary FAQ -->
+        <!-- appointmentNoShowCancelByClinicTable FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
           <div style="width: 60%; margin-bottom: 10px;">
            <VueFaqAccordion :items="appointmentNoShowCancelByClinicTable"/> 
@@ -131,6 +140,8 @@ import { AgGridVue } from "ag-grid-vue";
 import { addCommas, totalAndPercent } from 'src/utils'
 
 import VueFaqAccordion from 'vue-faq-accordion'
+import { appointmentNoShowCancelSummary,
+        appointmentNoShowCancelByClinicTable } from '../Documentation/appointments_doc.js'
 
 import { mapState, mapGetters, mapActions } from 'vuex'
 
@@ -146,7 +157,11 @@ export default {
   },
   computed: {
     ...mapState([
-      'selectedSite', 'selectedRange', 'whitelisted'
+      'selectedSite', 
+      'selectedRange', 
+      'whitelisted',
+      'selectedInstitutions',
+      'selectedInstitutionsNames',
     ]),
     ...mapGetters([
       'siteEncounterApptClinicNoShowTotal',
@@ -157,6 +172,11 @@ export default {
       'siteEncounterApptTotal', // for computation
       'siteProviderSelected',
     ]),
+    changeBackgroundColor () {
+      // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
+      return this.selectedInstitutions.length > 0 || false
+    },      
+
     scrollPosition () {
       console.log('window.pageYOffset: ', window.pageYOffset)    
     },
@@ -224,6 +244,7 @@ export default {
     this.APPOINTMENT_COUNT()
 
     this.CURRENT_PAGE('appointment')
+    this.GET_INSTITUTIONS()
   },
   methods: {
     ...mapActions([
@@ -231,7 +252,9 @@ export default {
       'APPOINTMENT_CANCEL_NOSHOW_TOTALS',
       'APPOINTMENT_COUNT',
 
-      'CURRENT_PAGE'
+      'CURRENT_PAGE',
+      'GET_INSTITUTIONS',
+
     ]),
     asyncValue(val) {
       return val == 0 ? 'Loading...' : val
@@ -309,41 +332,8 @@ export default {
   data() {
     return {
       gridOptions3: null,
-      appointmentNoShowCancelSummary: [
-        {
-          title: "No Show & Cancelled Summary Cards",
-          value: "<u><b>Description</b></u>: Clinic appointments that have not been 'Completed' are tagged by the VistAsystem with a reason.  " + 
-          "For the PCT, two particularly noteworthy reasons are 'No Show' and 'Canceled' appointments.  These reasons, among others, contribute to an understanding of clinic efficiency'<br/><br/>" +
-          "The '<b>No Show</b>' and '<b>Cancel</b>' two cards below tally clinic appointments, showing the percentage of all appointments with these two statuses.<br/><br/>" + 
-          "<b>NOTE:</b> No Show and Cancel appointments here are those identified for PCT Clinics only based on the PCT Stop Codes:<br/><br/>" +
-          "<b>Stop Codes:</b><br/>" + 
-          "<u>516 PTSD - Group</u>:<br/>" +
-          "<u>542 Telephone PTSD</u>:<br/>"	+ 
-          "<u>562 PTSD - Individual</u><br/>",
-          category: "No Show and Cancel Status Stats and Statuses Defined...",
-        },
-        {
-          title: "Cancel No Show Pie Chart",
-          value: "<u><b>Description</b></u>: The Cancel No Show pie chart breaks down incomplete appointments by their statuses from the following possible statuses: <br/><br/>" +
-          " <u>NO-SHOW</u>:<br/> " +
-			    " <u>NO-SHOW & AUTO RE-BOOK</u>:<br/> " +
-          " <u>CANCELLED BY CLINIC</u>:<br/> " +
-			    " <u>CANCELLED BY CLINIC & AUTO RE-BOOK</u>:<br/> " + 
-			    " <u>CANCELLED BY PATIENT</u>:<br/> " +
-			    " <u>CANCELLED BY PATIENT & AUTO-REBOOK</u>:<br/> " + 
-			    " <u>NO ACTION TAKEN</u>:<br/> ",
-          category: "No Show and Cancel Status Stats and Statuses Defined...",
-        }
-      ],
-      appointmentNoShowCancelByClinicTable: [
-        {
-          title: "Clinic Level Cancel & No Show",
-          value: "<u><b>Description</b></u>: In PCTs, Veterans are seen in a variety of provider clinics.  The table below tallies the number of No Show and Cancelled appointments " +
-          "by provider clinic.  In each table row, the total number of incomplete appointments are listed by appointment status in comparison with the total number of clinic appointments." +
-          "Displaying the number of incomplete appointment along with the total number of appointments allows for estimating the rate of each incomplete appointment type (no show, cancel, etc).",
-          category:"Clinic Level Cancel & No Show Table Defined..."
-        }
-      ]
+      appointmentNoShowCancelSummary,
+      appointmentNoShowCancelByClinicTable,
     }
   }
 }
@@ -351,7 +341,11 @@ export default {
 </script>
 
 <style>
-  
+  .filtering {
+    background-color: lightgrey;
+  }
+
+
   .provider-selected {
     /* border: 4px solid red; */
     background-color: lightgray;

@@ -48,7 +48,7 @@ const routes = [
         component: Encounters
       },
       {
-        path: 'providers',
+        path: 'provider',
         name: 'Providers',
         component: Providers
       },

@@ -105,7 +105,7 @@ const store = new Vuex.Store({
       consult: true,
       appointments: true,
       encounters: true,
-      providers: true,
+      provider: true,
       survey: true,
       ebp: true,
     },
@@ -1381,7 +1381,7 @@ const store = new Vuex.Store({
         context.dispatch('ENCOUNTER_CPT') 
         context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
       }
-      if (context.state.route.path == '/admin/providers') {
+      if (context.state.route.path == '/admin/provider') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
         context.dispatch('PROVIDER_COUNT') 
         context.dispatch('PROVIDER_DETAILS') 
@@ -1410,7 +1410,7 @@ const store = new Vuex.Store({
       context.commit('SET_INSTITUTIONS_FILTER_SHOWHIDE')
     },
     GET_INSTITUTIONS (context) {
-      // console.log('GET_INSTITUTIONS action called!')
+      console.log('GET_INSTITUTIONS action called!')
 
       const path = 'pct.cgi'
       // need StaPa
@@ -1420,6 +1420,11 @@ const store = new Vuex.Store({
       // need Data Domain
       let route = context.state.route.path
       let domain = route.split("/").pop()
+
+      // SPECIAL CASE ***
+      // PROVIDER PAGE GETS DATA FROM ENCOUNTERS
+      // SO GET INSTITUTIONS FROM ENCOUNTERS NOT PROVIDERS
+      if (domain = 'provider') domain = 'encounters'
 
       // run this during usual dev
       const params = 'format=get_institutions' +
@@ -1433,7 +1438,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${params}`)
       .then(response => { 
-        // console.log('IN GET_INSTITUTIONS action, response.data is: ', response.data)
+        console.log('IN GET_INSTITUTIONS action, response.data is: ', response.data)
 
         context.commit('SET_INSTITUTIONS', response.data) 
  

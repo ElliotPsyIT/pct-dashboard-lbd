@@ -745,7 +745,7 @@ export default {
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
-            { headerName: "Site Name", 
+            { headerName: "From Location", 
               field: "InstitutionName", 
               width: 100, 
               cellStyle: { 'text-align': "left" } 

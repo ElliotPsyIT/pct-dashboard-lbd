@@ -364,24 +364,20 @@ export default {
     exportCSVgridOptions1() {
       let params = {
         // define the fields for export
-        columnKeys: ['OrderedBy','NL4','SurveyGivenDateTime','SurveyName','RawScore' ],
+        columnKeys: ['OrderedBy','LocationName','NL4','SurveyGivenDateTime','SurveyName','RawScore' ],
         fileName: 'survey_details',
         columnGroups: false,
+        allColumns: true,
         processCellCallback: (params) => {
             // console.log('processCellCallback params.value: ', params.value)
             return params.value
         },
         shouldRowBeSkipped: (params) => {
-          // console.log('is row grouped - params.node.group is:', params.node.group)
           // don't export if it's a grouped row
           if (params.node.group == true) { 
             return true
           }
         },
-        // processRowGroupCallback: (params) => {
-        //   console.log('processRowGroupCallback params: ', params)
-        // }
-        
       }
 
       this.gridOptions1.api.exportDataAsCsv(params)
@@ -426,6 +422,13 @@ export default {
               filter: "agTextColumnFilter",
               rowGroup: true,
               hide:true,
+            },
+            { headerName: "Clinic Name", 
+              field: "LocationName", 
+              width: 150, 
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agTextColumnFilter",
+              hidden: true,
             },
             { headerName: "Patient", 
               // field: "InitialsAndL4", 

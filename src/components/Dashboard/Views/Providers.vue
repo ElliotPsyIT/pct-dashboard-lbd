@@ -153,7 +153,9 @@
                 <!-- <span>Click On Arrow <span class="nc-icon">></span> Below to Drill Down</span> -->
                 <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
                 <button @click="gridOptions1.api.expandAll()" >Expand All</button>
-                <button class="float-right" @click="gridOptions1.api.exportDataAsCsv()">Export to CSV</button>
+                <!-- <button class="float-right" @click="gridOptions1.api.exportDataAsCsv()">Export to CSV</button> -->
+                <button class="float-right" @click="exportCSVgridOptions1()">Export to CSV</button>
+
               </template>
               <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
               :gridOptions="gridOptions1" 
@@ -372,6 +374,28 @@ export default {
     asyncValue(val) {
       return val == 0 ? 'Loading...' : val
     },
+    exportCSVgridOptions1() {
+      let params = {
+        // define the fields for export
+        columnKeys: ['STAFFNAME','InstitutionName','LocationName','EncountersByProvider','numPatients' ],
+        fileName: 'provider_encounter_totals',
+        allColumns: true,
+        columnGroups: false,
+        processCellCallback: (params) => {
+            // console.log('processCellCallback params.value: ', params.value)
+            return params.value
+        },
+        shouldRowBeSkipped: (params) => {
+          // don't export if it's a grouped row
+          if (params.node.group == true) { 
+            return true
+          }
+        },
+      }
+
+      this.gridOptions1.api.exportDataAsCsv(params)
+
+    },
     exportCSVgridOptions3() {
       this.gridOptions3.api.exportDataAsCsv( {
         processCellCallback: (params) => {
@@ -416,12 +440,13 @@ export default {
           rowGroup: true,
           hide:true,
         },
-        // { headerName: "Clinic Name", 
-        //   field: "LocationName", 
-        //   width: 150, 
-        //   cellStyle: { 'text-align': "left" } ,
-        //   filter: "agTextColumnFilter",
-        // },
+        { headerName: "Clinic Name", 
+          field: "LocationName", 
+          width: 150, 
+          cellStyle: { 'text-align': "left" } ,
+          filter: "agTextColumnFilter",
+           hidden: true,
+        },
         { headerName: "Sessions", 
           field: "EncountersByProvider", 
           width: 80, 

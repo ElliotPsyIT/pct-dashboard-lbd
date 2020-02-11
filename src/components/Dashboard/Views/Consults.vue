@@ -781,7 +781,7 @@ export default {
               field: "NL4",               
               width: 70, 
               cellStyle: { 'text-align': "left" },
-              filter: "agtextColumnFilter" 
+              // filter: "agtextColumnFilter" 
             },
             { headerName: "Requested Service", 
               field: "ToRequestServiceName",

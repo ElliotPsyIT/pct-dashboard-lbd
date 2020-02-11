@@ -176,7 +176,9 @@
                 <!-- <span>Hover Over Column Header to View Menu</span> -->
                 <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
                 <button @click="gridOptions1.api.expandAll()" >Expand All</button>
-                <button class="float-right" @click="gridOptions1.api.exportDataAsCsv()">Export to CSV</button>
+                <!-- <button class="float-right" @click="gridOptions1.api.exportDataAsCsv()">Export to CSV</button> -->
+                <button class="float-right" @click="exportCSVgridOptions1()">Export to CSV</button>
+            
               </template>
                 <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
                 :gridOptions="gridOptions1" 
@@ -358,7 +360,33 @@ export default {
 
       'CURRENT_PAGE',
       'GET_INSTITUTIONS',
-    ]),     
+    ]),
+    exportCSVgridOptions1() {
+      let params = {
+        // define the fields for export
+        columnKeys: ['OrderedBy','NL4','SurveyGivenDateTime','SurveyName','RawScore' ],
+        fileName: 'survey_details',
+        columnGroups: false,
+        processCellCallback: (params) => {
+            // console.log('processCellCallback params.value: ', params.value)
+            return params.value
+        },
+        shouldRowBeSkipped: (params) => {
+          // console.log('is row grouped - params.node.group is:', params.node.group)
+          // don't export if it's a grouped row
+          if (params.node.group == true) { 
+            return true
+          }
+        },
+        // processRowGroupCallback: (params) => {
+        //   console.log('processRowGroupCallback params: ', params)
+        // }
+        
+      }
+
+      this.gridOptions1.api.exportDataAsCsv(params)
+
+    },
     createColDefs() {
       return [
         {headerName: "Surveys",

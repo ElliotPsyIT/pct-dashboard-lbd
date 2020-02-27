@@ -101,7 +101,7 @@
       <!-- <a href="#/admin/surveys">
         <div class="page-link" >Surveys</div>
       </a> -->
-      <router-link :to="{path:'/admin/surveys'}">
+      <router-link :to="{path:'/admin/survey'}">
         <div class="page-link" >Surveys</div>
       </router-link>
         <h6 class="text-muted">PCT Surveys by Providers and by Patients</h6>
@@ -118,7 +118,7 @@
       <!-- <a href="#/admin/ebps">
         <div class="page-link" >EBPs</div>
       </a> -->
-      <router-link :to="{path:'/admin/ebps'}">
+      <router-link :to="{path:'/admin/ebp'}">
         <div class="page-link" >EBPs</div>
       </router-link>
       <h6 class="text-muted">EBP Session counts and Therapy Types</h6>

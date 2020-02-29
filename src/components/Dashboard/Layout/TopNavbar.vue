@@ -131,7 +131,7 @@
             </div>
           </form>
           </li>
-          <li class="nav-item py-0">  <!-- border-style: solid; {{capitalizeFirstLetter(currentpage)}}s -->
+          <li v-show="selectedSiteHavingInstitutions" class="nav-item py-0">  <!-- border-style: solid; {{capitalizeFirstLetter(currentpage)}}s -->
              <span v-if="siteSelected" class="" :class="{hide: !canFilterByProvider}"  >
               <a name="siteFilterClick" href="#" @click.prevent="filterInstitutionsShowHide"
                 style="margin-left: 12px; color: #696969; background-color: rgba(255, 255, 255, 0.96); padding: 8px; border-radius: 5px; font-size: 1rem; border: 1px solid; border-color: #cbd5e0;" 
@@ -271,6 +271,10 @@
       },
       institutionsSelected () {
         return this.selectedInstitutions.length > 0 || false
+      },
+      // field to show or hide institution filter
+      selectedSiteHavingInstitutions () {
+        return ! /NATIONAL|VISN/.test(this.selectedSite)
       }
     },
     data () {

@@ -108,7 +108,6 @@
         <div class="row">
 
           <div class="col-md-6">
-
             <template>
               <vue-highcharts :options="lineChartOptions"  ref="lineChart"></vue-highcharts>
             </template>
@@ -371,8 +370,8 @@ export default {
   },
   watch: {
     siteConsultPieChartSeries(newVal, oldVal) {
-      // console.log('siteConsultPieChartSeries watcher triggered - oldVal: ', oldVal )
-      // console.log('siteConsultPieChartSeries watcher triggered - newVal: ', newVal )
+      console.log('siteConsultPieChartSeries watcher triggered - oldVal: ', oldVal )
+      console.log('siteConsultPieChartSeries watcher triggered - newVal: ', newVal )
     },
     selectedRange(newVal, oldVal) {
       // console.log('Oh, range change from: ', oldVal)
@@ -391,9 +390,14 @@ export default {
 
     ]),
     ...mapGetters([
-      'siteConsultTotal','siteConsultPatientTotal','siteConsultActiveTotal',
-      'siteConsultPendingTotal','siteConsultPieChartSeries','siteConsultLineChartSeries',
-      'siteConsultDetails','getRunMode',
+      'siteConsultTotal',
+      'siteConsultPatientTotal',
+      'siteConsultActiveTotal',
+      'siteConsultPendingTotal',
+      'siteConsultPieChartSeries',
+      'siteConsultLineChartSeries',
+      'siteConsultDetails',
+      'getRunMode',
 
     ]),
     changeBackgroundColor () {

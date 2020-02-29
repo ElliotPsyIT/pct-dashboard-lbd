@@ -223,11 +223,11 @@ const store = new Vuex.Store({
     },
     siteConsultPieChartSeries: (state) =>{
       // build series based on selected site
-      // console.log('consultPieChart is: ', state.consultPieChart)
+      console.log('state.selectedSite is: ', state.selectedSite)
       let mappedArray = state.consultDataPie //state.consultPieChart
         .filter(site => site.StaPa === state.selectedSite)
         .map((status) => { return [status.ConsultStatus, +status.Num] })
-      // console.log('pie chart series is: ', mappedArray)
+      console.log('pie chart series is: ', mappedArray)
       return mappedArray  
     },
     siteConsultDetails: (state) => {
@@ -1284,12 +1284,12 @@ const store = new Vuex.Store({
       const format = 'consult_data'
       const allparams = setParams(format, context.state)
       // const params = 'format=consult_data&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      
+      console.log('path and all params: ', `${path}?${allparams}`)
       axios.get(`${path}?${allparams}`)
       .then(response => { 
         
         // convert string to object
-        // console.log('in action CONSULT_DATA is: ', response.data)
+        console.log('in action CONSULT_DATA is: ', response.data)
         // console.log('response.data.pie is: ', response.data.pie)
         // console.log('response.data.line is: ', response.data.line)
       
@@ -1603,7 +1603,7 @@ const store = new Vuex.Store({
       state.consultDetails = consultDetails
     },
     SET_CONSULT_DATA(state, consultData) {
-      // console.log('in mutate SET_CONSULT_DATA and consultData is: ', consultData)
+      console.log('in mutate SET_CONSULT_DATA and consultData is: ', consultData)
       state.consultDataPie = consultData.pie
       state.consultDataLine = consultData.line
       state.consultDataCount = consultData.count
@@ -1654,12 +1654,7 @@ const store = new Vuex.Store({
       // ADAccount: "VHA09\VHATVHFIELSE0", PHIPII: "1", Sta3n: "653"}
       // set PHIPIII
       // console.log('in mutate SET_USER_PERMISSIONS with userPermissions: ', userPermissions)      // console.log('in mutate SET_USER_PERMISSIONS state.adaccount is: ', state.adaccount)
-      
-      // need to find whether the currentSite is listed
-      //console.log('userPermissions is a: ', typeof userPermissions)
-      // console.log('userPermissions: ', userPermissions)
-      // console.log('state is: ', state)
-      
+            
       // set the ADAccount
       let ADAccount = userPermissions[0].ADAccount
       // hold for PHIPII access to selectedSite
@@ -1671,9 +1666,8 @@ const store = new Vuex.Store({
       // pull out 3 digits Sta3n from selected site
       let numberPattern = /^(\d\d\d)/g;
       let selectedSta3n = state.selectedSite.match( numberPattern );
-      // console.log(selectedSta3n);
-      // capture sites permissions
       let permissionAllSites = []
+
       // iterate through returned list of permissions
       userPermissions.map(function (permissionRow) {
         

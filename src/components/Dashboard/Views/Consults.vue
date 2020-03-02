@@ -122,12 +122,16 @@
         </div>
 
   <!-- {{ siteLineChartSeries }} -->
-  <!-- Section Header -->
+        <!-- Section Header -->
+        <!-- <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Consult Details</h4>
+        </div> -->
+
+        <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
+        <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Consult Details</h4>
         </div>
-
-        <div v-if="!phipii">
           <div class="row d-flex justify-content-center">
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
@@ -136,8 +140,12 @@
           </div>
         </div>
 
-  <!-- Show table only with PHIPII -->
+      <!-- Show table only with PHIPII -->
       <div v-else-if="phipii">
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Consult Details</h4>
+        </div>
         <!-- ConsultsDetails FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
           <div style="width: 60%; margin-bottom: 10px;">
@@ -400,6 +408,9 @@ export default {
       'getRunMode',
 
     ]),
+    selectedSiteVISNorNATIONAL () {
+      return /VISN|NATIONAL/.test(this.selectedSite)
+    },
     changeBackgroundColor () {
     // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
     return this.selectedInstitutions.length > 0 || false

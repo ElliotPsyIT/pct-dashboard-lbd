@@ -33,7 +33,7 @@ const routes = [
         component: Overview
       },
       {
-        path: 'consult',
+        path: 'consults',
         name: 'Consults',
         component: Consults
       },
@@ -48,7 +48,7 @@ const routes = [
         component: Encounters
       },
       {
-        path: 'provider',
+        path: 'providers',
         name: 'Providers',
         component: Providers
       },

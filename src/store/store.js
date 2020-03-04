@@ -102,7 +102,7 @@ const store = new Vuex.Store({
     providerFilterAllowed: {
       dashboard: false,
       definition: false,
-      consult: true,
+      consult: false,
       appointments: true,
       encounters: true,
       provider: true,

@@ -101,7 +101,7 @@
       <!-- <a href="#/admin/surveys">
         <div class="page-link" >Surveys</div>
       </a> -->
-      <router-link :to="{path:'/admin/survey'}">
+      <router-link :to="{path:'/admin/surveys'}">
         <div class="page-link" >Surveys</div>
       </router-link>
         <h6 class="text-muted">PCT Surveys by Providers and by Patients</h6>

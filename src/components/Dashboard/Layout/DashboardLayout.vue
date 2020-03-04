@@ -11,7 +11,7 @@
         <i class="nc-icon nc-bullet-list-67"></i>
         <p>Definitions</p>
       </sidebar-link>
-      <sidebar-link to="/admin/consult">
+      <sidebar-link to="/admin/consults">
         <i class="nc-icon nc-email-85"></i>
         <p>Consults</p>
       </sidebar-link>
@@ -23,11 +23,11 @@
         <i class="nc-icon nc-single-copy-04"></i>
         <p>Encounters</p>
       </sidebar-link>
-      <sidebar-link to="/admin/provider">
+      <sidebar-link to="/admin/providers">
         <i class="nc-icon nc-circle-09"></i>
         <p>Providers</p>
       </sidebar-link>
-      <sidebar-link to="/admin/survey">
+      <sidebar-link to="/admin/surveys">
         <i class="nc-icon nc-paper-2"></i>
         <p>Surveys</p>
       </sidebar-link>

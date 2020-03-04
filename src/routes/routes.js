@@ -53,7 +53,7 @@ const routes = [
         component: Providers
       },
       {
-        path: 'survey',
+        path: 'surveys',
         name: 'Surveys',
         component: Surveys
       },

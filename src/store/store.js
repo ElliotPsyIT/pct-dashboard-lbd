@@ -109,7 +109,7 @@ const store = new Vuex.Store({
       survey: true,
       ebp: true,
     },
-    appVersion: '0.14.6',
+    appVersion: '0.14.7',
     phipii: 0,
     allphipii: [],
     adaccount: "",

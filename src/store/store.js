@@ -105,11 +105,11 @@ const store = new Vuex.Store({
       consult: false,
       appointments: true,
       encounters: true,
-      provider: true,
-      survey: true,
+      providers: true,
+      surveys: true,
       ebp: true,
     },
-    appVersion: '0.14.7',
+    appVersion: '0.14.8',
     phipii: 0,
     allphipii: [],
     adaccount: "",
@@ -1381,14 +1381,14 @@ const store = new Vuex.Store({
         context.dispatch('ENCOUNTER_CPT') 
         context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
       }
-      if (context.state.route.path == '/admin/provider') {
+      if (context.state.route.path == '/admin/providers') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
         context.dispatch('PROVIDER_COUNT') 
         context.dispatch('PROVIDER_DETAILS') 
         context.dispatch('PROVIDER_INFO') 
         context.dispatch('PROVIDER_PATIENT_DETAILS_CPT') 
       }
-      if (context.state.route.path == '/admin/survey') {
+      if (context.state.route.path == '/admin/surveys') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
         context.dispatch('SURVEY_TOTALS')
         context.dispatch('SURVEY_DETAILS') 

@@ -281,7 +281,9 @@ export default {
   },
   computed: {
     ...mapState([
-      'selectedSite', 'selectedRange',  'phipii', 
+      'selectedSite', 
+      'selectedRange',  
+      'phipii', 
       'selectedInstitutions',
       'selectedInstitutionsNames',
     ]),

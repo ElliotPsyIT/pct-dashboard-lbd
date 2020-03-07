@@ -1,18 +1,19 @@
 <template>
   <transition name="fade" mode="out-in">
     <div class="content" :key="selectedRange">
-      <div class="container-fluid" :class="{filtering: changeBackgroundColor}">
+      <div class="container-fluid" >  <!-- :class="{filtering: changeBackgroundColor}" -->
 
               Scroll Position {{scrollPosition}}
 
         <!-- Show Filtered Sites -->
-        <div v-if="changeBackgroundColor">
+        <!-- Not needed if not filtering on Consults -->
+        <!-- <div v-if="changeBackgroundColor">
           <div class="row d-flex justify-content-center " style="position: fixed; right: 50px; z-index: 500;">
               <div style="font-size: .7rem; border: solid 1px grey; ">
                   {{ selectedInstitutionsNames }}
               </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
@@ -378,8 +379,8 @@ export default {
   },
   watch: {
     siteConsultPieChartSeries(newVal, oldVal) {
-      console.log('siteConsultPieChartSeries watcher triggered - oldVal: ', oldVal )
-      console.log('siteConsultPieChartSeries watcher triggered - newVal: ', newVal )
+      // console.log('siteConsultPieChartSeries watcher triggered - oldVal: ', oldVal )
+      // console.log('siteConsultPieChartSeries watcher triggered - newVal: ', newVal )
     },
     selectedRange(newVal, oldVal) {
       // console.log('Oh, range change from: ', oldVal)
@@ -518,13 +519,15 @@ export default {
     }
   },
   mounted() {
+    this.CURRENT_PAGE('consults')
+
     // action gets Consult Details from server
     this.CONSULT_DETAILS()
     this.CONSULT_DATA()
     // potentially trigger USER_PERMISSIONS here
     //this.USER_PERMISSIONS()
-    this.CURRENT_PAGE('consult')
-    this.GET_INSTITUTIONS()
+    // don't get institutions for consults
+    // this.GET_INSTITUTIONS()
 
   },
   methods: {
@@ -533,7 +536,7 @@ export default {
       'CONSULT_DATA',
 
       'CURRENT_PAGE',
-      'GET_INSTITUTIONS',
+      // 'GET_INSTITUTIONS', // no need if not filtering
     ]),
     asyncValue(val) {
       // show 'Loading..' with default value set to 0

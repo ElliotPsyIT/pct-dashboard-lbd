@@ -345,11 +345,12 @@ export default {
    
   },
   mounted() {
+     this.CURRENT_PAGE('surveys')
+
     this.SURVEY_TOTALS()
     this.SURVEY_DETAILS()
     this.SURVEY_PATIENT_DETAILS()
 
-    this.CURRENT_PAGE('survey')
     this.GET_INSTITUTIONS()
   },
    methods: {

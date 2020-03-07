@@ -350,12 +350,13 @@ export default {
      }
   },
   mounted() {
-    this.PROVIDER_COUNT()
+    this.CURRENT_PAGE('providers')
+
+this.PROVIDER_COUNT()
     this.PROVIDER_DETAILS()
     this.PROVIDER_PATIENT_DETAILS_CPT()
     this.PROVIDER_INFO()
 
-    this.CURRENT_PAGE('provider')
     // might be needed to assure institutions are available
     //    when app is opened and saved station is used
     this.GET_INSTITUTIONS()

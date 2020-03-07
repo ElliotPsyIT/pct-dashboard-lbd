@@ -496,7 +496,10 @@ export default {
  
   },
   mounted() {
-    this.ENCOUNTER_COUNT()
+    // call action to signal the active page
+    this.CURRENT_PAGE('encounters')
+
+this.ENCOUNTER_COUNT()
     this.ENCOUNTER_LINE_CHART()
     this.ENCOUNTER_PATIENT_LINE_CHART()
     this.ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY()
@@ -504,7 +507,7 @@ export default {
     this.ENCOUNTER_CPT()
     this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
     // call action to signal the active page
-    this.CURRENT_PAGE('encounter')
+    this.CURRENT_PAGE('encounters')
     // might be needed to assure institutions are available
     //    when app is opened and saved station is used
     this.GET_INSTITUTIONS()

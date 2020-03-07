@@ -64,6 +64,28 @@ function usageParams (state) {
   return usageParams 
 }
 
+// handle optional params including special cases
+function setOptionalParams (state) {
+  // if Consults, don't allow institutions as optional parameter
+  let page = state.currentpage
+  console.log('in setOptionalParams, state.currentpage is: ', state.currentpage)
+
+  let institutionFilterAllowed = state.providerFilterAllowed[`${page}`]
+  // console.log('in setOptionalParams, institutionFilterAllowed is: ', institutionFilterAllowed)
+
+  // console.log('in setOptionalParams, institutions is: ', state.selectedInstitutions.length)
+
+  // NOT YET ALLOWING ANY PROVIDER FILTERING
+  // (state.selectedProvider ? `&providerSID=${state.selectedProvider}` : '') +
+
+  // if institution filter allowed and there are institutions selected
+  let returnValue = institutionFilterAllowed && 
+         state.selectedInstitutions.length > 0 ?
+         `&institutionSID=${state.selectedInstitutions}` : ''
+
+  return returnValue
+}
+
 //REFACTOR: SET PARAMS FOR AXIOS REQUEST CENTRALLY
 function setParams (format, state) {
   // IDENTIFY ALL RELEVANT PARAMS FOR OBTAINING DATA, AND FILTERING
@@ -72,13 +94,14 @@ function setParams (format, state) {
   '&staPa='         + state.selectedSite +
   '&dateRange='     + state.selectedRange 
 
-  //state.selectedInstitutions.length > 0 ?
-  let optionalParams =
-  (state.selectedProvider ? `&providerSID=${state.selectedProvider}` : '') +
-  (state.selectedInstitutions.length > 0 ? `&institutionSID=${state.selectedInstitutions}` : '')
+  // DETERMINE OPTIONAL PARAMETERS
+  let optionalParams = setOptionalParams(state)
+  // let optionalParams =
+  // (state.selectedProvider ? `&providerSID=${state.selectedProvider}` : '') +
+  // (state.selectedInstitutions.length > 0 ? `&institutionSID=${state.selectedInstitutions}` : '')
 
   // console.log('in setParams, coreParams is: ', coreParams)
-  // console.log('in setParams, institutions is: ', institutions)
+  // console.log('in setParams, institutions is: ', state.selectedInstitutions.length)
   // console.log('in setParams, optionalParams is: ', optionalParams)
   return coreParams + optionalParams
 }
@@ -1468,8 +1491,12 @@ const store = new Vuex.Store({
 
     },
     CURRENT_PAGE (context, page) {
-      // console.log('in action CURRENT_PAGE and received this page name: ', page)
+      console.log('in action CURRENT_PAGE and received this page name: ', page)
       context.commit('SET_CURRENT_PAGE', page)
+      // if institution filtering && page is consult
+      //    reset selectedInstitutions - done locally or centrally?
+      //    refresh page data without filter -- done centrally?
+      //    page return to normal background -- done locally ?
     },
     CURRENT_USER (context) {
       const path = 'pct.cgi'

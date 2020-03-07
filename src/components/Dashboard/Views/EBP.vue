@@ -498,13 +498,13 @@ export default {
     }
   },
    mounted() {
+    this.CURRRENT_PAGE('ebp')
+
     this.EBP_SUMMARY()
     this.EBP_DETAILS()
     this.EBP_PIE_CHART()
     this.EBP_DETAILS_TYPES()
     this.EBP_DETAILS_SESSIONS_SURVEYS()
-
-    // this.CURRRENT_PAGE('ebp')
 
     this.GET_INSTITUTIONS()
   },

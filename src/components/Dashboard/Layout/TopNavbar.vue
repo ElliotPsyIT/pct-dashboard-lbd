@@ -138,6 +138,11 @@
               >SITE DATA FILTER </a>
              </span>
           </li>
+          <li v-if="!canFilterByProvider" class="nav-item py-0">
+            <span style="margin-left: 12px; color: #D3D3D3; background-color: rgba(255, 255, 255, 0.96); padding: 8px; border-radius: 5px; font-size: 1rem; border: 1px solid; border-color: #cbd5e0;" >
+              Current Page Institution Filter Disabled
+            </span>
+          </li>
         </ul>
         <!-- <ul class="navbar-nav ml-auto">
           <li class="nav-item">

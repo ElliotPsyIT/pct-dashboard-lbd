@@ -232,13 +232,13 @@
 
         </div>   <!-- End Row -->
 
+        <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
+          
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center ">
+            <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
+          </div>
 
-        <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
-        </div>
-
-        <div v-if="!phipii">
           <div class="row d-flex justify-content-center">
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
@@ -249,6 +249,11 @@
 
         <!-- Show table only with PHIPII -->
         <div v-else-if="phipii">
+
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center ">
+            <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
+          </div>
 
           <!-- Providers EBPs And Surveys By Clinic And Patient Summary FAQ -->
           <div style="align-items: center; display: flex; justify-content: center; ">
@@ -387,7 +392,9 @@ export default {
       'siteEBPDetailsSessionsSurveys',
 
     ]),
-    
+    selectedSiteVISNorNATIONAL () {
+      return /VISN|NATIONAL/.test(this.selectedSite)
+    },
     changeBackgroundColor () {
       // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
       return this.selectedInstitutions.length > 0 || false
@@ -498,7 +505,7 @@ export default {
     }
   },
    mounted() {
-    this.CURRRENT_PAGE('ebp')
+    this.CURRENT_PAGE('ebp')
 
     this.EBP_SUMMARY()
     this.EBP_DETAILS()

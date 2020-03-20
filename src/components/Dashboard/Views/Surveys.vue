@@ -145,22 +145,28 @@
           </div>
         </div>
 
+      <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
+
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Surveys to Patients - By Provider</h4>
         </div>
 
-        <div v-if="!phipii">
           <div class="row d-flex justify-content-center">
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
           <div class="row d-flex justify-content-center ">
             <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
           </div>
-        </div>
+      </div>
 
-  <!-- Show table only with PHIPII -->
+      <!-- Show table only with PHIPII -->
       <div v-else-if="phipii">
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Surveys to Patients - By Provider</h4>
+        </div>
 
         <!--  FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
@@ -306,6 +312,9 @@ export default {
       'selectedInstitutions',
       'selectedInstitutionsNames'
     ]),
+    selectedSiteVISNorNATIONAL () {
+      return /VISN|NATIONAL/.test(this.selectedSite)
+    },
     changeBackgroundColor () {
         // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
         return this.selectedInstitutions.length > 0 || false

@@ -70,14 +70,14 @@
           <h4 class="section-head">Provider Activity Summary</h4>
         </div>
 
-         <div v-if="!phipii">
+      <div v-if="!phipii  && !selectedSiteVISNorNATIONAL">
           <div class="row d-flex justify-content-center">
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
           <div class="row d-flex justify-content-center ">
             <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
           </div>
-        </div>
+      </div>
 
       <!-- Show table only with PHIPII -->
       <div v-else-if="phipii">
@@ -297,6 +297,9 @@ export default {
       'siteProviderClinicCount',
       'siteProviderPatientCount'
     ]),
+    selectedSiteVISNorNATIONAL () {
+      return /VISN|NATIONAL/.test(this.selectedSite)
+    },
     changeBackgroundColor () {
         // console.log('in changeBackgroundColor siteProviderSelected is: ', this.siteProviderSelected)
         // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
@@ -352,7 +355,7 @@ export default {
   mounted() {
     this.CURRENT_PAGE('providers')
 
-this.PROVIDER_COUNT()
+    this.PROVIDER_COUNT()
     this.PROVIDER_DETAILS()
     this.PROVIDER_PATIENT_DETAILS_CPT()
     this.PROVIDER_INFO()

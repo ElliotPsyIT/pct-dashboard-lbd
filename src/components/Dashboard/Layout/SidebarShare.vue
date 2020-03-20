@@ -82,7 +82,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     },
     mounted() {
       // Retrive the providers for selected Station
-      this.PROVIDER_INFO() //
+      // this.PROVIDER_INFO() //
       // console.log('IN MOUNTED: this.currentpage is: ', this.currentpage )
       
       // Retrieve the institutions for selected Station
@@ -183,7 +183,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     methods: {
       ...mapActions([
           // PROVIDER
-          'PROVIDER_INFO',
+          // 'PROVIDER_INFO',
           'PROVIDER_SELECTED',
 
           // SITES

@@ -122,27 +122,27 @@
 
         </div>
 
-  <!-- {{ siteLineChartSeries }} -->
-        <!-- Section Header -->
-        <!-- <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Consult Details</h4>
-        </div> -->
-
+        <!-- phipii is false for everyong for visn and national
+        to show this PHIPII message if user has no phipii privileges
+        test negation of both phipii and selectedSiteVISNorNATIONAl, 
+        then it''l show only if no phipii and no visn/national -->
         <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
-        <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Consult Details</h4>
-        </div>
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center ">
+            <h4 class="section-head">Consult Details</h4>
+          </div>
           <div class="row d-flex justify-content-center">
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
           <div class="row d-flex justify-content-center ">
             <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
           </div>
+
         </div>
 
       <!-- Show table only with PHIPII -->
-      <div v-else-if="phipii">
+      <div v-else-if="!selectedSiteVISNorNATIONAL">
+          
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Consult Details</h4>
@@ -154,20 +154,8 @@
           </div>
         </div>
 
-  <!-- Consult Details Table Data -->
-        <div class="row">
-          <!--         
-          <div class="col-md-12">
-            <card>
-              <grid-table></grid-table>
-            <template slot="footer">
-              <div class="legend">
-                Detailed Consult Listing
-              </div>
-            </template>
-            </card>
-          </div> -->
-          
+       <!-- Consult Details Table Data -->
+        <div class="row"> 
           <div class="col-md-12">
             <card>
               <template slot="header">

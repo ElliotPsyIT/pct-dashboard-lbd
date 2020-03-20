@@ -250,10 +250,18 @@
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
       },
-      ...mapState(['siteNames','dateRanges','selectedSite',
-                   'selectedRange','selectedProvider','selectedInstitutions',
-                   'currentpage']),
-      ...mapGetters(['canFilterByProvider']),
+      ...mapState([
+        'siteNames',
+        'dateRanges',
+        'selectedSite',
+        'selectedRange',
+        'selectedProvider',
+        'selectedInstitutions',
+        'currentpage',
+      ]),
+      ...mapGetters([
+        'canFilterByProvider',
+      ]),
       siteSelected: {
         get () {
           // return this.$store.selectedSite
@@ -328,9 +336,11 @@
       //   return this.selectedProvider
       // },
       
-      ...mapActions(
-        ['setSelectedSite','setSelectedRange','INSTITUTIONS_FILTER_SHOWHIDE']
-      ),
+      ...mapActions([
+          'setSelectedSite',
+          'setSelectedRange',
+          'INSTITUTIONS_FILTER_SHOWHIDE'
+      ]),
       // trigger action to open sidebar to select/filter institutions
       filterInstitutionsShowHide () {
         // console.log('triggered filterInstitutionsShowHide in TopNavBar to call action INSTITUTIONS_FILTER')

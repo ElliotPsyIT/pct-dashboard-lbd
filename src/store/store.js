@@ -68,7 +68,7 @@ function usageParams (state) {
 function setOptionalParams (state) {
   // if Consults, don't allow institutions as optional parameter
   let page = state.currentpage
-  console.log('in setOptionalParams, state.currentpage is: ', state.currentpage)
+  // console.log('in setOptionalParams, state.currentpage is: ', state.currentpage)
 
   let institutionFilterAllowed = state.providerFilterAllowed[`${page}`]
   // console.log('in setOptionalParams, institutionFilterAllowed is: ', institutionFilterAllowed)
@@ -106,6 +106,13 @@ function setParams (format, state) {
   return coreParams + optionalParams
 }
 
+// IS VISN OR NATIONAL DATA REQUESTED?
+function selectedSiteVISNorNATIONAL (state) {
+  // return true is user selected a VISN or NATIONAL site
+  console.log('in selectedSiteVISNorNATIONAL and state is: ', state)
+  return /VISN|NATIONAL/.test(state.selectedSite) ? true : false
+}
+
 // set default whitelisted dateRange for limiting data request size
 const defaultDateRange = 'threemonths' 
 
@@ -134,6 +141,7 @@ const store = new Vuex.Store({
     },
     appVersion: '0.15.1',
     phipii: 0,
+    selectedSiteVISNorNATIONAL: false,
     allphipii: [],
     adaccount: "",
     siteNames,
@@ -181,8 +189,14 @@ const store = new Vuex.Store({
     ebpDetailsSessionsSurveys: [],
   },
   getters: {
+    selectedSiteVISNorNATIONAL: (state) => {
+      // return true is user selected a VISN or NATIONAL site
+      console.log('in selectedSiteVISNorNATIONAL and /VISN|NATIONAL/.test(state.selectedSite) is: ', /VISN|NATIONAL/.test(state.selectedSite))
+      return /VISN|NATIONAL/.test(state.selectedSite) ? true : false
+    },
     // user permissions to see PHIPII
     userPHI: (state) => {
+      console.log('phipii is: ', state.phipii)
       return state.phipii
     },
     userAccount: (state) => {
@@ -1257,8 +1271,8 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${allparams}`)
       .then(response => { 
-        // console.log('got APP_COUNTS from server')
-        // console.log('response.data is: ', response.data)
+        console.log('got APP_COUNTS from server')
+        console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_APPOINTMENT_COUNT', response.data)
       })
@@ -1383,16 +1397,31 @@ const store = new Vuex.Store({
       context.dispatch('CURRENT_USER')
       context.dispatch('USER_PERMISSIONS')
 
+      // prep for VISN or NATIONAL restriction of data fetch
+      let VorN = selectedSiteVISNorNATIONAL(context.state)
+      console.log("in REFRESH, VorN is: ", VorN)
+
       if (context.state.route.path == '/admin/consults') {
-        // console.log('calling Action CONSULT_DETAILS')
+        console.log('calling Action CONSULT_DETAILS')
         context.dispatch('CONSULT_DATA')
-        context.dispatch('CONSULT_DETAILS')
+        
+        // NOT FOR VISN AND NATIONAL
+        if (!VorN) {
+          console.log('NO VISN or NATIONAL!')
+          context.dispatch('CONSULT_DETAILS')
+        }
+        
       }
       if (context.state.route.path == '/admin/appointments') {
         // console.log('calling Action CANCEL_NO_SHOW_TOTALS')
         context.dispatch('APPOINTMENT_COUNT')    
-        context.dispatch('APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS') 
         context.dispatch('APPOINTMENT_CANCEL_NOSHOW_TOTALS') 
+        
+        // NOT FOR VISN AND NATIONAL
+        if (!VorN) {
+          console.log('yes, VISN or NATIONAL')
+          context.dispatch('APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS') 
+        }
       }
       if (context.state.route.path == '/admin/encounters') {
         // console.log('calling Actions ENCOUNTER_CPT & ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY')    
@@ -1402,20 +1431,33 @@ const store = new Vuex.Store({
         context.dispatch('ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY') 
         context.dispatch('ENCOUNTER_CPT_CATEGORIES') 
         context.dispatch('ENCOUNTER_CPT') 
-        context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
+
+        // OKAY FOR NOW ---- FOR VISN AND NATIONAL
+        // if (!selectedSiteVISNorNATIONAL) {
+        // }
+
+        // TESTING FOR PATIENT FILTERING
+        // context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
       }
       if (context.state.route.path == '/admin/providers') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
         context.dispatch('PROVIDER_COUNT') 
-        context.dispatch('PROVIDER_DETAILS') 
-        context.dispatch('PROVIDER_INFO') 
-        context.dispatch('PROVIDER_PATIENT_DETAILS_CPT') 
+        // NOT FOR VISN AND NATIONAL
+        if (!VorN) {
+          context.dispatch('PROVIDER_DETAILS') 
+          context.dispatch('PROVIDER_INFO') 
+          context.dispatch('PROVIDER_PATIENT_DETAILS_CPT') 
+        }
       }
       if (context.state.route.path == '/admin/surveys') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
         context.dispatch('SURVEY_TOTALS')
+        // TABLE - DISPLAYS COUNTS AND NOT DETAILS
         context.dispatch('SURVEY_DETAILS') 
-        context.dispatch('SURVEY_PATIENT_DETAILS') 
+        // NOT FOR VISN AND NATIONAL
+        if (!VorN) {
+          context.dispatch('SURVEY_PATIENT_DETAILS') 
+        }
       }
       if (context.state.route.path == '/admin/ebp') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
@@ -1423,7 +1465,10 @@ const store = new Vuex.Store({
         context.dispatch('EBP_DETAILS')
         context.dispatch('EBP_PIE_CHART')
         context.dispatch('EBP_DETAILS_TYPES') 
-        context.dispatch('EBP_DETAILS_SESSIONS_SURVEYS') 
+        // NOT FOR VISN AND NATIONAL
+        if (!VorN) {
+          context.dispatch('EBP_DETAILS_SESSIONS_SURVEYS') 
+        }
       }
 
     },
@@ -1476,7 +1521,7 @@ const store = new Vuex.Store({
       // SOMEHOW CALL AN ACTION TO SET A FLAG TO SIGNAL TO
       // SIDEBARSHARE THAT IT NEEDS TO RESET THE TREESELECT
 
-      // console.log('route.path is: ', context.state.route.path)
+      console.log('route.path is: ', context.state.route.path)
       context.commit('SET_SELECTED_SITE', site)
 
       context.dispatch('REFRESH_ALL_DATA')
@@ -1491,7 +1536,7 @@ const store = new Vuex.Store({
 
     },
     CURRENT_PAGE (context, page) {
-      console.log('in action CURRENT_PAGE and received this page name: ', page)
+      // console.log('in action CURRENT_PAGE and received this page name: ', page)
       context.commit('SET_CURRENT_PAGE', page)
       // if institution filtering && page is consult
       //    reset selectedInstitutions - done locally or centrally?
@@ -1648,8 +1693,9 @@ const store = new Vuex.Store({
       state.encounterApptCancelNoShow = appointmentCancelNoShowTotals
     },
     SET_SELECTED_SITE (state, site) {
-      // console.log('in mutate SET_SELECTED_SITE')
+      console.log('in mutate SET_SELECTED_SITE TO: ', site)
       state.selectedSite = site
+      console.log('just SET_SELECTED_SITE and state is: ', state)
     },
     SET_SELECTED_RANGE (state, range) {
       state.selectedRange = range

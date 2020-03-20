@@ -68,29 +68,36 @@
 
         </div>
 
+      <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
         <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4> 
-        </div>
-
-        <!-- appointmentNoShowCancelByClinicTable FAQ -->
-        <div style="align-items: center; display: flex; justify-content: center; ">
-          <div style="width: 60%; margin-bottom: 10px;">
-           <VueFaqAccordion :items="appointmentNoShowCancelByClinicTable"/> 
-          </div>
-        </div>
-
-<!-- Whitelist Warning -->
-<!-- <h5 v-show="whitelisted" class="text-danger text-center">(Only 3 Months Data Showing)</h5> -->
-
-
-        <!-- Alert if no -->
-        <!-- <div v-show="whitelisted">
-          <div class="row d-flex justify-content-center text-danger">
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center ">
             <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4>
           </div>
-        </div> -->
+          <div class="row d-flex justify-content-center">
+            <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
+          </div>
+          <div class="row d-flex justify-content-center ">
+            <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
+          </div>
 
+      </div>
+
+      <!-- Show table only with PHIPII -->
+      <div v-else-if="phipii">
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center ">
+            <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4> 
+          </div>
+
+          <!-- appointmentNoShowCancelByClinicTable FAQ -->
+          <div style="align-items: center; display: flex; justify-content: center; ">
+            <div style="width: 60%; margin-bottom: 10px;">
+            <VueFaqAccordion :items="appointmentNoShowCancelByClinicTable"/> 
+            </div>
+          </div>
+
+        <!-- Clinic & NoShow - Detailed CPT Categories Table -->
         <div class="d-flex flex-row justify-content-center">
 
           <div class="col-md-12 ">
@@ -119,7 +126,7 @@
           </div>
 
         </div>
-
+      </div> <!-- PHI -->
       </div>
     </div>
   </transition>
@@ -160,6 +167,7 @@ export default {
       'selectedSite', 
       'selectedRange', 
       'whitelisted',
+      'phipii',
       'selectedInstitutions',
       'selectedInstitutionsNames',
     ]),
@@ -172,6 +180,10 @@ export default {
       'siteEncounterApptTotal', // for computation
       'siteProviderSelected',
     ]),
+    selectedSiteVISNorNATIONAL () {
+      console.log('in selectedSiteVISNorNATIONAL, selectedSite is: ', this.selectedSite)
+      return /VISN|NATIONAL/.test(this.selectedSite)
+    },
     changeBackgroundColor () {
       // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
       return this.selectedInstitutions.length > 0 || false

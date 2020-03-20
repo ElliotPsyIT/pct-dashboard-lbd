@@ -490,7 +490,7 @@ export default {
     
     this.gridOptions2 = {
       columnDefs:  this.createColDefs2(),
-      rowData: this.rowData, // computed prop
+      rowData: this.rowData2, // computed prop
       suppressPropertyNamesCheck: true
     }
  
@@ -499,7 +499,7 @@ export default {
     // call action to signal the active page
     this.CURRENT_PAGE('encounters')
 
-this.ENCOUNTER_COUNT()
+    this.ENCOUNTER_COUNT()
     this.ENCOUNTER_LINE_CHART()
     this.ENCOUNTER_PATIENT_LINE_CHART()
     this.ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY()
@@ -543,6 +543,9 @@ this.ENCOUNTER_COUNT()
       'siteProviderSelected',
       
     ]),
+    selectedSiteVISNorNATIONAL () {
+      return /VISN|NATIONAL/.test(this.selectedSite)
+    },
     scrollPosition () {
       // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
       console.log('window.pageYOffset: ', window.pageYOffset)    

@@ -65,12 +65,13 @@
 
         </div>
 
+      <div v-if="!phipii  && !selectedSiteVISNorNATIONAL">
+
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Provider Activity Summary</h4>
         </div>
 
-      <div v-if="!phipii  && !selectedSiteVISNorNATIONAL">
           <div class="row d-flex justify-content-center">
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
@@ -81,6 +82,10 @@
 
       <!-- Show table only with PHIPII -->
       <div v-else-if="phipii">
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Provider Activity Summary</h4>
+        </div>
 
         <!--  FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
@@ -122,7 +127,25 @@
         </div> <!-- End Row -->
       </div> <!-- End PHIPII -->
 
-  <!-- Section Header -->
+      <!-- Show table only with PHIPII -->
+      <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Provider Encounter Totals</h4>
+        </div>
+
+          <div class="row d-flex justify-content-center">
+            <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
+          </div>
+          <div class="row d-flex justify-content-center ">
+            <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
+          </div>
+        </div>
+
+      <div v-if="phipii">
+
+        <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Provider Encounter Totals</h4>
         </div>
@@ -133,18 +156,6 @@
            <VueFaqAccordion :items="ProviderEncounterTotals"/> 
           </div>
         </div>
-
-         <div v-if="!phipii">
-          <div class="row d-flex justify-content-center">
-            <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
-          </div>
-          <div class="row d-flex justify-content-center ">
-            <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
-          </div>
-        </div>
-
-      <!-- Show table only with PHIPII -->
-      <div v-else-if="phipii">
 
         <div class="row justify-content-center">
           <div class="col-md-10">
@@ -179,23 +190,29 @@
         </div> <!-- End Row -->
       </div> <!-- End PHIPII -->
 
+      <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
+
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Provider Patient Sessions</h4>
         </div>
 
-         <div v-if="!phipii">
-          <div class="row d-flex justify-content-center">
-            <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
-          </div>
-          <div class="row d-flex justify-content-center ">
-            <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
-          </div>
+        <div class="row d-flex justify-content-center">
+          <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
+        </div>
+        <div class="row d-flex justify-content-center ">
+          <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
         </div>
 
-  <!-- Show table only with PHIPII -->
-      <div v-else-if="phipii">
+      </div>
 
+      <!-- Show table only with PHIPII -->
+      <div v-else-if="phipii">
+        
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Provider Patient Sessions</h4>
+        </div>
         <!--  FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
           <div style="width: 60%; margin-bottom: 10px;">

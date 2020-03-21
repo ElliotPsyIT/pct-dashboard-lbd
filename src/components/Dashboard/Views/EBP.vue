@@ -181,21 +181,22 @@
           <h4 class="section-head"></h4>
         </div>
 
-       
-        <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">EBP Activity Summary</h4>
-        </div>
-
-        <!-- EBP Activity Summary FAQ -->
-        <div style="align-items: center; display: flex; justify-content: center; ">
-          <div style="width: 60%; margin-bottom: 10px;">
-           <VueFaqAccordion :items="ebpActivitySummary"/> 
-          </div>
-        </div>
-
         <!-- Start Row -->
-        <div class="row">
+      <div class="row">
+
+        <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
+       
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center ">
+            <h4 class="section-head">EBP Activity Summary</h4>
+          </div>
+
+          <!-- EBP Activity Summary FAQ -->
+          <div style="align-items: center; display: flex; justify-content: center; ">
+            <div style="width: 60%; margin-bottom: 10px;">
+            <VueFaqAccordion :items="ebpActivitySummary"/> 
+            </div>
+          </div>
 
           <div class="col-md-6" >
             <br/>
@@ -223,7 +224,9 @@
               </template> -->
             </card>
           </div>
+        </div>
 
+          <!-- Show EBP Activity Pie Chart always -->
           <div class="col-md-6">
             <template>
               <vue-highcharts :options="pieChartOptions"  ref="pieChart"></vue-highcharts>

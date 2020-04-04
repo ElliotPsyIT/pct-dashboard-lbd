@@ -132,14 +132,14 @@
           </form>
           </li>
           <li v-show="selectedSiteHavingInstitutions" class="nav-item py-0">  <!-- border-style: solid; {{capitalizeFirstLetter(currentpage)}}s -->
-             <span v-if="siteSelected" class="" :class="{hide: !canFilterByProvider}"  >
+             <span v-if="siteSelected" class="" :class="{hide: !canFilterByProvider }"  >
               <a name="siteFilterClick" href="#" @click.prevent="filterInstitutionsShowHide"
                 style="margin-left: 12px; color: #696969; background-color: rgba(255, 255, 255, 0.96); padding: 8px; border-radius: 5px; font-size: 1rem; border: 1px solid; border-color: #cbd5e0;" 
               >SITE DATA FILTER </a>
              </span>
           </li>
           <li v-if="!canFilterByProvider" class="nav-item py-0">
-            <span style="margin-left: 12px; color: #D3D3D3; background-color: rgba(255, 255, 255, 0.96); padding: 8px; border-radius: 5px; font-size: 1rem; border: 1px solid; border-color: #cbd5e0;" >
+            <span :class="{hide: selectedPage == 'Overview' || selectedPage === 'Definitions'}" style="margin-left: 12px; color: #D3D3D3; background-color: rgba(255, 255, 255, 0.96); padding: 8px; border-radius: 5px; font-size: 1rem; border: 1px solid; border-color: #cbd5e0;" >
               Current Page Institution Filter Disabled
             </span>
           </li>
@@ -246,10 +246,7 @@
       
     },
     computed: {
-      routeName () {
-        const {name} = this.$route
-        return this.capitalizeFirstLetter(name)
-      },
+
       ...mapState([
         'siteNames',
         'dateRanges',
@@ -281,6 +278,13 @@
           // this.$store.dispatch('setSelectedRange', range)
           this.setSelectedRange(range)
         }   
+      },
+      // determine current page
+      selectedPage () {
+        let { name } = this.$route
+        console.log('name from $route is: ', name)
+        // return this.capitalizeFirstLetter(name)
+        return name
       },
       institutionsSelected () {
         return this.selectedInstitutions.length > 0 || false

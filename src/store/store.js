@@ -130,8 +130,8 @@ const store = new Vuex.Store({
     runMode: '',
     currentpage: '',
     providerFilterAllowed: {
-      dashboard: false,
-      definition: false,
+      overview: false,
+      definitions: false,
       consults: false,
       appointments: true,
       encounters: true,
@@ -146,7 +146,11 @@ const store = new Vuex.Store({
     adaccount: "",
     siteNames,
     dateRanges,
-    
+    disclaimer: {
+      asterisks: '** ',
+      mainText: 'Please remember that the data presented in this tool, whether it is aggregated or patient specific, is confidential and privileged. Data from any tool created for operational purposes cannot be disclosed to anyone without authorization and ',
+      emphasis: 'cannot be used for research purposes.'
+    },
     institutions: [],
     selectedInstitutions: [],
     selectedInstitutionsNames: [],
@@ -458,10 +462,11 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? [] : filteredArray  
     },
     siteEncounterApptNoShowTotal: (state) => {
+      // console.log('in siteEncounterApptNoShowTotal, data are: ', state.encounterApptCancelNoShow)
       let filteredArray = state.encounterApptCancelNoShow
-        .filter(site => site.StaPa === state.selectedSite)
-        .filter(site => site.CancelNoShow === 'NO-SHOW')
-      // console.log('Encounter Patient Total is: ', filteredArray)
+      .filter(site => site.StaPa === state.selectedSite)
+      .filter(site => site.CancelNoShow === 'NO-SHOW')
+    // console.log('Encounter Patient Total is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray[0].cancelNoShowCount
     },
     siteEncounterApptCancelTotal: (state) => {
@@ -1272,7 +1277,7 @@ const store = new Vuex.Store({
       axios.get(`${path}?${allparams}`)
       .then(response => { 
         console.log('got APP_COUNTS from server')
-        console.log('response.data is: ', response.data)
+        // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_APPOINTMENT_COUNT', response.data)
       })
@@ -1288,7 +1293,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${allparams}`)
       .then(response => { 
-        // console.log('got consult details from server')
+        // console.log('got APPOINTMENT_CANCEL_NOSHOW_TOTALS from server')
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_APPOINTMENT_CANCEL_NOSHOW_TOTALS', response.data)
@@ -1305,7 +1310,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${allparams}`)
       .then(response => { 
-        // console.log('got consult details from server')
+        // console.log('got APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS from server')
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_APPOINTMENT_CLINIC_CANCEL_NOSHOW_TOTALS', response.data)
@@ -1386,20 +1391,23 @@ const store = new Vuex.Store({
 
     },
     REFRESH_ALL_DATA (context) {
+
+       // prep for VISN or NATIONAL restriction of data fetch
+       let VorN = selectedSiteVISNorNATIONAL(context.state)
+       console.log("in REFRESH, VorN is: ", VorN)
+ 
       // console.log('refresh all data!')
       // be sure provider info is updated with new site or new date range 
       context.dispatch('PROVIDER_INFO')
       
       // be sure the institution info is updated with new site or new date range
-      context.dispatch('GET_INSTITUTIONS')
+      if (!VorN) {
+        context.dispatch('GET_INSTITUTIONS')
+      }
 
       // update the user since this page could be entered anytime
       context.dispatch('CURRENT_USER')
       context.dispatch('USER_PERMISSIONS')
-
-      // prep for VISN or NATIONAL restriction of data fetch
-      let VorN = selectedSiteVISNorNATIONAL(context.state)
-      console.log("in REFRESH, VorN is: ", VorN)
 
       if (context.state.route.path == '/admin/consults') {
         console.log('calling Action CONSULT_DETAILS')

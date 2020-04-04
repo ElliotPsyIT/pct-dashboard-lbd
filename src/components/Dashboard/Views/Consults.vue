@@ -15,6 +15,8 @@
           </div>
         </div> -->
 
+        <p class="category" style="font-size: .8rem; font-style: italic;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
+
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Consult Overall Summary</h4>
@@ -384,6 +386,7 @@ export default {
       'phipii',
       'selectedInstitutions',
       'selectedInstitutionsNames',
+      'disclaimer',
 
     ]),
     ...mapGetters([

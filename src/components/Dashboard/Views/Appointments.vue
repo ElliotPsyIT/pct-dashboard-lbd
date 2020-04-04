@@ -15,12 +15,14 @@
               </div>
           </div>
         </div>
-     
+
+        <p class="category" style="font-size: .8rem; font-style: italic;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
+      
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">No Show & Cancel Summary Stats</h4>
         </div>
-      
+
         <!-- appointmentNoShowCancelSummary FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
           <div style="width: 60%; margin-bottom: 10px;">
@@ -97,6 +99,7 @@
             </div>
           </div>
 
+
         <!-- Clinic & NoShow - Detailed CPT Categories Table -->
         <div class="d-flex flex-row justify-content-center">
 
@@ -170,6 +173,7 @@ export default {
       'phipii',
       'selectedInstitutions',
       'selectedInstitutionsNames',
+      'disclaimer',
     ]),
     ...mapGetters([
       'siteEncounterApptClinicNoShowTotal',

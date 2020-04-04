@@ -82,7 +82,9 @@
           </div>
 
         </div> -->
-      
+
+        <p class="category" style="font-size: .8rem; font-style: italic;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
+     
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Encounters and Patients</h4>
@@ -519,6 +521,7 @@ export default {
       'selectedRange', 
       'selectedInstitutions',
       'selectedInstitutionsNames',
+      'disclaimer',
     ]),
     ...mapGetters([
       'siteEncounterTotal', // all distinct visitsid w/ CPT filtering

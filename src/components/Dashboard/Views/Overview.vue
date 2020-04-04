@@ -4,7 +4,7 @@
 
       Scroll Position {{scrollPosition}}
 
-<div class="jumbotron d-flex flex-row" style="height: 340px;">
+<div class="jumbotron d-flex flex-row" style="height: 350px;">
   <div class="mr-4">
     <img src="../../../../static/img/nat-center-ptsd.jpg">
   </div>
@@ -13,11 +13,10 @@
 
     <p class="category "><b>Select Station AND Date Range <i class="bold nc-icon nc-stre-up text-primary"></i></b> From Drop Downs Above </p>
     <p class="category "><b>View Details <i class="bold nc-icon nc-stre-left text-primary"></i></b> Use Left Sidebar</p>
-    <p class="category news">NEW! Restricted Access to Patient Level Data Based on PHI/PII Permissions</p>
+    <p class="category" style="font-size: .8rem; font-style: italic;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
+    <p class="category news">Restricted Access to Patient Level Data Based on PHI/PII Permissions</p>
 
   </div>
-
-
   
 </div>
 
@@ -409,7 +408,7 @@
       StatsCard
     },
     computed: {
-      ...mapState(['selectedSite', 'selectedRange']),
+      ...mapState(['selectedSite', 'selectedRange','disclaimer']),
         // ...mapGetters(['nationalConsultTotal','nationalConsultStatuses'])
       scrollPosition () {
         // console.log('document.body.scrollHeight: ', document.body.scrollHeight)

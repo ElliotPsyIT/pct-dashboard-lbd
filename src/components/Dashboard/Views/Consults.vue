@@ -15,7 +15,12 @@
           </div>
         </div> -->
 
-        <p class="category" style="font-size: .8rem; font-style: italic;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
+        <!-- Disclaimer -->
+        <div class="row d-flex justify-content-center mt-4 ">
+          <p class="category" style="font-size: .8rem; font-style: italic;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
+        </div>
+
+      <hr/>
 
         <!-- Section Header -->
         <div class="row d-flex justify-content-center ">

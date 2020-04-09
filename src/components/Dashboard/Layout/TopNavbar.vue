@@ -261,10 +261,12 @@
       ]),
       siteSelected: {
         get () {
+          // console.log('siteSelected get! ', this.selectedSite)
           // return this.$store.selectedSite
           return this.selectedSite
         },
         set (site) {
+          // console.log('siteSelected site! ', site)
           // this.$store.dispatch('setSelectedSite', site)
           this.setSelectedSite(site)
         }   

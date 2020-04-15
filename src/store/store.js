@@ -70,7 +70,7 @@ function setOptionalParams (state) {
   let page = state.currentpage
   // console.log('in setOptionalParams, state.currentpage is: ', state.currentpage)
 
-  let institutionFilterAllowed = state.providerFilterAllowed[`${page}`]
+  let institutionFilterAllowed = state.siteFilterAllowed[`${page}`]
   // console.log('in setOptionalParams, institutionFilterAllowed is: ', institutionFilterAllowed)
 
   // console.log('in setOptionalParams, institutions is: ', state.selectedInstitutions.length)
@@ -129,7 +129,7 @@ const store = new Vuex.Store({
 
     runMode: '',
     currentpage: '',
-    providerFilterAllowed: {
+    siteFilterAllowed: {
       overview: false,
       definitions: false,
       consults: false,
@@ -880,22 +880,22 @@ const store = new Vuex.Store({
     //   return filteredArray[0] ? filteredArray[0].NumPsychotherapyByType : 0
     // },
 
-    canFilterByProvider: (state) => {
+    canFilterBySite: (state) => {
       let path = state.route.path 
       let regx = /\/(\w+)$/ //find currentpage
       let pageObj = regx.exec(path)
-      // console.log('in canFilterByProvider, pageObj is: ', pageObj)
+      // console.log('in canFilterBySite, pageObj is: ', pageObj)
       let page = pageObj[1]
-      // console.log('in canFilterByProvider, page is: ', page)
-      // console.log('state.providerFilterAllowed: ', state.providerFilterAllowed)
-    // console.log('just trying state.providerFilterAllowed.ebp: ', state.providerFilterAllowed.ebp)
-      // console.log('in getter canFilterByProvider, state.providerFilterAllowed for this page is: ', state.providerFilterAllowed[page])
+      // console.log('in canFilterBySite, page is: ', page)
+      // console.log('state.siteFilterAllowed: ', state.siteFilterAllowed)
+    // console.log('just trying state.siteFilterAllowed.ebp: ', state.siteFilterAllowed.ebp)
+      // console.log('in getter canFilterBySite, state.siteFilterAllowed for this page is: ', state.siteFilterAllowed[page])
   
-      if(state.providerFilterAllowed[page]){
-        // console.log('filterAllowed is: ', state.providerFilterAllowed[page])
-        return state.providerFilterAllowed[page]
+      if(state.siteFilterAllowed[page]){
+        // console.log('filterAllowed is: ', state.siteFilterAllowed[page])
+        return state.siteFilterAllowed[page]
       } else {
-        // console.log('filterAllowed is NO!!: ', state.providerFilterAllowed[page])
+        // console.log('filterAllowed is NO!!: ', state.siteFilterAllowed[page])
         return false
       } 
     },

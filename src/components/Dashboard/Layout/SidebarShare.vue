@@ -1,6 +1,6 @@
 <template>
   <div class="fixed-plugin" style="position: fixed; width: 35px; " v-click-outside="closeDropDown" 
-      :class="{hide: !canFilterByProvider}">
+      :class="{hide: !canFilterBySite}">
     <div class="dropdown show-dropdown" :class="{show: isOpen}">
       
       <!-- PROVIDERS IMAGE -->
@@ -126,7 +126,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         // 'siteProviderList',
         'siteProviders',
         'siteProviderSelected',
-        'canFilterByProvider',
+        'canFilterBySite',
         'siteInstitutions'
       ]),
       
@@ -262,7 +262,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
         this.providers = [...new Set(this.siteProviders)]
         
         // Privider Icon Show/Hide
-        this.enableProviderIcon = this.canFilterByProvider
+        this.enableProviderIcon = this.canFilterBySite
 
       },
       // Provider Icon click handler to show/hide the sidebar

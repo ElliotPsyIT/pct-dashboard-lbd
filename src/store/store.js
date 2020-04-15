@@ -168,6 +168,7 @@ const store = new Vuex.Store({
     encounterCPTCategories: [],
     encounterCPT: [],
     encounterPatientCPTCategories: [],
+    encounterTelehealth: [],
 
     encounterApptCancelNoShow: [],
     encounterApptCount: [],
@@ -380,6 +381,45 @@ const store = new Vuex.Store({
         })
       // try new totalAndPercent2(filteredArray)
       return totalAndPercent2(filteredArray)
+    },
+    // totals for telehealth and video - home
+    siteEncounterTelehealthHome: (state) => {
+      // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+      let filteredArray = state.encounterTelehealth
+      .filter(site => site.StaPa === state.selectedSite) 
+      .filter(site => {
+        // regex matches secondary stop code
+        // console.log('site.SecondaryStopCodeName', site.site.SecondaryStopCodeName)
+        return /RT CLIN VID CARE HOME/.test(site.SecondaryStopCodeName)
+      })
+      // console.log('siteEncounterTelehealthHome - filteredArray is: ', filteredArray)
+      return filteredArray.length == 0 ? 0 : filteredArray[0].countTelehealth
+    },
+    // totals for telehealth and video - home
+    siteEncounterTelehealthSameStation: (state) => {
+    // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+    let filteredArray = state.encounterTelehealth
+    .filter(site => site.StaPa === state.selectedSite) 
+    .filter(site => {
+      // regex matches secondary stop code
+      // console.log('site.SecondaryStopCodeName', site.site.SecondaryStopCodeName)
+
+        return /CVT PRV SITE SAME DIV\/STA/.test(site.SecondaryStopCodeName)
+      })        
+      return filteredArray.length == 0 ? 0 : filteredArray[0].countTelehealth
+    },
+    // // totals for telehealth and video - home
+    siteEncounterTelehealthDiffStation: (state) => {
+    // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+    let filteredArray = state.encounterTelehealth
+    .filter(site => site.StaPa === state.selectedSite) 
+    .filter(site => {
+      // regex matches secondary stop code
+      // console.log('site.SecondaryStopCodeName', site.site.SecondaryStopCodeName)
+
+        return /RT CLIN VD TH PRV SITE(DIFSTA)/.test(site.SecondaryStopCodeName)
+      })        
+      return filteredArray.length == 0 ? 0 : filteredArray[0].countTelehealth
     },
     // total for Prolonged Service CPT Category (large set of CPTs)
     siteEncounterCPTProlongedService: (state) => {
@@ -1140,6 +1180,23 @@ const store = new Vuex.Store({
     },
 
     /******************** ENCOUNTERS *************** */
+    ENCOUNTER_TELEHEALTH (context) {
+      // console.log('in ENCOUNTER_PATIENT_LINE_CHART Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const format = 'encounter_telehealth'
+      const allparams = setParams(format, context.state)
+// console.log('ENCOUNTER_TELEHEALTH action url: ', `${path}?${allparams}`)
+      // const params = 'format=encounter_patient_line_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      axios.get(`${path}?${allparams}`)
+      .then(response => { 
+        console.log('got ENCOUNTER_TELEHEALTH from server')
+        console.log('ENCOUNTER_TELEHEALTH response.data is: ', response.data)
+        console.log('check context before commit: ', context)
+        context.commit('SET_ENCOUNTER_TELEHEALTH', response.data)
+      })
+
+    },
     ENCOUNTER_PATIENT_LINE_CHART (context) {
       // console.log('in ENCOUNTER_PATIENT_LINE_CHART Action, check context here', context)
           
@@ -1439,13 +1496,8 @@ const store = new Vuex.Store({
         context.dispatch('ENCOUNTER_CPT_CATEGORIES_PSYCHOTHERAPY') 
         context.dispatch('ENCOUNTER_CPT_CATEGORIES') 
         context.dispatch('ENCOUNTER_CPT') 
-
-        // OKAY FOR NOW ---- FOR VISN AND NATIONAL
-        // if (!selectedSiteVISNorNATIONAL) {
-        // }
-
-        // TESTING FOR PATIENT FILTERING
-        // context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
+        context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
+        context.dispatch('ENCOUNTER_TELEHEALTH') 
       }
       if (context.state.route.path == '/admin/providers') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
@@ -1648,6 +1700,10 @@ const store = new Vuex.Store({
     SET_PROVIDER_PATIENT_DETAILS_CPT(state, providerPatientDetailsCPT) {
       // console.log('in mutate SET_PROVIDER_PATIENT_DETAILS_CPT and state is: ', state)
       state.providerPatientDetailsCPT = providerPatientDetailsCPT
+    },
+    SET_ENCOUNTER_TELEHEALTH(state, encounterTelehealth) {
+      console.log('in mutate SET_ENCOUNTER_TELEHEALTH and state is: ', encounterTelehealth)
+      state.encounterTelehealth = encounterTelehealth
     },
     SET_ENCOUNTER_PATIENT_CPT_CATEGORIES(state, encounterPatientCPTCategories) {
       // console.log('in mutate SET_ENCOUNTER_PATIENT_CPT_CATEGORIES and state is: ', state)

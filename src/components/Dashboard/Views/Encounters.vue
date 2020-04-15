@@ -362,6 +362,69 @@
 
         </div>
 
+        <!-- Psychotherapy Patients Section -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Telehealth Services</h4>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">To Home </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthHome">
+                      {{ formatNumber(telehealthHome || 0) }} Pts
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+              </stats-card>        
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">To Same Station </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthSameStation">
+                      {{ formatNumber(telehealthSameStation) }} Pts
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>        
+          </div>
+
+           <div class="col-xl-3 col-md-4">
+             <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">To Different Station </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthDiffStation">
+                      {{ formatNumber(telehealthDiffStation) }} Pts
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>         
+          </div>
+
+        </div>
+      
         <!-- Encounter Categories Section -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Encounters Categories Summary</h4>
@@ -503,6 +566,7 @@ export default {
     this.ENCOUNTER_CPT_CATEGORIES()
     this.ENCOUNTER_CPT()
     this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
+    this.ENCOUNTER_TELEHEALTH()
     // call action to signal the active page
     this.CURRENT_PAGE('encounter')
     // might be needed to assure institutions are available
@@ -537,9 +601,28 @@ export default {
       'siteEncounterCPTPatientsGrpOnly',
       'siteEncounterCPTPatientsBoth',
 
+      'siteEncounterTelehealthHome',
+      'siteEncounterTelehealthSameStation',
+      'siteEncounterTelehealthDiffStation',
+
       'siteProviderSelected',
       
     ]),
+    telehealthHome () {
+      return this.siteEncounterTelehealthHome == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthHome
+    },
+    telehealthSameStation () {
+      return this.siteEncounterTelehealthSameStation == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthSameStation
+    },
+    telehealthDiffStation () {
+      return this.siteEncounterTelehealthDiffStation == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthDiffStation
+    },
     scrollPosition () {
       // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
       console.log('window.pageYOffset: ', window.pageYOffset)    
@@ -622,6 +705,7 @@ export default {
       'ENCOUNTER_CPT_CATEGORIES',
       'ENCOUNTER_CPT',
       'ENCOUNTER_PATIENT_CPT_CATEGORIES',
+      'ENCOUNTER_TELEHEALTH',
       'CURRENT_PAGE',
       'GET_INSTITUTIONS',
 

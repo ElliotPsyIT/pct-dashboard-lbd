@@ -23,7 +23,7 @@ Tab</u></b></p>
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>a.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Total
 Consults = all consults made to stop codes 516, 562 (from here on out called <span
-style='color:#1F4E79'>PTSD stop codes</span>)</p>
+style='color:#1F4E79'>PTSD stop codes (Primary Stop Codes Only)</span>)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>b.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Total

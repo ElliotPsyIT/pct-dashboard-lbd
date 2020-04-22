@@ -375,11 +375,13 @@
                 <i class="nc-icon-outline nc-single-01 text-success"></i>
               </div>
               <div slot="content">
-                <p class="card-category">To Home </p>
+                <p class="card-category">To Home<br/> 
+                  <span style="inline-block; font-size: .7rem;">Telehealth to Home</span> 
+                </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="telehealthHome">
-                      {{ formatNumber(telehealthHome || 0) }} Pts
+                      {{ formatNumber(telehealthHome || 0) }} Sessions
                     </span>
                   </transition>
                 </h4>
@@ -393,11 +395,12 @@
                 <i class="nc-icon-outline nc-multiple-11 text-success"></i>
               </div>
               <div slot="content">
-                <p class="card-category">To Same Station </p>
+                <p class="card-category">To Associated Facility<br/>
+                  <span style="inline-block; font-size: .7rem;">Different Facility (CBOC)</span> </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="telehealthSameStation">
-                      {{ formatNumber(telehealthSameStation) }} Pts
+                      {{ formatNumber(telehealthSameStation) }} Sessions
                     </span>
                   </transition>
                 </h4>
@@ -411,11 +414,12 @@
                 <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
               </div>
               <div slot="content">
-                <p class="card-category">To Different Station </p>
+                <p class="card-category">To Different Station <br/>
+                  <span style="inline-block; font-size: .7rem;">Different Parent Station</span> </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="telehealthDiffStation">
-                      {{ formatNumber(telehealthDiffStation) }} Pts
+                      {{ formatNumber(telehealthDiffStation) }} Sessions
                     </span>
                   </transition>
                 </h4>

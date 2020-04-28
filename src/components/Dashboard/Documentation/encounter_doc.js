@@ -18,9 +18,11 @@ export const encountersAll = [
       category: "Encounters and Patients Defined..."
     },
     {
-      title: "PCT Encounter (CPT Codes) Definition",
-      value: "<u><b>Encounter CPT Codes</b></u>: PCT Encounters are pulled from among encounters conducting assessment, treatment and education activities.  These activities are identified use the following set of specific CPT codes.<br/><br/>" +
+      title: "PCT Encounter (CPT Procedure Codes) Definition",
+      value: "<u><b>Encounter CPT Procedure Codes</b></u>: PCT Encounters are pulled from among encounters conducting assessment, treatment and education activities.  These activities are identified use the following set of specific CPT procedure codes.<br/><br/>" +
       "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
+      "<b>NOTE: Encounters may have multiple CPT procedure codes attached to an encounter.  When we count encounters by their procedure code, e.g. Individual Psychotherapy, we count the encounter regardless of any other procedure code may be attached to the encounter. " + 
+      "As a result, encounters may be counted multiple times, once for each procedure code attached to an encounter.<br/><br/>" +
       "<u>Individual Therapy</u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
   "<u>Group Psychotherapy</u>: <br/>('90853')<br/><br/>" +
   "<u>Interactive Complexity</u>: <br/>('90785')<br/><br/>" + 
@@ -63,6 +65,53 @@ export const encountersAll = [
       category: "Psychotherapy Encounters Defined ..."
 
     }
+  ]
+
+  export const encounterTelehealth = [
+    {
+      title: "Face To Face - Individual Therapy",
+      value: "Face To Face counts is the sum number of individual therapy encounters that DO NOT have a Telehealth Secondary Stop Code.  " +
+      "<br/><br/>" +
+      "The non-Telehealth Individual Therapy codes are the same as used elsewhere on this Encounters page.  " + 
+      "The sessions are from all PCT Clinics with the following subset of Individual Tx CPT codes:<br/><br/>" + 
+      "&nbsp;&nbsp;&nbsp; <u>Individual Therapy</u>: (incl. 1 Crisis Code AND 2 Family Codes): <br/>" +
+      "('90832', '90834', '90837', '90839', '90847', '90849')<br/><br/>",
+      category: "Telehealth Encounters Defined ..."
+
+    },
+    {
+      title: "Telehealth to Home - Individual Therapy",
+      value: "Telehealth to Home counts is the sum number of individual therapy encounters that have a Telehealth Secondary Stop Code.  " +
+      "<br/><br/>" +
+      "The Telehealth Secondary Stop Code for Home is '179'.  If this Telehealth to Home code is used along with an Individual Therapy Primary Stop Code " + 
+      "then the encounter counts toward the sum.  The Individual Therapy stop code are the same as used elsewhere on this Encounters page.  " + 
+      "The sessions are from all PCT Clinics with the following subset of Individual Tx CPT codes:<br/><br/>" + 
+      "&nbsp;&nbsp;&nbsp; <u>Individual Therapy</u>: (incl. 1 Crisis Code AND 2 Family Codes): <br/>" +
+      "('90832', '90834', '90837', '90839', '90847', '90849')<br/><br/>",
+      category: "Telehealth Encounters Defined ..."
+    },
+    {
+      title: "Telehealth to Associate Facility - Individual Therapy",
+      value: "Telehealth to Associate Facility  counts is the sum number of individual therapy encounters that have a Telehealth Secondary Stop Code.  " +
+      "<br/><br/>" +
+      "The Telehealth Secondary Stop Code for Home is '692'.  If this Telehealth to Home code is used along with an Individual Therapy Primary Stop Code " + 
+      "then the encounter counts toward the sum.  The Individual Therapy stop code are the same as used elsewhere on this Encounters page.  " + 
+      "The sessions are from all PCT Clinics with the following subset of Individual Tx CPT codes:<br/><br/>" + 
+      "&nbsp;&nbsp;&nbsp; <u>Individual Therapy</u>: (incl. 1 Crisis Code AND 2 Family Codes): <br/>" +
+      "('90832', '90834', '90837', '90839', '90847', '90849')<br/><br/>",
+      category: "Telehealth Encounters Defined ..."
+    },
+    {
+      title: "Telehealth to Different Parent Station - Individual Therapy",
+      value: "Telehealth to Different Parent Station counts is the sum number of individual therapy encounters that have a Telehealth Secondary Stop Code.  " +
+      "<br/><br/>" +
+      "The Telehealth Secondary Stop Code for Home is '693'.  If this Telehealth to Home code is used along with an Individual Therapy Primary Stop Code " + 
+      "then the encounter counts toward the sum.  The Individual Therapy stop code are the same as used elsewhere on this Encounters page.  " + 
+      "The sessions are from all PCT Clinics with the following subset of Individual Tx CPT codes:<br/><br/>" + 
+      "&nbsp;&nbsp;&nbsp; <u>Individual Therapy</u>: (incl. 1 Crisis Code AND 2 Family Codes): <br/>" +
+      "('90832', '90834', '90837', '90839', '90847', '90849')<br/><br/>",
+      category: "Telehealth Encounters Defined ..."
+    },
   ]
 
   export const otherServices = [
@@ -126,6 +175,6 @@ export const encountersAll = [
       "Also note an encounter may have multiple CPT codes. The CPT Details table below shows all the distinct CPT codes and code combinations using the CPT Code standard names. <br/><br/>" +
       "<u><b>NOTE</b></u>: An encounter is not infrequently tagged with multiple CPT codes.  In the table we include all CPT code combinations for each encounter. " + 
       "Noticee that the individual CPT code names are separated by a bar \'|\', indicating multiple CPTs coded for the single encounter. <br/><br/>",
-      category: "CPT Details Defined ..."
+      category: "Procedure Code Details Defined ..."
     }
   ]

@@ -109,7 +109,7 @@ function setParams (format, state) {
 // IS VISN OR NATIONAL DATA REQUESTED?
 function selectedSiteVISNorNATIONAL (state) {
   // return true is user selected a VISN or NATIONAL site
-  console.log('in selectedSiteVISNorNATIONAL and state is: ', state)
+  // console.log('in selectedSiteVISNorNATIONAL and state is: ', state)
   return /VISN|NATIONAL/.test(state.selectedSite) ? true : false
 }
 
@@ -169,6 +169,7 @@ const store = new Vuex.Store({
     encounterCPT: [],
     encounterPatientCPTCategories: [],
     encounterTelehealth: [],
+    encounterFaceToFace: [],
 
     encounterApptCancelNoShow: [],
     encounterApptCount: [],
@@ -201,7 +202,7 @@ const store = new Vuex.Store({
     },
     // user permissions to see PHIPII
     userPHI: (state) => {
-      console.log('phipii is: ', state.phipii)
+      // console.log('phipii is: ', state.phipii)
       return state.phipii
     },
     userAccount: (state) => {
@@ -383,44 +384,105 @@ const store = new Vuex.Store({
       return totalAndPercent2(filteredArray)
     },
     // totals for telehealth and video - home
-    siteEncounterTelehealthHome: (state) => {
+    siteEncounterIndividualFaceToFace: (state) => {
+      let filteredArray = state.encounterFaceToFace
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => { 
+          return site.TherapyModality === 'FACE_TO_FACE'
+        })
+        .filter(site => site.Psychotherapy === 'Individual Therapy')
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+    siteEncounterGroupFaceToFace: (state) => {
+      let filteredArray = state.encounterFaceToFace
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => site.TherapyModality === 'FACE_TO_FACE')
+        .filter(site => site.Psychotherapy === 'Group Therapy')
+        return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+    siteEncounterTelehealthHomeInd: (state) => {
       // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+      let filteredArray = state.encounterTelehealth
+      .filter(site => {
+        return site.StaPa === state.selectedSite
+      }) 
+      .filter(site => {
+        // console.log('in siteEncounterTelehealthHomeInd, Psychotherapy is : ', site.Psychotherapy)
+        return site.Psychotherapy === 'Individual Therapy'
+      })
+      .filter(site => {
+        return /RT CLIN VID CARE HOME/.test(site.SecondaryStopCodeName)
+      })
+      // console.log('filteredArray in siteEncounterTelehealthHomeInd is: ', filteredArray)
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+    siteEncounterTelehealthSameStationInd: (state) => {
       let filteredArray = state.encounterTelehealth
       .filter(site => site.StaPa === state.selectedSite) 
       .filter(site => {
-        // regex matches secondary stop code
-        // console.log('site.SecondaryStopCodeName', site.site.SecondaryStopCodeName)
-        return /RT CLIN VID CARE HOME/.test(site.SecondaryStopCodeName)
+        // console.log('in siteEncounterTelehealthSameStationInd, Psychotherapy is : ', site.Psychotherapy)
+        return site.Psychotherapy === 'Individual Therapy'
       })
-      // console.log('siteEncounterTelehealthHome - filteredArray is: ', filteredArray)
-      return filteredArray.length == 0 ? 0 : filteredArray[0].countTelehealth
-    },
-    // totals for telehealth and video - home
-    siteEncounterTelehealthSameStation: (state) => {
-    // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
-    let filteredArray = state.encounterTelehealth
-    .filter(site => site.StaPa === state.selectedSite) 
-    .filter(site => {
-      // regex matches secondary stop code
-      // console.log('site.SecondaryStopCodeName', site.site.SecondaryStopCodeName)
-
-        return /CVT PRV SITE SAME DIV\/STA/.test(site.SecondaryStopCodeName)
+      .filter(site => {
+          return /CVT PRV SITE SAME DIV\/STA/.test(site.SecondaryStopCodeName)
       })        
-      return filteredArray.length == 0 ? 0 : filteredArray[0].countTelehealth
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
     // // totals for telehealth and video - home
-    siteEncounterTelehealthDiffStation: (state) => {
+    siteEncounterTelehealthDiffStationInd: (state) => {
     // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
     let filteredArray = state.encounterTelehealth
     .filter(site => site.StaPa === state.selectedSite) 
     .filter(site => {
-      // regex matches secondary stop code
-      // console.log('site.SecondaryStopCodeName', site.site.SecondaryStopCodeName)
-
+      // console.log('in siteEncounterTelehealthDiffStationInd, Psychotherapy is : ', site.Psychotherapy)
+      return site.Psychotherapy === 'Individual Therapy'
+    })
+    .filter(site => {
         return /RT CLIN VD TH PRV SITE(DIFSTA)/.test(site.SecondaryStopCodeName)
       })        
-      return filteredArray.length == 0 ? 0 : filteredArray[0].countTelehealth
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
+    siteEncounterTelehealthHomeGrp: (state) => {
+      // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+      let filteredArray = state.encounterTelehealth
+      .filter(site => {
+        return site.StaPa === state.selectedSite
+      }) 
+      .filter(site => {
+      // console.log('in siteEncounterTelehealthHomeGrp, NUMSESSIONS is : ', site.NUMSESSIONS)
+      return site.Psychotherapy === 'Group Therapy'
+      })
+      .filter(site => {
+        return /RT CLIN VID CARE HOME/.test(site.SecondaryStopCodeName)
+      })
+      // console.log('in siteEncounterTelehealthHomeGrp, filteredArray is: ', filteredArray)
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+    siteEncounterTelehealthSameStationGrp: (state) => {
+      let filteredArray = state.encounterTelehealth
+      .filter(site => site.StaPa === state.selectedSite) 
+      .filter(site => {
+        return site.Psychotherapy === 'Group Therapy'
+      })
+      .filter(site => {
+          return /CVT PRV SITE SAME DIV\/STA/.test(site.SecondaryStopCodeName)
+      })        
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+    // // totals for telehealth and video - home
+    siteEncounterTelehealthDiffStationGrp: (state) => {
+    // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+    let filteredArray = state.encounterTelehealth
+    .filter(site => site.StaPa === state.selectedSite) 
+    .filter(site => {
+      return site.Psychotherapy === 'Group Therapy'
+    })
+    .filter(site => {
+        return /RT CLIN VD TH PRV SITE(DIFSTA)/.test(site.SecondaryStopCodeName)
+      })        
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+    
     // total for Prolonged Service CPT Category (large set of CPTs)
     siteEncounterCPTProlongedService: (state) => {
       let filteredArray = state.encounterCPTCategories
@@ -433,7 +495,7 @@ const store = new Vuex.Store({
 
       return totalAndPercent2(filteredArray)
     },
-    // total for Specific CPT Category (large set of CPTs)
+   // total for Specific CPT Category (large set of CPTs)
     siteEncounterCPTAssessment: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter(site => site.StaPa === state.selectedSite) 
@@ -1190,10 +1252,27 @@ const store = new Vuex.Store({
       // const params = 'format=encounter_patient_line_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
       axios.get(`${path}?${allparams}`)
       .then(response => { 
-        console.log('got ENCOUNTER_TELEHEALTH from server')
-        console.log('ENCOUNTER_TELEHEALTH response.data is: ', response.data)
-        console.log('check context before commit: ', context)
+        // console.log('got ENCOUNTER_TELEHEALTH from server')
+        // console.log('ENCOUNTER_TELEHEALTH response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
         context.commit('SET_ENCOUNTER_TELEHEALTH', response.data)
+      })
+
+    },
+    ENCOUNTER_FACE_TO_FACE (context) {
+      // console.log('in encounter_face_to_face Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const format = 'encounter_face_to_face'
+      const allparams = setParams(format, context.state)
+// console.log('encounter_face_to_face action url: ', `${path}?${allparams}`)
+      // const params = 'format=encounter_patient_line_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      axios.get(`${path}?${allparams}`)
+      .then(response => { 
+        // console.log('got encounter_face_to_face from server')
+        // console.log('encounter_face_to_face response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ENCOUNTER_FACE_TO_FACE', response.data)
       })
 
     },
@@ -1451,7 +1530,7 @@ const store = new Vuex.Store({
 
        // prep for VISN or NATIONAL restriction of data fetch
        let VorN = selectedSiteVISNorNATIONAL(context.state)
-       console.log("in REFRESH, VorN is: ", VorN)
+      //  console.log("in REFRESH, VorN is: ", VorN)
  
       // console.log('refresh all data!')
       // be sure provider info is updated with new site or new date range 
@@ -1467,7 +1546,7 @@ const store = new Vuex.Store({
       context.dispatch('USER_PERMISSIONS')
 
       if (context.state.route.path == '/admin/consults') {
-        console.log('calling Action CONSULT_DETAILS')
+        // console.log('calling Action CONSULT_DETAILS')
         context.dispatch('CONSULT_DATA')
         
         // NOT FOR VISN AND NATIONAL
@@ -1498,6 +1577,7 @@ const store = new Vuex.Store({
         context.dispatch('ENCOUNTER_CPT') 
         context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
         context.dispatch('ENCOUNTER_TELEHEALTH') 
+        context.dispatch('ENCOUNTER_FACE_TO_FACE')
       }
       if (context.state.route.path == '/admin/providers') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
@@ -1538,7 +1618,7 @@ const store = new Vuex.Store({
       context.commit('SET_INSTITUTIONS_FILTER_SHOWHIDE')
     },
     GET_INSTITUTIONS (context) {
-      console.log('GET_INSTITUTIONS action called!')
+      // console.log('GET_INSTITUTIONS action called!')
 
       const path = 'pct.cgi'
       // need StaPa
@@ -1566,7 +1646,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('IN GET_INSTITUTIONS action, response.data is: ', response.data)
+        // console.log('IN GET_INSTITUTIONS action, response.data is: ', response.data)
 
         context.commit('SET_INSTITUTIONS', response.data) 
  
@@ -1702,8 +1782,12 @@ const store = new Vuex.Store({
       state.providerPatientDetailsCPT = providerPatientDetailsCPT
     },
     SET_ENCOUNTER_TELEHEALTH(state, encounterTelehealth) {
-      console.log('in mutate SET_ENCOUNTER_TELEHEALTH and state is: ', encounterTelehealth)
+      // console.log('in mutate SET_ENCOUNTER_TELEHEALTH and state is: ', encounterTelehealth)
       state.encounterTelehealth = encounterTelehealth
+    },
+    SET_ENCOUNTER_FACE_TO_FACE(state, encounterFaceToFace) {
+      // console.log('in mutate SET_ENCOUNTER_FACE_TO_FACE and state is: ', encounterFaceToFace)
+      state.encounterFaceToFace = encounterFaceToFace
     },
     SET_ENCOUNTER_PATIENT_CPT_CATEGORIES(state, encounterPatientCPTCategories) {
       // console.log('in mutate SET_ENCOUNTER_PATIENT_CPT_CATEGORIES and state is: ', state)
@@ -1757,9 +1841,9 @@ const store = new Vuex.Store({
       state.encounterApptCancelNoShow = appointmentCancelNoShowTotals
     },
     SET_SELECTED_SITE (state, site) {
-      console.log('in mutate SET_SELECTED_SITE TO: ', site)
+      // console.log('in mutate SET_SELECTED_SITE TO: ', site)
       state.selectedSite = site
-      console.log('just SET_SELECTED_SITE and state is: ', state)
+      // console.log('just SET_SELECTED_SITE and state is: ', state)
     },
     SET_SELECTED_RANGE (state, range) {
       state.selectedRange = range

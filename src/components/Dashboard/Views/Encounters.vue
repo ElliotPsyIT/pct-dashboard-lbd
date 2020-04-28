@@ -156,9 +156,11 @@
 
         </div>
 
+<hr/>
+
         <!-- Psychotherapy Section -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Psychotherapy Sessions</h4>
+          <h4 class="section-head">Individual Psychotherapy Sessions</h4>
         </div>
 
         <!-- EncountersPsychotherapy FAQ -->
@@ -177,10 +179,10 @@
               </div>
               <div slot="content">
                 <p class="card-category">Individual<br/>
-                  <transition name="fade" mode="out-in"> 
+                  <!-- <transition name="fade" mode="out-in">  -->
                    ({{ formatNumber(siteEncounterCPTIndividual) }}/
                     {{ formatNumber(siteEncounterTotal) }})
-                  </transition>
+                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -193,6 +195,117 @@
               </stats-card>
           </div>
 
+        </div>
+
+        <!-- Psychotherapy Patients Section -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Individual Telehealth Services</h4>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Face-to-Face<br/> 
+                  <span style="inline-block; font-size: .7rem;">Seen at Med Center</span> 
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthFaceToFaceInd">
+                      {{ formatNumber(telehealthFaceToFaceInd) }} 
+                      <!-- / {{ formatNumber(siteEncounterCPTIndividual) }} -->
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+              </stats-card>        
+          </div>
+|
+|
+|
+|
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">To Home<br/> 
+                  <span style="inline-block; font-size: .7rem;">Telehealth to Home</span> 
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthHomeInd">
+                      {{ formatNumber(telehealthHomeInd || 0) }} 
+                      <!-- / {{ formatNumber(siteEncounterCPTIndividual) }} -->
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+              </stats-card>        
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">To Associated Facility<br/>
+                  <span style="inline-block; font-size: .7rem;">Other Facility (e.g. CBOC)</span> </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthSameStationInd">
+                      {{ formatNumber(telehealthSameStationInd) }} 
+                      <!-- / {{ formatNumber(siteEncounterCPTIndividual) }} -->
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>        
+          </div>
+
+           <div class="col-xl-3 col-md-4">
+             <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">To Different Station <br/>
+                  <span style="inline-block; font-size: .7rem;">Different Parent Station</span> </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthDiffStationInd">
+                      {{ formatNumber(telehealthDiffStationInd) }} 
+                      <!-- / {{ formatNumber(siteEncounterCPTIndividual) }} -->
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>         
+          </div>
+
+        </div>
+      
+        <!-- Psychotherapy Section -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Group Psychotherapy Sessions</h4>
+        </div>
+
+        <!-- EncountersPsychotherapy FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="encountersPsychotherapy"/> 
+          </div>
+        </div>
+        
+        <div class="d-flex flex-row justify-content-center">
+          
           <div class="col-xl-3 col-md-3">          
             <stats-card>
               <div slot="header" class="icon-warning">
@@ -200,10 +313,10 @@
               </div>
               <div slot="content">
                 <p class="card-category">Group<br/> 
-                  <transition name="fade" mode="out-in"> 
+                  <!-- <transition name="fade" mode="out-in">  -->
                     ({{ formatNumber(siteEncounterCPTGroup) }}/
                     {{ formatNumber(siteEncounterTotal) }})
-                  </transition>
+                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -217,6 +330,103 @@
           </div>
 
         </div>
+
+        <!-- Psychotherapy Patients Section -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Group Telehealth Services</h4>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Face-to-Face<br/> 
+                  <span style="inline-block; font-size: .7rem;">Seen at Med Center</span> 
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthFaceToFaceGrp">
+                      {{ formatNumber(telehealthFaceToFaceGrp) }} 
+                      <!-- / {{ formatNumber(siteEncounterCPTIndividual) }} -->
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+              </stats-card>        
+          </div>
+|
+|
+|
+|
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">To Home<br/> 
+                  <span style="inline-block; font-size: .7rem;">Telehealth to Home</span> 
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthHomeGrp">
+                      {{ formatNumber(telehealthHomeGrp || 0) }} 
+                      <!-- / {{ formatNumber(siteEncounterCPTGroup) }} -->
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+              </stats-card>        
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">To Associated Facility<br/>
+                  <span style="inline-block; font-size: .7rem;">Other Facility (e.g. CBOC)</span> </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthSameStationGrp">
+                      {{ formatNumber(telehealthSameStationGrp) }} 
+                      <!-- / {{ formatNumber(siteEncounterCPTGroup) }} -->
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>        
+          </div>
+
+           <div class="col-xl-3 col-md-4">
+             <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">To Different Station <br/>
+                  <span style="inline-block; font-size: .7rem;">Different Parent Station</span> </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="telehealthDiffStationGrp">
+                      {{ formatNumber(telehealthDiffStationGrp) }} 
+                      <!-- / {{ formatNumber(siteEncounterCPTGroup) }} -->
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>         
+          </div>
+
+        </div>
+
+<hr/>
 
         <!-- Psychotherapy Patients Section -->
         <div class="row d-flex justify-content-center ">
@@ -369,73 +579,6 @@
 
         </div>
 
-        <!-- Psychotherapy Patients Section -->
-        <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Telehealth Services</h4>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center">
-          
-          <div class="col-xl-3 col-md-4">
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon-outline nc-single-01 text-success"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">To Home<br/> 
-                  <span style="inline-block; font-size: .7rem;">Telehealth to Home</span> 
-                </p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="telehealthHome">
-                      {{ formatNumber(telehealthHome || 0) }} Sessions
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-              </stats-card>        
-          </div>
-
-          <div class="col-xl-3 col-md-4">
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">To Associated Facility<br/>
-                  <span style="inline-block; font-size: .7rem;">Different Facility (CBOC)</span> </p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="telehealthSameStation">
-                      {{ formatNumber(telehealthSameStation) }} Sessions
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>        
-          </div>
-
-           <div class="col-xl-3 col-md-4">
-             <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">To Different Station <br/>
-                  <span style="inline-block; font-size: .7rem;">Different Parent Station</span> </p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="telehealthDiffStation">
-                      {{ formatNumber(telehealthDiffStation) }} Sessions
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>         
-          </div>
-
-        </div>
-      
         <!-- Encounter Categories Section -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Encounters Categories Summary</h4>
@@ -468,7 +611,7 @@
               </ag-grid-vue>
               <template slot="footer">
                 <div class="legend">
-                  Detailed CPT Categories Listing
+                  Detailed Procedure Categories Listing
                 </div>
               </template>
             </card>
@@ -478,7 +621,7 @@
 
         <!-- CPT Details Section -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">CPT Details</h4>
+          <h4 class="section-head">Procedure Code Details</h4>
         </div>
 
        <!-- encounterCPTDetails FAQ -->
@@ -507,7 +650,7 @@
               </ag-grid-vue>
               <template slot="footer">
                 <div class="legend">
-                  Detailed Encounter CPT Codes
+                  Detailed Encounter Procedure Codes
                 </div>
               </template>
             </card>
@@ -581,6 +724,7 @@ export default {
     this.ENCOUNTER_CPT()
     this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
     this.ENCOUNTER_TELEHEALTH()
+    this.ENCOUNTER_FACE_TO_FACE()
     // call action to signal the active page
     this.CURRENT_PAGE('encounters')
     // might be needed to assure institutions are available
@@ -616,27 +760,60 @@ export default {
       'siteEncounterCPTPatientsGrpOnly',
       'siteEncounterCPTPatientsBoth',
 
-      'siteEncounterTelehealthHome',
-      'siteEncounterTelehealthSameStation',
-      'siteEncounterTelehealthDiffStation',
-
+      'siteEncounterIndividualFaceToFace',
+      'siteEncounterGroupFaceToFace',
+      // 'siteEncounterTelehealthHome',
+      // 'siteEncounterTelehealthSameStation',
+      // 'siteEncounterTelehealthDiffStation',
+      
+      'siteEncounterTelehealthHomeInd',
+      'siteEncounterTelehealthSameStationInd',
+      'siteEncounterTelehealthDiffStationInd',
+      'siteEncounterTelehealthHomeGrp',
+      'siteEncounterTelehealthSameStationGrp',
+      'siteEncounterTelehealthDiffStationGrp',
+      
       'siteProviderSelected',
       
     ]),
-    telehealthHome () {
-      return this.siteEncounterTelehealthHome == undefined 
-        ? 0 
-        : this.siteEncounterTelehealthHome
+    telehealthFaceToFaceInd () {
+      return this.siteEncounterIndividualFaceToFace
     },
-    telehealthSameStation () {
-      return this.siteEncounterTelehealthSameStation == undefined 
-        ? 0 
-        : this.siteEncounterTelehealthSameStation
+    telehealthFaceToFaceGrp () {
+      return this.siteEncounterGroupFaceToFace
     },
-    telehealthDiffStation () {
-      return this.siteEncounterTelehealthDiffStation == undefined 
+
+    telehealthHomeInd () {
+      // console.log('in fn telehealthHomeInd, siteEncounterTelehealthHomeInd is: ', this.siteEncounterTelehealthHomeInd)
+      return this.siteEncounterTelehealthHomeInd == undefined 
         ? 0 
-        : this.siteEncounterTelehealthDiffStation
+        : this.siteEncounterTelehealthHomeInd
+    },
+    telehealthSameStationInd () {
+      return this.siteEncounterTelehealthSameStationInd == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthSameStationInd
+    },
+    telehealthDiffStationInd () {
+      return this.siteEncounterTelehealthDiffStationInd == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthDiffStationInd
+    },
+    telehealthHomeGrp () {
+      // console.log('telehealthHomeGrp received this: ', this.siteEncounterTelehealthHomeGrp)
+      return this.siteEncounterTelehealthHomeGrp == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthHomeGrp
+    },
+    telehealthSameStationGrp () {
+      return this.siteEncounterTelehealthSameStationGrp == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthSameStationGrp
+    },
+    telehealthDiffStationGrp () {
+      return this.siteEncounterTelehealthDiffStationGrp == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthDiffStationGrp
     },
     scrollPosition () {
       // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
@@ -721,6 +898,7 @@ export default {
       'ENCOUNTER_CPT',
       'ENCOUNTER_PATIENT_CPT_CATEGORIES',
       'ENCOUNTER_TELEHEALTH',
+      'ENCOUNTER_FACE_TO_FACE',
       'CURRENT_PAGE',
       'GET_INSTITUTIONS',
 
@@ -742,13 +920,13 @@ export default {
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
-            { headerName: "CPT Code", 
+            { headerName: "Procedure Code", 
               field: "CPTCode", 
               width: 50, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
-            { headerName: "CPT Name", 
+            { headerName: "Procedure Code Name", 
               field: "CPTName", 
               width: 120, 
               cellStyle: { 'text-align': "left" } ,
@@ -772,7 +950,7 @@ export default {
     },
     createColDefs2() {
       return [
-        {headerName: "CPT Categories",
+        {headerName: "Procedure Categories",
           children: [
             { headerName: "Site", 
               field: "StaPa", 

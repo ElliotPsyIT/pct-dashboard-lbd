@@ -294,7 +294,7 @@
                 <i class="nc-icon-outline nc-phone-2 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Telephone CPT ({{ formatNumber(siteEncounterCPTTelephone.total) }}/{{ formatNumber(siteEncounterTotal) }})</p>
+                <p class="card-category">Telephone ({{ formatNumber(siteEncounterCPTTelephone.total) }}/{{ formatNumber(siteEncounterTotal) }})</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTTelephone.percent">
@@ -330,7 +330,7 @@
                 <i class="nc-icon-outline nc-single-folded-content text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Assessment CPT ({{ formatNumber(siteEncounterCPTAssessment.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
+                <p class="card-category">Assessment ({{ formatNumber(siteEncounterCPTAssessment.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTAssessment.percent">
@@ -461,7 +461,7 @@
               </ag-grid-vue>
               <template slot="footer">
                 <div class="legend">
-                  Detailed CPT Categories Listing
+                  Detailed Procedure Categories Listing
                 </div>
               </template>
             </card>
@@ -471,7 +471,7 @@
 
         <!-- CPT Details Section -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">CPT Details</h4>
+          <h4 class="section-head">Procedure Details</h4>
         </div>
 
        <!-- encounterCPTDetails FAQ -->
@@ -500,7 +500,7 @@
               </ag-grid-vue>
               <template slot="footer">
                 <div class="legend">
-                  Detailed Encounter CPT Codes
+                  Detailed Encounter Procedure Codes
                 </div>
               </template>
             </card>
@@ -731,13 +731,13 @@ export default {
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
-            { headerName: "CPT Code", 
+            { headerName: "Procedure Code", 
               field: "CPTCode", 
               width: 50, 
               cellStyle: { 'text-align': "left" } ,
               filter: "agTextColumnFilter"
             },
-            { headerName: "CPT Name", 
+            { headerName: "Procedure Name", 
               field: "CPTName", 
               width: 120, 
               cellStyle: { 'text-align': "left" } ,
@@ -761,7 +761,7 @@ export default {
     },
     createColDefs2() {
       return [
-        {headerName: "CPT Categories",
+        {headerName: "Procedure Categories",
           children: [
             { headerName: "Site", 
               field: "StaPa", 

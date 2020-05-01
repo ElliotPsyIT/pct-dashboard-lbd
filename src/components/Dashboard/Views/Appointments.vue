@@ -112,7 +112,7 @@
             <card >
               <template slot="header">
                 <span>Hover Over Column Header to View Menu</span>
-                <button class="float-right" @click="gridOptions3.api.exportDataAsCsv()">Export to CSV</button>
+                <button class="float-right" @click="exportCSVgridOptions3">Export to CSV">Export to CSV</button>
               </template>
               <!-- {{siteEncounterApptProviderClinicNoShowTotal}} -->
                 <ag-grid-vue style="font-size: 12px; height: 400px;" 
@@ -288,6 +288,23 @@ export default {
     formatNumber(num) {
       return addCommas(num)
     },
+    exportCSVgridOptions3() {
+      this.gridOptions3.api.exportDataAsCsv( {
+        processCellCallback: (params) => {
+          if (params.column.colId == "CancelNoShowCount") {
+            // need params.node.data to access the grid columns
+            // see below in cellRenderer for similar formating of output values
+                let cancelnoshowcount = params.data.CancelNoShowCount
+                let appointmentTot = params.data.ClinicAppointmentTotal
+                let cancelnoshowPercent = Math.round((cancelnoshowcount / appointmentTot) * 100) 
+                
+                return `${cancelnoshowcount}`
+          }
+          return params.value
+        },
+      
+      })
+    },
     createColDefs3() {
       return [
         {headerName: "Provider Clinic Cancel NoShow",
@@ -320,8 +337,23 @@ export default {
               field: "CancelNoShowCount", 
               width: 25, 
               cellStyle: { 'text-align': "left" } ,
-              filter: "agNumberColumnFilter"
+              filter: "agNumberColumnFilter",
+                cellRenderer: (params) => {
+                // console.log('params.data is: ', params.data)
+                let cancelnoshowcount = params.data.CancelNoShowCount
+                let appointmentTot = params.data.ClinicAppointmentTotal
+                let cancelnoshowPercent = Math.round((cancelnoshowcount / appointmentTot) * 100) 
+                
+                return `${cancelnoshowcount} (${cancelnoshowPercent}%)`
+                }
             },
+            // {
+            //   headerName: "% Per Clinic",
+            //   colId: 'PercentCancelNsPerClinic',
+            //   valueGetter: function(params) {
+            //     return ((params.data.CancelNoShow / params.data.ClinicAppointmentTotal) * 100)
+            //   }
+            // },
             { headerName: "Clinic Appts", 
               field: "ClinicAppointmentTotal", 
               width: 20, 

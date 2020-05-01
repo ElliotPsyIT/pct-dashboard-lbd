@@ -228,9 +228,9 @@
           </div>
         </div>
 
-        <div class="row d-flex justify-content-center ">
+        <!-- <div class="row d-flex justify-content-center ">
           <h5 class="section-head">(For Testing: One Week's Data Only)</h5>
-        </div>
+        </div> -->
 
         <div class="row justify-content-center">
           <div class="col-md-10">

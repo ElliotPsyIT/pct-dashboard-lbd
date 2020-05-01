@@ -199,7 +199,14 @@
 
         <!-- Psychotherapy Patients Section -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Individual Telehealth Services</h4>
+          <h4 class="section-head">Individual Psychotherapy Format</h4>
+        </div>
+
+        <!-- encounterTelehealthInd FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="encounterTelehealthInd"/> 
+          </div>
         </div>
 
         <div class="d-flex flex-row justify-content-center">
@@ -210,19 +217,21 @@
                 <i class="nc-icon-outline nc-single-01 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Face-to-Face<br/> 
-                  <span style="inline-block; font-size: .7rem;">Seen at Med Center</span> 
+                <p class="card-category">Face To Face<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthFaceToFaceInd) }}/
+                    {{ formatNumber(siteEncounterCPTIndividual) }})
+                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="telehealthFaceToFaceInd">
-                      {{ formatNumber(telehealthFaceToFaceInd) }} 
-                      <!-- / {{ formatNumber(siteEncounterCPTIndividual) }} -->
+                    <span :key="siteEncounterTelehealthFaceToFaceIndPercent">
+                      {{ siteEncounterTelehealthFaceToFaceIndPercent}}%
                     </span>
                   </transition>
                 </h4>
               </div>
-              </stats-card>        
+            </stats-card>        
           </div>
 |
 |
@@ -235,14 +244,16 @@
                 <i class="nc-icon-outline nc-single-01 text-success"></i>
               </div>
               <div slot="content">
-                <p class="card-category">To Home<br/> 
-                  <span style="inline-block; font-size: .7rem;">Telehealth to Home</span> 
+                 <p class="card-category">To Home<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthHomeInd) }}/
+                    {{ formatNumber(siteEncounterCPTIndividual) }})
+                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="telehealthHomeInd">
-                      {{ formatNumber(telehealthHomeInd || 0) }} 
-                      <!-- / {{ formatNumber(siteEncounterCPTIndividual) }} -->
+                    <span :key="siteEncounterTelehealthHomeIndPercent">
+                      {{ siteEncounterTelehealthHomeIndPercent}}%
                     </span>
                   </transition>
                 </h4>
@@ -256,13 +267,16 @@
                 <i class="nc-icon-outline nc-multiple-11 text-success"></i>
               </div>
               <div slot="content">
-                <p class="card-category">To Associated Facility<br/>
-                  <span style="inline-block; font-size: .7rem;">Other Facility (e.g. CBOC)</span> </p>
+                 <p class="card-category">To Associate Facility<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthSameStationInd) }}/
+                    {{ formatNumber(siteEncounterCPTIndividual) }})
+                  <!-- </transition> -->
+                </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="telehealthSameStationInd">
-                      {{ formatNumber(telehealthSameStationInd) }} 
-                      <!-- / {{ formatNumber(siteEncounterCPTIndividual) }} -->
+                    <span :key="siteEncounterTelehealthSameStationIndPercent">
+                      {{ siteEncounterTelehealthSameStationIndPercent}}%
                     </span>
                   </transition>
                 </h4>
@@ -276,13 +290,16 @@
                 <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
               </div>
               <div slot="content">
-                <p class="card-category">To Different Station <br/>
-                  <span style="inline-block; font-size: .7rem;">Different Parent Station</span> </p>
+                 <p class="card-category">To Different Station<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthDiffStationInd) }}/
+                    {{ formatNumber(siteEncounterCPTIndividual) }})
+                  <!-- </transition> -->
+                </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="telehealthDiffStationInd">
-                      {{ formatNumber(telehealthDiffStationInd) }} 
-                      <!-- / {{ formatNumber(siteEncounterCPTIndividual) }} -->
+                    <span :key="siteEncounterTelehealthDiffStationIndPercent">
+                      {{ siteEncounterTelehealthDiffStationIndPercent}}%
                     </span>
                   </transition>
                 </h4>
@@ -291,7 +308,7 @@
           </div>
 
         </div>
-      
+
         <!-- Psychotherapy Section -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Group Psychotherapy Sessions</h4>
@@ -300,7 +317,7 @@
         <!-- EncountersPsychotherapy FAQ -->
         <div style="align-items: center; display: flex; justify-content: center; ">
           <div style="width: 60%; margin-bottom: 10px;">
-           <VueFaqAccordion :items="encountersPsychotherapy"/> 
+           <VueFaqAccordion :items="encounterTelehealthGrp"/> 
           </div>
         </div>
         
@@ -333,9 +350,16 @@
 
         <!-- Psychotherapy Patients Section -->
         <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Group Telehealth Services</h4>
+          <h4 class="section-head">Group Psychotherapy Format</h4>
         </div>
 
+        <!-- encounterTelehealthGrp FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="encounterTelehealthGrp"/> 
+          </div>
+        </div>
+        
         <div class="d-flex flex-row justify-content-center">
           
           <div class="col-xl-3 col-md-4">
@@ -344,19 +368,21 @@
                 <i class="nc-icon-outline nc-single-01 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Face-to-Face<br/> 
-                  <span style="inline-block; font-size: .7rem;">Seen at Med Center</span> 
+                <p class="card-category">Face To Face<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthFaceToFaceGrp) }}/
+                    {{ formatNumber(siteEncounterCPTGroup) }})
+                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="telehealthFaceToFaceGrp">
-                      {{ formatNumber(telehealthFaceToFaceGrp) }} 
-                      <!-- / {{ formatNumber(siteEncounterCPTIndividual) }} -->
+                    <span :key="siteEncounterTelehealthFaceToFaceGrpPercent">
+                      {{ siteEncounterTelehealthFaceToFaceGrpPercent}}%
                     </span>
                   </transition>
                 </h4>
               </div>
-              </stats-card>        
+            </stats-card>        
           </div>
 |
 |
@@ -369,14 +395,16 @@
                 <i class="nc-icon-outline nc-single-01 text-success"></i>
               </div>
               <div slot="content">
-                <p class="card-category">To Home<br/> 
-                  <span style="inline-block; font-size: .7rem;">Telehealth to Home</span> 
+                 <p class="card-category">To Home<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthHomeGrp) }}/
+                    {{ formatNumber(siteEncounterCPTGroup) }})
+                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="telehealthHomeGrp">
-                      {{ formatNumber(telehealthHomeGrp || 0) }} 
-                      <!-- / {{ formatNumber(siteEncounterCPTGroup) }} -->
+                    <span :key="siteEncounterTelehealthHomeGrpPercent">
+                      {{ siteEncounterTelehealthHomeGrpPercent}}%
                     </span>
                   </transition>
                 </h4>
@@ -390,13 +418,16 @@
                 <i class="nc-icon-outline nc-multiple-11 text-success"></i>
               </div>
               <div slot="content">
-                <p class="card-category">To Associated Facility<br/>
-                  <span style="inline-block; font-size: .7rem;">Other Facility (e.g. CBOC)</span> </p>
+                 <p class="card-category">To Associate Facility<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthSameStationGrp) }}/
+                    {{ formatNumber(siteEncounterCPTGroup) }})
+                  <!-- </transition> -->
+                </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="telehealthSameStationGrp">
-                      {{ formatNumber(telehealthSameStationGrp) }} 
-                      <!-- / {{ formatNumber(siteEncounterCPTGroup) }} -->
+                    <span :key="siteEncounterTelehealthSameStationGrpPercent">
+                      {{ siteEncounterTelehealthSameStationGrpPercent}}%
                     </span>
                   </transition>
                 </h4>
@@ -410,13 +441,16 @@
                 <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
               </div>
               <div slot="content">
-                <p class="card-category">To Different Station <br/>
-                  <span style="inline-block; font-size: .7rem;">Different Parent Station</span> </p>
+                 <p class="card-category">To Different Station<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthDiffStationGrp) }}/
+                    {{ formatNumber(siteEncounterCPTGroup) }})
+                  <!-- </transition> -->
+                </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="telehealthDiffStationGrp">
-                      {{ formatNumber(telehealthDiffStationGrp) }} 
-                      <!-- / {{ formatNumber(siteEncounterCPTGroup) }} -->
+                    <span :key="siteEncounterTelehealthDiffStationGrpPercent">
+                      {{ siteEncounterTelehealthDiffStationGrpPercent}}%
                     </span>
                   </transition>
                 </h4>
@@ -511,7 +545,7 @@
                 <i class="nc-icon-outline nc-phone-2 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Telephone CPT ({{ formatNumber(siteEncounterCPTTelephone.total) }}/{{ formatNumber(siteEncounterTotal) }})</p>
+                <p class="card-category">Telephone<br/>({{ formatNumber(siteEncounterCPTTelephone.total) }}/{{ formatNumber(siteEncounterTotal) }})</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTTelephone.percent">
@@ -529,7 +563,7 @@
                 <i class="nc-icon-outline nc-multiple-11 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Group Education ({{ formatNumber(siteEncounterCPTGroupEducation.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
+                <p class="card-category">Group Education<br/>({{ formatNumber(siteEncounterCPTGroupEducation.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTGroupEducation.percent">
@@ -547,7 +581,7 @@
                 <i class="nc-icon-outline nc-single-folded-content text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Assessment CPT ({{ formatNumber(siteEncounterCPTAssessment.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
+                <p class="card-category">Assessment<br/>({{ formatNumber(siteEncounterCPTAssessment.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTAssessment.percent">
@@ -565,7 +599,7 @@
                 <i class="nc-icon nc-refresh-02 text-info"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Prolonged Service ({{ formatNumber(siteEncounterCPTProlongedService.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
+                <p class="card-category">Prolonged Service<br/>({{ formatNumber(siteEncounterCPTProlongedService.total) }}/{{formatNumber(siteEncounterTotal) }})</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTProlongedService.percent">
@@ -681,7 +715,9 @@ import { encountersAll,
         encountersPsychotherapy, 
         otherServices, 
         encounterCategories,
-        encounterCPTDetails} from '../Documentation/encounter_doc.js'
+        encounterCPTDetails,
+        encounterTelehealthInd,
+        encounterTelehealthGrp} from '../Documentation/encounter_doc.js'
 
 import { addCommas, totalAndPercent, precise_round } from 'src/utils'
 
@@ -823,6 +859,8 @@ export default {
         // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
         return this.selectedInstitutions.length > 0 || false
     },      
+
+    // Individual and Group Therapy Percent
     siteEncounterCPTIndividualPercent() {
       let percent = (+this.siteEncounterCPTIndividual / +this.siteEncounterTotal) * 100
       return precise_round(percent, 1)
@@ -831,6 +869,46 @@ export default {
       let percent = (+this.siteEncounterCPTGroup / +this.siteEncounterTotal) * 100
       return precise_round(percent, 1)
     },
+
+    // Telehealth Individual Percent
+    siteEncounterTelehealthFaceToFaceIndPercent() {
+      let percent = (+this.siteEncounterIndividualFaceToFace / +this.siteEncounterCPTIndividual) * 100
+      return precise_round(percent, 1)
+
+    },
+    siteEncounterTelehealthHomeIndPercent() {
+      let percent = (+this.siteEncounterTelehealthHomeInd / +this.siteEncounterCPTIndividual) * 100
+      return precise_round(percent, 1)
+
+    },
+    siteEncounterTelehealthSameStationIndPercent() {
+      let percent = (+this.siteEncounterTelehealthSameStationInd / +this.siteEncounterCPTIndividual) * 100
+      return precise_round(percent, 1)
+
+    },
+    siteEncounterTelehealthDiffStationIndPercent() {
+      let percent = (+this.siteEncounterTelehealthDiffStationInd / +this.siteEncounterCPTIndividual) * 100
+      return precise_round(percent, 1)
+    },
+
+    // Telehealth Group Percent
+    siteEncounterTelehealthFaceToFaceGrpPercent() {
+      let percent = (+this.siteEncounterGroupFaceToFace / +this.siteEncounterCPTGroup) * 100
+      return precise_round(percent, 1)
+    },
+    siteEncounterTelehealthHomeGrpPercent() {
+      let percent = (+this.siteEncounterTelehealthHomeGrp / +this.siteEncounterCPTGroup) * 100
+      return precise_round(percent, 1)
+    },
+    siteEncounterTelehealthSameStationGrpPercent() {
+      let percent = (+this.siteEncounterTelehealthSameStationGrp / +this.siteEncounterCPTGroup) * 100
+      return precise_round(percent, 1)
+    },
+    siteEncounterTelehealthDiffStationGrpPercent() {
+      let percent = (+this.siteEncounterTelehealthDiffStationGrp / +this.siteEncounterCPTGroup) * 100
+      return precise_round(percent, 1)
+    },
+
     lineChartOptions () {
       return {
         chart: {  type: "spline" },
@@ -886,6 +964,8 @@ export default {
       otherServices: otherServices, 
       encounterCategories: encounterCategories,
       encounterCPTDetails: encounterCPTDetails,
+      encounterTelehealthInd: encounterTelehealthInd,
+      encounterTelehealthGrp: encounterTelehealthGrp,
     }
   },
   methods: { 

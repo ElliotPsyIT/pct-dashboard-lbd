@@ -9,7 +9,7 @@
 Dashboard Data Definitions</p>
 
 <div style="margin-bottom: -30px;">
-    <img src="../../../../static/new_ptsd_dashboard_definitions_image.png">
+    <img src="../../../../static/new_ptsd_dashboard_definitions_image_1.png">
 </div>
 
 <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
@@ -22,7 +22,7 @@ Tab</u></b></p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>a.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Total
-Consults = all consults made to stop codes 516, 562 (from here on out called <span
+Consults = all consults made to stop codes 516, 542, 562 (from here on out called <span
 style='color:#1F4E79'>PTSD stop codes (Primary Stop Codes Only)</span>)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>b.<span

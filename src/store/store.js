@@ -168,8 +168,9 @@ const store = new Vuex.Store({
     encounterCPTCategories: [],
     encounterCPT: [],
     encounterPatientCPTCategories: [],
-    encounterTelehealth: [],
     encounterFaceToFace: [],
+    encounterTelehealth: [],
+    encounterTelehealthAll: [],
 
     encounterApptCancelNoShow: [],
     encounterApptCount: [],
@@ -383,6 +384,7 @@ const store = new Vuex.Store({
       // try new totalAndPercent2(filteredArray)
       return totalAndPercent2(filteredArray)
     },
+
     // totals for telehealth and video - home
     siteEncounterIndividualFaceToFace: (state) => {
       let filteredArray = state.encounterFaceToFace
@@ -482,7 +484,38 @@ const store = new Vuex.Store({
       })        
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
-    
+
+    // total telehealth (not restricted to ind and grp tx as above)
+    siteEncounterTelehealthHomeAll: (state) => {
+      // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+      let filteredArray = state.encounterTelehealthAll
+      .filter(site => {
+        return site.StaPa === state.selectedSite
+      }) 
+      .filter(site => {
+        return /RT CLIN VID CARE HOME/.test(site.SecondaryStopCodeName)
+      })
+      // console.log('in siteEncounterTelehealthHomeGrp, filteredArray is: ', filteredArray)
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+    siteEncounterTelehealthSameStationAll: (state) => {
+      let filteredArray = state.encounterTelehealthAll
+      .filter(site => site.StaPa === state.selectedSite) 
+      .filter(site => {
+          return /CVT PRV SITE SAME DIV\/STA/.test(site.SecondaryStopCodeName)
+      })        
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+    siteEncounterTelehealthDiffStationAll: (state) => {
+    // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+    let filteredArray = state.encounterTelehealthAll
+    .filter(site => site.StaPa === state.selectedSite) 
+    .filter(site => {
+        return /RT CLIN VD TH PRV SITE(DIFSTA)/.test(site.SecondaryStopCodeName)
+      })        
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+
     // total for Prolonged Service CPT Category (large set of CPTs)
     siteEncounterCPTProlongedService: (state) => {
       let filteredArray = state.encounterCPTCategories
@@ -1201,7 +1234,7 @@ const store = new Vuex.Store({
       axios.get(`${path}?${allparams}`)                
       .then(response => { 
         // console.log('got consult details from server')
-        console.log('provider_details response.data is: ', response.data)
+        // console.log('provider_details response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_PROVIDER_DETAILS', response.data)
       })
@@ -1230,11 +1263,13 @@ const store = new Vuex.Store({
       const path = 'pct.cgi'
       const format = 'provider_patient_details_cpt'
       // const params = 'format=provider_patient_details_cpt&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      // console.log('PROVIDER_PATIENT_DETAILS_CPT params: ', params)
       const allparams = setParams(format, context.state)
 
       axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got provider_patient_details_cpt from server', response.data)
+        // console.log('PROVIDER_PATIENT_DETAILS_CPT server response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_PROVIDER_PATIENT_DETAILS_CPT', response.data)
       })
@@ -1259,6 +1294,24 @@ const store = new Vuex.Store({
       })
 
     },
+    ENCOUNTER_TELEHEALTH_ALL (context) {
+      // console.log('in ENCOUNTER_TELEHEALTH_ALL Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const format = 'encounter_telehealth_all'
+      const allparams = setParams(format, context.state)
+      // console.log('ENCOUNTER_TELEHEALTH_ALL action url: ', `${path}?${allparams}`)
+      // const params = 'format=encounter_patient_line_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      axios.get(`${path}?${allparams}`)
+      .then(response => { 
+        // console.log('got ENCOUNTER_TELEHEALTH_ALL from server')
+        // console.log('ENCOUNTER_TELEHEALTH_ALL response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ENCOUNTER_TELEHEALTH_ALL', response.data)
+      })
+
+    },
+
     ENCOUNTER_FACE_TO_FACE (context) {
       // console.log('in encounter_face_to_face Action, check context here', context)
                 
@@ -1276,6 +1329,7 @@ const store = new Vuex.Store({
       })
 
     },
+
     ENCOUNTER_PATIENT_LINE_CHART (context) {
       // console.log('in ENCOUNTER_PATIENT_LINE_CHART Action, check context here', context)
           
@@ -1577,6 +1631,7 @@ const store = new Vuex.Store({
         context.dispatch('ENCOUNTER_CPT') 
         context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
         context.dispatch('ENCOUNTER_TELEHEALTH') 
+        context.dispatch('ENCOUNTER_TELEHEALTH_ALL')
         context.dispatch('ENCOUNTER_FACE_TO_FACE')
       }
       if (context.state.route.path == '/admin/providers') {
@@ -1784,6 +1839,10 @@ const store = new Vuex.Store({
     SET_ENCOUNTER_TELEHEALTH(state, encounterTelehealth) {
       // console.log('in mutate SET_ENCOUNTER_TELEHEALTH and state is: ', encounterTelehealth)
       state.encounterTelehealth = encounterTelehealth
+    },
+    SET_ENCOUNTER_TELEHEALTH_ALL(state, encounterTelehealthAll) {
+      // console.log('in mutate SET_ENCOUNTER_TELEHEALTH_ALL and state is: ', encounterTelehealthAll)
+      state.encounterTelehealthAll = encounterTelehealthAll
     },
     SET_ENCOUNTER_FACE_TO_FACE(state, encounterFaceToFace) {
       // console.log('in mutate SET_ENCOUNTER_FACE_TO_FACE and state is: ', encounterFaceToFace)

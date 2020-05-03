@@ -459,7 +459,6 @@
           </div>
 
         </div>
-
 <hr/>
 
         <!-- Psychotherapy Patients Section -->
@@ -613,6 +612,91 @@
 
         </div>
 
+        <!-- Telehealth All -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Telehealth All</h4>
+        </div>
+
+        <!-- encounterTelehealthAll FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="encounterTelehealthAll"/> 
+          </div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-success"></i>
+              </div>
+              <div slot="content">
+                 <p class="card-category">To Home<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthHomeAll) }}/
+                    {{ formatNumber(formatNumber(siteEncounterTotal)) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterTelehealthHomeGrpPercent">
+                      {{ siteEncounterTelehealthHomeGrpPercent}}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+              </stats-card>        
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
+              </div>
+              <div slot="content">
+                 <p class="card-category">To Associate Facility<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthSameStationAll) }}/
+                    {{ formatNumber(formatNumber(siteEncounterTotal)) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterTelehealthSameStationGrpPercent">
+                      {{ siteEncounterTelehealthSameStationGrpPercent}}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>        
+          </div>
+
+           <div class="col-xl-3 col-md-4">
+             <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+              </div>
+              <div slot="content">
+                 <p class="card-category">To Different Station<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthDiffStationAll) }}/
+                    {{ formatNumber(formatNumber(siteEncounterTotal)) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterTelehealthDiffStationGrpPercent">
+                      {{ siteEncounterTelehealthDiffStationGrpPercent}}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>         
+          </div>
+
+        </div>
+
         <!-- Encounter Categories Section -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Encounters Categories Summary</h4>
@@ -717,7 +801,8 @@ import { encountersAll,
         encounterCategories,
         encounterCPTDetails,
         encounterTelehealthInd,
-        encounterTelehealthGrp} from '../Documentation/encounter_doc.js'
+        encounterTelehealthGrp,
+        encounterTelehealthAll} from '../Documentation/encounter_doc.js'
 
 import { addCommas, totalAndPercent, precise_round } from 'src/utils'
 
@@ -760,6 +845,7 @@ export default {
     this.ENCOUNTER_CPT()
     this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
     this.ENCOUNTER_TELEHEALTH()
+    this.ENCOUNTER_TELEHEALTH_ALL()
     this.ENCOUNTER_FACE_TO_FACE()
     // call action to signal the active page
     this.CURRENT_PAGE('encounters')
@@ -808,7 +894,11 @@ export default {
       'siteEncounterTelehealthHomeGrp',
       'siteEncounterTelehealthSameStationGrp',
       'siteEncounterTelehealthDiffStationGrp',
-      
+
+      'siteEncounterTelehealthHomeAll',
+      'siteEncounterTelehealthSameStationAll',
+      'siteEncounterTelehealthDiffStationAll',
+
       'siteProviderSelected',
       
     ]),
@@ -819,6 +909,7 @@ export default {
       return this.siteEncounterGroupFaceToFace
     },
 
+    // telehealth individual therapy
     telehealthHomeInd () {
       // console.log('in fn telehealthHomeInd, siteEncounterTelehealthHomeInd is: ', this.siteEncounterTelehealthHomeInd)
       return this.siteEncounterTelehealthHomeInd == undefined 
@@ -835,6 +926,8 @@ export default {
         ? 0 
         : this.siteEncounterTelehealthDiffStationInd
     },
+
+    // telehealth group therapy
     telehealthHomeGrp () {
       // console.log('telehealthHomeGrp received this: ', this.siteEncounterTelehealthHomeGrp)
       return this.siteEncounterTelehealthHomeGrp == undefined 
@@ -851,6 +944,25 @@ export default {
         ? 0 
         : this.siteEncounterTelehealthDiffStationGrp
     },
+
+    // telehealth all - no ind or grp therapy filtering
+    telehealthHomeAll () {
+      // console.log('telehealthHomeGrp received this: ', this.siteEncounterTelehealthHomeGrp)
+      return this.siteEncounterTelehealthHomeAll == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthHomeAll
+    },
+    telehealthSameStationAll () {
+      return this.siteEncounterTelehealthSameStationAll == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthSameStationAll
+    },
+    telehealthDiffStationAll () {
+      return this.siteEncounterTelehealthDiffStationAll == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthDiffStationAll
+    },
+
     scrollPosition () {
       // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
       console.log('window.pageYOffset: ', window.pageYOffset)    
@@ -906,6 +1018,20 @@ export default {
     },
     siteEncounterTelehealthDiffStationGrpPercent() {
       let percent = (+this.siteEncounterTelehealthDiffStationGrp / +this.siteEncounterCPTGroup) * 100
+      return precise_round(percent, 1)
+    },
+
+    // Telehealth All percent
+    siteEncounterTelehealthHomeGrpPercent() {
+      let percent = (+this.siteEncounterTelehealthHomeAll / +this.siteEncounterTotal) * 100
+      return precise_round(percent, 1)
+    },
+    siteEncounterTelehealthSameStationGrpPercent() {
+      let percent = (+this.siteEncounterTelehealthSameStationAll / +this.siteEncounterTotal) * 100
+      return precise_round(percent, 1)
+    },
+    siteEncounterTelehealthDiffStationGrpPercent() {
+      let percent = (+this.siteEncounterTelehealthDiffStationAll / +this.siteEncounterTotal) * 100
       return precise_round(percent, 1)
     },
 
@@ -966,6 +1092,7 @@ export default {
       encounterCPTDetails: encounterCPTDetails,
       encounterTelehealthInd: encounterTelehealthInd,
       encounterTelehealthGrp: encounterTelehealthGrp,
+      encounterTelehealthAll: encounterTelehealthAll,
     }
   },
   methods: { 
@@ -978,6 +1105,7 @@ export default {
       'ENCOUNTER_CPT',
       'ENCOUNTER_PATIENT_CPT_CATEGORIES',
       'ENCOUNTER_TELEHEALTH',
+      'ENCOUNTER_TELEHEALTH_ALL',
       'ENCOUNTER_FACE_TO_FACE',
       'CURRENT_PAGE',
       'GET_INSTITUTIONS',

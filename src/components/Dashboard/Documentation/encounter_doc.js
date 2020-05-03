@@ -97,7 +97,7 @@ export const encountersAll = [
       title: "Telehealth to Associate Facility - Individual Therapy",
       value: "<u><b>Telehealth to Associate Facility</b></u> counts represent the sum total of individual therapy encounters that have a Telehealth Secondary Stop Code.  " +
       "<br/><br/>" +
-      "<u><b>The Telehealth Secondary Stop Code to an Associate Facility is '692'.  If this Telehealth to Home secondary stop code is used along with an Individual Therapy Primary Stop Code " + 
+      "<u><b>The Telehealth Secondary Stop Code to an Associate Facility is '692'.  If this Telehealth to an Associate Facility secondary stop code is used along with an Individual Therapy Primary Stop Code " + 
       "then it signifies a telehealth encounter to an Associate Facility and the encounter counts toward the sum. " +
       "The Individual Therapy stop code are the same as used elsewhere on this Encounters page.  " + 
       "<br/><br/>" +
@@ -119,6 +119,7 @@ export const encountersAll = [
       category: "Individual Telehealth Encounters Defined ..."
     },
   ]
+
   export const encounterTelehealthGrp = [    
     {
       title: "Face To Face - Group Therapy",
@@ -171,6 +172,36 @@ export const encountersAll = [
       "<u><b>Denominator</b></u>: Total Encounters from all PCT Clinics.<br/><br/>",
       category: "Group Telehealth Encounters Defined ..."
     },
+  ]
+
+  export const encounterTelehealthAll = [
+    {
+      title: "Telehealth to Home - All",
+      value: "<u><b>Telehealth to Home</b></u> counts represent the sum total of individual therapy encounters that have a Telehealth Secondary Stop Code corresponding to video to home.  " +
+      "<br/><br/>" +
+      "The Telehealth Secondary Stop Code to Home is '179'.  If this Telehealth to Home code is used along with any primary stop code and  any procedure code " + 
+      "then the encounter counts toward the sum. " + 
+      "<br/><br/>",
+      category: "Telehealth All Encounters Defined ..."
+    },
+    {
+      title: "Telehealth to Associate Facility - All",
+      value: "<u><b>Telehealth to Associate Facility</b></u> counts represent the sum total of individual therapy encounters that have a Telehealth Secondary Stop Code.  " +
+      "<br/><br/>" +
+      "<u><b>The Telehealth Secondary Stop Code to an Associate Facility is '692'.  If this Telehealth to Associate Facility secondary stop code is used along with any primary stop code and with any procedure code  " + 
+      "then it signifies a telehealth encounter to an Associate Facility and the encounter counts toward the sum. ",
+      category: "Telehealth All Encounters Defined ..."
+    },
+    {
+      title: "Telehealth to Different Parent Station - All",
+      value: "<u><b>Telehealth to Different Parent Station</u></b> counts represent the sum total of individual therapy encounters that have a Telehealth Secondary Stop Code.  " +
+      "<br/><br/>" +
+      "<u><b>The Telehealth Secondary Stop Code to a Different Parent Station</u></b> is '693'.  If this Different Parent Station secondary stop code is used along with any primary stop code and with any procedure code " + 
+      "then it signifies a telehealth encounter to a Different Parent Station and the encounter counts toward the sum.  The Individual Therapy stop code are the same as used elsewhere on this Encounters page.  " + 
+      "<br/><br/>",
+      category: "Telehealth All Encounters Defined ..."
+    },
+
   ]
 
   export const otherServices = [

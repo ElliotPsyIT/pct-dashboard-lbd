@@ -570,7 +570,7 @@ export default {
     this.ENCOUNTER_CPT_CATEGORIES()
     this.ENCOUNTER_CPT()
     this.ENCOUNTER_PATIENT_CPT_CATEGORIES()
-    this.ENCOUNTER_TELEHEALTH()
+    this.ENCOUNTER_TELEHEALTH_ALL()
     // call action to signal the active page
     this.CURRENT_PAGE('encounter')
     // might be needed to assure institutions are available
@@ -709,7 +709,7 @@ export default {
       'ENCOUNTER_CPT_CATEGORIES',
       'ENCOUNTER_CPT',
       'ENCOUNTER_PATIENT_CPT_CATEGORIES',
-      'ENCOUNTER_TELEHEALTH',
+      'ENCOUNTER_TELEHEALTH_ALL',
       'CURRENT_PAGE',
       'GET_INSTITUTIONS',
 

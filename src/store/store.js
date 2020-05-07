@@ -1138,20 +1138,20 @@ const store = new Vuex.Store({
     },
 
     /******************** ENCOUNTERS *************** */
-    ENCOUNTER_TELEHEALTH (context) {
+    ENCOUNTER_TELEHEALTH_ALL (context) {
       // console.log('in ENCOUNTER_PATIENT_LINE_CHART Action, check context here', context)
                 
       const path = 'pct.cgi'
-      const format = 'encounter_telehealth'
+      const format = 'encounter_telehealth_all'
       const allparams = setParams(format, context.state)
-// console.log('ENCOUNTER_TELEHEALTH action url: ', `${path}?${allparams}`)
+// console.log('ENCOUNTER_TELEHEALTH_ALL action url: ', `${path}?${allparams}`)
       // const params = 'format=encounter_patient_line_chart&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
       axios.get(`${path}?${allparams}`)
       .then(response => { 
-        console.log('got ENCOUNTER_TELEHEALTH from server')
-        console.log('ENCOUNTER_TELEHEALTH response.data is: ', response.data)
+        console.log('got ENCOUNTER_TELEHEALTH_ALL from server')
+        console.log('ENCOUNTER_TELEHEALTH_ALL response.data is: ', response.data)
         console.log('check context before commit: ', context)
-        context.commit('SET_ENCOUNTER_TELEHEALTH', response.data)
+        context.commit('SET_ENCOUNTER_TELEHEALTH_ALL', response.data)
       })
 
     },
@@ -1437,7 +1437,7 @@ const store = new Vuex.Store({
         context.dispatch('ENCOUNTER_CPT_CATEGORIES') 
         context.dispatch('ENCOUNTER_CPT') 
         context.dispatch('ENCOUNTER_PATIENT_CPT_CATEGORIES') 
-        context.dispatch('ENCOUNTER_TELEHEALTH') 
+        context.dispatch('ENCOUNTER_TELEHEALTH_ALL') 
       }
       if (context.state.route.path == '/admin/providers') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
@@ -1627,8 +1627,8 @@ const store = new Vuex.Store({
       // console.log('in mutate SET_PROVIDER_PATIENT_DETAILS_CPT and state is: ', state)
       state.providerPatientDetailsCPT = providerPatientDetailsCPT
     },
-    SET_ENCOUNTER_TELEHEALTH(state, encounterTelehealth) {
-      console.log('in mutate SET_ENCOUNTER_TELEHEALTH and state is: ', encounterTelehealth)
+    SET_ENCOUNTER_TELEHEALTH_ALL(state, encounterTelehealth) {
+      console.log('in mutate SET_ENCOUNTER_TELEHEALTH_ALL and state is: ', encounterTelehealth)
       state.encounterTelehealth = encounterTelehealth
     },
     SET_ENCOUNTER_PATIENT_CPT_CATEGORIES(state, encounterPatientCPTCategories) {

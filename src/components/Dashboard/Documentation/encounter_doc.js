@@ -208,6 +208,9 @@ export const encountersAll = [
     {
       title: "Numerator Counts",
       value: "<u><b>Other Services</b></u>: Numerators are encounter counts from these CPT codes: <br/><br/>" +
+      "<u><b>SPECIAL NOTE</u></b>: Other Services encounters may have multiple procedure codes associated with each encounter.  " + 
+      "We count an encounter each time one of its procedure codes matches an Other Service category (as below). " + 
+      "That means one encounter may be counted in multiple categories if the encounter has procedure codes from multiple Other Service categories listed for it.<br/><br/>" +
       "<u>Telephone</u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
       "<u>Health and Behavior (Group) Education</u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
       "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
@@ -216,7 +219,7 @@ export const encountersAll = [
     },
     {
       title: "Denominator Counts",
-      value: "<u><b>Other Services</b></u>: Denominators are encounter counts from all MH CPT codes irrespective of the type of service provided. <br/><br/>"+
+      value: "<u><b>Other Services</b></u>: Denominators are unique encounter counts from all MH CPT codes irrespective of the type of service provided. <br/><br/>"+
       "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
       "<u>Individual Therapy</u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
       "<u>Group Psychotherapy</u>: <br/>('90853')<br/><br/>" +

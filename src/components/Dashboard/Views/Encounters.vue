@@ -477,8 +477,9 @@
                 <p class="card-category">Individual Tx Only </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterCPTPatientsIndOnly">
-                      {{ asyncValue(formatNumber(siteEncounterCPTPatientsIndOnly)) }} Pts
+                    <span :key="siteEncounterCPTPatientsIndTherapyOnly">
+                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsIndOnly)) }} Pts -->
+                      {{ siteEncounterCPTPatientsIndTherapyOnly }} Pts
                     </span>
                   </transition>
                 </h4>
@@ -495,8 +496,9 @@
                 <p class="card-category">Group Tx Only </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterCPTPatientsGrpOnly">
-                      {{ asyncValue(formatNumber(siteEncounterCPTPatientsGrpOnly)) }} Pts
+                    <span :key="siteEncounterCPTPatientsGrpTherapyOnly">
+                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsTherapyOnly)) }} Pts -->
+                      {{ siteEncounterCPTPatientsGrpTherapyOnly }} Pts
                     </span>
                   </transition>
                 </h4>
@@ -513,9 +515,10 @@
                 <p class="card-category">Both Ind and Grp Tx </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterCPTPatientsBoth">
-                      {{ asyncValue(formatNumber(siteEncounterCPTPatientsBoth)) }} Pts
-                    </span>
+                    <span :key="siteEncounterCPTPatientsBothTherapyOnly">
+                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsTherapyOnly)) }} Pts -->
+                      {{ siteEncounterCPTPatientsBothTherapyOnly }} Pts                    
+                      </span>
                   </transition>
                 </h4>
               </div>
@@ -640,8 +643,8 @@
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterTelehealthHomeGrpPercent">
-                      {{ siteEncounterTelehealthHomeGrpPercent}}%
+                    <span :key="siteEncounterTelehealthHomeGrpPercentAll">
+                      {{ siteEncounterTelehealthHomeGrpPercentAll}}%
                     </span>
                   </transition>
                 </h4>
@@ -663,8 +666,8 @@
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterTelehealthSameStationGrpPercent">
-                      {{ siteEncounterTelehealthSameStationGrpPercent}}%
+                    <span :key="siteEncounterTelehealthSameStationGrpPercentAll">
+                      {{ siteEncounterTelehealthSameStationGrpPercentAll}}%
                     </span>
                   </transition>
                 </h4>
@@ -686,8 +689,8 @@
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterTelehealthDiffStationGrpPercent">
-                      {{ siteEncounterTelehealthDiffStationGrpPercent}}%
+                    <span :key="siteEncounterTelehealthDiffStationGrpPercentAll">
+                      {{ siteEncounterTelehealthDiffStationGrpPercentAll}}%
                     </span>
                   </transition>
                 </h4>
@@ -902,6 +905,21 @@ export default {
       'siteProviderSelected',
       
     ]),
+
+
+
+    // Psychotherapy Patients by Sessions types - computed
+    siteEncounterCPTPatientsIndTherapyOnly() {
+      return this.siteEncounterCPTPatientsIndOnly || 0
+    },
+    siteEncounterCPTPatientsGrpTherapyOnly() {
+      return this.siteEncounterCPTPatientsGrpOnly || 0
+    },
+    siteEncounterCPTPatientsBothTherapyOnly() {
+      return this.siteEncounterCPTPatientsBoth || 0
+    },
+
+    // Face to face ind and grp therapy
     telehealthFaceToFaceInd () {
       return this.siteEncounterIndividualFaceToFace
     },
@@ -945,7 +963,7 @@ export default {
         : this.siteEncounterTelehealthDiffStationGrp
     },
 
-    // telehealth all - no ind or grp therapy filtering
+    // telehealth all - No ind or grp therapy filtering
     telehealthHomeAll () {
       // console.log('telehealthHomeGrp received this: ', this.siteEncounterTelehealthHomeGrp)
       return this.siteEncounterTelehealthHomeAll == undefined 
@@ -963,16 +981,7 @@ export default {
         : this.siteEncounterTelehealthDiffStationAll
     },
 
-    scrollPosition () {
-      // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
-      console.log('window.pageYOffset: ', window.pageYOffset)    
-    },
-    changeBackgroundColor () {
-        // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
-        return this.selectedInstitutions.length > 0 || false
-    },      
-
-    // Individual and Group Therapy Percent
+    // Individual and Group Therapy Percent Computed
     siteEncounterCPTIndividualPercent() {
       let percent = (+this.siteEncounterCPTIndividual / +this.siteEncounterTotal) * 100
       return precise_round(percent, 1)
@@ -982,7 +991,7 @@ export default {
       return precise_round(percent, 1)
     },
 
-    // Telehealth Individual Percent
+    // Telehealth Individual Therapy Percent
     siteEncounterTelehealthFaceToFaceIndPercent() {
       let percent = (+this.siteEncounterIndividualFaceToFace / +this.siteEncounterCPTIndividual) * 100
       return precise_round(percent, 1)
@@ -1003,38 +1012,49 @@ export default {
       return precise_round(percent, 1)
     },
 
-    // Telehealth Group Percent
+    // Telehealth Group Therapy Percent
     siteEncounterTelehealthFaceToFaceGrpPercent() {
       let percent = (+this.siteEncounterGroupFaceToFace / +this.siteEncounterCPTGroup) * 100
-      return precise_round(percent, 1)
+      return isNaN(percent) ? 0 : precise_round(percent, 1)
     },
     siteEncounterTelehealthHomeGrpPercent() {
       let percent = (+this.siteEncounterTelehealthHomeGrp / +this.siteEncounterCPTGroup) * 100
-      return precise_round(percent, 1)
+      return isNaN(percent) ? 0 : precise_round(percent, 1)
     },
     siteEncounterTelehealthSameStationGrpPercent() {
       let percent = (+this.siteEncounterTelehealthSameStationGrp / +this.siteEncounterCPTGroup) * 100
-      return precise_round(percent, 1)
+      return isNaN(percent) ? 0 : precise_round(percent, 1)
     },
     siteEncounterTelehealthDiffStationGrpPercent() {
       let percent = (+this.siteEncounterTelehealthDiffStationGrp / +this.siteEncounterCPTGroup) * 100
-      return precise_round(percent, 1)
+      return isNaN(percent) ? 0 : precise_round(percent, 1)
     },
 
     // Telehealth All percent
-    siteEncounterTelehealthHomeGrpPercent() {
+    siteEncounterTelehealthHomeGrpPercentAll() {
       let percent = (+this.siteEncounterTelehealthHomeAll / +this.siteEncounterTotal) * 100
       return precise_round(percent, 1)
     },
-    siteEncounterTelehealthSameStationGrpPercent() {
+    siteEncounterTelehealthSameStationGrpPercentAll() {
       let percent = (+this.siteEncounterTelehealthSameStationAll / +this.siteEncounterTotal) * 100
       return precise_round(percent, 1)
     },
-    siteEncounterTelehealthDiffStationGrpPercent() {
+    siteEncounterTelehealthDiffStationGrpPercentAll() {
       let percent = (+this.siteEncounterTelehealthDiffStationAll / +this.siteEncounterTotal) * 100
       return precise_round(percent, 1)
     },
 
+    // utility computed
+    scrollPosition () {
+      // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+      console.log('window.pageYOffset: ', window.pageYOffset)    
+    },
+    changeBackgroundColor () {
+        // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
+        return this.selectedInstitutions.length > 0 || false
+    },      
+
+    // widgets computed
     lineChartOptions () {
       return {
         chart: {  type: "spline" },

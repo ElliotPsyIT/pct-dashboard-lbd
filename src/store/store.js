@@ -385,7 +385,7 @@ const store = new Vuex.Store({
       return totalAndPercent2(filteredArray)
     },
 
-    // totals for telehealth and video - home
+    // totals for face to face - individual and group telehealth
     siteEncounterIndividualFaceToFace: (state) => {
       let filteredArray = state.encounterFaceToFace
         .filter(site => site.StaPa === state.selectedSite)
@@ -402,6 +402,8 @@ const store = new Vuex.Store({
         .filter(site => site.Psychotherapy === 'Group Therapy')
         return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
+
+    // totals for telehealth and video - home
     siteEncounterTelehealthHomeInd: (state) => {
       // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
       let filteredArray = state.encounterTelehealth
@@ -444,6 +446,8 @@ const store = new Vuex.Store({
       })        
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
+
+    // Group therapy telehealth
     siteEncounterTelehealthHomeGrp: (state) => {
       // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
       let filteredArray = state.encounterTelehealth
@@ -451,13 +455,12 @@ const store = new Vuex.Store({
         return site.StaPa === state.selectedSite
       }) 
       .filter(site => {
-      // console.log('in siteEncounterTelehealthHomeGrp, NUMSESSIONS is : ', site.NUMSESSIONS)
       return site.Psychotherapy === 'Group Therapy'
       })
       .filter(site => {
         return /RT CLIN VID CARE HOME/.test(site.SecondaryStopCodeName)
       })
-      // console.log('in siteEncounterTelehealthHomeGrp, filteredArray is: ', filteredArray)
+      console.log('in siteEncounterTelehealthHomeGrp, filteredArray is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
     siteEncounterTelehealthSameStationGrp: (state) => {
@@ -487,7 +490,8 @@ const store = new Vuex.Store({
 
     // total telehealth (not restricted to ind and grp tx as above)
     siteEncounterTelehealthHomeAll: (state) => {
-      // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+      // console.log('in siteEncounterTelehealthHomeAll - state.encounterTelehealthAll is: ', state.encounterTelehealthAll)
+     
       let filteredArray = state.encounterTelehealthAll
       .filter(site => {
         return site.StaPa === state.selectedSite
@@ -499,6 +503,7 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
     siteEncounterTelehealthSameStationAll: (state) => {
+      // console.log('in siteEncounterTelehealthSameStationAll - state.encounterTelehealthAll is: ', state.encounterTelehealthAll)
       let filteredArray = state.encounterTelehealthAll
       .filter(site => site.StaPa === state.selectedSite) 
       .filter(site => {
@@ -507,7 +512,7 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
     siteEncounterTelehealthDiffStationAll: (state) => {
-    // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+      // console.log('in siteEncounterTelehealthDiffStationAll - state.encounterTelehealthAll is: ', state.encounterTelehealthAll)
     let filteredArray = state.encounterTelehealthAll
     .filter(site => site.StaPa === state.selectedSite) 
     .filter(site => {

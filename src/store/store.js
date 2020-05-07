@@ -352,7 +352,7 @@ const store = new Vuex.Store({
         return /RT CLIN VID CARE HOME/.test(site.SecondaryStopCodeName)
       })
       // console.log('siteEncounterTelehealthHome - filteredArray is: ', filteredArray)
-      return filteredArray.length == 0 ? 0 : filteredArray[0].countTelehealth
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
     // totals for telehealth and video - home
     siteEncounterTelehealthSameStation: (state) => {
@@ -365,7 +365,7 @@ const store = new Vuex.Store({
 
         return /CVT PRV SITE SAME DIV\/STA/.test(site.SecondaryStopCodeName)
       })        
-      return filteredArray.length == 0 ? 0 : filteredArray[0].countTelehealth
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
     // // totals for telehealth and video - home
     siteEncounterTelehealthDiffStation: (state) => {
@@ -378,7 +378,7 @@ const store = new Vuex.Store({
 
         return /RT CLIN VD TH PRV SITE(DIFSTA)/.test(site.SecondaryStopCodeName)
       })        
-      return filteredArray.length == 0 ? 0 : filteredArray[0].countTelehealth
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
     // total for Prolonged Service CPT Category (large set of CPTs)
     siteEncounterCPTProlongedService: (state) => {

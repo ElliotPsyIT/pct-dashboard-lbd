@@ -849,7 +849,7 @@ const store = new Vuex.Store({
     .filter(site => site.dataType === 'ebp_patients_ind')
       return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
-    siteALLPatientsInd: (state) => {      
+    siteALLPatientsInd: (state) => {    
       let filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'all_patients_ind')
@@ -858,13 +858,14 @@ const store = new Vuex.Store({
     siteEBPSessionsGrp: (state) => {
       let filteredArray = [];
       filteredArray = state.ebpSummary
-    .filter(site => site.StaPa === state.selectedSite)
-    .filter(site => site.dataType === 'ebp_sessions_grp')
-    return filteredArray.length == 0 ? 0 : filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
+      .filter(site => site.StaPa === state.selectedSite)
+      .filter(site => site.dataType === 'ebp_sessions_grp')
+      return filteredArray.length == 0 ? 0 : filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     // return arrayEmpty(filteredArray) ? 0 : filteredArray[0].sumTotal
     },
     siteALLSessionsGrp: (state) => {      
-      let filteredArray = state.ebpSummary
+      let filteredArray = [];
+      filteredArray = state.ebpSummary
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => site.dataType === 'all_sessions_grp')
         return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal

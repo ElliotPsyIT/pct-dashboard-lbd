@@ -16,7 +16,10 @@
 
         <!-- Disclaimer -->
         <div class="row d-flex justify-content-center mt-4 ">
-          <p class="category" style="font-size: .8rem; font-style: italic;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
+          <p class="category" style="font-size: .8rem; font-style: italic;">
+            <span class="font: red;">{{ disclaimer.asterisks}}</span>
+            {{ disclaimer.mainText }}
+            <span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
         </div>
 
       <hr/>
@@ -43,7 +46,9 @@
                 <i class="nc-icon-outline nc-layers-3 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="TotalEBPsSessions">Sessions ({{addCommas(siteEBPSessionsAny)}}/{{addCommas(siteALLSessions)}})</p>
+                <p class="card-category" v-tooltip.top-center="TotalEBPsSessions">
+                  Sessions ({{addCommas(siteEBPSessionsAny)}}/{{addCommas(siteALLSessions)}})
+                </p>
                 <h4 class="card-title">{{siteEBPSessionsAnyPercent}}%</h4>
               </div>
             </stats-card>
@@ -55,7 +60,9 @@
                 <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="TotalEBPsPatients">Patients ({{addCommas(siteEBPPatientsAny)}}/{{addCommas(siteALLPatients)}}) </p>
+                <p class="card-category" v-tooltip.top-center="TotalEBPsPatients">
+                  Patients ({{addCommas(siteEBPPatientsAny)}}/{{addCommas(siteALLPatients)}}) 
+                </p>
                 <h4 class="card-title">{{siteEBPPatientsAnyPercent}}%</h4>
               </div>
             </stats-card>
@@ -85,7 +92,9 @@
                 <i class="nc-icon-outline nc-layers-3 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="TotalPECPTSessions">Sessions ({{addCommas(siteEBPSessionsPECPT)}}/{{addCommas(siteALLSessions)}})</p>
+                <p class="card-category" v-tooltip.top-center="TotalPECPTSessions">
+                  Sessions ({{addCommas(siteEBPSessionsPECPT)}}/{{addCommas(siteALLSessions)}})
+                </p>
                 <h4 class="card-title">{{siteEBPSessionsPECPTPercent}}%</h4>
               </div>
             </stats-card>
@@ -97,7 +106,9 @@
                 <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="TotalPECPTPatients">Patients ({{addCommas(siteEBPPatientsPECPT)}}/{{addCommas(siteALLPatients)}})</p>
+                <p class="card-category" v-tooltip.top-center="TotalPECPTPatients">
+                  Patients ({{addCommas(siteEBPPatientsPECPT)}}/{{addCommas(siteALLPatients)}})
+                </p>
                 <h4 class="card-title">{{siteEBPPatientsPECPTPercent}}%</h4>
               </div>
             </stats-card>
@@ -135,7 +146,9 @@
                 <i class="nc-icon-outline nc-layers-3 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="IndividualTxEBPSessions">Sessions ({{siteEBPSessionsInd}}/{{addCommas(siteALLSessionsInd)}})</p>
+                <p class="card-category" v-tooltip.top-center="IndividualTxEBPSessions">
+                  Sessions ({{siteEBPSessionsInd}}/{{addCommas(siteALLSessionsInd)}})
+                </p>
                 <h4 class="card-title">{{siteEBPSessionsIndPercent}}%</h4>
               </div>
             </stats-card>
@@ -147,7 +160,9 @@
                 <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="IndividualTxEBPPatients">Patients ({{siteEBPPatientsInd}}/{{addCommas(siteALLPatientsInd)}})</p>
+                <p class="card-category" v-tooltip.top-center="IndividualTxEBPPatients">
+                  Patients ({{siteEBPPatientsInd}}/{{addCommas(siteALLPatientsInd)}})
+                </p>
                 <h4 class="card-title">{{siteEBPPatientsIndPercent}}%</h4>
               </div>
             </stats-card>
@@ -160,7 +175,9 @@
                 <i class="nc-icon-outline nc-layers-3 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="GroupTxEBPSessions">Sessions ({{siteEBPSessionsGrp}}/{{addCommas(siteALLSessionsGrp)}})</p>
+                <p class="card-category" v-tooltip.top-center="GroupTxEBPSessions">
+                  Sessions ({{siteEBPSessionsGrp}}/{{addCommas(siteALLSessionsGrp)}})
+                </p>
                 <h4 class="card-title">{{siteEBPSessionsGrpPercent}}%</h4>
               </div>
             </stats-card>
@@ -172,7 +189,9 @@
                 <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category" v-tooltip.top-center="GroupTxEBPPatients">Patients ({{siteEBPPatientsGrp}}/{{addCommas(siteALLPatientsGrp)}})</p>
+                <p class="card-category" v-tooltip.top-center="GroupTxEBPPatients">
+                  Patients ({{siteEBPPatientsGrp}}/{{addCommas(siteALLPatientsGrp)}})
+                </p>
                 <h4 class="card-title">{{siteEBPPatientsGrpPercent}}%</h4>
               </div>
             </stats-card>
@@ -328,6 +347,12 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 import { precise_round, addCommas } from 'src/utils'
 
+function computePercent (num, denom) {
+  console.log('numerator: ', num)
+  console.log('denominator', denom)
+  let percent = (+num / +denom) * 100
+  return isNaN(percent) ? 0 : precise_round(percent, 1)
+}
 
 export default {
   name: 'EBP',
@@ -340,6 +365,7 @@ export default {
   },
   data () {
     return {
+      // Tooltips
       TotalEBPsSessions: 'All EBP Sessions / All PCT Sessions',
       TotalEBPsPatients: 'All EBP Patients / All PCT Patients',
       TotalPECPTSessions: 'PE and CPT Sessions / All PCT Sessions',
@@ -352,6 +378,7 @@ export default {
       GroupTherapyOnly: 'Patients with EBP Group Tx Sessions Only / All Therapy Patients',
       BothIndGroupTherapy: 'Patients with EBP Ind and Group Tx Sessions / All Therapy Patients',
       
+      // documentation widgets
       ebps: ebps, 
       PEorCPT: PEorCPT, 
       IndividualAndGroupTxEBPs: IndividualAndGroupTxEBPs, 
@@ -403,6 +430,56 @@ export default {
       'siteEBPDetailsSessionsSurveys',
 
     ]),
+
+    siteEBPSessionsAnyPercent () {
+      return computePercent(this.siteEBPSessionsAny, this.siteALLSessions)
+      // return Math.round((this.siteEBPSessionsAny/this.siteALLSessions) * 100)
+    },
+    siteEBPPatientsAnyPercent () {
+      return computePercent(this.siteEBPPatientsAny, this.siteALLPatients)
+      // return Math.round((this.siteEBPPatientsAny/this.siteALLPatients) * 100)
+    },
+
+    siteEBPSessionsPECPTPercent () {
+      return computePercent(this.siteEBPSessionsPECPT, this.siteALLSessions)
+      // return Math.round((this.siteEBPSessionsPECPT/this.siteALLSessions) * 100)
+    },
+    siteEBPPatientsPECPTPercent () {
+      return computePercent(this.siteEBPPatientsPECPT, this.siteALLPatients)
+      // return Math.round((this.siteEBPPatientsPECPT/this.siteALLPatients) * 100)
+    },
+
+    siteEBPSessionsIndPercent () {
+      return computePercent(this.siteEBPSessionsInd, this.siteALLSessionsInd)
+      // return Math.round((this.siteEBPSessionsInd/this.siteALLSessionsInd) * 100)
+    },
+    siteEBPPatientsIndPercent () {
+      return computePercent(this.siteEBPPatientsInd, this.siteALLPatientsInd)
+      // return Math.round((this.siteEBPPatientsInd/this.siteALLPatientsInd) * 100)
+    },
+
+    siteEBPSessionsGrpPercent () {
+      return computePercent(this.siteEBPSessionsGrp, this.siteALLSessionsGrp)
+      // return Math.round((this.siteEBPSessionsGrp/this.siteALLSessionsGrp) * 100)
+    },
+    siteEBPPatientsGrpPercent () {
+      return computePercent(this.siteEBPPatientsGrp, this.siteALLPatientsGrp)
+      // return Math.round((this.siteEBPPatientsGrp/this.siteALLPatientsGrp) * 100)
+    },
+    siteEBPProvidersPercent () {
+      return computePercent(this.siteEBPProviders, this.siteEBPProvidersAll)
+      // return Math.round((this.siteEBPProviders/this.siteEBPProvidersAll) * 100)
+    },
+    siteEBPProvidersCPTPercent () {
+      return computePercent(this.siteEBPProvidersCPT, this.siteEBPProvidersAll)
+      // return Math.round((this.siteEBPProvidersCPT/this.siteEBPProvidersAll) * 100)
+    },
+    siteEBPProvidersPEIPercent () {
+      return computePercent(this.siteEBPProvidersPEI, this.siteEBPProvidersAll)
+      // return Math.round((this.siteEBPProvidersPEI/this.siteEBPProvidersAll) * 100)
+    },
+   
+    // Utility Computed Functions
     selectedSiteVISNorNATIONAL () {
       return /VISN|NATIONAL/.test(this.selectedSite)
     },
@@ -414,45 +491,7 @@ export default {
       console.log('window.pageYOffset: ', window.pageYOffset)    
     },
 
-    siteEBPSessionsAnyPercent () {
-      return Math.round((this.siteEBPSessionsAny/this.siteALLSessions) * 100)
-      // return precise_round((this.siteEBPSessionsAny/this.siteALLSessions) * 100, 1) 
-    },
-    siteEBPPatientsAnyPercent () {
-      return Math.round((this.siteEBPPatientsAny/this.siteALLPatients) * 100)
-    },
-
-    siteEBPSessionsPECPTPercent () {
-      return Math.round((this.siteEBPSessionsPECPT/this.siteALLSessions) * 100)
-      // return precise_round((this.siteEBPSessionsPECPT/this.siteALLSessions) * 100, 1) 
-    },
-    siteEBPPatientsPECPTPercent () {
-      return Math.round((this.siteEBPPatientsPECPT/this.siteALLPatients) * 100)
-    },
-
-    siteEBPSessionsIndPercent () {
-      return Math.round((this.siteEBPSessionsInd/this.siteALLSessionsInd) * 100)
-    },
-    siteEBPPatientsIndPercent () {
-      return Math.round((this.siteEBPPatientsInd/this.siteALLPatientsInd) * 100)
-    },
-
-    siteEBPSessionsGrpPercent () {
-      return Math.round((this.siteEBPSessionsGrp/this.siteALLSessionsGrp) * 100)
-    },
-    siteEBPPatientsGrpPercent () {
-      return Math.round((this.siteEBPPatientsGrp/this.siteALLPatientsGrp) * 100)
-    },
-    siteEBPProvidersPercent () {
-      return Math.round((this.siteEBPProviders/this.siteEBPProvidersAll) * 100)
-    },
-    siteEBPProvidersCPTPercent () {
-      return Math.round((this.siteEBPProvidersCPT/this.siteEBPProvidersAll) * 100)
-    },
-    siteEBPProvidersPEIPercent () {
-      return Math.round((this.siteEBPProvidersPEI/this.siteEBPProvidersAll) * 100)
-    },
-   
+    // Table Data
     rowData () { return this.siteEBPDetailsTypes  },
     // rowData1 () { return this.siteEBPClinicSummary },
     rowData1 () { return this.siteEBPDetailsSessionsSurveys },

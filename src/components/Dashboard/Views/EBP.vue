@@ -202,29 +202,30 @@
 
         <hr class="style1"/>
 
+
         <!-- Section Headers -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head"></h4>
         </div>
 
-        <!-- Start Row -->
-      <div class="row">
-
-        <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
        
-          <!-- Section Header -->
-          <div class="row d-flex justify-content-center ">
-            <h4 class="section-head">EBP Activity Summary</h4>
-          </div>
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">EBP Activity Summary</h4>
+        </div>
 
-          <!-- EBP Activity Summary FAQ -->
-          <div style="align-items: center; display: flex; justify-content: center; ">
-            <div style="width: 60%; margin-bottom: 10px;">
-            <VueFaqAccordion :items="ebpActivitySummary"/> 
-            </div>
+        <!-- EBP Activity Summary FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="ebpActivitySummary"/> 
           </div>
+        </div>
+
+        <!-- Start Row -->
+        <div class="row">
 
           <div class="col-md-6" >
+            <span v-if="!selectedSiteVISNorNATIONAL">
             <br/>
             <card>
               <template slot="header">
@@ -249,10 +250,9 @@
                 </div>
               </template> -->
             </card>
+        </span>
           </div>
-        </div>
 
-          <!-- Show EBP Activity Pie Chart always -->
           <div class="col-md-6">
             <template>
               <vue-highcharts :options="pieChartOptions"  ref="pieChart"></vue-highcharts>
@@ -261,13 +261,13 @@
 
         </div>   <!-- End Row -->
 
-        <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
-          
-          <!-- Section Header -->
-          <div class="row d-flex justify-content-center ">
-            <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
-          </div>
 
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
+        </div>
+
+        <div v-if="!phipii">
           <div class="row d-flex justify-content-center">
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
@@ -277,12 +277,7 @@
         </div>
 
         <!-- Show table only with PHIPII -->
-        <div v-else-if="phipii">
-
-          <!-- Section Header -->
-          <div class="row d-flex justify-content-center ">
-            <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
-          </div>
+        <div v-else-if="phipii && !selectedSiteVISNorNATIONAL">
 
           <!-- Providers EBPs And Surveys By Clinic And Patient Summary FAQ -->
           <div style="align-items: center; display: flex; justify-content: center; ">

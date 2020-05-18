@@ -62,11 +62,11 @@ const routes = [
         name: 'EBP',
         component: EBP
       },
-      {
-        path: 'definitions',
-        name: 'Definitions',
-        component: Definitions
-      }
+      // {
+      //   path: 'definitions',
+      //   name: 'Definitions',
+      //   component: Definitions
+      // }
       // {
       //   path: 'icons',
       //   name: 'Icons',

@@ -7,10 +7,10 @@
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Dashboard</p>
       </sidebar-link>
-      <sidebar-link to="/admin/definitions">
+      <!-- <sidebar-link to="/admin/definitions">
         <i class="nc-icon nc-bullet-list-67"></i>
         <p>Definitions</p>
-      </sidebar-link>
+      </sidebar-link> -->
       <sidebar-link to="/admin/consults">
         <i class="nc-icon nc-email-85"></i>
         <p>Consults</p>

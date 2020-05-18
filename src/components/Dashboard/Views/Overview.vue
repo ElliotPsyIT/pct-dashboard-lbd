@@ -9,12 +9,13 @@
     <img src="../../../../static/img/nat-center-ptsd.jpg">
   </div>
   <div class="mb-2 ">
-    <h1>PTSD Clinic Dashboard</h1> 
+    <h1> <span class="category news" style="text-decoration: none;">*</span> PTSD Clinic Dashboard</h1> 
 
     <p class="category "><b>Select Station AND Date Range <i class="bold nc-icon nc-stre-up text-primary"></i></b> From Drop Downs Above </p>
     <p class="category "><b>View Details <i class="bold nc-icon nc-stre-left text-primary"></i></b> Use Left Sidebar</p>
-    <p class="category" style="font-size: .8rem; font-style: italic;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
-    <p class="category news">Restricted Access to Patient Level Data Based on PHI/PII Permissions</p>
+    <p class="category" style="font-size: .8rem; font-style: italic; margin: 0;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
+    <span class="category news" style="font-size: .8rem; text-decoration: none;"><b><span style="font-size: 1.2rem;">*</span> Telehealth Care: The Encounters page now contains detailed information on provision of telehealth care.</b></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="category news" style="font-size: .8rem; text-decoration: none;"><b><span style="font-size: 1.2rem;">*</span> VISN and National Data: Select VISN or National on the Station drop for down for page summary data.</b></span>
 
   </div>
   

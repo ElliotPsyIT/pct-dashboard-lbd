@@ -139,7 +139,7 @@ const store = new Vuex.Store({
       surveys: true,
       ebp: true,
     },
-    appVersion: '0.16.0',
+    appVersion: '2.0',
     phipii: 0,
     selectedSiteVISNorNATIONAL: false,
     allphipii: [],
@@ -148,7 +148,7 @@ const store = new Vuex.Store({
     dateRanges,
     disclaimer: {
       asterisks: '** ',
-      mainText: 'Please remember that the data presented in this tool, whether it is aggregated or patient specific, is confidential and privileged. Data from any tool created for operational purposes cannot be disclosed to anyone without authorization and ',
+      mainText: 'Please remember that the data presented in this tool, whether it is aggregated or patient specific, is confidential, privileged and for operational purposes only and ',
       emphasis: 'cannot be used for research purposes.'
     },
     institutions: [],

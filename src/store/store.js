@@ -171,6 +171,7 @@ const store = new Vuex.Store({
     encounterFaceToFace: [],
     encounterTelehealth: [],
     encounterTelehealthAll: [],
+    encounterPhoneTherapy: [],
 
     encounterApptCancelNoShow: [],
     encounterApptCount: [],
@@ -403,6 +404,24 @@ const store = new Vuex.Store({
         return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
 
+    // totals for phone with psychotherapy
+    siteEncounterIndividualPhoneTherapy: (state) => {
+      let filteredArray = state.encounterPhoneTherapy
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => site.Psychotherapy === 'Individual Therapy')
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+    siteEncounterGroupPhoneTherapy: (state) => {
+      let filteredArray = state.encounterPhoneTherapy
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => { 
+          console.log('in siteEncounterGroupPhoneTherapy, site is: ', site)
+          return site.Psychotherapy === 'Group Therapy'
+        })
+        return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+
+
     // totals for telehealth and video - home
     siteEncounterTelehealthHomeInd: (state) => {
       // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
@@ -442,7 +461,7 @@ const store = new Vuex.Store({
       return site.Psychotherapy === 'Individual Therapy'
     })
     .filter(site => {
-        return /RT CLIN VD TH PRV SITE(DIFSTA)/.test(site.SecondaryStopCodeName)
+        return /RT CLIN VD TH PRV SITE\(DIFSTA\)/.test(site.SecondaryStopCodeName)
       })        
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
@@ -483,7 +502,7 @@ const store = new Vuex.Store({
       return site.Psychotherapy === 'Group Therapy'
     })
     .filter(site => {
-        return /RT CLIN VD TH PRV SITE(DIFSTA)/.test(site.SecondaryStopCodeName)
+        return /RT CLIN VD TH PRV SITE\(DIFSTA\)/.test(site.SecondaryStopCodeName)
       })        
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
@@ -1336,6 +1355,24 @@ const store = new Vuex.Store({
 
     },
 
+    ENCOUNTER_PHONE_THERAPY (context) {
+      // console.log('in ENCOUNTER_PHONE_THERAPY Action, check context here', context)
+                
+      const path = 'pct.cgi'
+      const format = 'encounter_phone_therapy'
+      const allparams = setParams(format, context.state)
+// console.log('encounter_phone_therapy action url: ', `${path}?${allparams}`)
+      // const params = 'format=encounter_phone_therapy&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      axios.get(`${path}?${allparams}`)
+      .then(response => { 
+        // console.log('got encounter_phone_therapy from server')
+        // console.log('encounter_phone_therapy response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ENCOUNTER_PHONE_THERAPY', response.data)
+      })
+
+
+    },
     ENCOUNTER_PATIENT_LINE_CHART (context) {
       // console.log('in ENCOUNTER_PATIENT_LINE_CHART Action, check context here', context)
           
@@ -1639,6 +1676,7 @@ const store = new Vuex.Store({
         context.dispatch('ENCOUNTER_TELEHEALTH') 
         context.dispatch('ENCOUNTER_TELEHEALTH_ALL')
         context.dispatch('ENCOUNTER_FACE_TO_FACE')
+        context.dispatch('ENCOUNTER_PHONE_THERAPY')
       }
       if (context.state.route.path == '/admin/providers') {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')    
@@ -1853,6 +1891,10 @@ const store = new Vuex.Store({
     SET_ENCOUNTER_FACE_TO_FACE(state, encounterFaceToFace) {
       // console.log('in mutate SET_ENCOUNTER_FACE_TO_FACE and state is: ', encounterFaceToFace)
       state.encounterFaceToFace = encounterFaceToFace
+    },
+    SET_ENCOUNTER_PHONE_THERAPY(state, encounterPhoneTherapy) {
+      // console.log('in mutate SET_ENCOUNTER_PHONE_THERAPY and state is: ', encounterPhoneTherapy)
+      state.encounterPhoneTherapy = encounterPhoneTherapy
     },
     SET_ENCOUNTER_PATIENT_CPT_CATEGORIES(state, encounterPatientCPTCategories) {
       // console.log('in mutate SET_ENCOUNTER_PATIENT_CPT_CATEGORIES and state is: ', state)

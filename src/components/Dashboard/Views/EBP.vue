@@ -261,23 +261,29 @@
 
         </div>   <!-- End Row -->
 
+        <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
 
         <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
-        </div>
+          <div class="row d-flex justify-content-center ">
+            <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
+          </div>
 
-        <div v-if="!phipii">
           <div class="row d-flex justify-content-center">
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
           <div class="row d-flex justify-content-center ">
             <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
           </div>
+
         </div>
 
         <!-- Show table only with PHIPII -->
-        <div v-else-if="phipii && !selectedSiteVISNorNATIONAL">
+        <div v-else-if="phipii">
+
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center ">
+            <h4 class="section-head">Providers' EBPs and Surveys By Clinic and Patient</h4>
+          </div>
 
           <!-- Providers EBPs And Surveys By Clinic And Patient Summary FAQ -->
           <div style="align-items: center; display: flex; justify-content: center; ">
@@ -343,8 +349,8 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 import { precise_round, addCommas } from 'src/utils'
 
 function computePercent (num, denom) {
-  console.log('numerator: ', num)
-  console.log('denominator', denom)
+  // console.log('numerator: ', num)
+  // console.log('denominator', denom)
   let percent = (+num / +denom) * 100
   return isNaN(percent) ? 0 : precise_round(percent, 1)
 }

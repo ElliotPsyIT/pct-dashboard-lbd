@@ -42,7 +42,7 @@
             </div>
             <div slot="content">
               <p class="card-category">Total Providers</p>
-              <h4 class="card-title">{{ asyncValue(siteProviderProviderCount) }}</h4>
+              <h4 class="card-title">{{ addCommas(asyncValue(siteProviderProviderCount)) }}</h4>
             </div>
             </stats-card>
           </div>
@@ -54,7 +54,7 @@
             </div>
             <div slot="content">
               <p class="card-category">Total Clinics</p>
-              <h4 class="card-title">{{ asyncValue(siteProviderClinicCount) }}</h4>
+              <h4 class="card-title">{{ addCommas(asyncValue(siteProviderClinicCount)) }}</h4>
             </div>
             </stats-card>
           </div>
@@ -66,7 +66,7 @@
             </div>
             <div slot="content">
               <p class="card-category">Total Patients</p>
-              <h4 class="card-title">{{ asyncValue(siteProviderPatientCount) }}</h4>
+              <h4 class="card-title">{{ addCommas(asyncValue(siteProviderPatientCount)) }}</h4>
             </div>
             </stats-card>
           </div>
@@ -287,6 +287,8 @@ import {
 
 import { mapState, mapGetters, mapActions } from 'vuex'
 
+import { addCommas } from 'src/utils'
+
 export default {
   name: 'providers',
   components: {
@@ -401,6 +403,7 @@ export default {
       'CURRENT_PAGE',
       'GET_INSTITUTIONS',
     ]),
+    addCommas,
     asyncValue(val) {
       return val == 0 ? 'Loading...' : val
     },

@@ -44,7 +44,7 @@
             <div slot="content">
               <p class="card-category">Total Surveys Given</p>
               <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-              <h4 class="card-title">{{ siteSurveyTotals.surveysGivenOverall }}</h4>
+              <h4 class="card-title">{{ addCommas(siteSurveyTotals.surveysGivenOverall) }}</h4>
             </div>
           </stats-card>
         
@@ -74,7 +74,7 @@
             <div slot="content" >
               <p class="card-category">Surveys in Clinics / <br/>All Clinics</p>
               <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-              <h4 class="card-title">{{ siteSurveyClinicTotals.surveysGivenClinics }}/{{ siteSurveyClinicTotals.surveysTotalClinics }}</h4>
+              <h4 class="card-title">{{ addCommas(siteSurveyClinicTotals.surveysGivenClinics) }}/{{ addCommas(siteSurveyClinicTotals.surveysTotalClinics) }}</h4>
             </div>
           </stats-card>
         
@@ -90,7 +90,7 @@
             <div slot="content">
               <p class="card-category">Surveys by Providers / <br/>All Providers</p>
               <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-              <h4 class="card-title">{{ siteSurveyProviderTotals.surveysGivenProviders }}/{{ siteSurveyProviderTotals.surveysTotalProviders }}</h4>
+              <h4 class="card-title">{{ addCommas(siteSurveyProviderTotals.surveysGivenProviders) }}/{{ addCommas(siteSurveyProviderTotals.surveysTotalProviders) }}</h4>
             </div>
           </stats-card>
         
@@ -106,7 +106,7 @@
             <div slot="content">
               <p class="card-category">Surveys by Patients / <br/>All Patients</p>
               <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-              <h4 class="card-title">{{ siteSurveyPatientTotals.surveysGivenPatients }}/{{ siteSurveyPatientTotals.surveysTotalPatients }}</h4>
+              <h4 class="card-title">{{ addCommas(siteSurveyPatientTotals.surveysGivenPatients) }}/{{ addCommas(siteSurveyPatientTotals.surveysTotalPatients) }}</h4>
             </div>
           </stats-card>
 
@@ -165,6 +165,7 @@
           <div class="row d-flex justify-content-center ">
             <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
           </div>
+
       </div>
 
       <!-- Show table only with PHIPII -->
@@ -234,6 +235,8 @@ import {
   SurveyTypesGiven,
   SurveysToPatientsByProvider
 } from '../Documentation/surveys_doc.js'
+
+import { addCommas } from 'src/utils'
 
 import { mapState, mapGetters, mapActions } from 'vuex'
 // surveysGivenOverall
@@ -379,6 +382,7 @@ export default {
       'CURRENT_PAGE',
       'GET_INSTITUTIONS',
     ]),
+    addCommas,
     exportCSVgridOptions1() {
       let params = {
         // define the fields for export

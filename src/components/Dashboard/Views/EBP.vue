@@ -147,7 +147,7 @@
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="IndividualTxEBPSessions">
-                  Sessions ({{siteEBPSessionsInd}}/{{addCommas(siteALLSessionsInd)}})
+                  Sessions ({{addCommas(siteEBPSessionsInd)}}/{{addCommas(siteALLSessionsInd)}})
                 </p>
                 <h4 class="card-title">{{siteEBPSessionsIndPercent}}%</h4>
               </div>
@@ -161,7 +161,7 @@
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="IndividualTxEBPPatients">
-                  Patients ({{siteEBPPatientsInd}}/{{addCommas(siteALLPatientsInd)}})
+                  Patients ({{addCommas(siteEBPPatientsInd)}}/{{addCommas(siteALLPatientsInd)}})
                 </p>
                 <h4 class="card-title">{{siteEBPPatientsIndPercent}}%</h4>
               </div>
@@ -176,7 +176,7 @@
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="GroupTxEBPSessions">
-                  Sessions ({{siteEBPSessionsGrp}}/{{addCommas(siteALLSessionsGrp)}})
+                  Sessions ({{addCommas(siteEBPSessionsGrp)}}/{{addCommas(siteALLSessionsGrp)}})
                 </p>
                 <h4 class="card-title">{{siteEBPSessionsGrpPercent}}%</h4>
               </div>
@@ -190,7 +190,7 @@
               </div>
               <div slot="content">
                 <p class="card-category" v-tooltip.top-center="GroupTxEBPPatients">
-                  Patients ({{siteEBPPatientsGrp}}/{{addCommas(siteALLPatientsGrp)}})
+                  Patients ({{addCommas(siteEBPPatientsGrp)}}/{{addCommas(siteALLPatientsGrp)}})
                 </p>
                 <h4 class="card-title">{{siteEBPPatientsGrpPercent}}%</h4>
               </div>

@@ -42,7 +42,7 @@
                   </div>
                   <div slot="content">
                     <p class="card-category">Total Consults</p>
-                    <h4 class="card-title">{{ asyncValue(siteConsultTotal) }}</h4>
+                    <h4 class="card-title">{{ addCommas(asyncValue(siteConsultTotal)) }}</h4>
                   </div>
                   <!-- <div slot="footer">
                     <i class="fa fa-refresh"></i>With Duplicates
@@ -57,7 +57,7 @@
                   </div>
                   <div slot="content">
                     <p class="card-category">Total Patients</p>
-                    <h4 class="card-title">{{ asyncValue(siteConsultPatientTotal) }}</h4>
+                    <h4 class="card-title">{{ addCommas(asyncValue(siteConsultPatientTotal)) }}</h4>
                   </div>
                   <!-- <div slot="footer">
                     <i class="fa fa-calendar-o"></i>No Duplicates
@@ -73,7 +73,7 @@
                     </div>
                     <div slot="content">
                       <p class="card-category">Pending</p>
-                      <h4 class="card-title">{{ asyncValue(siteConsultPendingTotal) }}</h4>
+                      <h4 class="card-title">{{ addCommas(asyncValue(siteConsultPendingTotal)) }}</h4>
                     </div>
                     <div slot="footer">
                       <i class="fa fa-refresh"></i>Click To <span :class="cardStatusTextPending">Filter PENDING</span>
@@ -90,7 +90,7 @@
                     </div>
                     <div slot="content">
                       <p class="card-category">Active</p>
-                      <h4 class="card-title">{{ asyncValue(siteConsultActiveTotal) }}</h4>
+                      <h4 class="card-title">{{ addCommas(asyncValue(siteConsultActiveTotal)) }}</h4>
                     </div>
                     <div slot="footer">
                       <i class="fa fa-refresh"></i>Click To <span :class="cardStatusTextActive">Filter ACTIVE</span>
@@ -330,6 +330,8 @@ import {consultsAll,
 
 import { mapState, mapGetters, mapActions } from 'vuex'
 
+import { addCommas } from 'src/utils'
+
 // helpers
 const isMatch = (oldOne, newOne) => { return oldOne == newOne }
       
@@ -534,6 +536,7 @@ export default {
       'CURRENT_PAGE',
       // 'GET_INSTITUTIONS', // no need if not filtering
     ]),
+    addCommas,
     asyncValue(val) {
       // show 'Loading..' with default value set to 0
       let v = val == 0 ? 'Loading...' : val

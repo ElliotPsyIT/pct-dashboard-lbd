@@ -139,7 +139,7 @@ const store = new Vuex.Store({
       surveys: true,
       ebp: true,
     },
-    appVersion: '2.0',
+    appVersion: '2.1',
     phipii: 0,
     selectedSiteVISNorNATIONAL: false,
     allphipii: [],
@@ -396,6 +396,16 @@ const store = new Vuex.Store({
         .filter(site => site.Psychotherapy === 'Individual Therapy')
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
+    siteEncounterIndividualFaceToFaceEM: (state) => {
+      let filteredArray = state.encounterFaceToFace
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => { 
+          return site.TherapyModality === 'FACE_TO_FACE'
+        })
+        .filter(site => site.Psychotherapy === 'Individual Therapy E&M')
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+
     siteEncounterGroupFaceToFace: (state) => {
       let filteredArray = state.encounterFaceToFace
         .filter(site => site.StaPa === state.selectedSite)
@@ -411,11 +421,17 @@ const store = new Vuex.Store({
         .filter(site => site.Psychotherapy === 'Individual Therapy')
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
+    siteEncounterIndividualPhoneTherapyEM: (state) => {
+      let filteredArray = state.encounterPhoneTherapy
+        .filter(site => site.StaPa === state.selectedSite)
+        .filter(site => site.Psychotherapy === 'Individual Therapy E&M')
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
     siteEncounterGroupPhoneTherapy: (state) => {
       let filteredArray = state.encounterPhoneTherapy
         .filter(site => site.StaPa === state.selectedSite)
         .filter(site => { 
-          console.log('in siteEncounterGroupPhoneTherapy, site is: ', site)
+          // console.log('in siteEncounterGroupPhoneTherapy, site is: ', site)
           return site.Psychotherapy === 'Group Therapy'
         })
         return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
@@ -439,12 +455,40 @@ const store = new Vuex.Store({
       // console.log('filteredArray in siteEncounterTelehealthHomeInd is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
+    siteEncounterTelehealthHomeIndEM: (state) => {
+      // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+      let filteredArray = state.encounterTelehealth
+      .filter(site => {
+        return site.StaPa === state.selectedSite
+      }) 
+      .filter(site => {
+        // console.log('in siteEncounterTelehealthHomeInd, Psychotherapy is : ', site.Psychotherapy)
+        return site.Psychotherapy === 'Individual Therapy E&M'
+      })
+      .filter(site => {
+        return /RT CLIN VID CARE HOME/.test(site.SecondaryStopCodeName)
+      })
+      // console.log('filteredArray in siteEncounterTelehealthHomeInd is: ', filteredArray)
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
     siteEncounterTelehealthSameStationInd: (state) => {
       let filteredArray = state.encounterTelehealth
       .filter(site => site.StaPa === state.selectedSite) 
       .filter(site => {
         // console.log('in siteEncounterTelehealthSameStationInd, Psychotherapy is : ', site.Psychotherapy)
         return site.Psychotherapy === 'Individual Therapy'
+      })
+      .filter(site => {
+          return /CVT PRV SITE SAME DIV\/STA/.test(site.SecondaryStopCodeName)
+      })        
+      return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+    },
+    siteEncounterTelehealthSameStationIndEM: (state) => {
+      let filteredArray = state.encounterTelehealth
+      .filter(site => site.StaPa === state.selectedSite) 
+      .filter(site => {
+        // console.log('in siteEncounterTelehealthSameStationInd, Psychotherapy is : ', site.Psychotherapy)
+        return site.Psychotherapy === 'Individual Therapy E&M'
       })
       .filter(site => {
           return /CVT PRV SITE SAME DIV\/STA/.test(site.SecondaryStopCodeName)
@@ -465,7 +509,20 @@ const store = new Vuex.Store({
       })        
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
-
+    siteEncounterTelehealthDiffStationIndEM: (state) => {
+      // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
+      let filteredArray = state.encounterTelehealth
+      .filter(site => site.StaPa === state.selectedSite) 
+      .filter(site => {
+        // console.log('in siteEncounterTelehealthDiffStationInd, Psychotherapy is : ', site.Psychotherapy)
+        return site.Psychotherapy === 'Individual Therapy E&M'
+      })
+      .filter(site => {
+          return /RT CLIN VD TH PRV SITE\(DIFSTA\)/.test(site.SecondaryStopCodeName)
+        })        
+        return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
+      },
+  
     // Group therapy telehealth
     siteEncounterTelehealthHomeGrp: (state) => {
       // console.log('state.encounterTelehealth is: ', state.encounterTelehealth)
@@ -479,7 +536,7 @@ const store = new Vuex.Store({
       .filter(site => {
         return /RT CLIN VID CARE HOME/.test(site.SecondaryStopCodeName)
       })
-      console.log('in siteEncounterTelehealthHomeGrp, filteredArray is: ', filteredArray)
+      // console.log('in siteEncounterTelehealthHomeGrp, filteredArray is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
     siteEncounterTelehealthSameStationGrp: (state) => {
@@ -799,7 +856,7 @@ const store = new Vuex.Store({
     siteSurveyDetails: (state) => {
       let filteredArray = state.surveyDetails
         .filter(site => site.StaPa === state.selectedSite)
-      // console.log('filteredArray', filteredArray)
+      // console.log('filteredArray from siteSurveyDetails', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray
     },
     siteSurveyPatientDetails: (state) => {
@@ -1168,7 +1225,7 @@ const store = new Vuex.Store({
       const allparams = setParams(format, context.state)
 
       // const params = 'format=survey_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-
+      // console.log('SURVEY_DETAILS action, allparams is: ', allparams)
       axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got consult details from server')

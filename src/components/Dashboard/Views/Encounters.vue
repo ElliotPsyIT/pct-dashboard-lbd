@@ -336,6 +336,176 @@
 
         </div>
 
+        <!-- Psychotherapy Patients Section -->
+        <div class="row d-flex justify-content-center ">
+          <h4 class="section-head">Individual Psychotherapy Format (with E&M)</h4>
+        </div>
+
+        <!-- encounterTelehealthInd FAQ -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+           <VueFaqAccordion :items="encounterTelehealthIndEM"/> 
+          </div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Face To Face<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthFaceToFaceIndEM) }}/
+                    {{ formatNumber(siteEncounterCPTIndividual) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterTelehealthFaceToFaceIndPercentEM">
+                      {{ siteEncounterTelehealthFaceToFaceIndPercentEM}}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>        
+          </div>
+|
+|
+|
+|
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-success"></i>
+              </div>
+              <div slot="content">
+                 <p class="card-category"><b>Video</b><br/>To Home<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthHomeIndEM) }}/
+                    {{ formatNumber(siteEncounterCPTIndividual) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterTelehealthHomeIndPercentEM">
+                      {{ siteEncounterTelehealthHomeIndPercentEM}}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+              </stats-card>        
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
+              </div>
+              <div slot="content">
+                 <p class="card-category"><b>Video</b><br/>To Associate Facility<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthSameStationIndEM) }}/
+                    {{ formatNumber(siteEncounterCPTIndividual) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterTelehealthSameStationIndPercentEM">
+                      {{ siteEncounterTelehealthSameStationIndPercentEM}}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>        
+          </div>
+
+           <div class="col-xl-3 col-md-4">
+             <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+              </div>
+              <div slot="content">
+                 <p class="card-category"><b>Video</b><br/>To Different Station<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthDiffStationIndEM) }}/
+                    {{ formatNumber(siteEncounterCPTIndividual) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterTelehealthDiffStationIndPercentEM">
+                      {{ siteEncounterTelehealthDiffStationIndPercentEM}}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>         
+          </div>
+
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">By Phone<br/>
+                  <!-- <transition name="fade" mode="out-in">  -->
+                   ({{ formatNumber(telehealthPhoneIndTherapyEM) }}/
+                    {{ formatNumber(siteEncounterCPTIndividual) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterIndividualPhoneTherapyPercentEM">
+                      {{ siteEncounterIndividualPhoneTherapyPercentEM}}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+              </stats-card>
+          </div>
+
+        </div>
+
+        <!-- <div class="d-flex flex-row justify-content-center">
+
+          <div class="col-xl-3 col-md-3">
+             <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div> 
+              <div slot="content">
+                <p class="card-category">Phone and Telehealth<br/>
+                  <transition name="fade" mode="out-in"> 
+                   CODING ERROR!!
+                  </transition>
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterIndividualPhoneTherapyPercent">
+                      {{ siteEncounterIndividualPhoneTherapyPercent}}%
+                    </span>
+                  </transition>
+                </h4>
+                <table style="width: 100%;">
+                  <tr><th>Station</th><th>Station Name</th><th>Psychotherapy</th><th>Primary Stop</th><th>Secondary Stop</th></tr>
+                  <tr><td>637</td><td>Jesse Brown</td><td>Individual</td><td>542</td><td>179</td></tr>
+                </table>
+
+              </div>
+
+          </div>
+
+        </div> -->
+
         <!-- Psychotherapy Section -->
         <div class="row d-flex justify-content-center ">
           <h4 class="section-head">Group Psychotherapy Sessions</h4>
@@ -887,6 +1057,7 @@ import { encountersAll,
         encounterCategories,
         encounterCPTDetails,
         encounterTelehealthInd,
+        encounterTelehealthIndEM,
         encounterTelehealthGrp,
         encounterTelehealthAll} from '../Documentation/encounter_doc.js'
 
@@ -969,22 +1140,28 @@ export default {
       'siteEncounterCPTPatientsGrpOnly',
       'siteEncounterCPTPatientsBoth',
 
+      // telehealth-relate individual therapy
       'siteEncounterIndividualFaceToFace',
-      'siteEncounterGroupFaceToFace',
-
       'siteEncounterIndividualPhoneTherapy',
-      'siteEncounterGroupPhoneTherapy',
-      // 'siteEncounterTelehealthHome',
-      // 'siteEncounterTelehealthSameStation',
-      // 'siteEncounterTelehealthDiffStation',
-      
       'siteEncounterTelehealthHomeInd',
       'siteEncounterTelehealthSameStationInd',
       'siteEncounterTelehealthDiffStationInd',
+
+      // telehealth-related individual therapy with E&M codes
+      'siteEncounterIndividualFaceToFaceEM',
+      'siteEncounterIndividualPhoneTherapyEM',
+      'siteEncounterTelehealthHomeIndEM',
+      'siteEncounterTelehealthSameStationIndEM',
+      'siteEncounterTelehealthDiffStationIndEM',
+
+      // telehealth-relaed group therapy
+      'siteEncounterGroupFaceToFace',
+      'siteEncounterGroupPhoneTherapy',
       'siteEncounterTelehealthHomeGrp',
       'siteEncounterTelehealthSameStationGrp',
       'siteEncounterTelehealthDiffStationGrp',
 
+      // telehealth-related all - not restricted to therapy
       'siteEncounterTelehealthHomeAll',
       'siteEncounterTelehealthSameStationAll',
       'siteEncounterTelehealthDiffStationAll',
@@ -1010,6 +1187,10 @@ export default {
     telehealthFaceToFaceInd () {
       return this.siteEncounterIndividualFaceToFace || 0
     },
+    telehealthFaceToFaceIndEM () {
+      return this.siteEncounterIndividualFaceToFaceEM || 0
+    },
+
     telehealthFaceToFaceGrp () {
       return this.siteEncounterGroupFaceToFace || 0
     },
@@ -1019,6 +1200,11 @@ export default {
       return this.siteEncounterIndividualPhoneTherapy == undefined 
         ? 0 
         : this.siteEncounterIndividualPhoneTherapy
+    },
+    telehealthPhoneIndTherapyEM () {
+      return this.siteEncounterIndividualPhoneTherapyEM == undefined 
+        ? 0 
+        : this.siteEncounterIndividualPhoneTherapyEM
     },
     telehealthPhoneGrpTherapy () {
       return this.siteEncounterGroupPhoneTherapy == undefined 
@@ -1037,15 +1223,31 @@ export default {
         ? 0 
         : this.siteEncounterTelehealthHomeInd
     },
+    telehealthHomeIndEM () {
+      // console.log('in fn telehealthHomeIndEM, siteEncounterTelehealthHomeIndEM is: ', this.siteEncounterTelehealthHomeIndEM)
+      return this.siteEncounterTelehealthHomeIndEM == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthHomeIndEM
+    },
     telehealthSameStationInd () {
       return this.siteEncounterTelehealthSameStationInd == undefined 
         ? 0 
         : this.siteEncounterTelehealthSameStationInd
     },
+    telehealthSameStationIndEM () {
+      return this.siteEncounterTelehealthSameStationIndEM == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthSameStationIndEM
+    },
     telehealthDiffStationInd () {
       return this.siteEncounterTelehealthDiffStationInd == undefined 
         ? 0 
         : this.siteEncounterTelehealthDiffStationInd
+    },
+    telehealthDiffStationIndEM () {
+      return this.siteEncounterTelehealthDiffStationIndEM == undefined 
+        ? 0 
+        : this.siteEncounterTelehealthDiffStationIndEM
     },
 
     // telehealth group therapy
@@ -1100,18 +1302,40 @@ export default {
       return precise_round(percent, 1)
 
     },
+    siteEncounterTelehealthFaceToFaceIndPercentEM() {
+      let percent = (+this.siteEncounterIndividualFaceToFaceEM / +this.siteEncounterCPTIndividual) * 100
+      return precise_round(percent, 1)
+
+    },
+
     siteEncounterTelehealthHomeIndPercent() {
       let percent = (+this.siteEncounterTelehealthHomeInd / +this.siteEncounterCPTIndividual) * 100
       return precise_round(percent, 1)
 
     },
+    siteEncounterTelehealthHomeIndPercentEM() {
+      let percent = (+this.siteEncounterTelehealthHomeIndEM / +this.siteEncounterCPTIndividual) * 100
+      return precise_round(percent, 1)
+
+    },
+
     siteEncounterTelehealthSameStationIndPercent() {
       let percent = (+this.siteEncounterTelehealthSameStationInd / +this.siteEncounterCPTIndividual) * 100
       return precise_round(percent, 1)
 
     },
+    siteEncounterTelehealthSameStationIndPercentEM() {
+      let percent = (+this.siteEncounterTelehealthSameStationIndEM / +this.siteEncounterCPTIndividual) * 100
+      return precise_round(percent, 1)
+
+    },
+
     siteEncounterTelehealthDiffStationIndPercent() {
       let percent = (+this.siteEncounterTelehealthDiffStationInd / +this.siteEncounterCPTIndividual) * 100
+      return precise_round(percent, 1)
+    },
+    siteEncounterTelehealthDiffStationIndPercentEM() {
+      let percent = (+this.siteEncounterTelehealthDiffStationIndEM / +this.siteEncounterCPTIndividual) * 100
       return precise_round(percent, 1)
     },
 
@@ -1138,13 +1362,17 @@ export default {
       let percent = (+this.siteEncounterIndividualPhoneTherapy / +this.siteEncounterCPTIndividual) * 100
       return precise_round(percent, 1)
     },
+    siteEncounterIndividualPhoneTherapyPercentEM() {
+      let percent = (+this.siteEncounterIndividualPhoneTherapyEM / +this.siteEncounterCPTIndividual) * 100
+      return precise_round(percent, 1)
+    },
     siteEncounterGroupPhoneTherapyPercent() {
       let percent = (+this.siteEncounterGroupPhoneTherapy / +this.siteEncounterCPTGroup) * 100
       return precise_round(percent, 1)
     },
     siteEncounterAllPhoneTherapyPercent() {
       let percent = (this.telehealthPhoneAllTherapy / +this.siteEncounterTotal) * 100
-      console.log('computing siteEncounterAllPhoneTherapyPercent: ', percent)
+      // console.log('computing siteEncounterAllPhoneTherapyPercent: ', percent)
       return precise_round(percent, 1)
     },
 
@@ -1229,6 +1457,7 @@ export default {
       encounterCategories: encounterCategories,
       encounterCPTDetails: encounterCPTDetails,
       encounterTelehealthInd: encounterTelehealthInd,
+      encounterTelehealthIndEM: encounterTelehealthIndEM,
       encounterTelehealthGrp: encounterTelehealthGrp,
       encounterTelehealthAll: encounterTelehealthAll,
     }
@@ -1400,6 +1629,10 @@ export default {
 }
 </script>
 <style>
+
+  table, th, td {
+    border: 1px solid black;
+  }
 
   .filtering {
     background-color: lightgrey;

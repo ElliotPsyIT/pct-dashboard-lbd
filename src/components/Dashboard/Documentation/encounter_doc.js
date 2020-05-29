@@ -137,6 +137,75 @@ export const encountersAll = [
     },
   ]
 
+  export const encounterTelehealthIndEM = [
+    {
+      title: "Face To Face - Individual Therapy E&M",
+      value: "<u><b>Face To Face</u></b> counts represent the sum total of individual therapy E&M encounters that DO NOT have a Telehealth Secondary Stop Code.  " +
+      "Therefore, these non-telehealth Individual Therapy E&M encounters occurred face-to-face.<br/><br/>" + 
+      "The sessions are from all PCT Clinics with the following subset of Individual Tx E&M procedure codes:<br/><br/>" + 
+      "&nbsp;&nbsp;&nbsp; <u><b>Individual Therapy E&M</b></u>: <br/>" +
+      "('90833', '90836', '90838')<br/><br/>"+
+      "<u><b>Numerator</b></u>: Total Face to Face Individual Therapy E&M encounters from all PCT Clinics.<br/><br/>" +
+      "<u><b>Denominator</b></u>: Total Individual Therapy encounters by any modality from all PCT Clinics.<br/><br/>",
+      category: "Individual Telehealth Encounters E&M Defined ..."
+
+    },
+    {
+      title: "Telehealth to Home - Individual Therapy E&M",
+      value: "<u><b>Telehealth to Home</b></u> counts represent the sum total of individual therapy E&M encounters that have a Telehealth Secondary Stop Code corresponding to video to home.  " +
+      "<br/><br/>" +
+      "<u><b>The Telehealth Secondary Stop Code to Home is '179'</u></b>.  If this Telehealth to Home code is used along with an Individual Therapy Primary Stop Code " + 
+      "then the encounter counts toward the sum. " + 
+      "<br/><br/>" +
+      "The sessions are from all PCT Clinics with the following subset of Individual Tx E&M procedure codes:<br/><br/>" + 
+      "&nbsp;&nbsp;&nbsp; <u><b>Individual Therapy E&M</b></u>: <br/>" +
+      "('90833', '90836', '90838')<br/><br/>"+
+      "<u><b>Numerator</b></u>: Total Telehealth to Home Individual Therapy E&M encounters from all PCT Clinics.<br/><br/>" +
+      "<u><b>Denominator</b></u>: Total Individual Therapy encounters from all PCT Clinics.<br/><br/>",
+      category: "Individual Telehealth Encounters E&M Defined ..."
+    },
+    {
+      title: "Telehealth to Associate Facility - Individual Therapy E&M",
+      value: "<u><b>Telehealth to Associate Facility</b></u> counts represent the sum total of individual therapy E&M encounters that have a Telehealth Secondary Stop Code.  " +
+      "<br/><br/>" +
+      "<u><b>The Telehealth Secondary Stop Code to an Associate Facility is '692'</u></b>.  If this Telehealth to an Associate Facility secondary stop code is used along with an Individual Therapy Primary Stop Code " + 
+      "then it signifies a telehealth encounter to an Associate Facility and the encounter counts toward the sum. <br/><br/>" +
+      "The sessions are from all PCT Clinics with the following subset of Individual Tx E&M procedure codes:<br/><br/>" + 
+      "&nbsp;&nbsp;&nbsp; <u><b>Individual Therapy E&M</b></u>: <br/>" +
+      "('90833', '90836', '90838')<br/><br/>"+
+      "<u><b>Numerator</b></u>: Total Telehealth to Secondary Stop Code to an Associated Facility Individual Therapy E&M encounters from all PCT Clinics.</br></br>" +
+      "<u><b>Denominator</b></u>: Total Individual Therapy encounters by any modality from all PCT Clinics.<br/><br/>",
+      category: "Individual Telehealth Encounters E&M Defined ..."
+    },
+    {
+      title: "Telehealth to Different Parent Station - Individual Therapy E&M",
+      value: "<u><b>Telehealth to Different Parent Station</u></b> counts represent the sum total of individual therapy E&M encounters that have a Telehealth Secondary Stop Code.  " +
+      "<br/><br/>" +
+      "<u><b>The Telehealth Secondary Stop Code to a Different Parent Station is '693'</u></b>.  If this Different Parent Station secondary stop code is used along with an Individual Therapy Primary Stop Code " + 
+      "then it signifies a telehealth E&M encounter to a Different Parent Station and the encounter counts toward the sum. " + 
+      "<br/><br/>" +
+      "The sessions are from all PCT Clinics with the following subset of Individual Tx E&M procedure codes:<br/><br/>" + 
+      "&nbsp;&nbsp;&nbsp; <u><b>Individual Therapy E&M</b></u>: <br/>" +
+      "('90833', '90836', '90838')<br/><br/>"+
+      "<u><b>Numerator</b></u>: Total Telehealth to Different Parent Station Individual Therapy E&M encounters from all PCT Clinics.</br></br>" +
+      "<u><b>Denominator</b></u>: Total Individual Therapy encounters by any modality from all PCT Clinics.<br/><br/>",
+      category: "Individual Telehealth Encounters E&M Defined ..."
+    },
+    {
+      title: "Phone - Individual Therapy E&M",
+      value: "<u><b>Individual Therapy By Phone</u></b> counts represent the sum total of individual therapy E&M encounters that have been used in a Phone Clinic (primary stop code 542).  " +
+      "<br/><br/>" +
+      "<b><u>*** Phone Therapy E&M is being displayed since there has been an expansion of authorized therapy codes that can be used in phone care during the COVID-19 epidemic.</b></u> " + 
+      "<br/><br/>" +
+      "The sessions are from all PCT Clinics with the following subset of Individual Tx E&M procedure codes:<br/><br/>" + 
+      "&nbsp;&nbsp;&nbsp; <u><b>Individual Therapy E&M</b></u>: <br/>" +
+      "('90833', '90836', '90838')<br/><br/>"+
+      "<u><b>Numerator</b></u>: Total Individual Phone E&M encounters from all PCT Clinics<br/><br/>" +
+      "<u><b>Denominator</b></u>: Total Individual Therapy encounters by any modality from all PCT Clinics.<br/><br/>",
+      category: "Individual Telehealth Encounters E&M Defined ..."
+    },
+  ]
+
   export const encounterTelehealthGrp = [    
     {
       title: "Face To Face - Group Therapy",

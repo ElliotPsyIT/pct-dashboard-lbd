@@ -131,6 +131,72 @@
             </div>
           </form>
           </li>
+          <li class="nav-item py-0">
+            <form class="form-inline">
+              <div class="form-group "> <!-- pt-1 pl-3 ml-4 -->
+                <div v-for="demo in demoComponents"
+                :key="demo.title"
+                class="form-control"
+                >
+                  <CtkDateTimePicker
+                    :id="demo.options.id"
+                    v-model="demo.value"
+                    :only-date="demo.options.onlyDate"
+                    :only-time="demo.options.onlyTime"
+                    :range="demo.options.range"
+                    :format="demo.options.format"
+                    :formatted="demo.options.formatted"
+                    :output-format="demo.options.outputFormat"
+                    :inline="demo.options.inline"
+                    :color="demo.options.color"
+                    :button-color="demo.options.buttonColor"
+                    :no-header="demo.options.noHeader"
+                    :label="demo.options.label"
+                    :no-label="demo.options.noLabel"
+                    :auto-close="demo.options.autoClose"
+                    :error="demo.options.error"
+                    :hint="demo.options.hint"
+                    :open="demo.options.open"
+                    :overlay="demo.options.overlay"
+                    :position="demo.options.position"
+                    :disabled="demo.options.disabled"
+                    :disabled-dates="demo.options.disabledDates"
+                    :disabled-hours="demo.options.disabledHours"
+                    :enabled-dates="demo.options.enabledDates"
+                    :minute-interval="demo.options.minuteInterval"
+                    :first-day-of-week="demo.options.firstDayOfWeek"
+                    :min-date="demo.options.minDate"
+                    :max-date="demo.options.maxDate"
+                    :no-weekends-days="demo.options.noWeekendDays"
+                    :no-shortcuts="demo.options.noShortcuts"
+                    :no-button="demo.options.noButton"
+                    :button-now-translation="demo.options.buttonNowTranslation"
+                    :no-button-now="demo.options.noButtonNow"
+                    :locale="demo.options.locale"
+                    :input-size="demo.options.inputSize"
+                    :custom-shortcuts="demo.options.customShortcuts"
+                    :persistent="demo.options.persistent"
+                    :no-keyboard="demo.options.noKeyboard"
+                    :no-value-to-custom-elem="demo.options.noValueToCustomElem"
+                    :disabled-weekly="demo.options.disabledWeekly"
+                    :right="demo.options.right"
+                    :no-clear-button="demo.options.noClearButton"
+                  >
+                    <input
+                      v-if="demo.options && demo.options.slot && demo.options.slot.type === 'input'"
+                      type="text"
+                    >
+                    <button
+                      v-else-if="demo.options && demo.options.slot && demo.options.slot.type === 'button'"
+                      type="button"
+                      class="lm-btn"
+                      style="margin: 0;"
+                    />
+                  </CtkDateTimePicker>
+                </div>
+              </div>
+            </form>
+          </li>
           <li v-show="selectedSiteHavingInstitutions" class="nav-item py-0">  <!-- border-style: solid; {{capitalizeFirstLetter(currentpage)}}s -->
              <span v-if="siteSelected" class="" :class="{hide: !canFilterBySite }"  >
               <a name="siteFilterClick" href="#" @click.prevent="filterInstitutionsShowHide"
@@ -190,10 +256,14 @@
   // import the styles
   import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
+  import CtkDateTimePicker from 'vue-ctk-date-time-picker'
+  import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
+
   export default {
     components: {
       FadeTransition,
       Treeselect,
+      CtkDateTimePicker,
     },
     
     // beforeMount  () {
@@ -319,13 +389,33 @@
         {id:"650",label:"(V01) (650) PROVIDENCE VAMC"},
         {id:"689",label:"(V01) (689) CONNECTICUT HCS"}
         ],
-        // normalizer(node) {
-        //   console.log('node is: ', node)
-        //   return {
-        //     id: node.StaPa,
-        //     label: node.InstitutionNameLong
-        //   }
-        // }
+        demoComponents: [
+          {
+            id: '2',
+            title: 'Range Date Picker',
+            description: 'Date Range selector - With custom element to trigger the component (only input or button)',
+            editOption: false,
+            initial: {
+              start: '2018-04-05',
+              end: '2018-04-20'
+            },
+            value: {
+              start: '2018-04-05',
+              end: '2018-04-20'
+            },
+            options: {
+              slot: {
+                type: 'button'
+              },
+              range: true,
+              formatted: 'll',
+              format: 'YYYY-MM-DD',
+              color: 'purple',
+              label: 'Select date range',
+              id: 'RangeDatePicker'
+            }
+          },
+        ]
       }
     },
     methods: {

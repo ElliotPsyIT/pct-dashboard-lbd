@@ -264,7 +264,7 @@ export default {
     this.APPOINTMENT_CANCEL_NOSHOW_TOTALS()
     this.APPOINTMENT_COUNT()
 
-    this.CURRENT_PAGE('appointment')
+    this.CURRENT_PAGE('appointments')
     this.GET_INSTITUTIONS()
   },
   methods: {

@@ -133,10 +133,9 @@
           </li>
           <li class="nav-item py-0">
             <form class="form-inline">
-              <div class="form-group "> <!-- pt-1 pl-3 ml-4 -->
+              <div class="form-group ml-2"> 
                 <div v-for="demo in demoComponents"
                 :key="demo.title"
-                class="form-control"
                 >
                   <CtkDateTimePicker
                     :id="demo.options.id"
@@ -190,7 +189,7 @@
                       v-else-if="demo.options && demo.options.slot && demo.options.slot.type === 'button'"
                       type="button"
                       class="lm-btn"
-                      style="margin: 0;"
+                      style="margin: 0; font-family: Roboto; font-size: 14px; background-color: white; color: black; border: 1px solid lightgray; padding: 7px 9px 7px 9px;"
                     />
                   </CtkDateTimePicker>
                 </div>
@@ -410,7 +409,7 @@
               range: true,
               formatted: 'll',
               format: 'YYYY-MM-DD',
-              color: 'purple',
+              color: 'gray',
               label: 'Select date range',
               id: 'RangeDatePicker'
             }

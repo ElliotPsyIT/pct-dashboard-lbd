@@ -258,6 +258,7 @@
   import CtkDateTimePicker from 'vue-ctk-date-time-picker'
   import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
 
+  import moment from 'moment'
   export default {
     components: {
       FadeTransition,
@@ -398,14 +399,80 @@
               start: '2018-04-05',
               end: '2018-04-20'
             },
-            value: {
-              start: '2018-04-05',
-              end: '2018-04-20'
-            },
+            value: this.value,
             options: {
               slot: {
                 type: 'button'
               },
+              customShortcuts: [
+                { key: 'oneweek', label: '1 Week', 
+                  value: () => {
+                    return {
+                      start: moment().subtract(1, 'week'),
+                      end: moment()
+                    }
+                  },
+                  callback: ({ start, end }) => {
+                    console.log('My shortcut was clicked with values: ', start, end)
+                  }
+                },
+                { key: 'onemonth', label: '1 Month', 
+                  value: () => {
+                    return {
+                      start: moment().subtract(1, 'month'),
+                      end: moment()
+                    }
+                  },
+                  callback: ({ start, end }) => {
+                    console.log('My shortcut was clicked with values: ', start, end)
+                  }
+                },
+                { key: 'threemonths', label: '3 Months', 
+                  value: () => {
+                    return {
+                      start: moment().subtract(3, 'months'),
+                      end: moment()
+                    }
+                  },
+                  callback: ({ start, end }) => {
+                    console.log('My shortcut was clicked with values: ', start, end)
+                  }
+                },
+                { key: 'sixmonths', label: '6 Months', 
+                  value: () => {
+                    return {
+                      start: moment().subtract(6, 'months'),
+                      end: moment()
+                    }
+                  },
+                  callback: ({ start, end }) => {
+                    console.log('My shortcut was clicked with values: ', start, end)
+                  }
+                },
+                { key: 'ninemonths', label: '9 Months', 
+                  value: () => {
+                    return {
+                      start: moment().subtract(9, 'months'),
+                      end: moment()
+                    }
+                  },
+                  callback: ({ start, end }) => {
+                    console.log('My shortcut was clicked with values: ', start, end)
+                  }
+                },
+                { key: 'oneyear', label: '1 Year', 
+                  value: () => {
+                    return {
+                      start: moment().subtract(1, 'year'),
+                      end: moment()
+                    }
+                  },
+                  callback: ({ start, end }) => {
+                    console.log('My shortcut was clicked with values: ', start, end)
+                  }
+                },
+              ],
+              noShortcuts: false,
               range: true,
               formatted: 'll',
               format: 'YYYY-MM-DD',

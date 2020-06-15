@@ -543,7 +543,7 @@ export default {
         // },
         { headerName: "CPT Name", 
           field: "CPTName", 
-          width: 350, 
+          width: 200, 
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter"
         },
@@ -553,12 +553,12 @@ export default {
         //   cellStyle: { 'text-align': "left" } ,
         //   filter: "agNumberColumnFilter"
         // },
-        // { headerName: "Date", 
-        //   field: "VisitDateTime", 
-        //   width: 150, 
-        //   cellStyle: { 'text-align': "left" } ,
-        //   filter: "agDateColumnFilter"
-        // },
+        { headerName: "Date", 
+          field: "VisitDateTime", 
+          width: 150, 
+          cellStyle: { 'text-align': "left" } ,
+          filter: "agDateColumnFilter"
+        },
       ]
     },
     createColDefs3() {

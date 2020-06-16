@@ -181,6 +181,7 @@
                     :disabled-weekly="demo.options.disabledWeekly"
                     :right="demo.options.right"
                     :no-clear-button="demo.options.noClearButton"
+                    @input="dateInput"
                   >
                     <input
                       v-if="demo.options && demo.options.slot && demo.options.slot.type === 'input'"
@@ -422,7 +423,7 @@
                     }
                   },
                   callback: ({ start, end }) => {
-                    console.log('My shortcut was clicked with values: ', start, end)
+                    console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
                   }
                 },
                 { key: 'onemonth', label: '1 Month', 
@@ -433,7 +434,7 @@
                     }
                   },
                   callback: ({ start, end }) => {
-                    console.log('My shortcut was clicked with values: ', start, end)
+                    console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
                   }
                 },
                 { key: 'threemonths', label: '3 Months', 
@@ -444,7 +445,7 @@
                     }
                   },
                   callback: ({ start, end }) => {
-                    console.log('My shortcut was clicked with values: ', start, end)
+                    console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
                   }
                 },
                 { key: 'sixmonths', label: '6 Months', 
@@ -455,7 +456,7 @@
                     }
                   },
                   callback: ({ start, end }) => {
-                    console.log('My shortcut was clicked with values: ', start, end)
+                    console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
                   }
                 },
                 { key: 'ninemonths', label: '9 Months', 
@@ -466,7 +467,7 @@
                     }
                   },
                   callback: ({ start, end }) => {
-                    console.log('My shortcut was clicked with values: ', start, end)
+                    console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
                   }
                 },
                 { key: 'oneyear', label: '1 Year', 
@@ -477,14 +478,14 @@
                     }
                   },
                   callback: ({ start, end }) => {
-                    console.log('My shortcut was clicked with values: ', start, end)
+                    console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
                   }
                 },
               ],
               noShortcuts: false,
               range: true,
               formatted: 'll',
-              format: 'YYYY-MM-DD',
+              format: 'YYYYMMDD',
               color: 'gray',
               label: 'Select date range',
               id: 'RangeDatePicker'
@@ -506,7 +507,11 @@
       //   no previous provider selected - either page load, or new provider selected
       //   return this.selectedProvider
       // },
-      
+      dateInput(val) {
+        console.log('dateInput raw val: ', val)
+        console.log('dateInput val.start: ', val.start)
+        console.log('dateInput val.end: ', val.end)
+      },
       ...mapActions([
           'setSelectedSite',
           'setSelectedRange',

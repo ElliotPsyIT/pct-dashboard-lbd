@@ -174,6 +174,7 @@
                     :locale="demo.options.locale"
                     :input-size="demo.options.inputSize"
                     :custom-shortcuts="demo.options.customShortcuts"
+                    :shortcut="defaultDateRange"
                     :persistent="demo.options.persistent"
                     :no-keyboard="demo.options.noKeyboard"
                     :no-value-to-custom-elem="demo.options.noValueToCustomElem"
@@ -366,6 +367,12 @@
         return ! /NATIONAL|VISN/.test(this.selectedSite)
       }
     },
+    created () {
+      // identify the current date range
+      const currentDateRange = this.selectedRange
+      console.log('current date range is: ', currentDateRange)
+      this.defaultDateRange = currentDateRange
+    },
     data () {
       return {
         activeNotifications: false,
@@ -378,6 +385,8 @@
         newProvider: false,
         // define the default value
         value: null,
+        // on creation, identify defaultDateRange
+        defaultDateRange: null,
         // define options
         options:[
         {id:"402",label:"(V01) (402) VA MAINE HCS"},

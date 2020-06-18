@@ -120,7 +120,7 @@
                   <span class="h5 "><strong>Date Range</strong></span>
                 </div> -->
                 <div>
-                  <select v-model="rangeSelected" class="form-control" id="dateRange">
+                  <select v-model="rangeSelected" class="form-control" :class="{toggleDateRangeColor:toggleDateRange}" id="dateRange" >
                     <option value="" disabled>Select Dates ...</option>
                     <option v-for="range in dateRanges" :value="range.name" :key="range.name">
                         {{ range.dateRange }}
@@ -399,6 +399,8 @@
         currentDateRange: null,
         // picker key for picker button updating
         pickerKeyCount: 0,
+        // toggle dateRange button color if user selecting start/end date
+        toggleDateRange: false,
         // define options
         options:[
         {id:"402",label:"(V01) (402) VA MAINE HCS"},
@@ -434,6 +436,8 @@
                     }
                   },
                   callback: ({ start, end }) => {
+                    // clicked a shortcut
+                    this.datePickerInput({ start, end }, 'shortcut')
                     console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
                   }
                 },
@@ -445,8 +449,9 @@
                     }
                   },
                   callback: ({ start, end }) => {
+                    this.datePickerInput({ start, end }, 'shortcut')
                     console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  }
+                    this.setSelectedRange('onemonth')                  }
                 },
                 { key: 'threemonths', label: '3 Months', 
                   value: () => {
@@ -456,8 +461,9 @@
                     }
                   },
                   callback: ({ start, end }) => {
+                    this.datePickerInput({ start, end }, 'shortcut')
                     console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  }
+                    this.setSelectedRange('threemonths')                  }
                 },
                 { key: 'sixmonths', label: '6 Months', 
                   value: () => {
@@ -467,6 +473,7 @@
                     }
                   },
                   callback: ({ start, end }) => {
+                    this.datePickerInput({ start, end }, 'shortcut')
                     console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
                   }
                 },
@@ -478,6 +485,7 @@
                     }
                   },
                   callback: ({ start, end }) => {
+                    this.datePickerInput({ start, end }, 'shortcut')
                     console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
                   }
                 },
@@ -489,6 +497,7 @@
                     }
                   },
                   callback: ({ start, end }) => {
+                    this.datePickerInput({ start, end }, 'shortcut')
                     console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
                   }
                 },
@@ -518,11 +527,27 @@
       //   no previous provider selected - either page load, or new provider selected
       //   return this.selectedProvider
       // },
-      // clicked on date picker
-      datePickerInput(val) {
+      // clicked on date picker calendar (not shortcut)
+      datePickerInput(val, from) {
+        // user selecting datePicker shortcut
+        if (from == 'shortcut') {
+          console.log('datePickerInput from: ', from)
+          console.log('datePickerInput shortcut raw val: ', val)
+          console.log('datePickerInput shortcut val.start: ', val.start)
+          console.log('datePickerInput shortcut val.end: ', val.end)
+          // identify the shortcut to change the dateRange button
+
+          // indicate datePicker click is the shortcut
+          this.toggleDateRange = false
+          return
+        }
+        // all other datePicker clicks - even shortcut that triggers @input event 
+        // and then, if calendar is clicked
+        console.log('datePickerInput from: ', from)
         console.log('datePickerInput raw val: ', val)
         console.log('datePickerInput val.start: ', val.start)
         console.log('datePickerInput val.end: ', val.end)
+        this.toggleDateRange = true
       },
       ...mapActions([
           'setSelectedSite',
@@ -555,6 +580,11 @@
 </script>
 <style scoped>
 
+  /* change dateRange button color when user is selected start/end dates */
+  .toggleDateRangeColor {
+    background-color: darkgray; 
+    color: white; 
+  }
  /* fade page in and out when site changes */
   .fade-enter-active,
   .fade-leave-active {

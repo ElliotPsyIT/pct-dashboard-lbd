@@ -1211,7 +1211,7 @@ const store = new Vuex.Store({
       axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got consult details from server')
-        // console.log('EBP_DETAILS_SESSIONS_SURVEYS response.data is: ', response.data)
+        console.log('EBP_DETAILS_SESSIONS_SURVEYS response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_EBP_DETAILS_SESSIONS_SURVEYS', response.data)
       })

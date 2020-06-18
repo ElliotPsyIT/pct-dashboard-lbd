@@ -174,14 +174,15 @@
                     :locale="demo.options.locale"
                     :input-size="demo.options.inputSize"
                     :custom-shortcuts="demo.options.customShortcuts"
-                    :shortcut="defaultDateRange"
+                    :shortcut="currentDateRange"
                     :persistent="demo.options.persistent"
                     :no-keyboard="demo.options.noKeyboard"
                     :no-value-to-custom-elem="demo.options.noValueToCustomElem"
                     :disabled-weekly="demo.options.disabledWeekly"
                     :right="demo.options.right"
                     :no-clear-button="demo.options.noClearButton"
-                    @input="dateInput"
+                    :key="'picker-key' + pickerKeyCount"
+                    @input="datePickerInput"
                   >
                     <input
                       v-if="demo.options && demo.options.slot && demo.options.slot.type === 'input'"
@@ -351,6 +352,14 @@
         set (range) {
           // this.$store.dispatch('setSelectedRange', range)
           this.setSelectedRange(range)
+
+          // reset datepicker to this change in dateRange value
+          // console.log('watching rangeSelected and see change to: ', range)
+          this.currentDateRange = range
+          // rerender datepicker custom button
+          // uses pickerKeyCount to trigger rerender 
+          this.pickerKeyCount++
+
         }   
       },
       // determine current page
@@ -372,7 +381,7 @@
       // identify the current date range
       const currentDateRange = this.selectedRange
       console.log('current date range is: ', currentDateRange)
-      this.defaultDateRange = currentDateRange
+      this.currentDateRange = currentDateRange
     },
     data () {
       return {
@@ -386,8 +395,10 @@
         newProvider: false,
         // define the default value
         value: null,
-        // on creation, identify defaultDateRange
-        defaultDateRange: null,
+        // set currentDateRange
+        currentDateRange: null,
+        // picker key for picker button updating
+        pickerKeyCount: 0,
         // define options
         options:[
         {id:"402",label:"(V01) (402) VA MAINE HCS"},
@@ -507,10 +518,11 @@
       //   no previous provider selected - either page load, or new provider selected
       //   return this.selectedProvider
       // },
-      dateInput(val) {
-        console.log('dateInput raw val: ', val)
-        console.log('dateInput val.start: ', val.start)
-        console.log('dateInput val.end: ', val.end)
+      // clicked on date picker
+      datePickerInput(val) {
+        console.log('datePickerInput raw val: ', val)
+        console.log('datePickerInput val.start: ', val.start)
+        console.log('datePickerInput val.end: ', val.end)
       },
       ...mapActions([
           'setSelectedSite',

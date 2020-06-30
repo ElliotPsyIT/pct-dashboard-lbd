@@ -78,12 +78,25 @@ function setOptionalParams (state) {
   // NOT YET ALLOWING ANY PROVIDER FILTERING
   // (state.selectedProvider ? `&providerSID=${state.selectedProvider}` : '') +
 
+
   // if institution filter allowed and there are institutions selected
-  let returnValue = institutionFilterAllowed && 
+  let institution = institutionFilterAllowed && 
          state.selectedInstitutions.length > 0 ?
          `&institutionSID=${state.selectedInstitutions}` : ''
 
-  return returnValue
+  console.log('in setOptionalParams, state.selectedRangePicker:', state.selectedRangePicker)
+  
+  // console.log('in setOptionalParams, state.selectedRangePicker.length:', state.selectedRangePicker.length)
+  let dateRangePicker = state.selectedRangePicker.length == 0 || 
+      state.selectedRangePicker.start == undefined ||
+      state.selectedRangePicker.end == undefined
+       ? 
+          '' : 
+          `&dtrng=${state.selectedRangePicker.start},${state.selectedRangePicker.end}` 
+  
+  // console.log('in setOptionalParams and would send this dateRangePicker: ', dateRangePicker)
+
+  return `${institution}${dateRangePicker}`
 }
 
 //REFACTOR: SET PARAMS FOR AXIOS REQUEST CENTRALLY
@@ -94,15 +107,9 @@ function setParams (format, state) {
   '&staPa='         + state.selectedSite +
   '&dateRange='     + state.selectedRange 
 
-  // DETERMINE OPTIONAL PARAMETERS
+  // DETERMINE OPTIONAL PARAMETERS (covers dateRangePicker)
   let optionalParams = setOptionalParams(state)
-  // let optionalParams =
-  // (state.selectedProvider ? `&providerSID=${state.selectedProvider}` : '') +
-  // (state.selectedInstitutions.length > 0 ? `&institutionSID=${state.selectedInstitutions}` : '')
 
-  // console.log('in setParams, coreParams is: ', coreParams)
-  // console.log('in setParams, institutions is: ', state.selectedInstitutions.length)
-  // console.log('in setParams, optionalParams is: ', optionalParams)
   return coreParams + optionalParams
 }
 
@@ -121,6 +128,7 @@ const store = new Vuex.Store({
     // selectedSite,
     selectedSite: storeLocal.selectedSite || '512',
     selectedRange: storeLocal.selectedRange || 'threemonths',
+    selectedRangePicker: storeLocal.selectedRangePicker || {},
     userFirstName: storeLocal.userFirstName || 'No',
     userLastName: storeLocal.userLastName || 'User Name',
 
@@ -139,7 +147,7 @@ const store = new Vuex.Store({
       surveys: true,
       ebp: true,
     },
-    appVersion: '2.1',
+    appVersion: '2.3',
     phipii: 0,
     selectedSiteVISNorNATIONAL: false,
     allphipii: [],
@@ -1057,7 +1065,7 @@ const store = new Vuex.Store({
           // ** Note: selectedSite is cast to number for comparison
           return site.StaPa === state.selectedSite
         })
-        console.log('from siteEBPDetailsSessionsSurveys: ', filteredArray)
+        // console.log('from siteEBPDetailsSessionsSurveys: ', filteredArray)
       return filteredArray.length == 0 ? [] : filteredArray
     },
     // ebpDetailSessionSurvey
@@ -1144,7 +1152,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${allparams}`)     
       .then(response => { 
-        console.log('IN EBP_PIE_CHART ebp summary details from server is: ', response.data )
+        // console.log('IN EBP_PIE_CHART ebp summary details from server is: ', response.data )
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_EBP_PIE_CHART', response.data)
@@ -1211,7 +1219,7 @@ const store = new Vuex.Store({
       axios.get(`${path}?${allparams}`)
       .then(response => { 
         // console.log('got consult details from server')
-        console.log('EBP_DETAILS_SESSIONS_SURVEYS response.data is: ', response.data)
+        // console.log('EBP_DETAILS_SESSIONS_SURVEYS response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_EBP_DETAILS_SESSIONS_SURVEYS', response.data)
       })
@@ -1831,6 +1839,12 @@ const store = new Vuex.Store({
       context.dispatch('REFRESH_ALL_DATA')
 
     },
+    DATEPICKER_DATES (context, dates) {
+      console.log('in DATEPICKER_DATES and got dates: ', dates)
+      context.commit('SET_DATEPICKER_DATES', dates)
+
+      context.dispatch('REFRESH_ALL_DATA')
+    },
     CURRENT_PAGE (context, page) {
       // console.log('in action CURRENT_PAGE and received this page name: ', page)
       context.commit('SET_CURRENT_PAGE', page)
@@ -2012,6 +2026,10 @@ const store = new Vuex.Store({
     SET_SELECTED_RANGE (state, range) {
       state.selectedRange = range
     },
+    SET_DATEPICKER_DATES (state, dates) {
+      console.log('in SET_DATEPICKER_DATES and got dates: ', dates)
+      state.selectedRangePicker = dates // object start and end
+    },
     SET_CURRENT_USER (state, user) {
       // take the first record to get user
       state.userFirstName = user.FirstName
@@ -2152,6 +2170,7 @@ store.subscribe((mutation, state) => {
   let storedState = {
 		selectedSite: state.selectedSite,
     selectedRange: state.selectedRange,
+    //selectedRangePicker: state.selectedRangePicker,
     userFirstName: state.userFirstName,
     userLastName: state.userLastName
   }

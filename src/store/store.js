@@ -84,7 +84,7 @@ function setOptionalParams (state) {
          state.selectedInstitutions.length > 0 ?
          `&institutionSID=${state.selectedInstitutions}` : ''
 
-  console.log('in setOptionalParams, state.selectedRangePicker:', state.selectedRangePicker)
+  // console.log('in setOptionalParams, state.selectedRangePicker:', state.selectedRangePicker)
   
   // console.log('in setOptionalParams, state.selectedRangePicker.length:', state.selectedRangePicker.length)
   let dateRangePicker = state.selectedRangePicker.length == 0 || 
@@ -128,7 +128,8 @@ const store = new Vuex.Store({
     // selectedSite,
     selectedSite: storeLocal.selectedSite || '512',
     selectedRange: storeLocal.selectedRange || 'threemonths',
-    selectedRangePicker: storeLocal.selectedRangePicker || {},
+    selectedRangePicker: storeLocal.selectedRangePicker || 
+      { shortcut: storeLocal.selectedRange},
     userFirstName: storeLocal.userFirstName || 'No',
     userLastName: storeLocal.userLastName || 'User Name',
 
@@ -147,7 +148,7 @@ const store = new Vuex.Store({
       surveys: true,
       ebp: true,
     },
-    appVersion: '2.3',
+    appVersion: '2.4 Beta 2',
     phipii: 0,
     selectedSiteVISNorNATIONAL: false,
     allphipii: [],
@@ -1840,7 +1841,7 @@ const store = new Vuex.Store({
 
     },
     DATEPICKER_DATES (context, dates) {
-      console.log('in DATEPICKER_DATES and got dates: ', dates)
+      // console.log('in DATEPICKER_DATES and got dates: ', dates)
       context.commit('SET_DATEPICKER_DATES', dates)
 
       context.dispatch('REFRESH_ALL_DATA')
@@ -2028,7 +2029,7 @@ const store = new Vuex.Store({
     },
     SET_DATEPICKER_DATES (state, dates) {
       console.log('in SET_DATEPICKER_DATES and got dates: ', dates)
-      state.selectedRangePicker = dates // object start and end
+      state.selectedRangePicker = dates // { start, end, shortcut }
     },
     SET_CURRENT_USER (state, user) {
       // take the first record to get user
@@ -2170,10 +2171,12 @@ store.subscribe((mutation, state) => {
   let storedState = {
 		selectedSite: state.selectedSite,
     selectedRange: state.selectedRange,
-    //selectedRangePicker: state.selectedRangePicker,
+    selectedRangePicker: state.selectedRangePicker,
     userFirstName: state.userFirstName,
     userLastName: state.userLastName
   }
+  // store.subscribe was called
+  // console.log('store.subscribe was called with selectedRangePicker set to: ', storedState.selectedRangePicker)
   // update localStorage with the mutated-changed store
   localStorage.setItem('store', JSON.stringify(storedState))
   

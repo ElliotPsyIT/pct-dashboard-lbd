@@ -113,7 +113,7 @@
           </form>
           </li>
           <li class="nav-item py-0">
-          <form class="form-inline">
+          <form class="form-inline" style="display: none;">
             <div class="form-group "> <!-- pt-1 pl-3 ml-4 -->
               <!-- <label for="dataRange"> -->
                 <!-- <div class="px-2">
@@ -139,7 +139,7 @@
                 >
                   <CtkDateTimePicker
                     :id="demo.options.id"
-                    v-model="demo.value"
+                    v-model="rangePickerSelected"
                     :only-date="demo.options.onlyDate"
                     :only-time="demo.options.onlyTime"
                     :range="demo.options.range"
@@ -164,8 +164,8 @@
                     :enabled-dates="demo.options.enabledDates"
                     :minute-interval="demo.options.minuteInterval"
                     :first-day-of-week="demo.options.firstDayOfWeek"
-                    :min-date="demo.options.minDate"
-                    :max-date="demo.options.maxDate"
+                    :min-date="`${minDate}`"
+                    :max-date="`${maxDate}`"
                     :no-weekends-days="demo.options.noWeekendDays"
                     :no-shortcuts="demo.options.noShortcuts"
                     :no-button="demo.options.noButton"
@@ -174,7 +174,7 @@
                     :locale="demo.options.locale"
                     :input-size="demo.options.inputSize"
                     :custom-shortcuts="demo.options.customShortcuts"
-
+                    :shortcut = "`${sc}`"
                     :persistent="demo.options.persistent"
                     :no-keyboard="demo.options.noKeyboard"
                     :no-value-to-custom-elem="demo.options.noValueToCustomElem"
@@ -293,6 +293,13 @@
 
     //   }
     // },
+    mounted() {
+      console.log('mounted and this.selectedRangePicker is: ', this.selectedRangePicker)
+      // console.log('mounted and this.value is: ', this.value)
+      // set the previous saved datePicker range
+      // this.value = this.selectedRangePicker
+      // console.log('mounted and this.value is set to this.selectedRangePicker, so value is: ', this.value)
+    },
     watch:{
       siteSelected (val) {
         // my new value in val. Perform your
@@ -320,7 +327,19 @@
       //   // console.log('this is the oldVal ', oldVal)
         
       // }
-      
+      // value: {
+      //   handler: (value) => {
+      //     console.log('watch value, it is: ', value)
+      //     if (value == null) {
+      //       console.log('value is null, mounted!')
+      //       console.log('this.selectedRangePicker is: ', this.selectedRangePicker)
+      //     } else {
+      //       console.log('value not null, it is: ', value)
+      //       console.log('this.selectedRangePicker is: ', this.selectedRangePicker)
+      //     }
+      //   },
+      //   immediate: true
+      // }
     },
     computed: {
 
@@ -329,6 +348,7 @@
         'dateRanges',
         'selectedSite',
         'selectedRange',
+        'selectedRangePicker',
         'selectedProvider',
         'selectedInstitutions',
         'currentpage',
@@ -366,6 +386,20 @@
 
         }   
       },
+      rangePickerSelected : { // v-model for datePicker
+        get() {
+          // initial state - no value but default selectedRangePicker
+          if (!this.value && this.selectedRangePicker) {
+            return this.selectedRangePicker
+          } 
+          // not initial state and return the value that's been set
+          return  this.value
+        },
+        set(val) {
+          console.log('rangePickerSelected triggered and sets this.value to: ', val)
+          this.value = val
+        }
+      },
       // determine current page
       selectedPage () {
         let { name } = this.$route
@@ -379,8 +413,36 @@
       // field to show or hide institution filter
       selectedSiteHavingInstitutions () {
         return ! /NATIONAL|VISN/.test(this.selectedSite)
-      }
+      },
+      // explore a computed property for :short on datePicker
+      sc () {
+        // check if there is a shortcut
+        if (this.selectedRangePicker && this.selectedRangePicker.shortcut != null) {
+          console.log('Got a shortcut from this.selectedRangePicker!: ', this.selectedRangePicker)
+          return `${this.selectedRangePicker.shortcut}`
+        }
+        else {
+          console.log('No shortcut in this.selectedRangePicker!')
+          return ''
+        }
+        // return `${this.shortcutDefault}` //'sixmonths'
+      },
+      // minimum date for calendar
+      minDate () {
+        // need to return one year minus current date
+        // use moment to calculate this
+        console.log('minDate returns: ', moment().subtract(1, 'year').format('YYYYMMDD'))
+        return moment().subtract(1, 'year').format('YYYYMMDD')
+      },
+      // maximum date for calendar
+      maxDate () {
+        // need to return current date
+
+        return moment().format('YYYYMMDD')
+
+      },
     },
+
     // created () {
     //   // identify the current date range
     //   const currentDateRange = this.selectedRange
@@ -399,10 +461,10 @@
         newProvider: false,
         // define the default value
         value: null,
-        // set currentDateRange
-        // currentDateRange: null,
         // picker key for picker button updating
         pickerKeyCount: 0,
+        // shortcut default
+        shortcutDefault: 'sixmonths',
         // toggle dateRange button color if user selecting start/end date
         toggleDateRange: false,
         // define options
@@ -426,7 +488,8 @@
               start: '2018-04-05',
               end: '2018-04-20'
             },
-            value: this.value,
+            // value: this.rangePickerSelected,
+            // value: this.value,
             options: {
               slot: {
                 type: 'button'
@@ -439,12 +502,18 @@
                       end: moment()
                     }
                   },
-                  // callback: ({ start, end }) => {
-                  //   // clicked a shortcut
-                  //   this.datePickerInput({ start, end }, 'shortcut')
-                  //   console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  //   this.setSelectedRange('oneweek')                  
-                  // }
+                  // callback: ({start, end, shortcut}) => {
+                  callback: (callbackValue) => {
+                    console.log('oneweek called with this callbackValue: ', callbackValue)
+                    let {start, end, shortcut} = callbackValue
+                    this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD'), shortcut: shortcut.key})
+                    // clicked a shortcut
+                    // this.datePickerInput({ start, end }, 'shortcut')
+                    // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                    // this.setSelectedRange('oneweek')    
+                    // colorize standard date range button
+                    // this.toggleDateRange = true              
+                  }
                 },
                 { key: 'onemonth', label: '1 Month', 
                   value: () => {
@@ -453,11 +522,12 @@
                       end: moment()
                     }
                   },
-                  // callback: ({ start, end }) => {
-                  //   this.datePickerInput({ start, end }, 'shortcut')
-                  //   console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  //   this.setSelectedRange('onemonth')                  
-                  // }
+                  callback: ({start, end, shortcut}) => {
+                    this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD'), shortcut: shortcut.key})
+                    // this.datePickerInput({ start, end }, 'shortcut')
+                    // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                    // this.setSelectedRange('onemonth')                  
+                  }
                 },
                 { key: 'threemonths', label: '3 Months', 
                   value: () => {
@@ -466,10 +536,12 @@
                       end: moment()
                     }
                   },
-                  // callback: ({ start, end }) => {
-                  //   this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
-                  //   console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  //   this.setSelectedRange('threemonths')                  }
+                  callback: ({start, end, shortcut}) => {
+                    this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD'), shortcut: shortcut.key})
+                    // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                    // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                    // this.setSelectedRange('threemonths')   
+                  }
                 },
                 { key: 'sixmonths', label: '6 Months', 
                   value: () => {
@@ -478,11 +550,12 @@
                       end: moment()
                     }
                   },
-                  // callback: ({ start, end }) => {
-                  //   this.datePickerInput({ start, end }, 'shortcut')
-                  //   console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  //   this.setSelectedRange('sixmonths')  
-                  // }
+                  callback: ({start, end, shortcut}) => {
+                    this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD'), shortcut: shortcut.key})
+                    // console.log('My shortcut was clicked, and values passed in are: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'), shortcut.key)
+                    // console.log('My shortcut was clicked, and values passed in are: ', callbackValue)
+                    // this.setSelectedRange('sixmonths')  
+                  }
                 },
                 { key: 'oneyear', label: '1 Year', 
                   value: () => {
@@ -491,11 +564,12 @@
                       end: moment()
                     }
                   },
-                  // callback: ({ start, end }) => {
-                  //   this.datePickerInput({ start, end }, 'shortcut')
-                  //   console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  //   this.setSelectedRange('oneyear')  
-                  // }
+                  callback: ({start, end, shortcut}) => {
+                    this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD'), shortcut: shortcut.key})
+                    // this.datePickerInput({ start, end }, 'shortcut')
+                    // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                    // this.setSelectedRange('oneyear')  
+                  }
                 },
               ],
               noShortcuts: false,
@@ -524,11 +598,25 @@
       //   return this.selectedProvider
       // },
 
-      // clicked on date picker - could be shortcut or calendar
+      // datePicker calendar clicked
       datePickerInput(val) {
 
-        // datePicker clicked - either shortcut or calendar start & end date
-        if (val && val.start != null && val.end != null) {
+        // console.log('datePickerInput receives val of: ', val)
+        // console.log('datePickerInput startend not null val.start: ', val.start)
+        // console.log('datePickerInput startend not null val.end: ', val.end)
+        // console.log('datePickerInput startend not null val.shortcut: ', val.shortcut)
+
+        // set the computed value given datePicker input of user
+        // *** this might not be necessary if value is already set!!!
+        // this.rangePickerSelected = val
+
+        // update dataPicker in store, if both start and end defined
+        if (val.start != null && val.end != null) {
+          console.log('I am sending this to store: ', val)
+          this.DATEPICKER_DATES({start: val.start, end: val.end, shortcut: val.shortcut})
+        }
+// if full calendar start and end date selected
+        // if (val && val.start != null && val.end != null) {
 
           // console.log('datePickerInput startend not null from: ', from)
           // console.log('datePickerInput startend not null raw val: ', val)
@@ -536,21 +624,23 @@
           // console.log('datePickerInput startend not null val.end: ', val.end)
 
           // completed calendar range w/ start and end date
-          console.log('datePickerInput COMPLETE with start: ', val.start)
-          console.log('datePickerInput COMPLETE with end: ', val.end)
+          // console.log('datePickerInput COMPLETE with start: ', val.start)
+          // console.log('datePickerInput COMPLETE with end: ', val.end)
           
-          //  take action
-          this.DATEPICKER_DATES({start: val.start, end: val.end})
+          //  action to update data based on calendar start & end dates
+          // this.DATEPICKER_DATES({start: val.start, end: val.end})
 
-        }
-        else {
-          // datepicker clicked without BOTH start and end date
-          // take no action
-          console.log('datePickerInput incomplete -- fell throught to here with val of:  ', val)
-        }
+        // }
+        // else {
+          // calendar clicked without BOTH start and end date - no action
+          // console.log('datePickerInput incomplete -- fell throught to here with val of:  ', val)
+          // console.log('and this.rangePickerSelected before setting is: ', this.rangePickerSelected)
+          // this.rangePickerSelected = val
+          // console.log('and after this.rangePickerSelected is set: ', this.rangePickerSelected)
+      // }
 
         // calendar selected, signal dateRange button to modify style
-        this.toggleDateRange = true
+        // this.toggleDateRange = true
 
         // send the new datePicker calendar start/end dates 
         // this.setSelectedRangePicker( {start: val.start, end: val.end} )

@@ -35,6 +35,12 @@
         <i class="nc-icon nc-notes"></i>
         <p>EBPs</p>
       </sidebar-link> 
+      <div v-if="viewPrivileges">
+        <sidebar-link to="/admin/explore">
+          <i class="nc-icon nc-notes"></i>
+          <p>Explore</p>
+        </sidebar-link> 
+      </div>
     </side-bar>
     <div class="main-panel">
       <top-navbar></top-navbar>
@@ -64,6 +70,8 @@
 
   import SidebarShare from './SidebarShare.vue'
 
+import { mapState, mapGetters, mapActions } from 'vuex'
+
   export default {
     components: {
       TopNavbar,
@@ -80,6 +88,30 @@
         sidebarBackgroundImageEnabled: true,
         fixedNavbar: false,
         sidebarMini: false
+      }
+    },
+    computed: {
+      ...mapState([
+        'userFirstName',
+        'userLastName',
+
+      ]),
+      viewPrivileges() {
+        // console.log('this.userFirstName is: ', this.userFirstName)
+        // console.log('this.userLastName is : ', this.userLastName)
+        
+        if ( (this.userFirstName == 'Elliot'   && this.userLastName == 'Fielstein0') || 
+             (this.userFirstName == 'Elliot'   && this.userLastName == 'Fielstein') || 
+             (this.userFirstName == 'Samantha' && this.userLastName == 'McClelland') || 
+             (this.userFirstName == 'Wright'   && this.userLastName == 'Wright') 
+        ) {
+          // console.log('user matched, allowed to see Explore!')
+          return true
+        } else {
+          // console.log('user did not match, NOT allowed to see Explore!')
+          return false
+        }
+
       }
     },
     methods: {

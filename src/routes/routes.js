@@ -10,6 +10,7 @@ import Encounters from 'src/components/Dashboard/Views/Encounters.vue'
 import Providers from 'src/components/Dashboard/Views/Providers.vue'
 import Surveys from 'src/components/Dashboard/Views/Surveys.vue'
 import EBP from 'src/components/Dashboard/Views/EBP.vue'
+import Explore from 'src/components/Dashboard/Views/Explore.vue'
 
 import Definitions from 'src/components/Dashboard/Views/DataDefinitions.vue'
 
@@ -62,16 +63,16 @@ const routes = [
         name: 'EBP',
         component: EBP
       },
+      {
+        path: 'explore',
+        name: 'Explore',
+        component: Explore
+      },
       // {
       //   path: 'definitions',
       //   name: 'Definitions',
       //   component: Definitions
       // }
-      // {
-      //   path: 'icons',
-      //   name: 'Icons',
-      //   component: Icons
-      // },
     ]
   },
   { path: '*', component: NotFound }

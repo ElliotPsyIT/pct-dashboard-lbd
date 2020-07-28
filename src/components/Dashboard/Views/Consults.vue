@@ -671,7 +671,8 @@ export default {
       // if (clickedField !== 'OrderStatus' || consultCommentInvalidRequest) {
       //   this.show('You May Only Click on a Blue Underlined Status to see Consult Comments!')
       // }
-
+      console.log('consultCommentRequested is: ', consultCommentRequested)
+      console.log('consultCommentInvalidRequest is: ', consultCommentInvalidRequest)
 
       if ( consultCommentRequested && permission == 1) {
         // need cell and row 
@@ -708,6 +709,9 @@ export default {
           this.show(commentsFormatted) // call dialog and show comments
   
         })
+      } else if (clickedField !== 'OrderStatus') {
+        // did not click on the 'OrderStatus' field
+        this.show('Only the Status field on this table may be clicked!')
       } else { 
         // no permission to view PII
         this.show('Viewing Consult Comments Requires PHI/PII Permissions!')

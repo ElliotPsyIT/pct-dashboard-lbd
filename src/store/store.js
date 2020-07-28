@@ -1799,15 +1799,20 @@ const store = new Vuex.Store({
       // SO GET INSTITUTIONS FROM ENCOUNTERS NOT PROVIDERS
       if (domain = 'provider') domain = 'encounters'
 
-      // run this during usual dev
-      const params = 'format=get_institutions' +
-      '&staPa=' + staPa + 
-      '&dateRange=' + dateRange +
-      '&domain=' + domain 
+      const allparams = setParams('get_institutions', context.state)
       
+      // run this during usual dev
+      // const params = 'format=get_institutions' +
+      // '&staPa=' + staPa + 
+      // '&dateRange=' + dateRange +
+      // '&domain=' + domain 
+      
+      const params = allparams + '&domain=' + domain
+
       //verify params
       // console.log('Call for institution data params: ', params)
       // console.log('path and params: ', `${path}?${params}`)
+      // console.log('allparams is: ', allparams)
 
       axios.get(`${path}?${params}`)
       .then(response => { 

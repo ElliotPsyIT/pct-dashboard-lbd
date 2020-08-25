@@ -5,10 +5,10 @@ export const ebps = [
       "Numerator: The EBPs Session numerator reflects a count of PCT encounters documented as EBP sessions. <br/>" +
       "A documented EBP session is identified if an EBP template was used in its documentation." +
       "Only encounters of the following encounter types are used in counting EBP sessions:<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/>" +
-      "FAMILY SESSIONS: CPTCodes 90847 OR 90849",
+      "INDIVIDUAL SESSIONS: CPT Procedure Codes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/>" +
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/>" +
+      "FAMILY SESSIONS: CPT Procedure Codes 90847 OR 90849",
       category: "EBPs Defined ..."
     },
             {
@@ -16,10 +16,10 @@ export const ebps = [
       value: "EBPs Sessions Total Counts<br/><br/>" + 
       "Numerator: The EBPs Session denominator reflects a count of total PCT encounters whether documented as EBP sessions or not. <br/>" +
       "Only encounters of the following encounter types are used in counting total denominator sessions (same CPT Codes are numerator):<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/>" +
-      "FAMILY SESSIONS: CPTCodes 90847 OR 90849",
+      "INDIVIDUAL SESSIONS: CPT Procedure Codes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/>" +
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/>" +
+      "FAMILY SESSIONS: CPT Procedure Codes 90847 OR 90849",
       category: "EBPs Defined ..."
     },
     {
@@ -28,10 +28,10 @@ export const ebps = [
       "<u>Numerator</u>: The EBPs Patients numerator reflects a count of unique PCT patients with encounters documented as EBP sessions. <br/>" +
       "A documented EBP session is identified if an EBP template was used in its documentation." +
       "Patients are counted only if their encounter was from any of the following encounter types are included in counting EBP patients:<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/>" +
-      "FAMILY SESSIONS: CPTCodes 90847 OR 90849",
+      "INDIVIDUAL SESSIONS: CPTC Procedure odes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/>" +
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/>" +
+      "FAMILY SESSIONS: CPT Procedure Codes 90847 OR 90849",
       category: "EBPs Defined ..."
     },
     {
@@ -40,9 +40,9 @@ export const ebps = [
       "<u>Denominator</u>: The EBPs Patients denominator reflects a count of total unique PCT patients whether their sessions were documented as EBP sessions or not. <br/>" +
       "Patients are counted only if their encounter was from any the following encounter types are used in counting total denominator sessions (same CPT Codes are numerator):<br/><br/>" +
       "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/>" +
-      "FAMILY SESSIONS: CPTCodes 90847 OR 90849",
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/>" +
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/>" +
+      "FAMILY SESSIONS: CPT Procedure Codes 90847 OR 90849",
       category: "EBPs Defined ..."
     }
   ]
@@ -55,10 +55,10 @@ export const ebps = [
       "those EBP sessions must ALSO be designated as either PE (Prolonged Exposure) or CPT (Cogntive Processing Therapy)<br/>" +
       "A documented EBP session is identified if an EBP template was used in its documentation, and a PE or CPT Health Factor denoting the treatment type was detected." +
       "Only encounters of the following encounter types are used in counting EBP PE/CPT sessions:<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/>" +
-      "FAMILY SESSIONS: CPTCodes 90847 OR 90849",
+      "INDIVIDUAL SESSIONS: CPT Procedure Codes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/>" +
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/>" +
+      "FAMILY SESSIONS: CPT Procedure Codes 90847 OR 90849",
       category: "PEorCPT"
     },
     {
@@ -68,10 +68,10 @@ export const ebps = [
       "A documented EBP session is identified if an EBP template was used in its documentation.<br/>" +
       "<b>NOTE</b>: This denominator of all PCT encounters documented as EBP sessions (no matter the EBP treatment type) is the same denominator as above for total EBPs Sessions denominator.<br/>" +
       "Only encounters of the following encounter types are used in counting the total EBP sessions denominator:<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/>" +
-      "FAMILY SESSIONS: CPTCodes 90847 OR 90849",
+      "INDIVIDUAL SESSIONS: CPT Procedure Codes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/>" +
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/>" +
+      "FAMILY SESSIONS: CPT Procedure Codes 90847 OR 90849",
       category: "PEorCPT"
     },
     {
@@ -81,10 +81,10 @@ export const ebps = [
       ", and those EBP sessions must ALSO be designated as either PE (Prolonged Exposure) or CPT (Cogntive Processing Therapy)<br/>" +
       "A documented EBP session is identified if an EBP template was used in its documentation, and a PE or CPT Health Factor denoting the treatment type was detected." +
       "Only encounters of the following encounter types are used in counting EBP PE/CPT patients:<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/>" +
-      "FAMILY SESSIONS: CPTCodes 90847 OR 90849",
+      "INDIVIDUAL SESSIONS: CPT Procedure Codes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/>" +
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/>" +
+      "FAMILY SESSIONS: CPT Procedure Codes 90847 OR 90849",
       category: "PEorCPT"
     },
     {
@@ -94,10 +94,10 @@ export const ebps = [
       "A documented EBP session is identified if an EBP template was used in its documentation.<br/>" +
       "<b>NOTE</b>: This denominator of all PCT patients with documented EBP sessions (no matter the EBP treatment type - PE, CPT or other) is the same denominator as above for total PE CPT Sessions denominator.<br/>" +
       "Only encounters of the following encounter types are used in counting the total EBP sessions denominator:<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/>" +
-      "FAMILY SESSIONS: CPTCodes 90847 OR 90849",
+      "INDIVIDUAL SESSIONS: CPT Procedure Codes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/>" +
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/>" +
+      "FAMILY SESSIONS: CPT Procedure Codes 90847 OR 90849",
       category: "PEorCPT"
     }
 
@@ -110,12 +110,12 @@ export const ebps = [
       "<u><b>Numerator</b></u>: The Individual Tx Session numerator reflects a count of PCT encounters documented as EBP sessions. <br/>" +
       "A documented EBP session is identified if an EBP template was used in its documentation." +
       "Only encounters of the following encounter types are used in counting EBP Individual Tx sessions:<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/><br/>" +
+      "INDIVIDUAL SESSIONS: CPT Procedure Codes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/><br/>" +
       "<u><b>Denominator</b></u>: The EBPs Session denominator reflects a count of total PCT encounters whether documented as EBP sessions or not. <br/>" +
       "Only encounters of the following encounter types are used in counting total denominator sessions (same CPT Codes are numerator):<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/>",
+      "INDIVIDUAL SESSIONS: CPT Procedure Codes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/>",
       category: "Individual & Group Tx EBPs Defined ..."
     },
      {
@@ -124,12 +124,12 @@ export const ebps = [
       "<u><b>Numerator</b></u>: The EBPs Individual Tx Patients numerator reflects a count of unique PCT patients with encounters documented as EBP sessions. <br/>" +
       "A documented EBP session is identified if an EBP template was used in its documentation." +
       "Patients are counted only if their encounter was from any of the following encounter types are included in counting EBP patients:<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/><br/>" +
+      "INDIVIDUAL SESSIONS: CPT Procedure Codes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/><br/>" +
       "<u><b>Denominator</b></u>: The EBPs Patients denominator reflects a count of total unique PCT patients whether their sessions were documented as EBP sessions or not. <br/>" +
       "Patients are counted only if their encounter was from any the following encounter types are used in counting total denominator sessions (same CPT Codes are numerator):<br/><br/>" +
-      "INDIVIDUAL SESSIONS: CPTCodes 90832 OR 90834 OR 90837<br/>" +
-      "CRISIS SESSIONS: CPTCodes 90839<br/>",
+      "INDIVIDUAL SESSIONS: CPT Procedure Codes 90832 OR 90834 OR 90837<br/>" +
+      "CRISIS SESSIONS: CPT Procedure Codes 90839<br/>",
       category: "Individual & Group Tx EBPs Defined ..."
     },
     {
@@ -138,10 +138,10 @@ export const ebps = [
       "<u><b>Numerator</b></u>: The Individual Tx Session numerator reflects a count of PCT encounters documented as EBP sessions. <br/>" +
       "A documented EBP session is identified if an EBP template was used in its documentation." +
       "Only encounters of the following encounter types are used in counting EBP Individual Tx sessions:<br/><br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/><br/>" +
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/><br/>" +
       "<u><b>Denominator</b></u>: The EBPs Session denominator reflects a count of total PCT encounters whether documented as EBP sessions or not. <br/>" +
       "Only encounters of the following encounter types are used in counting total denominator sessions (same CPT Codes are numerator):<br/><br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/>",
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/>",
       category: "Individual & Group Tx EBPs Defined ..."
     },
      {
@@ -150,10 +150,10 @@ export const ebps = [
       "<u><b>Numerator</b></u>: The EBPs Individual Tx Patients numerator reflects a count of unique PCT patients with encounters documented as EBP sessions. <br/>" +
       "A documented EBP session is identified if an EBP template was used in its documentation." +
       "Patients are counted only if their encounter was from any of the following encounter types are included in counting EBP patients:<br/><br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/><br/>" +
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/><br/>" +
       "<u><b>Denominator</b></u>: The EBPs Patients denominator reflects a count of total unique PCT patients whether their sessions were documented as EBP sessions or not. <br/>" +
       "Patients are counted only if their encounter was from any the following encounter types are used in counting total denominator sessions (same CPT Codes are numerator):<br/><br/>" +
-      "GROUP SESSIONS: CPTCodes 90853<br/>",
+      "GROUP SESSIONS: CPT Procedure Codes 90853<br/>",
       category: "Individual & Group Tx EBPs Defined ..."
     },
   ]

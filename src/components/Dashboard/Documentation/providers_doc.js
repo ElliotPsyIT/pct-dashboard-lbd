@@ -27,11 +27,9 @@ export const ProviderActivitySummary = [
 
   export const ProviderPatientSessions = [
     {
-      title: "Provider Patient Sessions (Experimental)",
+      title: "Provider Patient Sessions",
       value: "<u><b>Description</b></u>: The Provider Patient Sessions multi-level table is similar to the Provider Encounter table above, except that here patients sessions and session CPT codes (session types) are displayed. " +
-      "Here, each provider's number of encounter sessions and session types are shown for each PCT clinic at each site where the provider practices. " +
-      "<br/><br/><font color='red'><b>NOTE:</b> This is an experimental table that may change as we hear about it usefulness from PCT Administrators.  Data from only a restricted date range are shown.  Our concern is that " +
-      "a wider date range may result in presenting too much patient level data to be useful.</font>",
+      "Here, each provider's number of encounter sessions and session types are shown for each PCT clinic at each site where the provider practices. ",
       category: "Provider Patient Sessions Defined..."
     }
   ]

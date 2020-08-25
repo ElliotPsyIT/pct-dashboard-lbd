@@ -148,7 +148,7 @@ const store = new Vuex.Store({
       surveys: true,
       ebp: true,
     },
-    appVersion: '2.4 Beta 2',
+    appVersion: '2.4 Beta 3',
     phipii: 0,
     selectedSiteVISNorNATIONAL: false,
     allphipii: [],
@@ -691,7 +691,7 @@ const store = new Vuex.Store({
       let filteredArray = state.encounterApptCancelNoShow
       .filter(site => site.StaPa === state.selectedSite)
       .filter(site => site.CancelNoShow === 'NO-SHOW')
-    // console.log('Encounter Patient Total is: ', filteredArray)
+    console.log('siteEncounterApptNoShowTotal is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray[0].cancelNoShowCount
     },
     siteEncounterApptCancelTotal: (state) => {
@@ -1139,7 +1139,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${params}`)
       .then(response => { 
-        console.log('returned from submitting usage, no action to take')
+        // console.log('returned from submitting usage, no action to take')
       })
 
     },
@@ -1575,7 +1575,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${allparams}`)
       .then(response => { 
-        console.log('got APP_COUNTS from server')
+        // console.log('got APP_COUNTS from server')
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_APPOINTMENT_COUNT', response.data)
@@ -1592,6 +1592,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${allparams}`)
       .then(response => { 
+        // console.log("sent these params from APPOINTMENT_CANCEL_NOSHOW_TOTALS: ", allparams)
         // console.log('got APPOINTMENT_CANCEL_NOSHOW_TOTALS from server')
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
@@ -1625,7 +1626,7 @@ const store = new Vuex.Store({
       const format = 'consult_data'
       const allparams = setParams(format, context.state)
       // const params = 'format=consult_data&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
-      console.log('path and all params: ', `${path}?${allparams}`)
+      // console.log('path and all params: ', `${path}?${allparams}`)
       axios.get(`${path}?${allparams}`)
       .then(response => { 
         
@@ -1672,7 +1673,7 @@ const store = new Vuex.Store({
       
       // run this during usual dev
       const params = 'format=user_permissions&staPa=' + staPa
-      
+      // console.log('USER_PERMISSIONS path and all params: ', `${path}?${params}`)
       axios.get(`${path}?${params}`)
       .then(response => { 
         // console.log('in USER_PERMISSIONS, got this data back: ', response.data)
@@ -2033,7 +2034,7 @@ const store = new Vuex.Store({
       state.selectedRange = range
     },
     SET_DATEPICKER_DATES (state, dates) {
-      console.log('in SET_DATEPICKER_DATES and got dates: ', dates)
+      // console.log('in SET_DATEPICKER_DATES and got dates: ', dates)
       state.selectedRangePicker = dates // { start, end, shortcut }
     },
     SET_CURRENT_USER (state, user) {

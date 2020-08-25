@@ -190,7 +190,7 @@ export default {
       'siteProviderSelected',
     ]),
     selectedSiteVISNorNATIONAL () {
-      console.log('in selectedSiteVISNorNATIONAL, selectedSite is: ', this.selectedSite)
+      // console.log('in selectedSiteVISNorNATIONAL, selectedSite is: ', this.selectedSite)
       return /VISN|NATIONAL/.test(this.selectedSite)
     },
     changeBackgroundColor () {

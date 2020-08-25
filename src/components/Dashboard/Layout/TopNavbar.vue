@@ -294,7 +294,7 @@
     //   }
     // },
     mounted() {
-      console.log('mounted and this.selectedRangePicker is: ', this.selectedRangePicker)
+      // console.log('mounted and this.selectedRangePicker is: ', this.selectedRangePicker)
       // console.log('mounted and this.value is: ', this.value)
       // set the previous saved datePicker range
       // this.value = this.selectedRangePicker
@@ -308,7 +308,7 @@
         // console.log('watcher for siteSelected triggered with new value of: ', val)
          NProgress.done()
 
-         console.log('watching siteSelected: ', val)
+        //  console.log('watching siteSelected: ', val)
       },
       rangeSelected (val) {
         // my new value in val. Perform your
@@ -317,7 +317,7 @@
         // console.log('watcher for siteSelected triggered with new value of: ', val)
          NProgress.done()
          
-         console.log('watching rangeSelected: ', val)
+        //  console.log('watching rangeSelected: ', val)
       },
       // selectedProvider (newVal, oldVal) {
       //   // when triggered, if there was a previous provider
@@ -396,14 +396,14 @@
           return  this.value
         },
         set(val) {
-          console.log('rangePickerSelected triggered and sets this.value to: ', val)
+          // console.log('rangePickerSelected triggered and sets this.value to: ', val)
           this.value = val
         }
       },
       // determine current page
       selectedPage () {
         let { name } = this.$route
-        console.log('name from $route is: ', name)
+        // console.log('name from $route is: ', name)
         // return this.capitalizeFirstLetter(name)
         return name
       },
@@ -418,7 +418,7 @@
       sc () {
         // check if there is a shortcut
         if (this.selectedRangePicker && this.selectedRangePicker.shortcut != null) {
-          console.log('Got a shortcut from this.selectedRangePicker!: ', this.selectedRangePicker)
+          // console.log('Got a shortcut from this.selectedRangePicker!: ', this.selectedRangePicker)
           return `${this.selectedRangePicker.shortcut}`
         }
         else {
@@ -431,7 +431,7 @@
       minDate () {
         // need to return one year minus current date
         // use moment to calculate this
-        console.log('minDate returns: ', moment().subtract(1, 'year').format('YYYYMMDD'))
+        // console.log('minDate returns: ', moment().subtract(1, 'year').format('YYYYMMDD'))
         return moment().subtract(1, 'year').format('YYYYMMDD')
       },
       // maximum date for calendar
@@ -612,7 +612,7 @@
 
         // update dataPicker in store, if both start and end defined
         if (val.start != null && val.end != null) {
-          console.log('I am sending this to store: ', val)
+          // console.log('I am sending this to store: ', val)
           this.DATEPICKER_DATES({start: val.start, end: val.end, shortcut: val.shortcut})
         }
 // if full calendar start and end date selected

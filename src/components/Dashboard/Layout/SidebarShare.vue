@@ -86,7 +86,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       // console.log('IN MOUNTED: this.currentpage is: ', this.currentpage )
       
       // Retrieve the institutions for selected Station
-      console.log('IN SidebarShare MOUNTED GET_INSTITUTIONS from selectedSite: ', this.selectedSite)
+      // console.log('IN SidebarShare MOUNTED GET_INSTITUTIONS from selectedSite: ', this.selectedSite)
       this.GET_INSTITUTIONS()
     
     },

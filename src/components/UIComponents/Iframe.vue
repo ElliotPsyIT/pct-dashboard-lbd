@@ -1,10 +1,16 @@
 <template>
-  <div class="vue-friendly-iframe">
-  </div>
+<div class="vue-friendly-iframe">
+</div>
 </template>
 
 <script>
 import uuidV1 from 'uuid/v1';
+
+import utils from 'src/utils/utils';
+
+function generateGuid() {
+  return uuidV1();
+}
 
 //borrowed from David Walsh : https://davidwalsh.name/javascript-debounce-function
 function debounce(func, wait, immediate) {
@@ -12,14 +18,11 @@ function debounce(func, wait, immediate) {
 
   return function () {
     const context = this;
-
     const args = arguments;
-
     const later = function () {
       timeout = null;
       if (!immediate) func.apply(context, args);
     };
-
     const callNow = immediate && !timeout;
 
     clearTimeout(timeout);
@@ -29,13 +32,8 @@ function debounce(func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 }
-
-function generateGuid() {
-  return uuidV1();
-}
-
 export default {
-  name: 'Iframe',
+  name: 'friendly-iframe',
   props: {
     src: {
       type: String,
@@ -101,7 +99,8 @@ export default {
 
       iframeDoc.close(); //iframe onload event happens
     },
-    reinitIframe: debounce(vm => {
+    // reinitIframe: utils.debounce(vm => {
+    reinitIframe: utils.debounce(vm => {
       vm.removeIframe();
       vm.initIframe();
     }, 200),

@@ -360,7 +360,8 @@ export default {
         headerName: 'Staff / Site',
         field: 'LocationName',
         // field: 'InstitutionName'
-        suppressPropertyNamesCheck: true
+        suppressPropertyNamesCheck: true,
+        // deltaRowDataMode : true
       },
       // groupMultiAutoColumn:true,
     },
@@ -492,7 +493,7 @@ export default {
           width: 150, 
           cellStyle: { 'text-align': "left" } ,
           filter: "agTextColumnFilter",
-           hidden: true,
+          hide: true,
         },
         { headerName: "Sessions", 
           field: "EncountersByProvider", 

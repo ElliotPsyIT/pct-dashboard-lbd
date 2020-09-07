@@ -1304,7 +1304,7 @@ const store = new Vuex.Store({
       // const params = 'format=provider_count&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
       const format = 'provider_count'
       const allparams = setParams(format, context.state)
-
+      // console.log('PROVIDER_COUNT allparams: ', allparams)
       axios.get(`${path}?${allparams}`)
       // axios.get(`${path}?${params}`)
       .then(response => { 
@@ -1706,8 +1706,8 @@ const store = new Vuex.Store({
       }
 
       // update the user since this page could be entered anytime
-      context.dispatch('CURRENT_USER')
-      context.dispatch('USER_PERMISSIONS')
+      // context.state. context.dispatch('CURRENT_USER')
+      // context.dispatch('USER_PERMISSIONS')
 
       if (context.state.route.path == '/admin/consults') {
         // console.log('calling Action CONSULT_DETAILS')
@@ -1864,10 +1864,12 @@ const store = new Vuex.Store({
       const path = 'pct.cgi'
       const params = 'format=who'
       // console.log('getting user, axios get: ', `${path}?${params}`)
+      // console.log(CURRENT_USER.caller.name)
       axios.get(`${path}?${params}`)
         .then(response => { 
           // console.log('return from who: ', response)
           const remote_user = response.data[0]
+          // console.log('return from who: ', remote_user)
           if (remote_user != undefined) {
             context.dispatch('setCurrentUser',
             {

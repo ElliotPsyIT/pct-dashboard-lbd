@@ -504,7 +504,7 @@
                   },
                   // callback: ({start, end, shortcut}) => {
                   callback: (callbackValue) => {
-                    console.log('oneweek called with this callbackValue: ', callbackValue)
+                    // console.log('oneweek called with this callbackValue: ', callbackValue)
                     let {start, end, shortcut} = callbackValue
                     this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD'), shortcut: shortcut.key})
                     // clicked a shortcut
@@ -611,7 +611,10 @@
         // this.rangePickerSelected = val
 
         // update dataPicker in store, if both start and end defined
-        if (val.start != null && val.end != null) {
+        if (
+          (val.start != null || val.start != undefined) && 
+          (val.end != null || val.end != undefined)
+        ) {
           // console.log('I am sending this to store: ', val)
           this.DATEPICKER_DATES({start: val.start, end: val.end, shortcut: val.shortcut})
         }

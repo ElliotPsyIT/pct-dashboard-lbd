@@ -148,7 +148,7 @@ const store = new Vuex.Store({
       surveys: true,
       ebp: true,
     },
-    appVersion: '2.5',
+    appVersion: '2.6.0',
     phipii: 0,
     selectedSiteVISNorNATIONAL: false,
     allphipii: [],

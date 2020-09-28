@@ -30,10 +30,11 @@
           </form>
         </nav>
         <div class="iframe-wrapper">
-          <div class="iframe-loading" v-if="iframeLoading">
+          <!-- <div class="iframe-loading" v-if="iframeLoading">
             iframe loading...
-          </div>
+          </div> -->
           <vue-friendly-iframe
+            v-if="loadIframe"
             ref="iframeEl"
             :style="{ display: iframeLoading ? 'none' : 'block' }"
             :src="patientLevelData"
@@ -88,8 +89,10 @@ export default {
       // triggerIframeLoad: true,
 
       // input info for patient to lookup
-      // StaPa: null,
-      // PatientSID: null,
+      StaPa: null,
+      PatientSID: null,
+
+      loadIframe: false,
 
       iframeLoading: true,
       //null,
@@ -122,13 +125,22 @@ export default {
     submitPatient() {
       // set the StaPa and PatientSID
       // get the url
-      // let pt = url(this.StaPa, this.PatientSID);
-      // console.log("pt url: ", pt);
-      // get the
+      let pt = url(this.StaPa, this.PatientSID);
+      console.log("pt url: ", pt);
+
       // return error if no StaPa or PatientSID
-      // this.patientLevelData = pt;
+      this.patientLevelData = pt;
+
+      // logic for running a new Patient
+      // flags - loadIframe, tells iframe to go get data
+      //       - iframeLoading, show the suspense loading message
+      // steps - set iframeLoading to true to show suspense
+      //       - then, change the patientLevelData to the new url
+      // problem - why won't changing the :src re-run the iframe!!
+
       // trigger iframe to load
-      // this.triggerIframeLoad = true;
+      this.loadIframe = true;
+
       // show the iframe
       // this.showIframeBox = true;
     },
@@ -146,7 +158,7 @@ export default {
 
 <style>
 .iframe-wrapper {
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   height: 600px;
 }
 .iframe-wrapper .vue-friendly-iframe {

@@ -6,11 +6,11 @@ export const encountersAll = [
       "<u><b>Stop Codes:</b></u> To identify encounters from PCT Clinics, we use the following PTSD stop codes when they are in the PRIMARY position only:<br/><br/>" +
       "<u><b>516 PTSD - Group</b></u>:<br/>" +
       "&nbsp;&nbsp;&nbsp; Records consultation and/or treatment follow-up provided to more than one individual.  " + 
-      "Treatment is provided to those patients with PTSD.  Includes provider and support services. <u>542</u>" + 
+      "Treatment is provided to those patients with PTSD.  Includes provider and support services. <u>542</u> " + 
       "Use the assigned CHAR4 Code if this activity takes place through a designated NEPEC PTSD Clinical Team (PCT).<br/><br/>" +
       "<u><b>542 Telephone PTSD</b></u>:<br/>"	+ 
       "&nbsp;&nbsp;&nbsp;Records patient consultation or medical care management, advice, and/or referral provided by telephone contact " + 
-      "between patient or patient's next-of-kin and/or the person(s) with whom the patient has a meaningful relationship, and clinical and/or professional staff assigned to the PCT.  <br/>" + 
+      "between patient or patient's next-of-kin and/or the person(s) with whom the patient has a meaningful relationship, and clinical and/or professional staff assigned to the PCT.<br/><br/>" + 
       "<u><b>562 PTSD - Individual</u></b><br/>" +
       "&nbsp;&nbsp;&nbsp;Records patient visit for consultation, evaluation, follow-up, and/or treatment provided to an individual with PTSD.  Includes provider and support services.",
       category: "Encounters and Patients Defined..."
@@ -21,7 +21,7 @@ export const encountersAll = [
       "<u><b>Assessment</b></u>: <br/>('90791', '90792')<br/><br/>" +
       "<b>NOTE: Encounters may have multiple CPT procedure codes attached to an encounter.  When we count encounters by their procedure code, e.g. Individual Psychotherapy, we count the encounter regardless of any other procedure code may be attached to the encounter. " + 
       "As a result, encounters may be counted multiple times, once for each procedure code attached to an encounter.</b><br/><br/>" +
-      "<u><b>Individual Therapy</u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
+      "<u><b>Individual Therapy</b></u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
   "<u><b>Group Psychotherapy</b></u>: <br/>('90853')<br/><br/>" +
   "<u><b>Interactive Complexity</b></u>: <br/>('90785')<br/><br/>" + 
   "<u><b>Crisis Intervention</b></u>: <br/>('90839', '90840', 'H2011', 'S9484')<br/><br/>" +

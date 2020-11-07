@@ -211,6 +211,7 @@ const store = new Vuex.Store({
     surveyTotals: [],
     surveyDetails: [],
     surveyPatientDetails: [],
+    surveyPCL5: [],
 
     // ebpCount,
     // ebpInfo,
@@ -259,7 +260,9 @@ const store = new Vuex.Store({
       // return uniques
     },
 
+    //***********************************************
     // Consults
+    //***********************************************
     siteConsultTotal: (state) => {
       // console.log('in store getters, state is: ', state)
       // console.log('in siteConsultTotal, state.consultDataCount is: ', state.consultDataCount)
@@ -334,7 +337,9 @@ const store = new Vuex.Store({
       return { months: consultLineChartMonths, series: consultLineChartData };
     },
 
-    // encounters: distinct VisitSID, all MH CPTCodes
+    //***********************************************
+    // ENCOUNTERS
+    //*********************************************** //
     siteEncounterTotal: (state) => {
       let filteredArray = state.encounterCount
         .filter((site) => site.StaPa === state.selectedSite)
@@ -737,7 +742,9 @@ const store = new Vuex.Store({
         : filteredArray[0].NumPsychotherapyByType;
     },
 
-    // appointments
+    //***********************************************
+    // APPOINTMENTS
+    //*********************************************** //
     siteEncounterApptCancelNoShowPieChart: (state) => {
       // build series based on selected site
       // console.log('encounterApptCancelNoShow is: ', state.encounterApptCancelNoShow)
@@ -804,7 +811,9 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? 0 : filteredArray;
     },
 
+    //********************************************* */
     // PROVIDERS
+    //********************************************* */
     siteProviderProviderCount: (state) => {
       let filteredArray = state.providerCount
         .filter((site) => site.StaPa === state.selectedSite)
@@ -879,13 +888,16 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? 0 : filteredArray;
     },
 
+    //********************************************* */
+    // SURVEYS -- NOW MBC
+    //********************************************* */
     siteSurveyTotals: (state) => {
       let sumGivenOverall = state.surveyTotals.filter(
         (site) =>
           site.StaPa === state.selectedSite &&
           site.dataType == "surveysGivenOverall"
       );
-      console.log("sumGivenOverall is: ", sumGivenOverall);
+      // console.log("sumGivenOverall is: ", sumGivenOverall);
       let sumGivenTotal =
         sumGivenOverall.length == 0 ? 0 : +sumGivenOverall[0].sumTotal;
 
@@ -979,7 +991,75 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? 0 : filteredArray;
     },
 
-    // revised EBPs from Matt and Erin
+    // Add surveys for MBC -- PCL5
+    //	ERIN 11/4/20 clarifying widgets
+
+    //  surveyPCL5: [] --> state variable that will hold PCL5 server data
+
+    //      surveyPCL5Total
+    //      surveyProvidersTotal
+    //      surveyProvidersPCL5
+    //      surveyPatientsTotal
+    //      surveyPatientsPCL5oneOrMore
+    //      surveyPatientsPCL5moreThanOne
+
+    siteMBCPCL5: (state) => {
+      let filteredArray = state.surveyPCL5
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => site.dataType === "surveyPCL5Total");
+      // console.log("siteMBCPCL5 filteredArray is: ", filteredArray);
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
+    },
+    siteMBCProvidersTotal: (state) => {
+      let filteredArray = state.surveyPCL5
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => site.dataType === "surveyProvidersTotal");
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
+    },
+    siteMBCProvidersPCL5Total: (state) => {
+      let filteredArray = state.surveyPCL5
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => site.dataType === "surveyProvidersPCL5");
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
+    },
+    siteMBCPatientsTotal: (state) => {
+      let filteredArray = state.surveyPCL5
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => site.dataType === "surveyPatientsTotal");
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
+    },
+    siteMBCPatientsPCL5oneOrMore: (state) => {
+      let filteredArray = state.surveyPCL5
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => site.dataType === "surveyPatientsPCL5oneOrMore");
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
+    },
+    siteMBCPatientsPCL5moreThanOne: (state) => {
+      let filteredArray = state.surveyPCL5
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => site.dataType === "surveyPatientsPCL5moreThanOne");
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
+    },
+
+    //   Widget #1
+    //	 Total PCL-5s Given
+    //      surveyPCL5total
+
+    //    Widget #2
+    //    Proportion of Providers Giving PCL5s
+    //      surveyProvidersPCL5 / surveyProvidersTotal * 100 %
+
+    //    Widget #3
+    //    Proportion of Patients Getting One or More PCL5s
+    //      surveyPatientsPCL5oneOrMore / surveyPatientsTotal * 100 %
+
+    //    Widget #4
+    //    Proportion of Patients Giving Two or More PCL5s
+    //      surveyPatientsPCL5moreThanOne / surveyPatientsTotal * 100 %
+
+    //************************************************* */
+    //  EBP
+    //************************************************* */
     siteEBPSessionsAny: (state) => {
       // console.log('in siteEBPSessionsAny and state.ebpSummary datatype is: ', typeof state.ebpSummary)
       let filteredArray = state.ebpSummary
@@ -1214,6 +1294,9 @@ const store = new Vuex.Store({
     //   return filteredArray[0] ? filteredArray[0].NumPsychotherapyByType : 0
     // },
 
+    //************************************************ */
+    // SUPPLEMENTAL FUNCTIONS
+    //************************************************ */
     canFilterBySite: (state) => {
       let path = state.route.path;
       let regx = /\/(\w+)$/; //find currentpage
@@ -1235,7 +1318,9 @@ const store = new Vuex.Store({
     },
   },
 
-  // ACTIONS
+  // *****************************************
+  //      ACTIONS
+  // *****************************************
   actions: {
     LOG_USAGE(context, pages) {
       const params = usageParams(context.state); //, context.state.route.name)
@@ -1350,22 +1435,34 @@ const store = new Vuex.Store({
         context.commit("SET_SURVEY_TOTALS", response.data);
       });
     },
+    SURVEY_PCL5(context) {
+      const path = "pct.cgi";
+      const format = "survey_pcl5";
+      const allparams = setParams(format, context.state);
+      console.log("SURVEY_PCL5 allparams is: ", allparams);
+      axios.get(`${path}?${allparams}`).then((response) => {
+        console.log("got survey_pcl5 from server");
+        console.log("response.data is: ", response.data);
+        // console.log('check context before commit: ', context)
+        context.commit("SET_SURVEY_PCL5", response.data);
+      });
+    },
     SURVEY_PATIENT_DETAILS(context) {
-      // console.log('in SURVEY_PATIENT_DETAILS Action, check context here', context)
+      // console.log('in survey_patient_details action, check context here', context)
 
       const path = "pct.cgi";
       const format = "survey_patient_details";
       const allparams = setParams(format, context.state);
-      // const params = 'format=survey_patient_details&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
+      // const params = 'format=survey_patient_details&stapa=' + context.state.selectedsite + '&daterange=' + context.state.selectedrange
 
       axios.get(`${path}?${allparams}`).then((response) => {
-        // console.log('got SURVEY_PATIENT_DETAILS  from server')
+        // console.log('got survey_patient_details  from server')
         // console.log('response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit("SET_SURVEY_PATIENT_DETAILS", response.data);
       });
     },
-    INSTITUTIONS_SELECTED(context, institutions) {
+    institutions_selected(context, institutions) {
       // console.log('in INSTITUTIONS_SELECTED, institutions are: ', institutions)
 
       // synchonous to assure state.selectedInstitutions & state.selectedInstitutionsNames
@@ -1977,6 +2074,10 @@ const store = new Vuex.Store({
     SET_SURVEY_TOTALS(state, surveyTotals) {
       // console.log('in mutate SET_SURVEY_DETAILS and state is: ', state)
       state.surveyTotals = surveyTotals;
+    },
+    SET_SURVEY_PCL5(state, surveyPCL5) {
+      // console.log('in mutate SET_SURVEY_PCL5 and state is: ', state)
+      state.surveyPCL5 = surveyPCL5;
     },
     SET_SURVEY_DETAILS(state, surveyDetails) {
       // console.log('in mutate SET_SURVEY_DETAILS and state is: ', state)

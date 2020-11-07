@@ -1,128 +1,266 @@
 <template>
   <transition name="fade" mode="out-in">
     <div class="content" :key="selectedSite">
-      <div class="container-fluid" :class="{filtering: changeBackgroundColor}">
-
-              Scroll Position {{scrollPosition}}
+      <div
+        class="container-fluid"
+        :class="{ filtering: changeBackgroundColor }"
+      >
+        Scroll Position {{ scrollPosition }}
 
         <!-- Show Filtered Sites -->
         <div v-if="changeBackgroundColor">
-          <div class="row d-flex justify-content-center " style="position: fixed; right: 50px; z-index: 500;">
-              <div style="font-size: .7rem; border: solid 1px grey; ">
-                  {{ selectedInstitutionsNames }}
-              </div>
+          <div
+            class="row d-flex justify-content-center"
+            style="position: fixed; right: 50px; z-index: 500"
+          >
+            <div style="font-size: 0.7rem; border: solid 1px grey">
+              {{ selectedInstitutionsNames }}
+            </div>
           </div>
         </div>
 
         <!-- Disclaimer -->
-        <div class="row d-flex justify-content-center mt-4 ">
-          <p class="category" style="font-size: .8rem; font-style: italic;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
+        <div class="row d-flex justify-content-center mt-4">
+          <p class="category" style="font-size: 0.8rem; font-style: italic">
+            <span class="font: red;">{{ disclaimer.asterisks }}</span
+            >{{ disclaimer.mainText
+            }}<span style="font-weight: bold; text-decoration: underline">{{
+              disclaimer.emphasis
+            }}</span>
+          </p>
         </div>
 
-      <hr/>
-     
-      <!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <h4 class="section-head">Surveys Summary</h4>
-      </div>
+        <hr />
 
-         <!--  FAQ -->
-        <div style="align-items: center; display: flex; justify-content: center; ">
-          <div style="width: 60%; margin-bottom: 10px;">
-           <VueFaqAccordion :items="SurveysSummary"/> 
+        <!-- Section Header PCL5 -->
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">PCL5 Administrations</h4>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+          <div class="col-xl-3 col-md-3">
+            <stats-card :key="siteMBCPCL5">
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-paper-2 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Total PCL5s</p>
+                <h4 class="card-title">{{ addCommas(siteMBCPCL5) }}</h4>
+              </div>
+            </stats-card>
           </div>
         </div>
 
-      <div class="row d-flex justify-content-center">
-      <!-- siteSurveyTotals -->
-        <div class="col-xl-3 col-md-3">
-        
-          <stats-card :key="siteSurveyTotals.surveysGivenOverall">
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-paper-2 text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Total Surveys Given</p>
-              <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-              <h4 class="card-title">{{ addCommas(siteSurveyTotals.surveysGivenOverall) }}</h4>
-            </div>
-          </stats-card>
-        
+        <!-- Section Header PCL5 -->
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">Providers</h4>
         </div>
 
-      </div>
-
-        <!--  FAQ -->
-        <div style="align-items: center; display: flex; justify-content: center; ">
-          <div style="width: 60%; margin-bottom: 10px;">
-           <VueFaqAccordion :items="ClinicsProvidersPatients"/> 
+        <!-- Might want to try and get the transition to work -->
+        <!-- <transition name="fade" mode="out-in">  -->
+        <!-- </transition> -->
+        <div class="d-flex flex-row justify-content-center">
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Providers PCL5s<br />
+                  ({{ formatNumber(siteMBCProvidersPCL5Total) }}/
+                  {{ formatNumber(siteMBCProvidersTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteMBCProvidersPCL5Percent">
+                      {{ siteMBCProvidersPCL5Percent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
           </div>
         </div>
 
-      <!-- Section Header -->
-      <div class="row d-flex justify-content-center ">
-        <!-- <h4 class="section-head">Clinics, Providers, Patients</h4> -->
-      </div>
-        <!-- siteSurveyClinicTotals -->
-      <div class="row d-flex justify-content-center">
-        <div class="col-xl-3 col-md-4">
-          <h4 class="section-head d-flex justify-content-center"> Clinics </h4>
-          <stats-card :key="siteSurveyClinicTotals.surveysGivenClinics">
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon-outline nc-home-52 text-warning"></i>
-            </div>
-            <div slot="content" >
-              <p class="card-category">Surveys in Clinics / <br/>All Clinics</p>
-              <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-              <h4 class="card-title">{{ addCommas(siteSurveyClinicTotals.surveysGivenClinics) }}/{{ addCommas(siteSurveyClinicTotals.surveysTotalClinics) }}</h4>
-            </div>
-          </stats-card>
-        
+        <!-- Section Header PCL5 -->
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">Patients</h4>
         </div>
 
-        <!-- siteSurveyProviderTotals -->
-        <div class="col-xl-3 col-md-4">
-          <h4 class="section-head d-flex justify-content-center"> Providers </h4>
-          <stats-card :key="siteSurveyProviderTotals.surveysGivenProviders">
-           <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-badge text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Surveys by Providers / <br/>All Providers</p>
-              <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-              <h4 class="card-title">{{ addCommas(siteSurveyProviderTotals.surveysGivenProviders) }}/{{ addCommas(siteSurveyProviderTotals.surveysTotalProviders) }}</h4>
-            </div>
-          </stats-card>
-        
+        <div class="d-flex flex-row justify-content-center">
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  At Least One PCL5<br />
+                  ({{ formatNumber(siteMBCPatientsPCL5oneOrMore) }}/
+                  {{ formatNumber(siteMBCPatientsTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteMBCPatientsPCL5oneOrMorePercent">
+                      {{ siteMBCPatientsPCL5oneOrMorePercent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Two or More PCL5s<br />
+                  ({{ formatNumber(siteMBCPatientsPCL5moreThanOne) }}/
+                  {{ formatNumber(siteMBCPatientsTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteMBCPatientsPCL5moreThanOnePercent">
+                      {{ siteMBCPatientsPCL5moreThanOnePercent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
         </div>
-
-        <!-- siteSurveyPatientTotals -->
-        <div class="col-xl-3 col-md-4">
-          <h4 class="section-head d-flex justify-content-center"> Patients </h4>
-          <stats-card :key="siteSurveyPatientTotals.surveysGivenPatients">
-            <div slot="header" class="icon-warning">
-              <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Surveys by Patients / <br/>All Patients</p>
-              <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
-              <h4 class="card-title">{{ addCommas(siteSurveyPatientTotals.surveysGivenPatients) }}/{{ addCommas(siteSurveyPatientTotals.surveysTotalPatients) }}</h4>
-            </div>
-          </stats-card>
-
-        </div>
-
-      </div>
 
         <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">All Surveys Summary</h4>
+        </div>
+
+        <!--  FAQ -->
+        <div
+          style="align-items: center; display: flex; justify-content: center"
+        >
+          <div style="width: 60%; margin-bottom: 10px">
+            <VueFaqAccordion :items="SurveysSummary" />
+          </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+          <!-- siteSurveyTotals -->
+          <div class="col-xl-3 col-md-3">
+            <stats-card :key="siteSurveyTotals.surveysGivenOverall">
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-paper-2 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Total Surveys Given</p>
+                <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
+                <h4 class="card-title">
+                  {{ addCommas(siteSurveyTotals.surveysGivenOverall) }}
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+        </div>
+
+        <!--  FAQ -->
+        <div
+          style="align-items: center; display: flex; justify-content: center"
+        >
+          <div style="width: 60%; margin-bottom: 10px">
+            <VueFaqAccordion :items="ClinicsProvidersPatients" />
+          </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center">
+          <!-- <h4 class="section-head">Clinics, Providers, Patients</h4> -->
+        </div>
+        <!-- siteSurveyClinicTotals -->
+        <div class="row d-flex justify-content-center">
+          <div class="col-xl-3 col-md-4">
+            <h4 class="section-head d-flex justify-content-center">Clinics</h4>
+            <stats-card :key="siteSurveyClinicTotals.surveysGivenClinics">
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-home-52 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Surveys in Clinics / <br />All Clinics
+                </p>
+                <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
+                <h4 class="card-title">
+                  {{ addCommas(siteSurveyClinicTotals.surveysGivenClinics) }}/{{
+                    addCommas(siteSurveyClinicTotals.surveysTotalClinics)
+                  }}
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <!-- siteSurveyProviderTotals -->
+          <div class="col-xl-3 col-md-4">
+            <h4 class="section-head d-flex justify-content-center">
+              Providers
+            </h4>
+            <stats-card :key="siteSurveyProviderTotals.surveysGivenProviders">
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-badge text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Surveys by Providers / <br />All Providers
+                </p>
+                <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
+                <h4 class="card-title">
+                  {{
+                    addCommas(siteSurveyProviderTotals.surveysGivenProviders)
+                  }}/{{
+                    addCommas(siteSurveyProviderTotals.surveysTotalProviders)
+                  }}
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <!-- siteSurveyPatientTotals -->
+          <div class="col-xl-3 col-md-4">
+            <h4 class="section-head d-flex justify-content-center">Patients</h4>
+            <stats-card :key="siteSurveyPatientTotals.surveysGivenPatients">
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Surveys by Patients / <br />All Patients
+                </p>
+                <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
+                <h4 class="card-title">
+                  {{
+                    addCommas(siteSurveyPatientTotals.surveysGivenPatients)
+                  }}/{{
+                    addCommas(siteSurveyPatientTotals.surveysTotalPatients)
+                  }}
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="row d-flex justify-content-center">
           <h4 class="section-head">Survey Types Given</h4>
         </div>
 
         <!--  FAQ -->
-        <div style="align-items: center; display: flex; justify-content: center; ">
-          <div style="width: 60%; margin-bottom: 10px;">
-           <VueFaqAccordion :items="SurveyTypesGiven"/> 
+        <div
+          style="align-items: center; display: flex; justify-content: center"
+        >
+          <div style="width: 60%; margin-bottom: 10px">
+            <VueFaqAccordion :items="SurveyTypesGiven" />
           </div>
         </div>
 
@@ -131,131 +269,145 @@
             <card>
               <template slot="header">
                 <span>Hover Over Column Header to View Menu</span>
-                <button class="float-right" @click="gridOptions.api.exportDataAsCsv()">Export to CSV</button>
+                <button
+                  class="float-right"
+                  @click="gridOptions.api.exportDataAsCsv()"
+                >
+                  Export to CSV
+                </button>
               </template>
-                <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
-                :gridOptions="gridOptions" 
+              <ag-grid-vue
+                style="font-size: 12px; height: 500px"
+                class="ag-theme-balham grid"
+                :gridOptions="gridOptions"
                 :columnDefs="columnDefs"
-                :rowData="rowData" 
+                :rowData="rowData"
                 :rowDataChanged="onRowDataChanged"
                 :enableFilter="true"
                 :enableSorting="true"
                 :enableColResize="true"
-                >
-                </ag-grid-vue>
+              >
+              </ag-grid-vue>
               <template slot="footer">
-                <div class="legend">
-                  Detailed Survey Listing
-                </div>
+                <div class="legend">Detailed Survey Listing</div>
               </template>
             </card>
           </div>
         </div>
 
-      <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
-
-        <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Surveys to Patients - By Provider</h4>
-        </div>
+        <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center">
+            <h4 class="section-head">Surveys to Patients - By Provider</h4>
+          </div>
 
           <div class="row d-flex justify-content-center">
-            <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
+            <h3 class="phipii-warning">
+              Privileges Required to View Patient Level Data for Station
+              <b>{{ selectedSite }}</b> - Request Link Below
+            </h3>
           </div>
-          <div class="row d-flex justify-content-center ">
-            <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
-          </div>
-
-      </div>
-
-      <!-- Show table only with PHIPII -->
-      <div v-else-if="phipii">
-
-        <!-- Section Header -->
-        <div class="row d-flex justify-content-center ">
-          <h4 class="section-head">Surveys to Patients - By Provider</h4>
-        </div>
-
-        <!--  FAQ -->
-        <div style="align-items: center; display: flex; justify-content: center; ">
-          <div style="width: 60%; margin-bottom: 10px;">
-           <VueFaqAccordion :items="SurveysToPatientsByProvider"/> 
+          <div class="row d-flex justify-content-center">
+            <a
+              href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx"
+              target="_blank"
+              ><u>Link to BISL PHI/PII Access Request</u></a
+            >
           </div>
         </div>
 
-        <div class="row justify-content-center">
-          <div class="col-md-12">
-            <card>
-              <template slot="header">
-                <!-- <span>Hover Over Column Header to View Menu</span> -->
-                <button @click="gridOptions1.api.collapseAll()" >Collapse All</button>
-                <button @click="gridOptions1.api.expandAll()" >Expand All</button>
-                <!-- <button class="float-right" @click="gridOptions1.api.exportDataAsCsv()">Export to CSV</button> -->
-                <button class="float-right" @click="exportCSVgridOptions1()">Export to CSV</button>
-            
-              </template>
-                <ag-grid-vue style="font-size: 12px; height: 500px" class="ag-theme-balham grid" 
-                :gridOptions="gridOptions1" 
-                :columnDefs="columnDefs1"
-                :rowData="rowData1" 
-                :rowDataChanged="onRowDataChanged1"
-                :enableFilter="true"
-                :enableSorting="true"
-                :enableColResize="true"
+        <!-- Show table only with PHIPII -->
+        <div v-else-if="phipii">
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center">
+            <h4 class="section-head">Surveys to Patients - By Provider</h4>
+          </div>
+
+          <!--  FAQ -->
+          <div
+            style="align-items: center; display: flex; justify-content: center"
+          >
+            <div style="width: 60%; margin-bottom: 10px">
+              <VueFaqAccordion :items="SurveysToPatientsByProvider" />
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-md-12">
+              <card>
+                <template slot="header">
+                  <!-- <span>Hover Over Column Header to View Menu</span> -->
+                  <button @click="gridOptions1.api.collapseAll()">
+                    Collapse All
+                  </button>
+                  <button @click="gridOptions1.api.expandAll()">
+                    Expand All
+                  </button>
+                  <!-- <button class="float-right" @click="gridOptions1.api.exportDataAsCsv()">Export to CSV</button> -->
+                  <button class="float-right" @click="exportCSVgridOptions1()">
+                    Export to CSV
+                  </button>
+                </template>
+                <ag-grid-vue
+                  style="font-size: 12px; height: 500px"
+                  class="ag-theme-balham grid"
+                  :gridOptions="gridOptions1"
+                  :columnDefs="columnDefs1"
+                  :rowData="rowData1"
+                  :rowDataChanged="onRowDataChanged1"
+                  :enableFilter="true"
+                  :enableSorting="true"
+                  :enableColResize="true"
                 >
                 </ag-grid-vue>
-              <template slot="footer">
-                <div class="legend">
-                  Patient Survey Listing
-                </div>
-              </template>
-            </card>
+                <template slot="footer">
+                  <div class="legend">Patient Survey Listing</div>
+                </template>
+              </card>
+            </div>
           </div>
+          <!-- Display if PHIPII -->
         </div>
-      <!-- Display if PHIPII -->
-      </div> 
-
-      </div>      
+      </div>
     </div>
-
   </transition>
 </template>
 
 <script>
-import StatsCard from 'src/components/UIComponents/Cards/StatsCard.vue'
-import Card from 'src/components/UIComponents/Cards/Card.vue'
+import StatsCard from "src/components/UIComponents/Cards/StatsCard.vue";
+import Card from "src/components/UIComponents/Cards/Card.vue";
 
 import Vue from "vue";
-import { AgGridVue } from "ag-grid-vue"
+import { AgGridVue } from "ag-grid-vue";
 
-import VueFaqAccordion from 'vue-faq-accordion'
+import VueFaqAccordion from "vue-faq-accordion";
 import {
   SurveysSummary,
   ClinicsProvidersPatients,
   SurveyTypesGiven,
-  SurveysToPatientsByProvider
-} from '../Documentation/surveys_doc.js'
+  SurveysToPatientsByProvider,
+} from "../Documentation/surveys_doc.js";
 
-import { addCommas } from 'src/utils'
+import { addCommas, totalAndPercent, precise_round } from "src/utils";
 
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from "vuex";
 // surveysGivenOverall
 export default {
-  name: 'surveys',
+  name: "surveys",
   components: {
     Card,
     StatsCard,
     AgGridVue,
-    VueFaqAccordion
+    VueFaqAccordion,
   },
-  data () {
+  data() {
     return {
-  //     gridOptions: null,
-  //     gridOptions1: null,
-  SurveysSummary: SurveysSummary,
-  ClinicsProvidersPatients: ClinicsProvidersPatients,
-  SurveyTypesGiven: SurveyTypesGiven,
-  SurveysToPatientsByProvider: SurveysToPatientsByProvider,
+      //     gridOptions: null,
+      //     gridOptions1: null,
+      SurveysSummary: SurveysSummary,
+      ClinicsProvidersPatients: ClinicsProvidersPatients,
+      SurveyTypesGiven: SurveyTypesGiven,
+      SurveysToPatientsByProvider: SurveysToPatientsByProvider,
 
       // SurveysSummary: [
       //   {
@@ -303,187 +455,226 @@ export default {
       //     category: "Surveys To Patients By Provider Defined..."
       //   }
       // ]
-
-    }
+    };
   },
   computed: {
     ...mapGetters([
-      'siteSurveyTotals',
-      'siteSurveyClinicTotals',
-      'siteSurveyProviderTotals',
-      'siteSurveyPatientTotals',
-      'siteSurveyDetails',
-      'siteSurveyPatientDetails',
+      "siteSurveyTotals",
+      "siteSurveyClinicTotals",
+      "siteSurveyProviderTotals",
+      "siteSurveyPatientTotals",
+      "siteSurveyDetails",
+      "siteSurveyPatientDetails",
 
+      "siteMBCPCL5",
+      "siteMBCProvidersTotal",
+      "siteMBCProvidersPCL5Total",
+      "siteMBCPatientsTotal",
+      "siteMBCPatientsPCL5oneOrMore",
+      "siteMBCPatientsPCL5moreThanOne",
     ]),
     ...mapState([
-      'selectedSite',
-      'phipii',
-      'selectedInstitutions',
-      'selectedInstitutionsNames',
-      'disclaimer',
+      "selectedSite",
+      "phipii",
+      "selectedInstitutions",
+      "selectedInstitutionsNames",
+      "disclaimer",
     ]),
-    selectedSiteVISNorNATIONAL () {
-      return /VISN|NATIONAL/.test(this.selectedSite)
+    selectedSiteVISNorNATIONAL() {
+      return /VISN|NATIONAL/.test(this.selectedSite);
     },
-    changeBackgroundColor () {
-        // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
-        return this.selectedInstitutions.length > 0 || false
-    },      
-    scrollPosition () {
-      console.log('window.pageYOffset: ', window.pageYOffset)    
+    changeBackgroundColor() {
+      // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
+      return this.selectedInstitutions.length > 0 || false;
     },
-    rowData () {
+    scrollPosition() {
+      console.log("window.pageYOffset: ", window.pageYOffset);
+    },
+    rowData() {
       // console.log('here is siteSurveyDetails from store ', this.siteSurveyDetails)
-      return this.siteSurveyDetails // filters when site changes
+      return this.siteSurveyDetails; // filters when site changes
     },
-    rowData1 () {
+    rowData1() {
       // console.log('here is siteSurveyPatientDetails from store ', this.siteSurveyPatientDetails)
-      return this.siteSurveyPatientDetails // filters when site changes
+      return this.siteSurveyPatientDetails; // filters when site changes
+    },
+    siteMBCProvidersPCL5Percent() {
+      let percent =
+        (+this.siteMBCProvidersPCL5Total / +this.siteMBCProvidersTotal) * 100;
+      return precise_round(percent, 1);
+    },
+    siteMBCPatientsPCL5oneOrMorePercent() {
+      let percent =
+        (+this.siteMBCPatientsPCL5oneOrMore / +this.siteMBCPatientsTotal) * 100;
+      return precise_round(percent, 1);
+    },
+    siteMBCPatientsPCL5moreThanOnePercent() {
+      let percent =
+        (+this.siteMBCPatientsPCL5moreThanOne / +this.siteMBCPatientsTotal) *
+        100;
+      return precise_round(percent, 1);
     },
   },
   beforeMount() {
+    (this.gridOptions = {
+      suppressPropertyNamesCheck: true,
+    }),
+      (this.gridOptions1 = {
+        // groupHideOpenParents: true,
 
-    this.gridOptions = {
-      suppressPropertyNamesCheck: true
-    },
-    this.gridOptions1 = { 
-      // groupHideOpenParents: true, 
-      
-      autoGroupColumnDef: {
-        headerName: 'Staff / Patient / Clinic',
-        field: 'StaffName',
-        field: 'LocationName'
-      },
-      suppressPropertyNamesCheck: true
-    },
-
-    this.columnDefs = this.createColDefs(),
-    this.columnDefs1 = this.createColDefs1(),
-
-    this.onFilterChanged = function() {console.log('filter changed!!')}
-   
+        autoGroupColumnDef: {
+          headerName: "Staff / Patient / Clinic",
+          field: "StaffName",
+          field: "LocationName",
+        },
+        suppressPropertyNamesCheck: true,
+      }),
+      (this.columnDefs = this.createColDefs()),
+      (this.columnDefs1 = this.createColDefs1()),
+      (this.onFilterChanged = function () {
+        console.log("filter changed!!");
+      });
   },
   mounted() {
-     this.CURRENT_PAGE('surveys')
+    this.CURRENT_PAGE("surveys");
 
-    this.SURVEY_TOTALS()
-    this.SURVEY_DETAILS()
-    this.SURVEY_PATIENT_DETAILS()
+    this.SURVEY_TOTALS();
+    this.SURVEY_DETAILS();
+    this.SURVEY_PATIENT_DETAILS();
+    this.SURVEY_PCL5();
 
-    this.GET_INSTITUTIONS()
+    this.GET_INSTITUTIONS();
   },
-   methods: {
+  methods: {
     ...mapActions([
-      'SURVEY_TOTALS',
-      'SURVEY_DETAILS',
-      'SURVEY_PATIENT_DETAILS',
-
-      'CURRENT_PAGE',
-      'GET_INSTITUTIONS',
+      "SURVEY_TOTALS",
+      "SURVEY_DETAILS",
+      "SURVEY_PATIENT_DETAILS",
+      "SURVEY_PCL5",
+      "CURRENT_PAGE",
+      "GET_INSTITUTIONS",
     ]),
     addCommas,
+    formatNumber(num) {
+      return addCommas(num);
+    },
     exportCSVgridOptions1() {
       let params = {
         // define the fields for export
-        columnKeys: ['OrderedBy','LocationName','NL4','SurveyGivenDateTime','SurveyName','RawScore' ],
-        fileName: 'survey_details',
+        columnKeys: [
+          "OrderedBy",
+          "LocationName",
+          "NL4",
+          "SurveyGivenDateTime",
+          "SurveyName",
+          "RawScore",
+        ],
+        fileName: "survey_details",
         columnGroups: false,
         allColumns: true,
         processCellCallback: (params) => {
-            // console.log('processCellCallback params.value: ', params.value)
-            return params.value
+          // console.log('processCellCallback params.value: ', params.value)
+          return params.value;
         },
         shouldRowBeSkipped: (params) => {
           // don't export if it's a grouped row
-          if (params.node.group == true) { 
-            return true
+          if (params.node.group == true) {
+            return true;
           }
         },
-      }
+      };
 
-      this.gridOptions1.api.exportDataAsCsv(params)
-
+      this.gridOptions1.api.exportDataAsCsv(params);
     },
     createColDefs() {
       return [
-        {headerName: "Surveys",
+        {
+          headerName: "Surveys",
           children: [
-            { headerName: "Site", 
-              field: "StaPa", 
-              width: 25, 
-              cellStyle: { 'text-align': "left" } ,
+            {
+              headerName: "Site",
+              field: "StaPa",
+              width: 25,
+              cellStyle: { "text-align": "left" },
               filter: "agTextColumnFilter",
-              cellRenderer:'agGroupCellRenderer'
+              cellRenderer: "agGroupCellRenderer",
             },
-            { headerName: "Survey Name", 
-              field: "SurveyName", 
-              width: 50, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter"
+            {
+              headerName: "Survey Name",
+              field: "SurveyName",
+              width: 50,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
             },
-            { headerName: "Total", 
-              field: "numSurveys", 
-              width: 25, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agNumberColumnFilter"
+            {
+              headerName: "Total",
+              field: "numSurveys",
+              width: 25,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
             },
-          ]
-        }
-      ]
+          ],
+        },
+      ];
     },
     createColDefs1() {
       return [
         // {
-          // headerName: "Surveys By Patient",
-          // children: [
-            { headerName: "Provider", 
-              field: "OrderedBy", 
-              width: 200, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter",
-              rowGroup: true,
-              hide:true,
-            },
-            { headerName: "Clinic Name", 
-              field: "LocationName", 
-              width: 150, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter",
-              hidden: true,
-            },
-            { headerName: "Patient", 
-              // field: "InitialsAndL4", 
-              field: "NL4", 
-              width: 100, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter",
-              rowGroup: true,
-              hide:true,
-            },
-            { headerName: "Survey", 
-              field: "SurveyName", 
-              width: 100, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agTextColumnFilter",
-              // rowGroup: true,
-              // hide:true,
-            },
-            { headerName: "Date", 
-              field: "SurveyGivenDateTime", 
-              width: 100, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agDateColumnFilter"
-            },
-            { headerName: "Score", 
-              field: "RawScore", 
-              width: 100, 
-              cellStyle: { 'text-align': "left" } ,
-              filter: "agNumberColumnFilter"
-            },
-          // ]
+        // headerName: "Surveys By Patient",
+        // children: [
+        {
+          headerName: "Provider",
+          field: "OrderedBy",
+          width: 200,
+          cellStyle: { "text-align": "left" },
+          filter: "agTextColumnFilter",
+          rowGroup: true,
+          hide: true,
+        },
+        {
+          headerName: "Clinic Name",
+          field: "LocationName",
+          width: 150,
+          cellStyle: { "text-align": "left" },
+          filter: "agTextColumnFilter",
+          hidden: true,
+        },
+        {
+          headerName: "Patient",
+          // field: "InitialsAndL4",
+          field: "NL4",
+          width: 100,
+          cellStyle: { "text-align": "left" },
+          filter: "agTextColumnFilter",
+          rowGroup: true,
+          hide: true,
+        },
+        {
+          headerName: "Survey",
+          field: "SurveyName",
+          width: 100,
+          cellStyle: { "text-align": "left" },
+          filter: "agTextColumnFilter",
+          // rowGroup: true,
+          // hide:true,
+        },
+        {
+          headerName: "Date",
+          field: "SurveyGivenDateTime",
+          width: 100,
+          cellStyle: { "text-align": "left" },
+          filter: "agDateColumnFilter",
+        },
+        {
+          headerName: "Score",
+          field: "RawScore",
+          width: 100,
+          cellStyle: { "text-align": "left" },
+          filter: "agNumberColumnFilter",
+        },
+        // ]
         // }
-      ]
+      ];
     },
     onRowDataChanged() {
       // console.log('row data changed!!')
@@ -494,38 +685,35 @@ export default {
     onRowDataChanged1() {
       // console.log('row1 data changed!!')
       Vue.nextTick(() => {
-        this.gridOptions1.api.sizeColumnsToFit()
+        this.gridOptions1.api.sizeColumnsToFit();
         // this.gridOptions1.api.expandAll();
       });
     },
-  }
-}
+  },
+};
 </script>
 <style>
+.filtering {
+  background-color: lightgrey;
+}
 
-  .filtering {
-    background-color: lightgrey;
-  }
+/* fade page in and out when site changes */
+.section-head {
+  font-size: 2rem;
+}
 
-  /* fade page in and out when site changes */
-  .section-head {
-    font-size: 2rem;
-  }
+.phipii-warning {
+  font-size: 1rem;
+}
 
-  .phipii-warning {
-    font-size: 1rem;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.1s;
+}
 
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity .1s
-  }
-
-  .fade-enter,
+.fade-enter,
   .fade-leave-to
-    /* .fade-leave-active in <2.1.8 */
-
-  {
-    opacity: 0
-  }
+    /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
 </style>

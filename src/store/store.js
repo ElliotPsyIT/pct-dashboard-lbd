@@ -1462,7 +1462,7 @@ const store = new Vuex.Store({
         context.commit("SET_SURVEY_PATIENT_DETAILS", response.data);
       });
     },
-    institutions_selected(context, institutions) {
+    INSTITUTIONS_SELECTED(context, institutions) {
       // console.log('in INSTITUTIONS_SELECTED, institutions are: ', institutions)
 
       // synchonous to assure state.selectedInstitutions & state.selectedInstitutionsNames
@@ -1904,6 +1904,8 @@ const store = new Vuex.Store({
         context.dispatch("SURVEY_TOTALS");
         // TABLE - DISPLAYS COUNTS AND NOT DETAILS
         context.dispatch("SURVEY_DETAILS");
+        // PCL5 Data
+        context.dispatch("SURVEY_PCL5");
         // NOT FOR VISN AND NATIONAL
         if (!VorN) {
           context.dispatch("SURVEY_PATIENT_DETAILS");

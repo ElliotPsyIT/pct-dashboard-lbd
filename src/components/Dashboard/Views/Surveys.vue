@@ -322,10 +322,18 @@
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">Surveys to Patients - By Provider</h4>
           </div>
+          <div class="row d-flex justify-content-center">
+            (Surveys Without a Total Score Are Listed Item-By-Item, e.g. C-SSRS)
+          </div>
 
           <!--  FAQ -->
           <div
-            style="align-items: center; display: flex; justify-content: center"
+            style="
+              align-items: center;
+              display: flex;
+              justify-content: center;
+              margin-top: 20px;
+            "
           >
             <div style="width: 60%; margin-bottom: 10px">
               <VueFaqAccordion :items="SurveysToPatientsByProvider" />

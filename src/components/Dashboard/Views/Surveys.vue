@@ -526,6 +526,9 @@ export default {
           headerName: "Staff / Patient / Clinic",
           field: "StaffName",
           field: "LocationName",
+          cellRendererParams: {
+            suppressCount: true,
+          },
         },
         suppressPropertyNamesCheck: true,
       }),

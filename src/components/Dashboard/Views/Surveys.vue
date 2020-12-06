@@ -82,6 +82,63 @@
           </div>
         </div> -->
 
+        <!-- Section Header PCL5 -->
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">Patients</h4>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          <div class="col-xl-3 col-md-3">
+            <div class="d-flex flex-row justify-content-center mt-2 mb-2">
+              All Patients
+            </div>
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  At Least One PCL5<br />
+                  ({{ formatNumber(siteMBCPatientsPCL5oneOrMore) }}/
+                  {{ formatNumber(siteMBCPatientsTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteMBCPatientsPCL5oneOrMorePercent">
+                      {{ siteMBCPatientsPCL5oneOrMorePercent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            <div class="d-flex flex-row justify-content-center mt-2 mb-2">
+              Patients Seen 2 or More Times
+            </div>
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Two or More PCL5s<br />
+                  ({{ formatNumber(siteMBCPatientsPCL5moreThanOne) }}/
+                  {{ formatNumber(siteMBCPatientsTotalWith2orMoreSessions) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteMBCPatientsPCL5moreThanOnePercent">
+                      {{ siteMBCPatientsPCL5moreThanOnePercent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+        </div>
+
         <!-- Provider Section Header PCL5 -->
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Providers</h4>
@@ -140,100 +197,75 @@
           </div>
         </div>
 
-        <!-- Section Header PCL5 -->
-        <div class="row d-flex justify-content-center">
-          <h4 class="section-head">Patients</h4>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center">
-          <div class="col-xl-3 col-md-3">
-            <div class="d-flex flex-row justify-content-center mt-2 mb-2">
-              All Patients
-            </div>
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon-outline nc-single-01 text-warning"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">
-                  At Least One PCL5<br />
-                  ({{ formatNumber(siteMBCPatientsPCL5oneOrMore) }}/
-                  {{ formatNumber(siteMBCPatientsTotal) }})
-                </p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="siteMBCPatientsPCL5oneOrMorePercent">
-                      {{ siteMBCPatientsPCL5oneOrMorePercent }}%
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>
+        <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center">
+            <h4 class="section-head">
+              Ordering Providers and Encounter Providers Details
+            </h4>
           </div>
 
-          <div class="col-xl-3 col-md-3">
-            <div class="d-flex flex-row justify-content-center mt-2 mb-2">
-              Patients Seen 2 or More Times
-            </div>
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon-outline nc-single-01 text-warning"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">
-                  Two or More PCL5s<br />
-                  ({{ formatNumber(siteMBCPatientsPCL5moreThanOne) }}/
-                  {{ formatNumber(siteMBCPatientsTotalWith2orMoreSessions) }})
-                </p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="siteMBCPatientsPCL5moreThanOnePercent">
-                      {{ siteMBCPatientsPCL5moreThanOnePercent }}%
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>
+          <div class="row d-flex justify-content-center">
+            <h3 class="phipii-warning">
+              Privileges Required to View Patient Level Data for Station
+              <b>{{ selectedSite }}</b> - Request Link Below
+            </h3>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <a
+              href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx"
+              target="_blank"
+              ><u>Link to BISL PHI/PII Access Request</u></a
+            >
           </div>
         </div>
+        <!-- Show table only with PHIPII -->
+        <div v-else-if="phipii">
+          <!-- Section Header -->
+          <div class="row d-flex justify-content-center">
+            <h4 class="section-head">
+              Ordering Providers and Encounter Providers Details
+            </h4>
+          </div>
 
-        <!-- Section Header Survey Provider Primary and Orderer Table-->
-        <div class="row d-flex justify-content-center">
-          <h4 class="section-head">
-            Ordering Providers and Encounter Providers Details
-          </h4>
-        </div>
+          <!-- Section Header Survey Provider Primary and Orderer Table-->
+          <div class="row d-flex justify-content-center">
+            <h4 class="section-head">
+              <!-- Ordering Providers and Encounter Providers Details -->
+            </h4>
+          </div>
 
-        <div class="row justify-content-center">
-          <div class="col-md-12">
-            <card>
-              <template slot="header">
-                <span>Hover Over Column Header to View Menu</span>
-                <button
-                  class="float-right"
-                  @click="gridOptions2.api.exportDataAsCsv()"
+          <div class="row justify-content-center">
+            <div class="col-md-12">
+              <card>
+                <template slot="header">
+                  <span>Hover Over Column Header to View Menu</span>
+                  <button
+                    class="float-right"
+                    @click="gridOptions2.api.exportDataAsCsv()"
+                  >
+                    Export to CSV
+                  </button>
+                </template>
+                <ag-grid-vue
+                  style="font-size: 12px; height: 500px"
+                  class="ag-theme-balham grid"
+                  :gridOptions="gridOptions2"
+                  :columnDefs="columnDefs2"
+                  :rowData="rowData2"
+                  :rowDataChanged="onRowDataChanged2"
+                  :enableFilter="true"
+                  :enableSorting="true"
+                  :enableColResize="true"
                 >
-                  Export to CSV
-                </button>
-              </template>
-              <ag-grid-vue
-                style="font-size: 12px; height: 500px"
-                class="ag-theme-balham grid"
-                :gridOptions="gridOptions2"
-                :columnDefs="columnDefs2"
-                :rowData="rowData2"
-                :rowDataChanged="onRowDataChanged2"
-                :enableFilter="true"
-                :enableSorting="true"
-                :enableColResize="true"
-              >
-              </ag-grid-vue>
-              <template slot="footer">
-                <div class="legend">
-                  Detailed Orderers and Encounter Providers
-                </div>
-              </template>
-            </card>
+                </ag-grid-vue>
+                <template slot="footer">
+                  <div class="legend">
+                    Detailed Orderers and Encounter Providers
+                  </div>
+                </template>
+              </card>
+            </div>
           </div>
         </div>
 

@@ -220,7 +220,7 @@
           </div>
         </div>
         <!-- Show table only with PHIPII -->
-        <div v-else-if="phipii">
+        <div v-else-if="!selectedSiteVISNorNATIONAL">
           <!-- Section Header -->
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">
@@ -452,7 +452,7 @@
         </div>
 
         <!-- Show table only with PHIPII -->
-        <div v-else-if="phipii">
+        <div v-else-if="!selectedSiteVISNorNATIONAL">
           <!-- Section Header -->
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">Surveys to Patients - By Provider</h4>

@@ -212,6 +212,7 @@ const store = new Vuex.Store({
     surveyDetails: [],
     surveyPatientDetails: [],
     surveyPCL5: [],
+    surveyPCL5Providers: [],
 
     // ebpCount,
     // ebpInfo,
@@ -663,7 +664,7 @@ const store = new Vuex.Store({
         });
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS;
     },
-
+    //  OTHER SERVICES SESSIONS
     // total for Prolonged Service CPT Category (large set of CPTs)
     siteEncounterCPTProlongedService: (state) => {
       let filteredArray = state.encounterCPTCategories
@@ -1006,7 +1007,13 @@ const store = new Vuex.Store({
     siteMBCPCL5: (state) => {
       let filteredArray = state.surveyPCL5
         .filter((site) => site.StaPa === state.selectedSite)
-        .filter((site) => site.dataType === "surveyPCL5Total");
+        .filter((site) => {
+          // console.log(
+          //   "checking the dataType of the data coming in: ",
+          //   site.dataType
+          // );
+          return site.dataType === "surveyPCL5Total";
+        });
       // console.log("siteMBCPCL5 filteredArray is: ", filteredArray);
       return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
     },
@@ -1022,10 +1029,36 @@ const store = new Vuex.Store({
         .filter((site) => site.dataType === "surveyProvidersPCL5");
       return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
     },
+
+    siteMBCProvidersPrimaryPCL5Total: (state) => {
+      let filteredArray = state.surveyPCL5
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => site.dataType === "surveyProvidersPrimaryPCL5");
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
+    },
     siteMBCPatientsTotal: (state) => {
       let filteredArray = state.surveyPCL5
         .filter((site) => site.StaPa === state.selectedSite)
         .filter((site) => site.dataType === "surveyPatientsTotal");
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
+    },
+    siteMBCProvidersPrimaryAndOrdererPCL5Totals: (state) => {
+      let filteredArray = state.surveyPCL5Providers
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => {
+          // console.log("checking for surveyProvidersPrimaryAndOrderer ", site);
+          return site.dataType === "surveyProvidersPrimaryAndOrderer";
+        });
+      // console.log("filteredArray is: ", filteredArray);
+      return filteredArray.length == 0 ? 0 : filteredArray;
+    },
+
+    siteMBCPatientsTotalWith2orMoreSessions: (state) => {
+      let filteredArray = state.surveyPCL5
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter(
+          (site) => site.dataType === "surveyPatientsTotal2orMoreSessions"
+        );
       return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
     },
     siteMBCPatientsPCL5oneOrMore: (state) => {
@@ -1439,14 +1472,27 @@ const store = new Vuex.Store({
       const path = "pct.cgi";
       const format = "survey_pcl5";
       const allparams = setParams(format, context.state);
-      console.log("SURVEY_PCL5 allparams is: ", allparams);
+      // console.log("SURVEY_PCL5 allparams is: ", allparams);
       axios.get(`${path}?${allparams}`).then((response) => {
-        console.log("got survey_pcl5 from server");
-        console.log("response.data is: ", response.data);
+        // console.log("got survey_pcl5 from server");
+        // console.log("response.data is: ", response.data);
         // console.log('check context before commit: ', context)
         context.commit("SET_SURVEY_PCL5", response.data);
       });
     },
+    SURVEY_PCL5_PROVIDERS(context) {
+      const path = "pct.cgi";
+      const format = "survey_pcl5_providers";
+      const allparams = setParams(format, context.state);
+      // console.log("SURVEY_PCL5_PROVIDERS allparams is: ", allparams);
+      axios.get(`${path}?${allparams}`).then((response) => {
+        // console.log("got survey_pcl5_providers from server");
+        // console.log("response.data is: ", response.data);
+        // console.log('check context before commit: ', context)
+        context.commit("SET_SURVEY_PCL5_PROVIDERS", response.data);
+      });
+    },
+
     SURVEY_PATIENT_DETAILS(context) {
       // console.log('in survey_patient_details action, check context here', context)
 
@@ -1456,8 +1502,8 @@ const store = new Vuex.Store({
       // const params = 'format=survey_patient_details&stapa=' + context.state.selectedsite + '&daterange=' + context.state.selectedrange
 
       axios.get(`${path}?${allparams}`).then((response) => {
-        // console.log('got survey_patient_details  from server')
-        // console.log('response.data is: ', response.data)
+        // console.log("got survey_patient_details  from server");
+        // console.log("response.data is: ", response.data);
         // console.log('check context before commit: ', context)
         context.commit("SET_SURVEY_PATIENT_DETAILS", response.data);
       });
@@ -1906,6 +1952,8 @@ const store = new Vuex.Store({
         context.dispatch("SURVEY_DETAILS");
         // PCL5 Data
         context.dispatch("SURVEY_PCL5");
+        // PCL5 Providers and Ordered By for Table
+        context.dispatch("SURVEY_PCL5_PROVIDERS");
         // NOT FOR VISN AND NATIONAL
         if (!VorN) {
           context.dispatch("SURVEY_PATIENT_DETAILS");
@@ -2080,6 +2128,10 @@ const store = new Vuex.Store({
     SET_SURVEY_PCL5(state, surveyPCL5) {
       // console.log('in mutate SET_SURVEY_PCL5 and state is: ', state)
       state.surveyPCL5 = surveyPCL5;
+    },
+    SET_SURVEY_PCL5_PROVIDERS(state, surveyPCL5Providers) {
+      // console.log('in mutate SET_SURVEY_PCL5_PROVIDERS and state is: ', state)
+      state.surveyPCL5Providers = surveyPCL5Providers;
     },
     SET_SURVEY_DETAILS(state, surveyDetails) {
       // console.log('in mutate SET_SURVEY_DETAILS and state is: ', state)

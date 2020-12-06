@@ -52,14 +52,13 @@
         </div>
 
         <!-- Section Header PCL5 -->
-        <div class="row d-flex justify-content-center">
+        <!-- <div class="row d-flex justify-content-center">
           <h4 class="section-head">Providers</h4>
-        </div>
+        </div> -->
 
-        <!-- Might want to try and get the transition to work -->
-        <!-- <transition name="fade" mode="out-in">  -->
-        <!-- </transition> -->
-        <div class="d-flex flex-row justify-content-center">
+        <!-- Now deprecated because need to separate ordering provider-->
+        <!-- from primary providers who order and primary providers who don't order-->
+        <!-- <div class="d-flex flex-row justify-content-center">
           <div class="col-xl-3 col-md-3">
             <stats-card>
               <div slot="header" class="icon-warning">
@@ -81,6 +80,64 @@
               </div>
             </stats-card>
           </div>
+        </div> -->
+
+        <!-- Provider Section Header PCL5 -->
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">Providers</h4>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          <div class="col-xl-3 col-md-3">
+            <div class="d-flex flex-row justify-content-center mt-2 mb-2">
+              Ordering Providers PCL5s
+            </div>
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Ordering Providers<br />
+                  <!-- ({{ formatNumber(siteMBCProvidersPCL5Total) }} -->
+                  <!-- {{ formatNumber() }}) -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteMBCPatientsPCL5oneOrMorePercent">
+                      <!-- {{ siteMBCPatientsPCL5oneOrMorePercent }}% -->
+                      {{ formatNumber(siteMBCProvidersPCL5Total) }}
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            <div class="d-flex flex-row justify-content-center mt-2 mb-2">
+              Encounter Providers PCL5s
+            </div>
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Primary Providers<br />
+                  ({{ formatNumber(siteMBCProvidersPrimaryPCL5Total) }}/
+                  {{ formatNumber(siteMBCProvidersTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteMBCProvidersPrimaryPCL5Percent">
+                      {{ siteMBCProvidersPrimaryPCL5Percent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
         </div>
 
         <!-- Section Header PCL5 -->
@@ -90,6 +147,9 @@
 
         <div class="d-flex flex-row justify-content-center">
           <div class="col-xl-3 col-md-3">
+            <div class="d-flex flex-row justify-content-center mt-2 mb-2">
+              All Patients
+            </div>
             <stats-card>
               <div slot="header" class="icon-warning">
                 <i class="nc-icon-outline nc-single-01 text-warning"></i>
@@ -112,6 +172,9 @@
           </div>
 
           <div class="col-xl-3 col-md-3">
+            <div class="d-flex flex-row justify-content-center mt-2 mb-2">
+              Patients Seen 2 or More Times
+            </div>
             <stats-card>
               <div slot="header" class="icon-warning">
                 <i class="nc-icon-outline nc-single-01 text-warning"></i>
@@ -120,7 +183,7 @@
                 <p class="card-category">
                   Two or More PCL5s<br />
                   ({{ formatNumber(siteMBCPatientsPCL5moreThanOne) }}/
-                  {{ formatNumber(siteMBCPatientsTotal) }})
+                  {{ formatNumber(siteMBCPatientsTotalWith2orMoreSessions) }})
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -131,6 +194,46 @@
                 </h4>
               </div>
             </stats-card>
+          </div>
+        </div>
+
+        <!-- Section Header Survey Provider Primary and Orderer Table-->
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">
+            Ordering Providers and Encounter Providers Details
+          </h4>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <card>
+              <template slot="header">
+                <span>Hover Over Column Header to View Menu</span>
+                <button
+                  class="float-right"
+                  @click="gridOptions2.api.exportDataAsCsv()"
+                >
+                  Export to CSV
+                </button>
+              </template>
+              <ag-grid-vue
+                style="font-size: 12px; height: 500px"
+                class="ag-theme-balham grid"
+                :gridOptions="gridOptions2"
+                :columnDefs="columnDefs2"
+                :rowData="rowData2"
+                :rowDataChanged="onRowDataChanged2"
+                :enableFilter="true"
+                :enableSorting="true"
+                :enableColResize="true"
+              >
+              </ag-grid-vue>
+              <template slot="footer">
+                <div class="legend">
+                  Detailed Orderers and Encounter Providers
+                </div>
+              </template>
+            </card>
           </div>
         </div>
 
@@ -235,7 +338,7 @@
               </div>
               <div slot="content">
                 <p class="card-category">
-                  Surveys by Patients / <br />All Patients
+                  Surveys by Patients / <br />All Patients Seen
                 </p>
                 <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
                 <h4 class="card-title">
@@ -477,9 +580,12 @@ export default {
       "siteMBCPCL5",
       "siteMBCProvidersTotal",
       "siteMBCProvidersPCL5Total",
+      "siteMBCProvidersPrimaryPCL5Total",
+      "siteMBCPatientsTotalWith2orMoreSessions",
       "siteMBCPatientsTotal",
       "siteMBCPatientsPCL5oneOrMore",
       "siteMBCPatientsPCL5moreThanOne",
+      "siteMBCProvidersPrimaryAndOrdererPCL5Totals",
     ]),
     ...mapState([
       "selectedSite",
@@ -506,9 +612,23 @@ export default {
       // console.log('here is siteSurveyPatientDetails from store ', this.siteSurveyPatientDetails)
       return this.siteSurveyPatientDetails; // filters when site changes
     },
+    rowData2() {
+      // console.log(
+      //   // "here is siteMBCProvidersPrimaryAndOrdererPCL5Totals from store ",
+      //   this.siteMBCProvidersPrimaryAndOrdererPCL5Totals
+      // );
+      return this.siteMBCProvidersPrimaryAndOrdererPCL5Totals; // filters when site changes
+    },
+
     siteMBCProvidersPCL5Percent() {
       let percent =
         (+this.siteMBCProvidersPCL5Total / +this.siteMBCProvidersTotal) * 100;
+      return precise_round(percent, 1);
+    },
+    siteMBCProvidersPrimaryPCL5Percent() {
+      let percent =
+        (+this.siteMBCProvidersPrimaryPCL5Total / +this.siteMBCProvidersTotal) *
+        100;
       return precise_round(percent, 1);
     },
     siteMBCPatientsPCL5oneOrMorePercent() {
@@ -518,7 +638,8 @@ export default {
     },
     siteMBCPatientsPCL5moreThanOnePercent() {
       let percent =
-        (+this.siteMBCPatientsPCL5moreThanOne / +this.siteMBCPatientsTotal) *
+        (+this.siteMBCPatientsPCL5moreThanOne /
+          +this.siteMBCPatientsTotalWith2orMoreSessions) *
         100;
       return precise_round(percent, 1);
     },
@@ -540,8 +661,12 @@ export default {
         },
         suppressPropertyNamesCheck: true,
       }),
+      (this.gridOptions2 = {
+        suppressPropertyNamesCheck: true,
+      }),
       (this.columnDefs = this.createColDefs()),
       (this.columnDefs1 = this.createColDefs1()),
+      (this.columnDefs2 = this.createColDefs2()),
       (this.onFilterChanged = function () {
         console.log("filter changed!!");
       });
@@ -553,6 +678,7 @@ export default {
     this.SURVEY_DETAILS();
     this.SURVEY_PATIENT_DETAILS();
     this.SURVEY_PCL5();
+    this.SURVEY_PCL5_PROVIDERS();
 
     this.GET_INSTITUTIONS();
   },
@@ -562,6 +688,7 @@ export default {
       "SURVEY_DETAILS",
       "SURVEY_PATIENT_DETAILS",
       "SURVEY_PCL5",
+      "SURVEY_PCL5_PROVIDERS",
       "CURRENT_PAGE",
       "GET_INSTITUTIONS",
     ]),
@@ -687,6 +814,53 @@ export default {
         // }
       ];
     },
+    createColDefs2() {
+      return [
+        {
+          headerName:
+            "Ordering Providers and Primary Providers - Survey and Encounters",
+          children: [
+            {
+              headerName: "Site",
+              field: "StaPa",
+              width: 15,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
+              cellRenderer: "agGroupCellRenderer",
+            },
+            {
+              headerName: "Provider",
+              field: "ProviderOrdererName",
+              width: 40,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
+            },
+            {
+              headerName: "Position Title",
+              field: "PositionTitle",
+              width: 40,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
+            },
+            {
+              headerName: "Surveys Ordered",
+              field: "sumTotalPCL5",
+              width: 25,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            },
+            {
+              headerName: "Encounters Seen",
+              field: "sumTotalVisits",
+              width: 25,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            },
+          ],
+        },
+      ];
+    },
+
     onRowDataChanged() {
       // console.log('row data changed!!')
       Vue.nextTick(() => {
@@ -698,6 +872,13 @@ export default {
       Vue.nextTick(() => {
         this.gridOptions1.api.sizeColumnsToFit();
         // this.gridOptions1.api.expandAll();
+      });
+    },
+    onRowDataChanged2() {
+      // console.log('row1 data changed!!')
+      Vue.nextTick(() => {
+        this.gridOptions2.api.sizeColumnsToFit();
+        // this.gridOptions2.api.expandAll();
       });
     },
   },

@@ -1,13 +1,12 @@
 export const encountersAll = [
     {
       title: "PCT Clinic (Stop Code) Definition",
-      value: "<u><b>Description</b></u>: Encounters conducted in all defined PCT Clinics are display for the selected date range and from the selected site. " +
+      value: "<u><b>Description</b></u>: Encounters conducted in all defined PCT Clinics are displayed for the selected date range and from the selected site. " +
       " PCT Clinics at the medical center are set up within VistA configured using one or more stop codes.<br/><br/>" + 
       "<u><b>Stop Codes:</b></u> To identify encounters from PCT Clinics, we use the following PTSD stop codes when they are in the PRIMARY position only:<br/><br/>" +
       "<u><b>516 PTSD - Group</b></u>:<br/>" +
       "&nbsp;&nbsp;&nbsp; Records consultation and/or treatment follow-up provided to more than one individual.  " + 
       "Treatment is provided to those patients with PTSD.  Includes provider and support services. <u>542</u> " + 
-      "Use the assigned CHAR4 Code if this activity takes place through a designated NEPEC PTSD Clinical Team (PCT).<br/><br/>" +
       "<u><b>542 Telephone PTSD</b></u>:<br/>"	+ 
       "&nbsp;&nbsp;&nbsp;Records patient consultation or medical care management, advice, and/or referral provided by telephone contact " + 
       "between patient or patient's next-of-kin and/or the person(s) with whom the patient has a meaningful relationship, and clinical and/or professional staff assigned to the PCT.<br/><br/>" + 

@@ -1,8 +1,8 @@
 export const consultsAll = [
     {
       title: "Total Consults",
-      value: "<u><b>Description</b></u>: Total Consults is the sum of consults from the selected date range that were set-up at the medical center with one or more stop codes. For PCT Clinics we use these PCT stop codes:<br/><br/>" +
-      "<b>Stop Codes, Primary Position only:</b><br/><br/>" + 
+      value: "<u><b>Description</b></u>: Total Consults is the sum of consults from the selected date range that were set-up at the medical center with one or more stop codes. We display PCT Consults that have a PCT stop code associated with them:<br/><br/>" +
+      "<b>PCT Stop Codes include:</b><br/><br/>" + 
       "<u>516 PTSD - Group</u>:<br/>" +
       "&nbsp;&nbsp;&nbsp; Records consultation and/or treatment follow-up provided to more than one individual.  " + 
       "Treatment is provided to those patients with PTSD.  Includes provider and support services.  <br/><br/>" + 
@@ -20,7 +20,7 @@ export const consultsAll = [
     },
     {
       title: "Pending",
-      value: "<u><b>Description</b></u>: Pending consults are actionable consults, and therefore they are highlighted here in their own box. " + 
+      value: "<u><b>Description</b></u>: This status designates requests that have been sent, but not yet acted on by the receiving service." + 
       "(Pending, Active and others) are pulled from the Consult Box application." +
        "<br/><br/>In the Pending box, notice the ability to 'Click to Filter PENDING'. <br/><br/>Click that text and it will automatically filter " + 
       "the Consult Statuses pie chart and the Consult Details table below to show PENDING consults only",
@@ -28,7 +28,7 @@ export const consultsAll = [
     },
     {
       title: "Active",
-      value: "<u><b>Description</b></u>: Active consults are actionable consults, and therefore they are highlighted here in their own box. " + 
+      value: "<u><b>Description</b></u>: This status occurs when a consult is 'received' and efforts are underway to fulfill a consult. A consult may also revert to 'active' in other scenarios such as when an appointment is canceled or no-showed." + 
       "(Pending, Active and others) are pulled from the Consult Box application." +
       "<br/><br/>In the Active box, notice the ability to 'Click to Filter ACTIVE'. Click that text and it will automatically filter " + 
       "the Consult Statuses pie chart and the Consult Details table below to show ACTIVE consults only",

@@ -866,39 +866,66 @@ export default {
             {
               headerName: "Site",
               field: "StaPa",
-              width: 15,
+              width: 11,
               cellStyle: { "text-align": "left" },
               filter: "agTextColumnFilter",
-              cellRenderer: "agGroupCellRenderer",
+              // cellRenderer: "agGroupCellRenderer",
             },
             {
               headerName: "Provider",
               field: "ProviderOrdererName",
-              width: 40,
+              width: 30,
               cellStyle: { "text-align": "left" },
               filter: "agTextColumnFilter",
             },
             {
               headerName: "Position Title",
               field: "PositionTitle",
-              width: 40,
+              width: 25,
               cellStyle: { "text-align": "left" },
               filter: "agTextColumnFilter",
             },
             {
-              headerName: "PCL5s Administered",
+              headerName: "PCL5s Given",
               field: "sumTotalPCL5",
-              width: 25,
+              width: 20,
               cellStyle: { "text-align": "left" },
               filter: "agNumberColumnFilter",
+              tooltipField: 'Total PCL5s Ordered'
             },
             {
-              headerName: "Encounters Seen",
+              headerName: "Visits",
               field: "sumTotalVisits",
-              width: 25,
+              width: 12,
               cellStyle: { "text-align": "left" },
               filter: "agNumberColumnFilter",
+              tooltipField: 'Total Encounters as Primary Provider'
             },
+            {
+              headerName: "Unique Pts",
+              field: "NumPatientsUnique",
+              width: 18,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+              tooltipField: 'Total Unique Patients Seen'
+            },
+            {
+              headerName: "Pts w PCL5 > 1",
+              field: "NumPatientsWithMoreThanOnePCL5",
+              width: 20,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+              tooltipField: 'Total Patients Given More Than 1 PCL5'
+             },
+            {
+//     "": "6",
+              headerName: "Pts w Visits > 1",
+              field: "NumPatientsWithMoreThanOneVisit",
+              width: 20,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+              tooltipField: 'Total Patients Seen More Than Once'
+            }
           ],
         },
       ];

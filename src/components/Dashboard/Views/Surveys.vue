@@ -28,7 +28,18 @@
               disclaimer.emphasis
             }}</span>
           </p>
-        </div>
+          <div v-if="dataError">
+            <div class="category" style="font-style: italic; text-align: center;">
+             <span style="color: red; font-size: 2rem; font-weight: bold; text-align: center; text-decoration: underline;" >
+               WARNING! DATA ERROR TODAY - 2/7/2021 
+             </span>
+             <span style="color: red; font-size: 2rem; font-weight: bold; text-align: center; text-decoration: underline;" >
+               WE ARE WORKING TO SOLVE THE PROBLEM
+             </span>
+            </div> 
+          </div> 
+ 
+       </div>
 
         <hr />
 
@@ -636,6 +647,7 @@ export default {
       "selectedInstitutions",
       "selectedInstitutionsNames",
       "disclaimer",
+      "dataError",
     ]),
     selectedSiteVISNorNATIONAL() {
       return /VISN|NATIONAL/.test(this.selectedSite);

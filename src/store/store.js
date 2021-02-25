@@ -176,6 +176,7 @@ const store = new Vuex.Store({
         "Please remember that the data presented in this tool, whether it is aggregated or patient specific, is confidential, privileged and for operational purposes only and ",
       emphasis: "cannot be used for research purposes.",
     },
+    dataError: false,
     institutions: [],
     selectedInstitutions: [],
     selectedInstitutionsNames: [],
@@ -2386,6 +2387,7 @@ store.subscribe((mutation, state) => {
     selectedRangePicker: state.selectedRangePicker,
     userFirstName: state.userFirstName,
     userLastName: state.userLastName,
+    phipii: state.phipii,
   };
   // store.subscribe was called
   // console.log('store.subscribe was called with selectedRangePicker set to: ', storedState.selectedRangePicker)

@@ -19,7 +19,18 @@
           <p class="category" style="font-size: .8rem; font-style: italic;">
             <span class="font: red;">{{ disclaimer.asterisks}}</span>
             {{ disclaimer.mainText }}
-            <span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
+            <span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span>
+          </p>
+          <div v-if="dataError">
+            <div class="category" style="font-style: italic; text-align: center;">
+             <span style="color: red; font-size: 2rem; font-weight: bold; text-align: center; text-decoration: underline;" >
+               WARNING! DATA ERROR TODAY - 2/7/2021 
+             </span>
+             <span style="color: red; font-size: 2rem; font-weight: bold; text-align: center; text-decoration: underline;" >
+               WE ARE WORKING TO SOLVE THE PROBLEM
+             </span>
+            </div> 
+          </div> 
         </div>
 
       <hr/>
@@ -396,6 +407,7 @@ export default {
       'selectedInstitutions', 
       'selectedInstitutionsNames',
       'disclaimer',
+      'dataError',
     ]), 
 
     ...mapGetters([

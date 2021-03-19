@@ -672,6 +672,31 @@ export default {
                   // this.setSelectedRange('oneyear')
                 },
               },
+              {
+                key: "",
+                label: "",
+              },
+              {
+                key: "FY21Qtr1",
+                label: "Qtr1 FY21",
+                value: () => {
+                  return {
+                    start: moment('2020-10-01', 'YYYYMMDD'),
+                    end: moment('2020-12-31', 'YYYYMMDD'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
+
             ],
             noShortcuts: false,
             range: true,

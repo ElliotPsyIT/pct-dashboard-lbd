@@ -1024,12 +1024,13 @@ const store = new Vuex.Store({
         .filter((site) => site.dataType === "surveyProvidersTotal");
       return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
     },
-    siteMBCProvidersPCL5Total: (state) => {
-      let filteredArray = state.surveyPCL5
-        .filter((site) => site.StaPa === state.selectedSite)
-        .filter((site) => site.dataType === "surveyProvidersPCL5");
-      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
-    },
+    // Removed w revision 3.2.2021
+    // siteMBCProvidersPCL5Total: (state) => {
+    //   let filteredArray = state.surveyPCL5
+    //     .filter((site) => site.StaPa === state.selectedSite)
+    //     .filter((site) => site.dataType === "surveyProvidersPCL5");
+    //   return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal;
+    // },
 
     siteMBCProvidersPrimaryPCL5Total: (state) => {
       let filteredArray = state.surveyPCL5

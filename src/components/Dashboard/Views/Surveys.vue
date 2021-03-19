@@ -51,6 +51,20 @@
           All PCL5 Listings Below Include Both PCL5 Weekly and PCL5 Monthly
         </div>
 
+          <!--  FAQ -->
+          <div
+            style="
+              align-items: center;
+              display: flex;
+              justify-content: center;
+              margin-top: 20px;
+            "
+          >
+            <div style="width: 60%; margin-bottom: 10px">
+              <VueFaqAccordion :items="PCL5Administrations" />
+            </div>
+          </div>
+ 
         <div class="row d-flex justify-content-center">
           <div class="col-xl-3 col-md-3">
             <stats-card :key="siteMBCPCL5">
@@ -101,6 +115,22 @@
           <h4 class="section-head">Patients</h4>
         </div>
 
+          <!--  FAQ -->
+          <div
+            style="
+              align-items: center;
+              display: flex;
+              justify-content: center;
+              margin-top: 20px;
+            "
+          >
+            <div style="width: 60%; margin-bottom: 10px">
+              <VueFaqAccordion :items="PCL5AdministrationsAndPatientEncounters" />
+            </div>
+          </div>
+ 
+
+ 
         <div class="d-flex flex-row justify-content-center">
           <div class="col-xl-3 col-md-3">
             <div class="d-flex flex-row justify-content-center mt-2 mb-2">
@@ -158,8 +188,22 @@
           <h4 class="section-head">Providers</h4>
         </div>
 
+          <!--  FAQ -->
+          <div
+            style="
+              align-items: center;
+              display: flex;
+              justify-content: center;
+              margin-top: 20px;
+            "
+          >
+            <div style="width: 60%; margin-bottom: 10px">
+              <VueFaqAccordion :items="PCL5AdministrationsAndProviders" />
+            </div>
+          </div>
+
         <div class="d-flex flex-row justify-content-center">
-          <div class="col-xl-3 col-md-3">
+          <!-- <div class="col-xl-3 col-md-3">
             <div class="d-flex flex-row justify-content-center mt-2 mb-2">
               Administering Providers PCL5s
             </div>
@@ -170,20 +214,17 @@
               <div slot="content">
                 <p class="card-category">
                   Administering Providers<br />
-                  <!-- ({{ formatNumber(siteMBCProvidersPCL5Total) }} -->
-                  <!-- {{ formatNumber() }}) -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteMBCPatientsPCL5oneOrMorePercent">
-                      <!-- {{ siteMBCPatientsPCL5oneOrMorePercent }}% -->
                       {{ formatNumber(siteMBCProvidersPCL5Total) }}
                     </span>
                   </transition>
                 </h4>
               </div>
             </stats-card>
-          </div>
+          </div>  -->
 
           <div class="col-xl-3 col-md-3">
             <div class="d-flex flex-row justify-content-center mt-2 mb-2">
@@ -215,7 +256,7 @@
           <!-- Section Header -->
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">
-              Administering Providers and Encounter Providers Details
+              Primary Providers PCL5 Data Details for Patient Panels 
             </h4>
           </div>
 
@@ -238,13 +279,17 @@
           <!-- Section Header -->
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">
-              Administering Providers and Encounter Providers Details
+              Primary Providers PCL5 Data Details for Patient Panels
             </h4>
           </div>
-          <div class="d-flex flex-row justify-content-center mt-2 mb-2">
+          <!-- <div class="d-flex flex-row justify-content-center mt-2 mb-2">
             Encounters Are Number of Encounters Where Provider is Listed as
             Primary
+          </div> -->
+          <div class="d-flex flex-row justify-content-center mt-2 mb-2">
+            <b>Note:&nbsp;&nbsp;&nbsp;</b> This table displays the number of patients who have received PCL-5s that a primary PCT encounter provider has seen during the selected time-frame. The provider does not have to be the person who administered the PCL. For this table, if a veteran is seen by more than one provider for the timeframe both providers are credited for the patient’s PCL-5 information (as consistent with team-based-care it does not matter who in the PCT gave them the PCL-5).
           </div>
+
 
           <!-- Section Header Survey Provider Primary and Orderer Table-->
           <div class="row d-flex justify-content-center">
@@ -320,21 +365,18 @@
         </div>
 
         <!--  FAQ -->
-        <div
+        <!-- <div
           style="align-items: center; display: flex; justify-content: center"
         >
           <div style="width: 60%; margin-bottom: 10px">
             <VueFaqAccordion :items="ClinicsProvidersPatients" />
           </div>
-        </div>
+        </div> -->
 
         <!-- Section Header -->
-        <div class="row d-flex justify-content-center">
-          <!-- <h4 class="">Providers Here Are Administering and Encounter Providers</h4> -->
-        </div>
-        <!-- siteSurveyClinicTotals -->
-        <div class="row d-flex justify-content-center">
-          <!-- <div class="col-xl-3 col-md-4">
+        <!-- <div class="row d-flex justify-content-center"></div> -->
+        <!-- <div class="row d-flex justify-content-center">
+          <div class="col-xl-3 col-md-4">
             <h4 class="section-head d-flex justify-content-center">Clinics</h4>
             <stats-card :key="siteSurveyClinicTotals.surveysGivenClinics">
               <div slot="header" class="icon-warning">
@@ -351,8 +393,8 @@
                 </h4>
               </div>
             </stats-card>
-          </div> -->
-          <!-- siteSurveyProviderTotals -->
+          </div>
+         
           <div class="col-xl-3 col-md-4">
             <h4 class="section-head d-flex justify-content-center">
               Providers
@@ -368,7 +410,6 @@
                 <p class="card-category">
                   Surveys by Providers / <br />All Providers
                 </p>
-                <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
                 <h4 class="card-title">
                   {{
                     addCommas(siteSurveyProviderTotals.surveysGivenProviders)
@@ -380,7 +421,6 @@
             </stats-card>
           </div>
 
-          <!-- siteSurveyPatientTotals -->
           <div class="col-xl-3 col-md-4">
             <h4 class="section-head d-flex justify-content-center">Patients</h4>
             <div class="d-flex flex-row justify-content-center mt-2 mb-2">
@@ -394,7 +434,6 @@
                 <p class="card-category">
                   Surveys by Patients / <br />All Patients Seen
                 </p>
-                <!-- <h4 class="card-title">{{ siteEncounterCPTAssessment.total }}/{{ siteEncounterCPTAssessment.percent }}%</h4> -->
                 <h4 class="card-title">
                   {{
                     addCommas(siteSurveyPatientTotals.surveysGivenPatients)
@@ -405,7 +444,7 @@
               </div>
             </stats-card>
           </div>
-        </div>
+        </div> -->
 
         <!-- Section Header -->
         <div class="row d-flex justify-content-center">
@@ -547,6 +586,9 @@ import { AgGridVue } from "ag-grid-vue";
 
 import VueFaqAccordion from "vue-faq-accordion";
 import {
+  PCL5Administrations,
+  PCL5AdministrationsAndPatientEncounters,
+  PCL5AdministrationsAndProviders,
   SurveysSummary,
   ClinicsProvidersPatients,
   SurveyTypesGiven,
@@ -569,6 +611,9 @@ export default {
     return {
       //     gridOptions: null,
       //     gridOptions1: null,
+      PCL5Administrations: PCL5Administrations, 
+      PCL5AdministrationsAndPatientEncounters: PCL5AdministrationsAndPatientEncounters,
+      PCL5AdministrationsAndProviders: PCL5AdministrationsAndProviders,
       SurveysSummary: SurveysSummary,
       ClinicsProvidersPatients: ClinicsProvidersPatients,
       SurveyTypesGiven: SurveyTypesGiven,
@@ -869,8 +914,59 @@ export default {
         // }
       ];
     },
+
     createColDefs2() {
       return [
+        {
+          headerName:
+            "Primary Providers PCL5 Data Details for Patient Panels",
+          children: [
+            {
+              headerName: "Site",
+              field: "StaPa",
+              width: 15,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
+              // cellRenderer: "agGroupCellRenderer",
+            },
+            {
+              headerName: "Provider",
+              field: "StaffName",
+              width: 45,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
+            },
+            {
+              headerName: "Position Title",
+              field: "PositionTitle",
+              width: 35,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
+            },
+            {
+              headerName: "Patients w/ At Least One PCL5",
+              field: "PatientOneOrMorePCL5",
+              width: 45,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
+              tooltipField: 'Patients At Least One PCL5'
+            },
+            {
+              headerName: "Patients Seen 2 or More w/ At Least Two PCL5",
+              field: "Patient2orMoreSessions2orMorePCL5",
+              width: 65,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+              tooltipField: 'Patients Seen 2 or More and at least One PCL5'
+            },
+          ]
+        }
+          
+      ];
+    },
+    createColDefs2a() {
+      return [
+
         {
           headerName:
             "Administering Providers and Primary Providers - Survey and Encounters",

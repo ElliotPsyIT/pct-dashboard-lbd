@@ -221,6 +221,231 @@
           </div>
         </div>
 
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">Group Psychotherapy Sessions</h4>
+        </div>
+
+        <!-- EncountersPsychotherapy FAQ -->
+        <div
+          style="align-items: center; display: flex; justify-content: center"
+        >
+          <div style="width: 60%; margin-bottom: 10px">
+            <VueFaqAccordion :items="encounterTelehealthGrp" />
+          </div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Group<br />
+                  <!-- <transition name="fade" mode="out-in">  -->
+                  ({{ formatNumber(siteEncounterCPTGroup) }}/
+                  {{ formatNumber(siteEncounterTotal) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTGroupPercent">
+                      {{ siteEncounterCPTGroupPercent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+        </div>
+
+        <!-- Telehealth All -->
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">Telehealth All</h4>
+        </div>
+
+        <!-- encounterTelehealthAll FAQ -->
+        <div
+          style="align-items: center; display: flex; justify-content: center"
+        >
+          <div style="width: 60%; margin-bottom: 10px">
+            <VueFaqAccordion :items="encounterTelehealthAll" />
+          </div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  <b>Video</b><br />To Home<br />
+                  <!-- <transition name="fade" mode="out-in">  -->
+                  ({{ formatNumber(telehealthHomeAll) }}/
+                  {{ formatNumber(formatNumber(siteEncounterTotal)) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterTelehealthHomeGrpPercentAll">
+                      {{ siteEncounterTelehealthHomeGrpPercentAll }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  <b>Video</b><br />To Associate Facility<br />
+                  <!-- <transition name="fade" mode="out-in">  -->
+                  ({{ formatNumber(telehealthSameStationAll) }}/
+                  {{ formatNumber(formatNumber(siteEncounterTotal)) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span
+                      :key="siteEncounterTelehealthSameStationGrpPercentAll"
+                    >
+                      {{ siteEncounterTelehealthSameStationGrpPercentAll }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i
+                  class="nc-icon nc-preferences-circle-rotate text-success"
+                ></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  <b>Video</b><br />To Different Station<br />
+                  <!-- <transition name="fade" mode="out-in">  -->
+                  ({{ formatNumber(telehealthDiffStationAll) }}/
+                  {{ formatNumber(formatNumber(siteEncounterTotal)) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span
+                      :key="siteEncounterTelehealthDiffStationGrpPercentAll"
+                    >
+                      {{ siteEncounterTelehealthDiffStationGrpPercentAll }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Phone Therapy<br />
+                  <!-- <transition name="fade" mode="out-in">  -->
+                  ({{ formatNumber(telehealthPhoneAllTherapy) }}/
+                  {{ formatNumber(siteEncounterTotal) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterAllPhoneTherapyPercent">
+                      {{ siteEncounterAllPhoneTherapyPercent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+        </div>
+
+        <!-- Psychotherapy Patients Section -->
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">Psychotherapy Patients by Session Types</h4>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Individual Tx Only</p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTPatientsIndTherapyOnly">
+                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsIndOnly)) }} Pts -->
+                      {{ siteEncounterCPTPatientsIndTherapyOnly }} Pts
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Group Tx Only</p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTPatientsGrpTherapyOnly">
+                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsTherapyOnly)) }} Pts -->
+                      {{ siteEncounterCPTPatientsGrpTherapyOnly }} Pts
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-4">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i
+                  class="nc-icon nc-preferences-circle-rotate text-success"
+                ></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">Both Ind and Grp Tx</p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTPatientsBothTherapyOnly">
+                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsTherapyOnly)) }} Pts -->
+                      {{ siteEncounterCPTPatientsBothTherapyOnly }} Pts
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+        </div>
+
         <!-- Psychotherapy Patients Section -->
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Individual Psychotherapy Format</h4>
@@ -361,6 +586,7 @@
             </stats-card>
           </div>
         </div>
+
 
         <!-- Psychotherapy Patients Section -->
         <div class="row d-flex justify-content-center">
@@ -536,46 +762,7 @@
 
         </div> -->
 
-        <!-- Psychotherapy Section -->
-        <div class="row d-flex justify-content-center">
-          <h4 class="section-head">Group Psychotherapy Sessions</h4>
-        </div>
-
-        <!-- EncountersPsychotherapy FAQ -->
-        <div
-          style="align-items: center; display: flex; justify-content: center"
-        >
-          <div style="width: 60%; margin-bottom: 10px">
-            <VueFaqAccordion :items="encounterTelehealthGrp" />
-          </div>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center">
-          <div class="col-xl-3 col-md-3">
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">
-                  Group<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
-                  ({{ formatNumber(siteEncounterCPTGroup) }}/
-                  {{ formatNumber(siteEncounterTotal) }})
-                  <!-- </transition> -->
-                </p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterCPTGroupPercent">
-                      {{ siteEncounterCPTGroupPercent }}%
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>
-          </div>
-        </div>
-
+        <!-- Group Psychotherapy Section -->
         <!-- Psychotherapy Patients Section -->
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Group Psychotherapy Format</h4>
@@ -719,72 +906,6 @@
 
         <hr />
 
-        <!-- Psychotherapy Patients Section -->
-        <div class="row d-flex justify-content-center">
-          <h4 class="section-head">Psychotherapy Patients by Session Types</h4>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center">
-          <div class="col-xl-3 col-md-4">
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon-outline nc-single-01 text-success"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">Individual Tx Only</p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterCPTPatientsIndTherapyOnly">
-                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsIndOnly)) }} Pts -->
-                      {{ siteEncounterCPTPatientsIndTherapyOnly }} Pts
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>
-          </div>
-
-          <div class="col-xl-3 col-md-4">
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">Group Tx Only</p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterCPTPatientsGrpTherapyOnly">
-                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsTherapyOnly)) }} Pts -->
-                      {{ siteEncounterCPTPatientsGrpTherapyOnly }} Pts
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>
-          </div>
-
-          <div class="col-xl-3 col-md-4">
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i
-                  class="nc-icon nc-preferences-circle-rotate text-success"
-                ></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">Both Ind and Grp Tx</p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterCPTPatientsBothTherapyOnly">
-                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsTherapyOnly)) }} Pts -->
-                      {{ siteEncounterCPTPatientsBothTherapyOnly }} Pts
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>
-          </div>
-        </div>
-
         <!-- Other Services Section -->
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Other Services Sessions</h4>
@@ -883,126 +1004,6 @@
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTProlongedService.percent">
                       {{ siteEncounterCPTProlongedService.percent }}%
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>
-          </div>
-        </div>
-
-        <!-- Telehealth All -->
-        <div class="row d-flex justify-content-center">
-          <h4 class="section-head">Telehealth All</h4>
-        </div>
-
-        <!-- encounterTelehealthAll FAQ -->
-        <div
-          style="align-items: center; display: flex; justify-content: center"
-        >
-          <div style="width: 60%; margin-bottom: 10px">
-            <VueFaqAccordion :items="encounterTelehealthAll" />
-          </div>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center">
-          <div class="col-xl-3 col-md-4">
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon-outline nc-single-01 text-success"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">
-                  <b>Video</b><br />To Home<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
-                  ({{ formatNumber(telehealthHomeAll) }}/
-                  {{ formatNumber(formatNumber(siteEncounterTotal)) }})
-                  <!-- </transition> -->
-                </p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterTelehealthHomeGrpPercentAll">
-                      {{ siteEncounterTelehealthHomeGrpPercentAll }}%
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>
-          </div>
-
-          <div class="col-xl-3 col-md-4">
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon-outline nc-multiple-11 text-success"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">
-                  <b>Video</b><br />To Associate Facility<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
-                  ({{ formatNumber(telehealthSameStationAll) }}/
-                  {{ formatNumber(formatNumber(siteEncounterTotal)) }})
-                  <!-- </transition> -->
-                </p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span
-                      :key="siteEncounterTelehealthSameStationGrpPercentAll"
-                    >
-                      {{ siteEncounterTelehealthSameStationGrpPercentAll }}%
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>
-          </div>
-
-          <div class="col-xl-3 col-md-4">
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i
-                  class="nc-icon nc-preferences-circle-rotate text-success"
-                ></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">
-                  <b>Video</b><br />To Different Station<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
-                  ({{ formatNumber(telehealthDiffStationAll) }}/
-                  {{ formatNumber(formatNumber(siteEncounterTotal)) }})
-                  <!-- </transition> -->
-                </p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span
-                      :key="siteEncounterTelehealthDiffStationGrpPercentAll"
-                    >
-                      {{ siteEncounterTelehealthDiffStationGrpPercentAll }}%
-                    </span>
-                  </transition>
-                </h4>
-              </div>
-            </stats-card>
-          </div>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center">
-          <div class="col-xl-3 col-md-3">
-            <stats-card>
-              <div slot="header" class="icon-warning">
-                <i class="nc-icon-outline nc-single-01 text-warning"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">
-                  Phone Therapy<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
-                  ({{ formatNumber(telehealthPhoneAllTherapy) }}/
-                  {{ formatNumber(siteEncounterTotal) }})
-                  <!-- </transition> -->
-                </p>
-                <h4 class="card-title">
-                  <transition name="fade" mode="out-in">
-                    <span :key="siteEncounterAllPhoneTherapyPercent">
-                      {{ siteEncounterAllPhoneTherapyPercent }}%
                     </span>
                   </transition>
                 </h4>

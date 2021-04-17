@@ -161,6 +161,7 @@ const store = new Vuex.Store({
       encounters: true,
       providers: true,
       surveys: true,
+      mbc: true,
       ebp: true,
     },
     appVersion: "2.6.0",
@@ -1947,7 +1948,21 @@ const store = new Vuex.Store({
           context.dispatch("PROVIDER_PATIENT_DETAILS_CPT");
         }
       }
-      if (context.state.route.path == "/admin/surveys") {
+      // if (context.state.route.path == "/admin/surveys") {
+      //   // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')
+      //   context.dispatch("SURVEY_TOTALS");
+      //   // TABLE - DISPLAYS COUNTS AND NOT DETAILS
+      //   context.dispatch("SURVEY_DETAILS");
+      //   // PCL5 Data
+      //   context.dispatch("SURVEY_PCL5");
+      //   // PCL5 Providers and Ordered By for Table
+      //   context.dispatch("SURVEY_PCL5_PROVIDERS");
+      //   // NOT FOR VISN AND NATIONAL
+      //   if (!VorN) {
+      //     context.dispatch("SURVEY_PATIENT_DETAILS");
+      //   }
+      // }
+      if (context.state.route.path == "/admin/mbc") {
         // console.log('calling Actions PROVIDER_DETAILS & PROVIDER_INFO & PROVIDER_PATIENT_DETAILS_CPT')
         context.dispatch("SURVEY_TOTALS");
         // TABLE - DISPLAYS COUNTS AND NOT DETAILS
@@ -2337,6 +2352,7 @@ const store = new Vuex.Store({
     },
     SET_INSTITUTIONS_SELECTED(state, institutions) {
       //    set the selectedInstitutions in state
+      // console.log('in SET_INSTITUTIONS_SELECTED: ', institutions)
       state.selectedInstitutions = institutions["sids"]; // replace with institutions.sids
       state.selectedInstitutionsNames = institutions["names"];
     },

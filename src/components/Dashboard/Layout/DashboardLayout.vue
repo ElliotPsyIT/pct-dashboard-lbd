@@ -27,7 +27,11 @@
         <i class="nc-icon nc-circle-09"></i>
         <p>Providers</p>
       </sidebar-link>
-      <sidebar-link to="/admin/surveys">
+      <!-- <sidebar-link to="/admin/surveys">
+        <i class="nc-icon nc-paper-2"></i>
+        <p>Surveys</p>
+      </sidebar-link> -->
+      <sidebar-link to="/admin/mbc">
         <i class="nc-icon nc-paper-2"></i>
         <p>MBC</p>
       </sidebar-link>

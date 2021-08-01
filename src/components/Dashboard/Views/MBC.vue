@@ -256,7 +256,7 @@
           <!-- Section Header -->
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">
-              Primary Providers PCL5 Data Details for Patient Panels 
+              Team-Based Care PCL5 Data Details for Patient Panels
             </h4>
           </div>
 
@@ -279,7 +279,7 @@
           <!-- Section Header -->
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">
-              Primary Providers PCL5 Data Details for Patient Panels
+              Team-Based Care PCL5 Data Details for Patient Panels
             </h4>
           </div>
           <!-- <div class="d-flex flex-row justify-content-center mt-2 mb-2">
@@ -919,7 +919,7 @@ export default {
       return [
         {
           headerName:
-            "Primary Providers PCL5 Data Details for Patient Panels",
+            "Team-Based Care PCL5 Data Details for Patient Panels",
           children: [
             {
               headerName: "Site",

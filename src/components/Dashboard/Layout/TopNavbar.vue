@@ -712,7 +712,26 @@ export default {
                   // this.setSelectedRange('threemonths')
                 },
               },
-
+              {
+                key: "FY21Qtr3",
+                label: "Qtr3 FY21",
+                value: () => {
+                  return {
+                    start: moment('2021-04-01'),
+                    end: moment('2021-06-30'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
 
             ],
             noShortcuts: false,

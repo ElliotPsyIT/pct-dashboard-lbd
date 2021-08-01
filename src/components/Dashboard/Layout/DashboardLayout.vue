@@ -33,7 +33,7 @@
       </sidebar-link> -->
       <sidebar-link to="/admin/mbc">
         <i class="nc-icon nc-paper-2"></i>
-        <p>MBC</p>
+        <p>MBC & Surveys</p>
       </sidebar-link>
       <sidebar-link to="/admin/ebp">
         <i class="nc-icon nc-notes"></i>

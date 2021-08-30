@@ -45,6 +45,8 @@ export function arrayEmpty(arr) {
 
 // helper for rounding to decimals
 export function precise_round(num, dec){
+  if (isNaN(num)) num = 0;
+  if (isNaN(dec)) dec = 0;
   if ((typeof num !== 'number') || (typeof dec !== 'number')) 
     return false 
   var num_sign = num >= 0 ? 1 : -1

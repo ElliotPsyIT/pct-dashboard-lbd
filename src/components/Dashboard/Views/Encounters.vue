@@ -136,7 +136,7 @@
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterTotal">
-                      {{ asyncValue(formatNumber(siteEncounterTotal)) }}
+                      {{ siteEncounterTotalCount }}
                     </span>
                   </transition>
                 </h4>
@@ -157,7 +157,7 @@
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterPatientTotal">
-                      {{ asyncValue(formatNumber(siteEncounterPatientTotal)) }}
+                      {{ siteEncounterPatientCount }}
                     </span>
                   </transition>
                 </h4>
@@ -396,7 +396,6 @@
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTPatientsIndTherapyOnly">
-                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsIndOnly)) }} Pts -->
                       {{ siteEncounterCPTPatientsIndTherapyOnly }} Pts
                     </span>
                   </transition>
@@ -415,7 +414,6 @@
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTPatientsGrpTherapyOnly">
-                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsTherapyOnly)) }} Pts -->
                       {{ siteEncounterCPTPatientsGrpTherapyOnly }} Pts
                     </span>
                   </transition>
@@ -436,7 +434,6 @@
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterCPTPatientsBothTherapyOnly">
-                      <!-- {{ asyncValue(formatNumber(siteEncounterCPTPatientsTherapyOnly)) }} Pts -->
                       {{ siteEncounterCPTPatientsBothTherapyOnly }} Pts
                     </span>
                   </transition>
@@ -1238,6 +1235,12 @@ export default {
       "siteProviderSelected",
     ]),
 
+    siteEncounterTotalCount() {
+      return this.siteEncounterTotal || 0; // all distinct visitsid w/ CPT filtering
+    },
+    siteEncounterPatientCount() {
+      return this.siteEncounterPatientTotal || 0; // all distinct patientSID w/ CPT filtering
+    },
     // Psychotherapy Patients by Sessions types - computed
     siteEncounterCPTPatientsIndTherapyOnly() {
       return this.siteEncounterCPTPatientsIndOnly || 0;
@@ -1596,10 +1599,6 @@ export default {
     ]),
     formatNumber(num) {
       return addCommas(num);
-    },
-    asyncValue(val, v) {
-      let startingValue = val == 0 ? "Loading..." : val;
-      return startingValue;
     },
     createColDefs() {
       return [

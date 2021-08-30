@@ -51,7 +51,6 @@
           All PCL5 Listings Below Include Both PCL5 Weekly and PCL5 Monthly
         </div>
 
-          <!--  FAQ -->
           <div
             style="
               align-items: center;
@@ -80,13 +79,13 @@
         </div>
 
         <!-- Section Header PCL5 -->
-        <!-- <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center">
           <h4 class="section-head">Providers</h4>
-        </div> -->
+        </div>
 
         <!-- Now deprecated because need to separate administering provider-->
         <!-- from primary providers who order and primary providers who don't order-->
-        <!-- <div class="d-flex flex-row justify-content-center">
+        <div class="d-flex flex-row justify-content-center">
           <div class="col-xl-3 col-md-3">
             <stats-card>
               <div slot="header" class="icon-warning">
@@ -108,14 +107,13 @@
               </div>
             </stats-card>
           </div>
-        </div> -->
+        </div>
 
         <!-- Section Header PCL5 -->
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Patients</h4>
         </div>
 
-          <!--  FAQ -->
           <div
             style="
               align-items: center;
@@ -188,7 +186,6 @@
           <h4 class="section-head">Providers</h4>
         </div>
 
-          <!--  FAQ -->
           <div
             style="
               align-items: center;
@@ -203,7 +200,7 @@
           </div>
 
         <div class="d-flex flex-row justify-content-center">
-          <!-- <div class="col-xl-3 col-md-3">
+          <div class="col-xl-3 col-md-3">
             <div class="d-flex flex-row justify-content-center mt-2 mb-2">
               Administering Providers PCL5s
             </div>
@@ -224,7 +221,7 @@
                 </h4>
               </div>
             </stats-card>
-          </div>  -->
+          </div>
 
           <div class="col-xl-3 col-md-3">
             <div class="d-flex flex-row justify-content-center mt-2 mb-2">
@@ -253,7 +250,6 @@
         </div>
 
         <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
-          <!-- Section Header -->
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">
               Primary Providers PCL5 Data Details for Patient Panels 
@@ -273,28 +269,21 @@
               ><u>Link to BISL PHI/PII Access Request</u></a
             >
           </div>
-        </div>
-        <!-- Show table only with PHIPII -->
+        </div> 
+
         <div v-else-if="!selectedSiteVISNorNATIONAL">
-          <!-- Section Header -->
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">
-              Primary Providers PCL5 Data Details for Patient Panels
+             Team-Based Care PCL5 Data Details for Patient Panels 
             </h4>
           </div>
-          <!-- <div class="d-flex flex-row justify-content-center mt-2 mb-2">
-            Encounters Are Number of Encounters Where Provider is Listed as
-            Primary
-          </div> -->
           <div class="d-flex flex-row justify-content-center mt-2 mb-2">
             <b>Note:&nbsp;&nbsp;&nbsp;</b> This table displays the number of patients who have received PCL-5s that a primary PCT encounter provider has seen during the selected time-frame. The provider does not have to be the person who administered the PCL. For this table, if a veteran is seen by more than one provider for the timeframe both providers are credited for the patient’s PCL-5 information (as consistent with team-based-care it does not matter who in the PCT gave them the PCL-5).
           </div>
 
 
-          <!-- Section Header Survey Provider Primary and Orderer Table-->
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">
-              <!-- Administering Providers and Encounter Providers Details -->
             </h4>
           </div>
 

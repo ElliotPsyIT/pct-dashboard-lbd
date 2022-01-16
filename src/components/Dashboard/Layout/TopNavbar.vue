@@ -566,32 +566,32 @@ export default {
               type: "button",
             },
             customShortcuts: [
-              {
-                key: "oneweek",
-                label: "1 Week",
-                value: () => {
-                  return {
-                    start: moment().subtract(1, "week"),
-                    end: moment(),
-                  };
-                },
-                // callback: ({start, end, shortcut}) => {
-                callback: (callbackValue) => {
-                  // console.log('oneweek called with this callbackValue: ', callbackValue)
-                  let { start, end, shortcut } = callbackValue;
-                  this.datePickerInput({
-                    start: start.format("YYYYMMDD"),
-                    end: end.format("YYYYMMDD"),
-                    shortcut: shortcut.key,
-                  });
-                  // clicked a shortcut
-                  // this.datePickerInput({ start, end }, 'shortcut')
-                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  // this.setSelectedRange('oneweek')
-                  // colorize standard date range button
-                  // this.toggleDateRange = true
-                },
-              },
+              // {
+              //   key: "oneweek",
+              //   label: "1 Week",
+              //   value: () => {
+              //     return {
+              //       start: moment().subtract(1, "week"),
+              //       end: moment(),
+              //     };
+              //   },
+              //   // callback: ({start, end, shortcut}) => {
+              //   callback: (callbackValue) => {
+              //     // console.log('oneweek called with this callbackValue: ', callbackValue)
+              //     let { start, end, shortcut } = callbackValue;
+              //     this.datePickerInput({
+              //       start: start.format("YYYYMMDD"),
+              //       end: end.format("YYYYMMDD"),
+              //       shortcut: shortcut.key,
+              //     });
+              //     // clicked a shortcut
+              //     // this.datePickerInput({ start, end }, 'shortcut')
+              //     // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+              //     // this.setSelectedRange('oneweek')
+              //     // colorize standard date range button
+              //     // this.toggleDateRange = true
+              //   },
+              // },
               {
                 key: "onemonth",
                 label: "1 Month",
@@ -732,7 +732,26 @@ export default {
                   // this.setSelectedRange('threemonths')
                 },
               },
-
+              {
+                key: "FY21Qtr4",
+                label: "Qtr4 FY21",
+                value: () => {
+                  return {
+                    start: moment('2021-07-01'),
+                    end: moment('2021-09-30'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
             ],
             noShortcuts: false,
             range: true,

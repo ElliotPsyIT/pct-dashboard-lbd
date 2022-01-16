@@ -11,6 +11,7 @@ export const ProviderActivitySummary = [
     {
       title: "Provider Activity Summary",
       value: "<u><b>Description</b></u>: The Provider Activity Summary table lists the counts of unique patients and visits from PCT encounters (see Encounter page for encounter definitions). " +
+      "Providers listed here are primary providers for each PCT encounter." +
       "<br/><br/>In addition, the table displays the number of visits (encounters) and percent of visits that are documented as EBP visits.",
       category: "Provider Activity Summary Defined..."
     }

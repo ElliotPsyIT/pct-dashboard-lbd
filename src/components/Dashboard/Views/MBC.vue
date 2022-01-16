@@ -831,7 +831,7 @@ export default {
         columnKeys: [
           "OrderedBy",
           "LocationName",
-          "NL4",
+          "InitialsAndL4",
           "SurveyGivenDateTime",
           "SurveyName",
           "RawScore",

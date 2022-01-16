@@ -465,7 +465,7 @@ export default {
         autoGroupColumnDef: {
           headerName: "Staff / Site / Clinic / Patient",
           // field: 'InitialsAndL4',
-          field: "NL4",
+          field: "InitialsAndL4",
           // field: 'LocationName'
           suppressPropertyNamesCheck: true,
         },

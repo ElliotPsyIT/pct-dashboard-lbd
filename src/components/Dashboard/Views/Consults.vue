@@ -820,7 +820,7 @@ export default {
             },
             { headerName: "Patient", 
               // field: "InitialsAndL4", 
-              field: "NL4",               
+              field: "InitialsAndL4",               
               width: 70, 
               cellStyle: { 'text-align': "left" },
               // filter: "agtextColumnFilter" 

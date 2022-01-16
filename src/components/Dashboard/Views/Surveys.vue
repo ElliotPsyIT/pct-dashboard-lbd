@@ -792,7 +792,7 @@ export default {
         columnKeys: [
           "OrderedBy",
           "LocationName",
-          "NL4",
+          "InitialsAndL4",
           "SurveyGivenDateTime",
           "SurveyName",
           "RawScore",
@@ -870,7 +870,7 @@ export default {
         {
           headerName: "Patient",
           // field: "InitialsAndL4",
-          field: "NL4",
+          field: "InitialsAndL4",
           width: 100,
           cellStyle: { "text-align": "left" },
           filter: "agTextColumnFilter",

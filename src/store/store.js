@@ -1352,6 +1352,10 @@ const store = new Vuex.Store({
         return false;
       }
     },
+        //current date (for data error warning message)
+    warningCurrentDate() {
+      return new Date().toLocaleDateString();
+    },
   },
 
   // *****************************************

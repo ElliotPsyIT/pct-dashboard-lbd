@@ -42,7 +42,7 @@
                   text-decoration: underline;
                 "
               >
-                WARNING! DATA ERROR TODAY - 2/7/2021
+                WARNING! DATA ERROR TODAY - {{ warningCurrentDate }} 
               </span>
               <span
                 style="
@@ -544,6 +544,7 @@ export default {
       "siteEBPPieChartSeries",
       "siteEBPDetailsTypes",
       "siteEBPDetailsSessionsSurveys",
+      "warningCurrentDate",
     ]),
 
     siteEBPSessionsAnyPercent() {

@@ -31,7 +31,7 @@
           <div v-if="dataError">
             <div class="category" style="font-style: italic; text-align: center;">
              <span style="color: red; font-size: 2rem; font-weight: bold; text-align: center; text-decoration: underline;" >
-               WARNING! DATA ERROR TODAY - 2/7/2021 
+               WARNING! DATA ERROR TODAY -  {{ warningCurrentDate }}
              </span>
              <span style="color: red; font-size: 2rem; font-weight: bold; text-align: center; text-decoration: underline;" >
                WE ARE WORKING TO SOLVE THE PROBLEM
@@ -880,7 +880,7 @@ export default {
         {
           headerName: "Patient",
           // field: "InitialsAndL4",
-          field: "NL4",
+          field: "InitialsAndL4",
           width: 100,
           cellStyle: { "text-align": "left" },
           filter: "agTextColumnFilter",

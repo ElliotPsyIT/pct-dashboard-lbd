@@ -51,6 +51,16 @@
           All PCL5 Listings Below Include Both PCL5 Weekly and PCL5 Monthly
         </div>
 
+        <!-- Space between label above and Note below -->
+        <br/>
+
+        <!-- Download Table Data Note -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+            <b>NOTE:&nbsp;&nbsp;&nbsp;</b> Peer support encounters were removed from the MBC data presented since peer supports cannot engage in MBC. We know there are other clinical services included in the MBC denominator that may be questioned as counting towards MBC, and we understand sites may provide such services to varying degrees.  We take that into consideration while monitoring MBC activity and working toward developing a performance metric.
+          </div>
+        </div>
+
           <!--  FAQ -->
           <div
             style="
@@ -287,7 +297,9 @@
             Primary
           </div> -->
           <div class="d-flex flex-row justify-content-center mt-2 mb-2">
-            <b>Note:&nbsp;&nbsp;&nbsp;</b> This table displays the number of patients who have received PCL-5s that a primary PCT encounter provider has seen during the selected time-frame. The provider does not have to be the person who administered the PCL. For this table, if a veteran is seen by more than one provider for the timeframe both providers are credited for the patient’s PCL-5 information (as consistent with team-based-care it does not matter who in the PCT gave them the PCL-5).
+            <b>Notes:&nbsp;&nbsp;&nbsp;</b> This table displays the number of patients who have received PCL-5s that a primary PCT encounter provider has seen during the selected time-frame. The provider does not have to be the person who administered the PCL. For this table, if a veteran is seen by more than one provider for the timeframe both providers are credited for the patient’s PCL-5 information (as consistent with team-based-care it does not matter who in the PCT gave them the PCL-5).
+            <br/><br/>
+            If downloading data from tables on the dashboard, please consult with and follow guidance of the local Information Security Officer (ISO) and Privacy Officer.
           </div>
 
 
@@ -451,6 +463,13 @@
           <h4 class="section-head">Survey Types Given</h4>
         </div>
 
+        <!-- Download Table Data Note -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+            <b>NOTE:&nbsp;&nbsp;&nbsp;</b> If downloading data from tables on the dashboard, please consult with and follow guidance of the local Information Security Officer (ISO) and Privacy Officer.
+          </div>
+        </div>
+
         <!--  FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
@@ -521,6 +540,16 @@
           <div class="row d-flex justify-content-center">
             (Surveys Without a Total Score Are Listed Item-By-Item, e.g. C-SSRS)
           </div>
+
+        <!-- Space between title and data note -->
+        <br/>
+
+        <!-- Download Table Data Note -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+            <b>NOTE:&nbsp;&nbsp;&nbsp;</b> If downloading data from tables on the dashboard, please consult with and follow guidance of the local Information Security Officer (ISO) and Privacy Officer.
+          </div>
+        </div>
 
           <!--  FAQ -->
           <div

@@ -1014,6 +1014,13 @@
           <h4 class="section-head">Encounters Categories Summary</h4>
         </div>
 
+        <!-- Download Table Data Note -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+            <b>NOTE:&nbsp;&nbsp;&nbsp;</b> If downloading data from tables on the dashboard, please consult with and follow guidance of the local Information Security Officer (ISO) and Privacy Officer.
+          </div>
+        </div>
+
         <!-- encounterCategories FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
@@ -1056,6 +1063,13 @@
         <!-- CPT Details Section -->
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Procedure Code Details</h4>
+        </div>
+
+        <!-- Download Table Data Note -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+            <b>NOTE:&nbsp;&nbsp;&nbsp;</b> If downloading data from tables on the dashboard, please consult with and follow guidance of the local Information Security Officer (ISO) and Privacy Officer.
+          </div>
         </div>
 
         <!-- encounterCPTDetails FAQ -->

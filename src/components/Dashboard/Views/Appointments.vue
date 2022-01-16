@@ -137,6 +137,13 @@
             <h4 class="section-head">Clinic Level Cancel & No Show Summary</h4>
           </div>
 
+        <!-- Download Table Data Note -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+            <b>NOTE:&nbsp;&nbsp;&nbsp;</b> If downloading data from tables on the dashboard, please consult with and follow guidance of the local Information Security Officer (ISO) and Privacy Officer.
+          </div>
+        </div>
+
           <!-- appointmentNoShowCancelByClinicTable FAQ -->
           <div
             style="align-items: center; display: flex; justify-content: center"

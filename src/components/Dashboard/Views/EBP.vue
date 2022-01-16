@@ -290,6 +290,13 @@
           <h4 class="section-head">EBP Activity Summary</h4>
         </div>
 
+        <!-- Download Table Data Note -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+            <b>NOTE:&nbsp;&nbsp;&nbsp;</b> If downloading data from tables on the dashboard, please consult with and follow guidance of the local Information Security Officer (ISO) and Privacy Officer.
+          </div>
+        </div>
+
         <!-- EBP Activity Summary FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
@@ -379,6 +386,13 @@
               Providers' EBPs and Surveys By Clinic and Patient
             </h4>
           </div>
+
+        <!-- Download Table Data Note -->
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+            <b>NOTE:&nbsp;&nbsp;&nbsp;</b> If downloading data from tables on the dashboard, please consult with and follow guidance of the local Information Security Officer (ISO) and Privacy Officer.
+          </div>
+        </div>
 
           <!-- Providers EBPs And Surveys By Clinic And Patient Summary FAQ -->
           <div

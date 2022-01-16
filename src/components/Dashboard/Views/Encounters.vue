@@ -136,7 +136,7 @@
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterTotal">
-                      {{ siteEncounterTotalCount }}
+                      {{ formatNumber(siteEncounterTotalCount) }}
                     </span>
                   </transition>
                 </h4>
@@ -157,7 +157,7 @@
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterPatientTotal">
-                      {{ siteEncounterPatientCount }}
+                      {{ formatNumber(siteEncounterPatientCount) }}
                     </span>
                   </transition>
                 </h4>

@@ -356,9 +356,7 @@ const store = new Vuex.Store({
         .filter((site) => site.StaPa === state.selectedSite)
         .filter((site) => site.dataType === "patientCount");
       // console.log('Encounter Patient Total is: ', filteredArray)
-      return filteredArray.length == 0
-        ? 0
-        : addCommas(filteredArray[0].countTotal);
+      return filteredArray.length == 0 ? 0 : filteredArray[0].countTotal;
     },
     siteEncounterLineChartSeries: (state) => {
       let encounterLineChartMonths = state.encounterLineChart

@@ -40,6 +40,12 @@
         <p>EBPs</p>
       </sidebar-link>
       <div v-if="viewPrivileges">
+        <sidebar-link to="/admin/tlc">
+          <i class="nc-icon nc-circle-09"></i>
+          <p>Time Limited Care</p>
+        </sidebar-link>
+      </div>
+      <div v-if="viewPrivileges">
         <sidebar-link to="/admin/explore">
           <i class="nc-icon nc-notes"></i>
           <p>Explore</p>

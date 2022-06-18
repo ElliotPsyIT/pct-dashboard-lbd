@@ -151,7 +151,7 @@
                 </div>
               </form>
             </li>
-            <li class="nav-item py-0">
+            <li v-if="selectedPage != 'TLC'" class="nav-item py-0">
               <form class="form-inline">
                 <div class="form-group ml-2">
                   <div v-for="demo in demoComponents" :key="demo.title">
@@ -236,6 +236,23 @@
                   </div>
                 </div>
               </form>
+            </li>
+            <!-- Hide Calendar on Time Limited Care Page -->
+            <li v-if="selectedPage == 'TLC'" class="nav-item py-0">
+              <span 
+                style="
+                  margin-left: 12px;
+                  color: #d3d3d3;
+                  background-color: rgba(255, 255, 255, 0.96);
+                  padding: 8px;
+                  border-radius: 5px;
+                  font-size: 1rem;
+                  border: 1px solid;
+                  border-color: #cbd5e0;
+                "
+              >
+                Time Limited Care Has Fixed Dates
+              </span>
             </li>
             <li v-show="selectedSiteHavingInstitutions" class="nav-item py-0">
               <!-- border-style: solid; {{capitalizeFirstLetter(currentpage)}}s -->
@@ -739,6 +756,47 @@ export default {
                   return {
                     start: moment('2021-07-01'),
                     end: moment('2021-09-30'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
+
+              {
+                key: "FY22Qtr1",
+                label: "Qtr1 FY22",
+                value: () => {
+                  return {
+                    start: moment('2021-10-01'),
+                    end: moment('2021-12-31'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
+              {
+                key: "FY22Qtr2",
+                label: "Qtr2 FY22",
+                value: () => {
+                  return {
+                    start: moment('2022-01-01'),
+                    end: moment('2022-03-31'),
                   };
                 },
                 callback: ({ start, end, shortcut }) => {

@@ -14,9 +14,14 @@
     <p class="category "><b>Select Station AND Date Range <i class="bold nc-icon nc-stre-up text-primary"></i></b> From Drop Downs Above </p>
     <p class="category "><b>View Details <i class="bold nc-icon nc-stre-left text-primary"></i></b> Use Left Sidebar</p>
     <p class="category" style="font-size: .8rem; font-style: italic; margin: 0;"><span class="font: red;">{{ disclaimer.asterisks}}</span>{{ disclaimer.mainText }}<span style="font-weight:bold; text-decoration:underline">{{ disclaimer.emphasis }}</span></p>
-    <span class="category news" style="font-size: .8rem; text-decoration: none;"><b><span style="font-size: 1.2rem;">*</span> Telehealth Care: The Encounters page now contains detailed information on provision of telehealth care.</b></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="category news" style="font-size: .8rem; text-decoration: none;"><b><span style="font-size: 1.2rem;">*</span> VISN and National Data: Select VISN or National on the Station drop for down for page summary data.</b></span>
-
+    <!-- <span class="category news" style="font-size: .8rem; text-decoration: none;"><b><span style="font-size: 1.2rem;">*</span> Telehealth Care: The Encounters page now contains detailed information on provision of telehealth care.</b></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+    <!-- <span class="category news" style="font-size: .8rem; text-decoration: none;"><b><span style="font-size: 1.2rem;">*</span> VISN and National Data: Select VISN or National on the Station drop for down for page summary data.</b></span> -->
+    <br/>
+    <p class="category news" >
+      <a class="videos" target="_blank" href="https://dvagov.sharepoint.com/sites/VHAPTSDMentoring/SitePages/Data%20Sources%20&%20Metrics.aspx">
+        NEW!&nbsp;&nbsp;PTSD Dashboard Videos - Click to View
+      </a>
+    </p>
   </div>
   
 </div>
@@ -537,5 +542,16 @@
    color: red;
    text-decoration: underline;
  }
+
+  a.videos {
+    font-size:.9rem;
+    text-decoration:none;
+    color:white;
+    background-color:red;
+    padding:8px;
+    border-radius:5px;
+    transition:0.3s;
+    margin-top:7px;
+  }
 </style>
 

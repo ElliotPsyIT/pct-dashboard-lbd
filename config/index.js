@@ -28,7 +28,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/pct.cgi': {
-        target: 'http://vhacdwdwhmhs01.vha.med.va.gov:9999',
+        target: 'http://vhacdwdwhmhs03.vha.med.va.gov:9999',
         // pathRewrite: {'format=':'elliot=1&format='}
         // use rewrite rule
       },

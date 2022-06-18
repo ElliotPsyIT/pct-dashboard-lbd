@@ -350,6 +350,32 @@
               </card>
             </div>
           </div>
+
+          <!-- <div class="row justify-content-center">
+            <div class="col-md-10">
+              <card>
+                <ag-grid-vue
+                  style="font-size: 12px; height: 500px"
+                  class="ag-theme-balham grid"
+                  :gridOptions="gridOptions4"
+                  :columnDefs="columnDefs4"
+                  :rowData="rowData4"
+                  :gridReady="onGridReady4"
+                  :enableFilter="true"
+                  :enableSorting="true"
+                  :enableColResize="true"
+                  :animateRows="true"
+                  :cellClicked="onCellClicked"
+                >
+                </ag-grid-vue>
+                <template slot="footer">
+                  <div class="legend">Providers' Patient Cases</div>
+                </template>
+              </card>
+            </div>
+          </div>
+ -->
+
           <!-- Display if PHIPII -->
         </div>
       </div>
@@ -401,6 +427,7 @@ export default {
       "selectedInstitutions",
       "selectedInstitutionsNames",
       "disclaimer",
+      "dataError",
     ]),
     ...mapGetters([
       "siteProviderDetailsCPT",
@@ -440,11 +467,17 @@ export default {
       // console.log('in computed, this.siteProviderInfo is: ', this.siteProviderInfo)
       return this.siteProviderInfo;
     }, // siteProviderInfo/Provider Activity Details
+    // rowData4() {
+    //   // console.log('in computed, this.mcodPatientLevelLookupData is: ', this.mcodPatientLevelLookupData)
+    //   return this.mcodPatientLevelLookupData;
+    // }, // ) providerCaseData/MCOD
+ 
   },
   beforeMount() {
     (this.columnDefs1 = this.createColDefs1()),
       (this.columnDefs2 = this.createColDefs2()),
       (this.columnDefs3 = this.createColDefs3()), // siteProviderInfo/Provider Activity Details
+      // (this.columnDefs4 = this.createColDefs4()), // siteProviderInfo/Provider Activity Details
       (this.onFilterChanged = function () {
         console.log("filter changed!!");
       });
@@ -474,7 +507,11 @@ export default {
       }),
       (this.gridOptions3 = {
         suppressPropertyNamesCheck: true,
-      });
+      })
+      // (this.gridOptions4 = {
+      //   suppressPropertyNamesCheck: true,
+      // })
+      ;
   },
   mounted() {
     this.CURRENT_PAGE("providers");
@@ -497,6 +534,7 @@ export default {
 
       "CURRENT_PAGE",
       "GET_INSTITUTIONS",
+
     ]),
     addCommas,
     asyncValue(val) {
@@ -681,6 +719,64 @@ export default {
         // },
       ];
     },
+    createColDefs4() {
+      return [
+        {
+          headerName: "Caseload",
+          children: [
+            {
+              headerName: "Patient Name",
+              field: "StaPa",
+              width: 15,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
+            },
+            {
+              headerName: "Months Seen",
+              field: "MONTHS_BETWEEN_FIRST_AND_MOST_RECENT_SESSIONS",
+              width: 15,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            },
+            {
+              headerName: "First Session",
+              field: "MOST_RECENT_SESSION",
+              width: 15,
+              cellStyle: { "text-align": "left" },
+              filter: "agDateColumnFilter",
+            },
+            {
+              headerName: "Sessions",
+              field: "NUM_SESSIONS",
+              width: 15,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            },
+            {
+              headerName: "Ind Sessions",
+              field: "NUM_IND_TX_SESSIONS",
+              width: 15,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            },
+            {
+              headerName: "Grp Sessions",
+              field: "NUM_GRP_TX_SESSIONS",
+              width: 15,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            },
+            {
+              headerName: "PCL5",
+              field: "NUM_PCL5",
+              width: 15,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            }
+          ]
+        },
+      ]
+    },
     createColDefs3() {
       return [
         {
@@ -806,6 +902,10 @@ export default {
     onGridReady3() {
       // console.log('onGridReady3 fires sizeColumnsToFit!')
       this.gridOptions3.api.sizeColumnsToFit();
+    },
+    onGridReady4() {
+      // console.log('onGridReady3 fires sizeColumnsToFit!')
+      this.gridOptions4.api.sizeColumnsToFit();
     },
     // onRowDataChanged1() {
     //   console.log('row1 data change calledd!!')

@@ -7,6 +7,39 @@
       >
         Scroll Position {{ scrollPosition }}
 
+        <!-- <div>
+          {{ mcodPatientLevelLookupData }}
+        </div> -->
+
+      <!-- <div>
+        {{ CurrentProviderName }}
+      </div>
+ -->
+
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+              <card>
+                <ag-grid-vue
+                  style="font-size: 12px; height: 500px"
+                  class="ag-theme-balham grid"
+                  :gridOptions="gridOptions4"
+                  :columnDefs="columnDefs4"
+                  :rowData="rowData4"
+                  :gridReady="onGridReady4"
+                  :enableFilter="true"
+                  :enableSorting="true"
+                  :enableColResize="true"
+                  :animateRows="true"
+                  :cellClicked="onCellClicked"
+                >
+                </ag-grid-vue>
+                <template slot="footer">
+                  <div class="legend">Providers' Patient Cases</div>
+                </template>
+              </card>
+            </div>
+          </div>
+
         <nav class="navbar navbar-light bg-light">
           <form class="form-inline">
             <input
@@ -50,11 +83,18 @@
       <!-- container-fluid -->
     </div>
     <!-- content -->
+
   </transition>
 </template>
 
 <script>
+
+import Card from "src/components/UIComponents/Cards/Card.vue";
+
 import { mapState, mapGetters, mapActions } from "vuex";
+
+// Import Vue from "vue";
+import { AgGridVue } from "ag-grid-vue";
 
 import VueFriendlyIframe from "src/components/UIComponents/Iframe.vue";
 
@@ -76,6 +116,8 @@ function url(stapa, ptsid) {
 export default {
   components: {
     VueFriendlyIframe,
+    AgGridVue,
+    Card,
   },
   props: {
     message: {
@@ -88,7 +130,6 @@ export default {
       // showIframeBox: false,
       // triggerIframeLoad: true,
 
-      // input info for patient to lookup
       StaPa: null,
       PatientSID: null,
 
@@ -111,6 +152,13 @@ export default {
       "selectedInstitutionsNames",
       "disclaimer",
     ]),
+    ...mapGetters([
+      "mcodPatientLevelLookupData",
+    ]),
+    CurrentProviderName() {
+      console.log('StaffName: ', this.mcodPatientLevelLookupData[0],StaffName);
+      return this.mcodPatientLevelLookupData[0],StaffName;
+    },
     changeBackgroundColor() {
       // console.log('in changeBackgroundColor selectedInstitutions is: ', this.selectedInstitutions)
       return this.selectedInstitutions.length > 0 || false;
@@ -120,8 +168,24 @@ export default {
       // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
       console.log("window.pageYOffset: ", window.pageYOffset);
     },
+    rowData4() {
+      // console.log('in computed, this.mcodPatientLevelLookupData is: ', this.mcodPatientLevelLookupData)
+      return this.mcodPatientLevelLookupData;
+    }, // providerCaseData/MCOD
+  },
+  beforeMount() {
+      (this.gridOptions4 = {
+        suppressPropertyNamesCheck: true,
+      });
+      (this.columnDefs4 = this.createColDefs4()); // siteProviderInfo/Provider Activity Details
+  },
+  mounted() {
+    this.MCOD_PATIENT_LEVEL_LOOKUP();
   },
   methods: {
+    ...mapActions([
+      "MCOD_PATIENT_LEVEL_LOOKUP",
+    ]),
     submitPatient() {
       // set the StaPa and PatientSID
       // get the url
@@ -152,6 +216,78 @@ export default {
     onIframeLoad() {
       console.log("onIframeLoad event triggered, iframe loaded!");
     },
+    onGridReady4() {
+      // console.log('onGridReady3 fires sizeColumnsToFit!')
+      this.gridOptions4.api.sizeColumnsToFit();
+    },
+    onCellClicked(event) {
+      let clickedCellFieldName = event.colDef.field;
+      let clickedCellDataSimple = event.value;
+      let clickedCellDataWithFieldReference =
+        event.node.data[clickedCellFieldName];
+      let clickedCellRowIndex = event.rowIndex;
+      let clickedCellNode = event.node;
+
+      console.log("onCellClicked node.data is ****: ", event.node.data);
+    },
+    createColDefs4() {
+      return [
+        {
+          headerName: "Caseload",
+          children: [
+            {
+              headerName: "Patient Name",
+              field: "PatientName",
+              width: 175,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
+            },
+            {
+              headerName: "Months Seen",
+              field: "MONTHS_BETWEEN_FIRST_AND_MOST_RECENT_SESSIONS",
+              width: 110,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            },
+            {
+              headerName: "First Session",
+              field: "MOST_RECENT_SESSION",
+              width: 110,
+              cellStyle: { "text-align": "left" },
+              filter: "agDateColumnFilter",
+            },
+            {
+              headerName: "# Sessions",
+              field: "NUM_SESSIONS",
+              width: 140,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            },
+            {
+              headerName: "# Ind Sessions",
+              field: "NUM_IND_TX_SESSIONS",
+              width: 140,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            },
+            {
+              headerName: "# Grp Sessions",
+              field: "NUM_GRP_TX_SESSIONS",
+              width: 140,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            },
+            {
+              headerName: "# PCL5",
+              field: "NUM_PCL5",
+              width: 140,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+            }
+          ]
+        },
+      ]
+    }
   },
 };
 </script>

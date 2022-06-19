@@ -15,3 +15,6 @@ test/unit/coverage
 
 # Data
 *.json
+
+#Backup Files
+*.bak

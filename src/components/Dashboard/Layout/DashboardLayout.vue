@@ -39,12 +39,10 @@
         <i class="nc-icon nc-notes"></i>
         <p>EBPs</p>
       </sidebar-link>
-      <div v-if="viewPrivileges">
         <sidebar-link to="/admin/tlc">
           <i class="nc-icon nc-circle-09"></i>
           <p>Time Limited Care</p>
         </sidebar-link>
-      </div>
       <div v-if="viewPrivileges">
         <sidebar-link to="/admin/explore">
           <i class="nc-icon nc-notes"></i>
@@ -108,9 +106,10 @@ export default {
       if (
         (this.userFirstName == "Elliot" && this.userLastName == "Fielstein0") ||
         (this.userFirstName == "Elliot" && this.userLastName == "Fielstein") ||
-        (this.userFirstName == "Samantha" &&
-          this.userLastName == "McClelland") ||
-        (this.userFirstName == "Wright" && this.userLastName == "Wright")
+        (this.userFirstName == "Samantha" && this.userLastName == "McClelland") ||
+        (this.userFirstName == "Samantha" && this.userLastName == "Wright") ||
+        (this.userFirstName == "Erin" && this.userLastName == "Romero") ||
+        (this.userFirstName == "Kelly" && this.userLastName == "Maieritsch")
       ) {
         // console.log('user matched, allowed to see Explore!')
         return true;

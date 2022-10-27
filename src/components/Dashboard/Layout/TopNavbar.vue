@@ -690,32 +690,12 @@ export default {
                 },
               },
               {
-                key: "FY21Qtr1",
-                label: "Qtr1 FY21",
+                key: "FY22Qtr4",
+                label: "Qtr4 FY22",
                 value: () => {
                   return {
-                    start: moment('2020-10-01'),
-                    end: moment('2020-12-31'),
-                  };
-                },
-                callback: ({ start, end, shortcut }) => {
-                  this.datePickerInput({
-                    start: start.format("YYYYMMDD"),
-                    end: end.format("YYYYMMDD"),
-                    shortcut: shortcut.key,
-                  });
-                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
-                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  // this.setSelectedRange('threemonths')
-                },
-              },
-             {
-                key: "FY21Qtr2",
-                label: "Qtr2 FY21",
-                value: () => {
-                  return {
-                    start: moment('2021-01-01'),
-                    end: moment('2021-03-31'),
+                    start: moment('2022-07-01'),
+                    end: moment('2022-09-30'),
                   };
                 },
                 callback: ({ start, end, shortcut }) => {
@@ -730,53 +710,12 @@ export default {
                 },
               },
               {
-                key: "FY21Qtr3",
-                label: "Qtr3 FY21",
+                key: "FY22Qtr3",
+                label: "Qtr3 FY22",
                 value: () => {
                   return {
-                    start: moment('2021-04-01'),
-                    end: moment('2021-06-30'),
-                  };
-                },
-                callback: ({ start, end, shortcut }) => {
-                  this.datePickerInput({
-                    start: start.format("YYYYMMDD"),
-                    end: end.format("YYYYMMDD"),
-                    shortcut: shortcut.key,
-                  });
-                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
-                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  // this.setSelectedRange('threemonths')
-                },
-              },
-              {
-                key: "FY21Qtr4",
-                label: "Qtr4 FY21",
-                value: () => {
-                  return {
-                    start: moment('2021-07-01'),
-                    end: moment('2021-09-30'),
-                  };
-                },
-                callback: ({ start, end, shortcut }) => {
-                  this.datePickerInput({
-                    start: start.format("YYYYMMDD"),
-                    end: end.format("YYYYMMDD"),
-                    shortcut: shortcut.key,
-                  });
-                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
-                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  // this.setSelectedRange('threemonths')
-                },
-              },
-
-              {
-                key: "FY22Qtr1",
-                label: "Qtr1 FY22",
-                value: () => {
-                  return {
-                    start: moment('2021-10-01'),
-                    end: moment('2021-12-31'),
+                    start: moment('2022-04-01'),
+                    end: moment('2022-06-30'),
                   };
                 },
                 callback: ({ start, end, shortcut }) => {
@@ -810,6 +749,108 @@ export default {
                   // this.setSelectedRange('threemonths')
                 },
               },
+              {
+                key: "FY22Qtr1",
+                label: "Qtr1 FY22",
+                value: () => {
+                  return {
+                    start: moment('2021-10-01'),
+                    end: moment('2021-12-31'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
+              {
+                key: "FY21Qtr4",
+                label: "Qtr4 FY21",
+                value: () => {
+                  return {
+                    start: moment('2021-07-01'),
+                    end: moment('2021-09-30'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
+              {
+                key: "FY21Qtr3",
+                label: "Qtr3 FY21",
+                value: () => {
+                  return {
+                    start: moment('2021-04-01'),
+                    end: moment('2021-06-30'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },              {
+                key: "FY21Qtr2",
+                label: "Qtr2 FY21",
+                value: () => {
+                  return {
+                    start: moment('2021-01-01'),
+                    end: moment('2021-03-31'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
+              // {
+              //   key: "FY21Qtr1",
+              //   label: "Qtr1 FY21",
+              //   value: () => {
+              //     return {
+              //       start: moment('2020-10-01'),
+              //       end: moment('2020-12-31'),
+              //     };
+              //   },
+              //   callback: ({ start, end, shortcut }) => {
+              //     this.datePickerInput({
+              //       start: start.format("YYYYMMDD"),
+              //       end: end.format("YYYYMMDD"),
+              //       shortcut: shortcut.key,
+              //     });
+              //     // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+              //     // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+              //     // this.setSelectedRange('threemonths')
+              //   },
+              // },
+
+
+
             ],
             noShortcuts: false,
             range: true,

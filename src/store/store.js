@@ -775,20 +775,20 @@ const store = new Vuex.Store({
     },
     siteEncounterApptCancelTotal: (state) => {
       // console.log('HERE!!!!!')
-      // let filteredArray = state.encounterApptCancelNoShow
-      //   .filter((site) => site.StaPa === state.selectedSite)
-      //   .filter(
-      //     (site) =>
-      //       site.CancelNoShow === 'CANCELLED BY PATIENT' ||
-      //       site.CancelNoShow === 'CANCELLED BY PATIENT & AUTO RE-BOOK' ||
-      //       site.CancelNoShow === 'CANCELLED BY CLINIC' ||
-      //       site.CancelNoShow === 'CANCELLED BY CLINIC & AUTO RE-BOOK'
-      //   )
+      let filteredArray = state.encounterApptCancelNoShow
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter(
+          (site) =>
+            site.CancelNoShow === 'CANCELLED BY PATIENT' ||
+            site.CancelNoShow === 'CANCELLED BY PATIENT & AUTO RE-BOOK' ||
+            site.CancelNoShow === 'CANCELLED BY CLINIC' ||
+            site.CancelNoShow === 'CANCELLED BY CLINIC & AUTO RE-BOOK'
+        )
       // console.log('filteredArray after filtering: ', filteredArray)
       let total = 0
-      // let cancelCountTotalArr = filteredArray.map((obj) => {
-      //   total += parseInt(obj.cancelNoShowCount, 10)
-      // })
+      filteredArray.map((obj) => {
+        total += parseInt(obj.cancelNoShowCount, 10)
+      })
       return total
     },
     siteEncounterApptTotalStr: (state) => {
@@ -2117,10 +2117,12 @@ const store = new Vuex.Store({
       let route = context.state.route.path
       let domain = route.split('/').pop() // page name
 
-      // SPECIAL CASE ***
+      // SPECIAL CASES ***
       // PROVIDER PAGE GETS DATA FROM ENCOUNTERS
       // SO GET INSTITUTIONS FROM ENCOUNTERS NOT PROVIDERS
+      // MBC PAGE NEEDS TO REFER TO SURVEY TABLE
       if ((domain == 'provider')) domain = 'encounters'
+      if ((domain == 'mbc')) domain = 'survey'
 
       const allparams = setParams('get_institutions', context.state)
 
@@ -2191,8 +2193,8 @@ const store = new Vuex.Store({
         // console.log('return from who: ', remote_user)
         if (remoteUser != undefined) {
           context.dispatch('setCurrentUser', {
-            FirstName: remoteUser.FirstName,
-            LastName: remoteUser.LastName
+            FirstName: remoteUser.GivenName,
+            LastName: remoteUser.Surname
           })
         } else {
           context.dispatch('setCurrentUser', {

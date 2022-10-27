@@ -81,10 +81,17 @@
         </div>
       </div>
       <!-- container-fluid -->
+
+      <!-- dialog for comments -->
+      <modals-container />
+      
+      <v-dialog />
+  
     </div>
     <!-- content -->
 
   </transition>
+
 </template>
 
 <script>
@@ -223,12 +230,24 @@ export default {
     onCellClicked(event) {
       let clickedCellFieldName = event.colDef.field;
       let clickedCellDataSimple = event.value;
-      let clickedCellDataWithFieldReference =
-        event.node.data[clickedCellFieldName];
+      let clickedCellDataWithFieldReference = event.node.data[clickedCellFieldName];
       let clickedCellRowIndex = event.rowIndex;
       let clickedCellNode = event.node;
 
       console.log("onCellClicked node.data is ****: ", event.node.data);
+      // pull StaPa and PatientSID from event.node.data to populate form
+      this.StaPa = event.node.data.StaPa
+      this.PatientSID = event.node.data.PatientSID
+      // this.show(this.PatientSID)
+    },
+    show (comments) { //simple dialog box for now
+      console.log('in show getting these comments: ', comments)
+      this.comments = comments
+      console.log('calling dialog now!') 
+      this.$modal.show('dialog', {
+        title: 'PatientSID',
+        text: this.comments
+      })
     },
     createColDefs4() {
       return [
@@ -296,6 +315,7 @@ export default {
 .iframe-wrapper {
   /* border: 1px solid gray; */
   height: 600px;
+  overflow: auto;
 }
 .iframe-wrapper .vue-friendly-iframe {
   height: 100%;

@@ -42,12 +42,17 @@
 
         <hr />
 
+        <div style="align-items: center; display: flex; justify-content: center; ">
+          <div style="width: 60%; margin-bottom: 10px;">
+            <b>NOTE:&nbsp;&nbsp;&nbsp;</b> This page has fixed dates with a six month and a one year look back. Cases included below are considered current, and have been seen in psychotherapy within the past 3 months of today's date.
+          </div>
+        </div><!--  FAQ -->
+        
         <!-- Section Header -->
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Time Limited Care</h4>
         </div>
 
-        <!--  FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
         >
@@ -59,16 +64,21 @@
         <div class="d-flex flex-row justify-content-center">
           <div class="col-xl-6 col-md-6">
             <div class="row d-flex flex-row justify-content-center mt-2 mb-2">
-              Patients With Numerous Sessions
+              Long-term, high frequency psychotherapy:
             </div>
+            <!-- <div class="row d-flex flex-row justify-content-center mt-2 mb-2">
+               >= 20 Sessions in >= 6 Months
+            </div> -->
             <div class="row d-flex flex-row justify-content-center">
-            <stats-card class="col-md-6">
+            <stats-card class="col-md-7">
               <div slot="header" class="icon-warning">
                 <i class="nc-icon-outline nc-single-01 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category">
-                  20 Sessions<br /> in 6 months<br />
+                  <!-- 20 Sessions<br /> in 6 months<br /> -->
+                  # of unique vets seen<br/>
+                  >= 6 mos AND<br/> >= 20 sessions<br/>
                   ({{ formatNumber(tlcNumerator6_20) }}/
                   {{ formatNumber(tlcDenominator) }})
                 </p>
@@ -88,7 +98,7 @@
         <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
           <!-- Section Header -->
           <div class="row d-flex justify-content-center">
-            <h4 class="section-head">Patients with Numerous Sessions Activity Summary</h4>
+            <h4 class="section-head">Long-term, high frequency psychotherapy</h4>
           </div>
 
           <div class="row d-flex justify-content-center">
@@ -110,7 +120,7 @@
         <div v-else-if="phipii">
           <!-- Section Header -->
           <div class="row d-flex justify-content-center">
-            <h4 class="section-head">Numerous Sessions Activity Summary</h4>
+            <h4 class="section-head">Long-term, high frequency psychotherapy cases</h4>
           </div>
 
         <!-- Download Table Data Note -->
@@ -153,7 +163,7 @@
                 >
                 </ag-grid-vue>
                 <template slot="footer">
-                  <div class="legend">Numerous Sessions Activity Summary</div>
+                  <div class="legend">Long-term, high frequency psychotherapy cases</div>
                 </template>
               </card>
             </div>
@@ -179,16 +189,21 @@
         <div class="d-flex flex-row justify-content-center">
           <div class="col-xl-6 col-md-6">
             <div class="row d-flex flex-row justify-content-center mt-2 mb-2">
-              Patients With Lengthy Treatment Period
+              Long-term, low frequency psychotherapy cases 
             </div>
+            <!-- <div class="row d-flex flex-row justify-content-center mt-2 mb-2">
+              Long-term, low frequency psychotherapy cases: &lt; 12 Sessions in > 12 Months 
+            </div> -->
             <div class="row d-flex flex-row justify-content-center">
-            <stats-card class="col-md-6">
+            <stats-card class="col-md-7">
               <div slot="header" class="icon-warning">
                 <i class="nc-icon-outline nc-single-01 text-warning"></i>
               </div>
               <div slot="content">
                 <p class="card-category">
-                  12 Sessions<br /> in 12 months<br />
+                  <!-- 12 Sessions<br /> in 12 months<br /> -->
+                  # of unique vets seen<br/>
+                  >= 12 mos AND<br/> &lt;= 12 sessions<br/>
                   ({{ formatNumber(tlcNumerator12_12) }}/
                   {{ formatNumber(tlcDenominator) }})
                 </p>
@@ -208,7 +223,7 @@
         <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
           <!-- Section Header -->
           <div class="row d-flex justify-content-center">
-            <h4 class="section-head">Patients With Lengthy Treatment Period</h4>
+            <h4 class="section-head">Long-term, low frequency psychotherapy cases</h4>
           </div>
 
           <div class="row d-flex justify-content-center">
@@ -230,7 +245,7 @@
         <div v-else-if="phipii">
           <!-- Section Header -->
           <div class="row d-flex justify-content-center">
-            <h4 class="section-head">Patients With Lengthy Treatment Period</h4>
+            <h4 class="section-head">Long-term, low frequency psychotherapy cases</h4>
           </div>
 
         <!-- Download Table Data Note -->
@@ -254,9 +269,9 @@
               <card>
                 <template slot="header">
                   <span>Hover Over Column Header to View Menu</span>
-                  <!-- <button class="float-right" @click="exportCSVgridOptions4">
+                  <button class="float-right" @click="exportCSVgridOptions5">
                     Export to CSV
-                  </button> -->
+                  </button>
                 </template>
                 <ag-grid-vue
                   style="font-size: 12px; height: 500px"
@@ -273,7 +288,7 @@
                 >
                 </ag-grid-vue>
                 <template slot="footer">
-                  <div class="legend">Lengthy Time Period Activity</div>
+                  <div class="legend">Long-term, low frequency psychotherapy cases</div>
                 </template>
               </card>
             </div>
@@ -595,7 +610,7 @@ export default {
           filter: "agNumberColumnFilter",
         },
         {
-          headerName: "PCL5s",
+          headerName: "#PCL5s",
           field: "PCL5",
           width: 50,
           cellStyle: { "text-align": "left" },
@@ -615,7 +630,7 @@ export default {
           "SESSIONS_TYPES",
           "PCL5"
         ],
-        fileName: "tlc6_20_details",
+        fileName: "tlc12_12_details",
         columnGroups: false,
         allColumns: true,
         processCellCallback: (params) => {
@@ -673,7 +688,7 @@ export default {
           filter: "agNumberColumnFilter",
         },
         {
-          headerName: "PCL5s",
+          headerName: "#PCL5s",
           field: "PCL5",
           width: 50,
           cellStyle: { "text-align": "left" },

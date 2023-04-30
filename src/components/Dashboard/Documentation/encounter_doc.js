@@ -1,50 +1,50 @@
-export const encountersAll = [
+export const encountersAndPatients = [
   {
-    title: 'PCT Clinic (Stop Code) Definition',
+    title: 'Total Encounters and Patient Uniques Definitions',
     value: '<u><b>Description</b></u>: Encounters conducted in all defined PCT Clinics are displayed for the selected date range and from the selected site. ' +
       ' PCT Clinics at the medical center are set up within VistA configured using one or more stop codes.<br/><br/>' +
       '<u><b>Stop Codes:</b></u> To identify encounters from PCT Clinics, we use the following PTSD stop codes when they are in the PRIMARY position only:<br/><br/>' +
       '<u><b>516 PTSD - Group</b></u>:<br/>' +
       '&nbsp;&nbsp;&nbsp; Records consultation and/or treatment follow-up provided to more than one individual.  ' +
-      'Treatment is provided to those patients with PTSD.  Includes provider and support services. <u>542</u> ' +
+      'Treatment is provided to those patients with PTSD.  Includes provider and support services.<br/><br/>' +
       '<u><b>542 Telephone PTSD</b></u>:<br/>' +
       '&nbsp;&nbsp;&nbsp;Records patient consultation or medical care management, advice, and/or referral provided by telephone contact ' +
       "between patient or patient's next-of-kin and/or the person(s) with whom the patient has a meaningful relationship, and clinical and/or professional staff assigned to the PCT.<br/><br/>" +
       '<u><b>562 PTSD - Individual</u></b><br/>' +
       '&nbsp;&nbsp;&nbsp;Records patient visit for consultation, evaluation, follow-up, and/or treatment provided to an individual with PTSD.  Includes provider and support services.',
     category: 'Encounters and Patients Defined...'
-  },
-  {
-    title: 'PCT Encounter (CPT Procedure Codes) Definition',
-    value: '<u><b>Procedure Codes</b></u>: PCT Encounters are pulled from among encounters conducting assessment, treatment and education activities.  These activities are identified use the following set of specific CPT procedure codes.<br/><br/>' +
-      "<u><b>Assessment</b></u>: <br/>('90791', '90792')<br/><br/>" +
-      '<b>NOTE: Encounters may have multiple CPT procedure codes attached to an encounter.  When we count encounters by their procedure code, e.g. Individual Psychotherapy, we count the encounter regardless of any other procedure code may be attached to the encounter. ' +
-      'As a result, encounters may be counted multiple times, once for each procedure code attached to an encounter.</b><br/><br/>' +
-      "<u><b>Individual Therapy</b></u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
-  "<u><b>Group Psychotherapy</b></u>: <br/>('90853')<br/><br/>" +
-  "<u><b>Interactive Complexity</b></u>: <br/>('90785')<br/><br/>" +
-  "<u><b>Crisis Intervention</b></u>: <br/>('90839', '90840', 'H2011', 'S9484')<br/><br/>" +
-  "<u><b>Prolonged Service</b></u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>" +
-  "<u><b>Family Services</b></u>: <br/>('90846', '90847', '90849', '90887')<br/><br/>" +
-  "<u><b>Health and Behavior (Family) Education</b></u>: <br/>('96154', '96155')<br/><br/>" +
-  "<u><b>Health and Behavior (Individual) Education</b></u>: <br/>('96150', '96151', '96152')<br/><br/>" +
-  "<u><b>Health and Behavior (Group) Education</b></u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
-  "<u><b>Team Conference</b></u>: <br/>('99366', '99367', '99368')<br/><br/>" +
-  "<u><b>Case Management</b></u>: <br/>('T1016')<br/><br/>" +
-  "<u><b>Telephone</b></u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
-  "<u><b>Other</b></u>: <br/>('90863', '90885', '90889', 'H0038', 'H2027')<br/><br/>",
-    category: 'Encounters and Patients Defined...'
-  },
-  {
-    title: 'Total Encounters and Patient Uniques',
-    value: '<u><b>Total Encounters</b></u>: From all PCT Clinics defined using the above listed stop codes, all encounters tagged with the above listed CPT codes were pulled and summarized. ' +
-      '<br/><br/><u><b>Patient Uniques:</b></u>: The unique patients from these PCT clinic encounter are also totalled. ' +
-      '<br/><br/>',
-    category: 'Encounters and Patients Defined...'
   }
+  // {
+  //   title: 'PCT Encounter (CPT Procedure Codes) Definition',
+  //   value: '<u><b>Procedure Codes</b></u>: PCT Encounters are pulled from among encounters conducting assessment, treatment and education activities.  These activities are identified use the following set of specific CPT procedure codes.<br/><br/>' +
+  //     "<u><b>Assessment</b></u>: <br/>('90791', '90792')<br/><br/>" +
+  //     '<b>NOTE: Encounters may have multiple CPT procedure codes attached to an encounter.  When we count encounters by their procedure code, e.g. Individual Psychotherapy, we count the encounter regardless of any other procedure code may be attached to the encounter. ' +
+  //     'As a result, encounters may be counted multiple times, once for each procedure code attached to an encounter.</b><br/><br/>' +
+  //     "<u><b>Individual Therapy</b></u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
+  // "<u><b>Group Psychotherapy</b></u>: <br/>('90853')<br/><br/>" +
+  // "<u><b>Interactive Complexity</b></u>: <br/>('90785')<br/><br/>" +
+  // "<u><b>Crisis Intervention</b></u>: <br/>('90839', '90840', 'H2011', 'S9484')<br/><br/>" +
+  // "<u><b>Prolonged Service</b></u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>" +
+  // "<u><b>Family Services</b></u>: <br/>('90846', '90847', '90849', '90887')<br/><br/>" +
+  // "<u><b>Health and Behavior (Family) Education</b></u>: <br/>('96154', '96155')<br/><br/>" +
+  // "<u><b>Health and Behavior (Individual) Education</b></u>: <br/>('96150', '96151', '96152')<br/><br/>" +
+  // "<u><b>Health and Behavior (Group) Education</b></u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
+  // "<u><b>Team Conference</b></u>: <br/>('99366', '99367', '99368')<br/><br/>" +
+  // "<u><b>Case Management</b></u>: <br/>('T1016')<br/><br/>" +
+  // "<u><b>Telephone</b></u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
+  // "<u><b>Other</b></u>: <br/>('90863', '90885', '90889', 'H0038', 'H2027')<br/><br/>",
+  //   category: 'Encounters and Patients Defined...'
+  // },
+  // {
+  //   title: 'Total Encounters and Patient Uniques',
+  //   value: '<u><b>Total Encounters</b></u>: From all PCT Clinics defined using the above listed stop codes, all encounters tagged with the above listed CPT codes were pulled and summarized. ' +
+  //     '<br/><br/><u><b>Patient Uniques:</b></u>: The unique patients from these PCT clinic encounter are also totalled. ' +
+  //     '<br/><br/>',
+  //   category: 'Encounters and Patients Defined...'
+  // }
 ]
 
-export const encountersPsychotherapy = [
+export const individualPsychotherapy = [
   {
     title: 'Individual Psychotherapy',
     value: '<u><b>Numerator</b></u>: Total Encounters from all PCT Clinics with the following subset of Individual Tx Procedural codes:<br/><br/>' +
@@ -54,16 +54,18 @@ export const encountersPsychotherapy = [
       '&nbsp;&nbsp;&nbsp; <u><b>Individual Therapy</b></u>: (incl. 1 Crisis Code AND 2 Family Codes): <br/>' +
       "('90832', '90834', '90837', '90839', '90847', '90849')<br/><br/>" +
       '<u><b>Denominator</b></u>: Total Encounters from all PCT Clinics regardless of type of service provided.<br/><br/>',
-    category: 'Psychotherapy Encounters Defined ...'
+    category: 'Individual Psychotherapy Encounters Defined ...'
 
-  },
+  }
+]
+
+export const groupPsychotherapy = [
   {
     title: 'Group Psychotherapy',
     value: '<u><b>Numerator</b></u>: Total Encounters from all PCT Clinics with the following Group Tx Procedural codes:<br/><br/>' +
       "&nbsp;&nbsp;&nbsp; <u><b>Group Therapy</b></u>: <br/>('90853')<br/><br/>" +
       '<u><b>Denominator</b></u>: Total Encounters from all PCT Clinics regardless of type of service provided.<br/><br/>',
-    category: 'Psychotherapy Encounters Defined ...'
-
+    category: 'Group Psychotherapy Encounters Defined ...'
   }
 ]
 
@@ -307,21 +309,21 @@ export const encounterTelehealthAll = [
   },
   {
     title: 'Telehealth All - Denominator Counts',
-    value: '<u><b>Denominators</b></u>: Unique encounter counts from all MH Procedural codes irrespective of the type of service provided. <br/><br/>' +
-      "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
-      "<u>Individual Therapy</u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
-      "<u>Group Psychotherapy</u>: <br/>('90853')<br/><br/>" +
-      "<u>Interactive Complexity</u>: <br/>('90785')<br/><br/>" +
-      "<u>Crisis Intervention</u>: <br/>('90839', '90840', 'H2011', 'S9484')<br/><br/>" +
-      "<u>Prolonged Service</u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>" +
-      "<u>Family Services</u>: <br/>('90846', '90847', '90849', '90887')<br/><br/>" +
-      "<u>Health and Behavior (Family) Education</u>: <br/>('96154', '96155')<br/><br/>" +
-      "<u>Health and Behavior (Individual) Education</u>: <br/>('96150', '96151', '96152')<br/><br/>" +
-      "<u>Health and Behavior (Group) Education</u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
-      "<u>Team Conference</u>: <br/>('99366', '99367', '99368')<br/><br/>" +
-      "<u>Case Management</u>: <br/>('T1016')<br/><br/>" +
-      "<u>Telephone</u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
-      "<u>Other</u>: <br/>('90863', '90885', '90889', 'H0038', 'H2027')<br/><br/>",
+    value: '<u><b>Denominators</b></u>: Total encounters from all PCT Clinics regardless of type of service provided. <br/><br/>',
+      // "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
+      // "<u>Individual Therapy</u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
+      // "<u>Group Psychotherapy</u>: <br/>('90853')<br/><br/>" +
+      // "<u>Interactive Complexity</u>: <br/>('90785')<br/><br/>" +
+      // "<u>Crisis Intervention</u>: <br/>('90839', '90840', 'H2011', 'S9484')<br/><br/>" +
+      // "<u>Prolonged Service</u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>" +
+      // "<u>Family Services</u>: <br/>('90846', '90847', '90849', '90887')<br/><br/>" +
+      // "<u>Health and Behavior (Family) Education</u>: <br/>('96154', '96155')<br/><br/>" +
+      // "<u>Health and Behavior (Individual) Education</u>: <br/>('96150', '96151', '96152')<br/><br/>" +
+      // "<u>Health and Behavior (Group) Education</u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
+      // "<u>Team Conference</u>: <br/>('99366', '99367', '99368')<br/><br/>" +
+      // "<u>Case Management</u>: <br/>('T1016')<br/><br/>" +
+      // "<u>Telephone</u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
+      // "<u>Other</u>: <br/>('90863', '90885', '90889', 'H0038', 'H2027')<br/><br/>",
     category: 'Telehealth All Encounters Defined ...'
   }
 ]
@@ -336,26 +338,26 @@ export const otherServices = [
       "<u>Telephone</u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
       "<u>Health and Behavior (Group) Education</u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
       "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
-      "<u>Prolonged Service</u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>",
+      "<u>Prolonged Service</u>: <br/>('99354', '99355')<br/><br/>",
     category: 'Other Services Defined ...'
   },
   {
     title: 'Denominator Counts',
-    value: '<u><b>Other Services</b></u>: Denominators are unique encounter counts from all MH Procedural codes irrespective of the type of service provided. <br/><br/>' +
-      "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
-      "<u>Individual Therapy</u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
-      "<u>Group Psychotherapy</u>: <br/>('90853')<br/><br/>" +
-      "<u>Interactive Complexity</u>: <br/>('90785')<br/><br/>" +
-      "<u>Crisis Intervention</u>: <br/>('90839', '90840', 'H2011', 'S9484')<br/><br/>" +
-      "<u>Prolonged Service</u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>" +
-      "<u>Family Services</u>: <br/>('90846', '90847', '90849', '90887')<br/><br/>" +
-      "<u>Health and Behavior (Family) Education</u>: <br/>('96154', '96155')<br/><br/>" +
-      "<u>Health and Behavior (Individual) Education</u>: <br/>('96150', '96151', '96152')<br/><br/>" +
-      "<u>Health and Behavior (Group) Education</u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
-      "<u>Team Conference</u>: <br/>('99366', '99367', '99368')<br/><br/>" +
-      "<u>Case Management</u>: <br/>('T1016')<br/><br/>" +
-      "<u>Telephone</u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
-      "<u>Other</u>: <br/>('90863', '90885', '90889', 'H0038', 'H2027')<br/><br/>",
+    value: 'Denominators are unique encounter counts from all MH Procedural codes irrespective of the type of service provided.',
+    // "<u>Assessment</u>: <br/>('90791', '90792')<br/><br/>" +
+    //   "<u>Individual Therapy</u>: <br/>('90832', '90833', '90834', '90836', '90837', '90838')<br/><br/>" +
+    //   "<u>Group Psychotherapy</u>: <br/>('90853')<br/><br/>" +
+    //   "<u>Interactive Complexity</u>: <br/>('90785')<br/><br/>" +
+    //   "<u>Crisis Intervention</u>: <br/>('90839', '90840', 'H2011', 'S9484')<br/><br/>" +
+    //   "<u>Prolonged Service</u>: <br/>('99354', '99355', '99356', '99357')<br/><br/>" +
+    //   "<u>Family Services</u>: <br/>('90846', '90847', '90849', '90887')<br/><br/>" +
+    //   "<u>Health and Behavior (Family) Education</u>: <br/>('96154', '96155')<br/><br/>" +
+    //   "<u>Health and Behavior (Individual) Education</u>: <br/>('96150', '96151', '96152')<br/><br/>" +
+    //   "<u>Health and Behavior (Group) Education</u>: <br/>('96153', '98961', '98962', '99078', 'S9446', 'S9449', 'S9452', 'S9453', 'S9454')<br/><br/>" +
+    //   "<u>Team Conference</u>: <br/>('99366', '99367', '99368')<br/><br/>" +
+    //   "<u>Case Management</u>: <br/>('T1016')<br/><br/>" +
+    //   "<u>Telephone</u>: <br/>('98966', '98967', '98968', '99441', '99442', '99443')<br/><br/>" +
+    //   "<u>Other</u>: <br/>('90863', '90885', '90889', 'H0038', 'H2027')<br/><br/>",
     category: 'Other Services Defined ...'
   }
 ]

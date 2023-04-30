@@ -121,7 +121,7 @@
           style="align-items: center; display: flex; justify-content: center"
         >
           <div style="width: 60%; margin-bottom: 10px">
-            <VueFaqAccordion :items="encountersAll" />
+            <VueFaqAccordion :items="encountersAndPatients" />
           </div>
         </div>
 
@@ -191,7 +191,7 @@
           style="align-items: center; display: flex; justify-content: center"
         >
           <div style="width: 60%; margin-bottom: 10px">
-            <VueFaqAccordion :items="encountersPsychotherapy" />
+            <VueFaqAccordion :items="individualPsychotherapy" />
           </div>
         </div>
 
@@ -230,7 +230,7 @@
           style="align-items: center; display: flex; justify-content: center"
         >
           <div style="width: 60%; margin-bottom: 10px">
-            <VueFaqAccordion :items="encounterTelehealthGrp" />
+            <VueFaqAccordion :items="groupPsychotherapy" />
           </div>
         </div>
 
@@ -380,6 +380,8 @@
           </div>
         </div>
 
+        <hr />
+
         <!-- Psychotherapy Patients Section -->
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Psychotherapy Patients by Session Types</h4>
@@ -442,6 +444,8 @@
             </stats-card>
           </div>
         </div>
+
+        <hr />
 
         <!-- Psychotherapy Patients Section -->
         <div class="row d-flex justify-content-center">
@@ -765,12 +769,12 @@
           <h4 class="section-head">Group Psychotherapy Format</h4>
         </div>
 
-        <!-- encounterTelehealthGrp FAQ -->
+        <!-- groupPsychotherapy FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
         >
           <div style="width: 60%; margin-bottom: 10px">
-            <VueFaqAccordion :items="encounterTelehealthGrp" />
+            <VueFaqAccordion :items="groupPsychotherapy" />
           </div>
         </div>
 
@@ -1010,19 +1014,19 @@
         </div>
 
         <!-- Encounter Categories Section -->
-        <div class="row d-flex justify-content-center">
+        <!-- <div class="row d-flex justify-content-center">
           <h4 class="section-head">Encounters Categories Summary</h4>
-        </div>
+        </div> -->
 
         <!-- Download Table Data Note -->
-        <div style="align-items: center; display: flex; justify-content: center; ">
+        <!-- <div style="align-items: center; display: flex; justify-content: center; ">
           <div style="width: 60%; margin-bottom: 10px;">
             <b>NOTE:&nbsp;&nbsp;&nbsp;</b> If downloading data from tables on the dashboard, please consult with and follow guidance of the local Information Security Officer (ISO) and Privacy Officer.
           </div>
-        </div>
+        </div> -->
 
         <!-- encounterCategories FAQ -->
-        <div
+        <!-- <div
           style="align-items: center; display: flex; justify-content: center"
         >
           <div style="width: 60%; margin-bottom: 10px">
@@ -1058,7 +1062,7 @@
               </template>
             </card>
           </div>
-        </div>
+        </div> -->
 
         <!-- CPT Details Section -->
         <div class="row d-flex justify-content-center">
@@ -1130,14 +1134,14 @@ import { AgGridVue } from "ag-grid-vue";
 
 import VueFaqAccordion from "vue-faq-accordion";
 import {
-  encountersAll,
-  encountersPsychotherapy,
+  encountersAndPatients,
+  individualPsychotherapy,
   otherServices,
   encounterCategories,
   encounterCPTDetails,
   encounterTelehealthInd,
   encounterTelehealthIndEM,
-  encounterTelehealthGrp,
+  groupPsychotherapy,
   encounterTelehealthAll,
 } from "../Documentation/encounter_doc.js";
 
@@ -1585,14 +1589,14 @@ export default {
       duration: 2000,
 
       // Encounters FAQ
-      encountersAll: encountersAll,
-      encountersPsychotherapy: encountersPsychotherapy,
+      encountersAndPatients: encountersAndPatients,
+      individualPsychotherapy: individualPsychotherapy,
+      groupPsychotherapy: groupPsychotherapy,
       otherServices: otherServices,
       encounterCategories: encounterCategories,
       encounterCPTDetails: encounterCPTDetails,
       encounterTelehealthInd: encounterTelehealthInd,
       encounterTelehealthIndEM: encounterTelehealthIndEM,
-      encounterTelehealthGrp: encounterTelehealthGrp,
       encounterTelehealthAll: encounterTelehealthAll,
     };
   },

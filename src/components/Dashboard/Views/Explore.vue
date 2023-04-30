@@ -16,6 +16,12 @@
       </div>
  -->
 
+         <!-- Headers -->
+         <div class="row d-flex justify-content-center">
+          <h4 class="section-head">Click a Patient in the Table Below to </h4>
+          <h4 class="section-head">Lookup Patient 2 Year Treatment History</h4>
+        </div>
+
         <div class="row justify-content-center">
             <div class="col-md-12">
               <card>
@@ -40,7 +46,7 @@
             </div>
           </div>
 
-        <nav class="navbar navbar-light bg-light">
+        <!-- <nav class="navbar navbar-light bg-light">
           <form class="form-inline">
             <input
               class="form-control mr-sm-2"
@@ -61,13 +67,28 @@
               Go
             </button>
           </form>
-        </nav>
+        </nav> -->
+
+        <!-- <modal 
+        name="example"
+        width="90%"
+        height="85%"
+        scrollable=true
+
+        > -->
+
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">Patient 2 Year Treatment History<br/></h4>
+          <h4 class="section-head">After Clicking a Patient Row in Table Above</h4>
+        </div>
+
         <div class="iframe-wrapper">
+
           <!-- <div class="iframe-loading" v-if="iframeLoading">
             iframe loading...
           </div> -->
-          <vue-friendly-iframe
-            v-if="loadIframe"
+          
+          <vue-friendly-iframe v-if="loadIframe"
             ref="iframeEl"
             :style="{ display: iframeLoading ? 'none' : 'block' }"
             :src="patientLevelData"
@@ -79,14 +100,24 @@
           >
           </vue-friendly-iframe>
         </div>
+      <!-- </modal> -->
+
       </div>
       <!-- container-fluid -->
-
-      <!-- dialog for comments -->
-      <modals-container />
-      
-      <v-dialog />
   
+      <modal name="example"
+        width="70%"
+        height="40%"
+      >
+
+        <div class="row d-flex justify-content-center">
+          <h1 class="section-head">Retrieving Data ... When Complete See Results Below Table<br/>May Take 30 Seconds or More</h1>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <button @click="$modal.hide('example')">Close</button>
+        </div> 
+      </modal>
+
     </div>
     <!-- content -->
 
@@ -104,10 +135,14 @@ import { mapState, mapGetters, mapActions } from "vuex";
 import { AgGridVue } from "ag-grid-vue";
 
 import VueFriendlyIframe from "src/components/UIComponents/Iframe.vue";
+import auto from "es6-promise/auto";
 
 function url(stapa, ptsid) {
   let parent = stapa || null;
   let patient = ptsid || null;
+  console.log('stapa: ', stapa)
+  console.log('patient: ', patient)
+
   if (parent == null || patient == null) return;
 
   let base =
@@ -115,9 +150,21 @@ function url(stapa, ptsid) {
   let rest =
     // `/GPE/OMHS/SSRS/PCT-PatientLookup&pStaPa=512&pPatientSID=2120209&rs:embed=true`;
     `/GPE/OMHS/SSRS/PCT-PatientLookup&pStaPa=${stapa}&pPatientSID=${ptsid}&rs:embed=true`;
-
+  // original idea of using our Patient Level 2 year treatment report
   let url = `${base}${rest}`;
   return url;
+}
+  function cristal_url () {
+    // Kelly desire for CRISTAL patient detail
+    // example patient ICN
+    const icn = '1005729518';
+
+    let base_consult_detail =
+      `https://vaww.pbi.cdw.va.gov/PBIRS/Pages/ReportViewer.aspx?`
+    let base_consult_detail_cristal = 
+      `/RVS/OMHSP_PERC/SSRS/Production/CDS/CRISTAL/CRISTAL_PatientDetails&ICN=${icn}&rs:embed=true`
+    let url_consult = `${base_consult_detail}${base_consult_detail_cristal}`
+    return url_consult;
 }
 
 export default {
@@ -142,7 +189,7 @@ export default {
 
       loadIframe: false,
 
-      iframeLoading: true,
+      iframeLoading: false,
       //null,
       patientLevelData:
         // "https://vaww.pbi.cdw.va.gov/PBIRS/ReportServer/Pages/ReportViewer.aspx?/GPE/OMHS/SSRS/PCT-PatientLookup&pStaPa=512&pPatientSID=2120209&rs:embed=true",
@@ -193,11 +240,15 @@ export default {
     ...mapActions([
       "MCOD_PATIENT_LEVEL_LOOKUP",
     ]),
-    submitPatient() {
+    submitPatient(StaPa, PatientSID) {
       // set the StaPa and PatientSID
+      
       // get the url
-      let pt = url(this.StaPa, this.PatientSID);
-      console.log("pt url: ", pt);
+      // let pt = url(StaPa, PatientSID);
+      // console.log("pt url: ", pt);
+
+      // alternate URL for CRISTAL example
+      let pt = cristal_url()
 
       // return error if no StaPa or PatientSID
       this.patientLevelData = pt;
@@ -217,8 +268,6 @@ export default {
     },
     onLoad() {
       console.log("onLoad event triggered, iframe loaded!");
-
-      this.iframeLoading = false;
     },
     onIframeLoad() {
       console.log("onIframeLoad event triggered, iframe loaded!");
@@ -234,20 +283,28 @@ export default {
       let clickedCellRowIndex = event.rowIndex;
       let clickedCellNode = event.node;
 
-      console.log("onCellClicked node.data is ****: ", event.node.data);
+      // console.log("onCellClicked node.data is ****: ", event.node.data);
       // pull StaPa and PatientSID from event.node.data to populate form
-      this.StaPa = event.node.data.StaPa
-      this.PatientSID = event.node.data.PatientSID
-      // this.show(this.PatientSID)
+      let StaPa = event.node.data.StaPa
+      // console.log('in onCellClicked StaPa is: ', StaPa)
+      let PatientSID = event.node.data.PatientSID
+
+      // submit patient for Patient Level Data Report
+      this.submitPatient(StaPa, PatientSID)
+
+      // test the modal
+      this.show(PatientSID)
+
     },
     show (comments) { //simple dialog box for now
-      console.log('in show getting these comments: ', comments)
+      // console.log('in show getting these comments: ', comments)
       this.comments = comments
-      console.log('calling dialog now!') 
-      this.$modal.show('dialog', {
-        title: 'PatientSID',
-        text: this.comments
-      })
+      // console.log('calling dialog now!') 
+      this.$modal.show('example')
+      // this.$modal.show('dialog', {
+      //   title: 'PatientSID',
+      //   text: comments
+      // })
     },
     createColDefs4() {
       return [
@@ -313,9 +370,9 @@ export default {
 
 <style>
 .iframe-wrapper {
-  /* border: 1px solid gray; */
+  border: 1px solid gray;
   height: 600px;
-  overflow: auto;
+  overflow: none;
 }
 .iframe-wrapper .vue-friendly-iframe {
   height: 100%;

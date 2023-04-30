@@ -63,7 +63,7 @@
 
         <!-- EBP Headers -->
         <div class="row d-flex justify-content-center">
-          <h4 class="section-head">EBPs</h4>
+          <h4 class="section-head">All EBPs</h4>
         </div>
 
         <!-- EBPs FAQ -->
@@ -118,9 +118,66 @@
         </div>
         <!-- End Row -->
 
+        <!-- PTSD Headers -->
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">PTSD Only EBPs</h4>
+        </div>
+
+        <!-- PEorCPT FAQ -->
+        <div
+          style="align-items: center; display: flex; justify-content: center"
+        >
+          <div style="width: 60%; margin-bottom: 10px">
+            <VueFaqAccordion :items="PTSD" />
+          </div>
+        </div>
+
+        <!-- Individual & Group Tx Headers -->
+        <!-- Start Row -->
+        <div class="row d-flex justify-content-center">
+          <div class="col-xl-4 col-md-2">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-layers-3 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p
+                  class="card-category"
+                  v-tooltip.top-center="TotalPTSDSessions"
+                >
+                  Sessions ({{ addCommas(siteEBPSessionsPTSD) }}/{{
+                    addCommas(siteALLSessions)
+                  }})
+                </p>
+                <h4 class="card-title">{{ siteEBPSessionsPTSDPercent }}%</h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-4 col-md-2">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-single-02 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p
+                  class="card-category"
+                  v-tooltip.top-center="TotalPTSDPatients"
+                >
+                  Patients ({{ addCommas(siteEBPPatientsPTSD) }}/{{
+                    addCommas(siteALLPatients)
+                  }})
+                </p>
+                <h4 class="card-title">{{ siteEBPPatientsPTSDPercent }}%</h4>
+              </div>
+            </stats-card>
+          </div>
+        </div>
+        <!-- End Row -->
+
         <!-- PEorCPT Headers -->
         <div class="row d-flex justify-content-center">
-          <h4 class="section-head">PE or CPT</h4>
+          <h4 class="section-head">PE or CPT Only EBPs</h4>
         </div>
 
         <!-- PEorCPT FAQ -->
@@ -463,6 +520,7 @@ import VueHighcharts from "vue2-highcharts";
 import VueFaqAccordion from "vue-faq-accordion";
 import {
   ebps,
+  PTSD,
   PEorCPT,
   IndividualAndGroupTxEBPs,
   ebpActivitySummary,
@@ -496,6 +554,8 @@ export default {
       TotalEBPsPatients: "All EBP Patients / All PCT Patients",
       TotalPECPTSessions: "PE and CPT Sessions / All PCT Sessions",
       TotalPECPTPatients: "PE and CPT Patients / All PCT Patients",
+      TotalPTSDSessions: "PTSD Only Sessions / All PCT Sessions",
+      TotalPTSDPatients: "PTSD Only Patients / All PCT Patients",
       IndividualTxEBPSessions: "EBP Ind Tx Sessions / All PCT Ind Tx Sessions",
       IndividualTxEBPPatients: "EBP Ind Tx Patients / All PCT Ind Tx Patients",
       GroupTxEBPSessions: "EBP Group Tx Sessions / All PCT Group Tx Sessions",
@@ -509,6 +569,7 @@ export default {
 
       // documentation widgets
       ebps: ebps,
+      PTSD: PTSD,
       PEorCPT: PEorCPT,
       IndividualAndGroupTxEBPs: IndividualAndGroupTxEBPs,
       ebpActivitySummary: ebpActivitySummary,
@@ -537,11 +598,11 @@ export default {
 
       "siteEncounterCPTPatientsEither", // from Encounter to sync #s
 
-      "siteEBPSessionsPECPT",
-      // 'siteALLSessions',
+      "siteEBPSessionsPTSD",
+      "siteEBPPatientsPTSD",
 
+      "siteEBPSessionsPECPT",
       "siteEBPPatientsPECPT",
-      // 'siteALLPatients',
 
       "siteEBPSessionsInd",
       "siteALLSessionsInd",
@@ -568,6 +629,15 @@ export default {
     siteEBPPatientsAnyPercent() {
       return computePercent(this.siteEBPPatientsAny, this.siteALLPatients);
       // return Math.round((this.siteEBPPatientsAny/this.siteALLPatients) * 100)
+    },
+
+    siteEBPSessionsPTSDPercent() {
+      return computePercent(this.siteEBPSessionsPTSD, this.siteALLSessions);
+      // return Math.round((this.siteEBPSessionsPTSD/this.siteALLSessions) * 100)
+    },
+    siteEBPPatientsPTSDPercent() {
+      return computePercent(this.siteEBPPatientsPTSD, this.siteALLPatients);
+      // return Math.round((this.siteEBPPatientsPECPT/this.siteALLPatients) * 100)
     },
 
     siteEBPSessionsPECPTPercent() {

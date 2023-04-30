@@ -4,10 +4,10 @@ import { sync } from 'vuex-router-sync'
 import NProgress from 'nprogress'
 import App from './App.vue'
 
-//css
-import "../node_modules/ag-grid/dist/styles/ag-grid.css"
-import "../node_modules/ag-grid/dist/styles/ag-theme-balham.css"
-import "../node_modules/nprogress/nprogress.css"
+// css
+import '../node_modules/ag-grid/dist/styles/ag-grid.css'
+import '../node_modules/ag-grid/dist/styles/ag-theme-balham.css'
+import '../node_modules/nprogress/nprogress.css'
 
 // ag grid enterprise
 import 'ag-grid-enterprise'
@@ -23,7 +23,7 @@ import routes from './routes/routes'
 
 // modal
 import VModal from 'vue-js-modal'
-Vue.use(VModal, {dynamic: true, dialog: true, injectModalsContainer: true}) 
+Vue.use(VModal, {dynamic: true, dialog: true, injectModalsContainer: true})
 
 // plugin setup
 Vue.use(VueRouter)
@@ -36,17 +36,17 @@ Vue.use(VTooltip)
 // configure router
 const router = new VueRouter({
   // mode: 'history',
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       // console.log('in saved position!')
-        return savedPosition;
+      return savedPosition
     }
     if (to.hash) {
       // console.log('to.hash is: ', to.hash)
-        return { selector: to.hash };
+      return { selector: to.hash }
     }
     // console.log('in scrollbehavior but neither savedPosition or to.hash triggered!!')
-    return { x: 0, y: 0 };
+    return { x: 0, y: 0 }
   },
   routes, // short for routes: routes
   linkActiveClass: 'nav-item active'
@@ -59,7 +59,7 @@ router.beforeResolve((to, from, next) => {
   // If this isn't an initial page load.
   if (to.name) {
       // Start the route progress bar.
-      NProgress.start()
+    NProgress.start()
   }
   next()
 })
@@ -83,15 +83,14 @@ new Vue({
   watch: {
     '$route' (to, from) {
       // console.log('watching route as: ', this.$route)
-      if (to != 'undefined' && from != 'undefined') {   
-        // console.log('calling LOC_USAGE FROM ROUTE: ', this.$route) 
-        this.$store.dispatch('LOG_USAGE', { to, from})
+      if (to !== 'undefined' && from !== 'undefined') {
+        // console.log('calling LOC_USAGE FROM ROUTE: ', this.$route)
+        this.$store.dispatch('LOG_USAGE', {to, from})
       }
     }
   },
-  mounted() {   
+  mounted () {
     this.$store.dispatch('CURRENT_USER')
     this.$store.dispatch('USER_PERMISSIONS')
-    
   }
 })

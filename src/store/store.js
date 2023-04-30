@@ -1122,6 +1122,18 @@ const store = new Vuex.Store({
         .filter((site) => site.dataType === 'ebp_patients')
       return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
     },
+    siteEBPSessionsPTSD: (state) => {
+      let filteredArray = state.ebpSummary
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => site.dataType === 'ebp_sessions_ptsd')
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
+    },
+    siteEBPPatientsPTSD: (state) => {
+      let filteredArray = state.ebpSummary
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => site.dataType === 'ebp_patients_ptsd')
+      return filteredArray.length == 0 ? 0 : filteredArray[0].sumTotal
+    },
     siteEBPSessionsPECPT: (state) => {
       let filteredArray = state.ebpSummary
         .filter((site) => site.StaPa === state.selectedSite)
@@ -1450,7 +1462,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${allparams}`).then((response) => {
         // console.log('IN EBP_SUMMARY ebp summary details from server is: ', typeof )
-        // console.log('response.data is: ', response.data)
+        console.log('response.data EBP_SUMMARY is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_EBP_SUMMARY', response.data)
       })
@@ -1948,12 +1960,13 @@ const store = new Vuex.Store({
 
       // hard code stapa for now
       // const params = 'format=mcod_patient_level_lookup&staPa=' + 512 + '&userfirstname=' + context.state.userFirstName + '&userlastname=' + context.state.userLastName
-      const params = 'format=mcod_patient_level_lookup&staPa=' + 512 + '&userfirstname=' + 'peter' + '&userlastname=' + 'allman'
+      // const params = 'format=mcod_patient_level_lookup&staPa=' + 512 + '&userfirstname=' + 'peter' + '&userlastname=' + 'allman'
+      const params = 'format=mcod_patient_level_lookup&staPa=512&userfirstname=peter&userlastname=allman&dtrng=20220101,20220405'
       // console.log('params is: ', params);
 
       // axios.get(`${path}?${allparams}`).then((response) => {
       axios.get(`${path}?${params}`).then((response) => {
-        // console.log('got provider caseload details from server')
+        // console.log(`${path}?${params}`)
         // console.log('MCOD_PATIENT_LEVEL_LOOKUP response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_MCOD_PATIENT_LEVEL_LOOKUP', response.data)
@@ -2432,6 +2445,7 @@ const store = new Vuex.Store({
       // iterate through returned list of permissions
       userPermissions.map(function (permissionRow) {
         // does this site match the current site
+        // console.log('mapping permissions, each permissionRow: ', permissionRow)
         if (permissionRow.Sta3n == selectedSta3n && permissionRow.PHIPII == 1) {
           // console.log('we have a match!')
           permissionSite.phipii = permissionRow.PHIPII
@@ -2447,6 +2461,7 @@ const store = new Vuex.Store({
         }
       })
       state.phipii = permissionSite.phipii
+      // console.log('state.phipii: ', state.phipii)
       state.adaccount = permissionSite.adaccount
       // console.log('permissionAllSites: ', permissionAllSites)
       state.allphipii = permissionAllSites

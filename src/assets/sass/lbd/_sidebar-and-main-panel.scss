@@ -161,6 +161,12 @@ body > .navbar-collapse{
             position: absolute;
             right: 30px;
         }
+        .caret-sidebar{ // EMF
+            margin-top: -10px;
+            position: absolute;
+            right: 80px;
+        }
+
 
         .active-pro{
             position: absolute;
@@ -338,9 +344,9 @@ body > .navbar-collapse{
     position: absolute;
     top: 65px;
     width: 16px;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
 
 }
 .fixed-plugin .dropdown-menu:before{

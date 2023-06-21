@@ -42,7 +42,7 @@
             <a class="nav-link" href="#" data-toggle="dropdown">
               <i class="nc-icon nc-palette"></i>
             </a>
-          </li> -->
+            </li> -->
             <!-- <drop-down tag="li">
             <template slot="title">
               <i class="nc-icon nc-planet"></i>
@@ -54,13 +54,13 @@
             <a class="dropdown-item" href="#">Notification 3</a>
             <a class="dropdown-item" href="#">Notification 4</a>
             <a class="dropdown-item" href="#">Another notification</a>
-          </drop-down> -->
+            </drop-down> -->
             <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nc-icon nc-zoom-split"></i>
               <span class="d-lg-block">&nbsp;Search</span>
             </a>
-          </li> -->
+           </li> -->
             <!-- <li class="nav-item py-0 px-4">
             <form class="form-horizontal">
               <div class="form-group "> 
@@ -71,7 +71,7 @@
 
               </div>
             </form>
-          </li> -->
+            </li> -->
             <!-- <li class="nav-item py-0 mr-2">
           <form class="form-horizontal"> 
             <div class="form-group">  

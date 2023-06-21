@@ -6617,8 +6617,8 @@ textarea.form-control {
   width: 1.2em;
   height: 1.2em;
   cursor: default;
-  transition: none;
   -webkit-transition: none;
+  transition: none;
 }
 
 .ui-slider .ui-slider-range {
@@ -7805,8 +7805,8 @@ star {
   margin: 0 auto;
   top: 60%;
   position: relative;
-  transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
   text-align: center;
 }
 .card .icon i {
@@ -8444,8 +8444,8 @@ star {
 .card-chat .chat > li {
   padding: 0.5rem;
   overflow: hidden;
-  display: flex;
   display: -webkit-flex;
+  display: flex;
 }
 .card-chat .chat .avatar {
   width: 40px;
@@ -8458,15 +8458,16 @@ star {
 .card-chat .chat .avatar img {
   width: 40px;
   height: 40px;
-  border-radius: 100%;
+  -ms-border-radius: 100%;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
+  border-radius: 100%;
   background-color: rgba(255, 255, 255, 0.9);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -moz-user-select: none;
   -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 .card-chat .chat .footer {
   padding: 0;
@@ -8491,15 +8492,16 @@ star {
 .card-chat .send-message .avatar img {
   width: 40px;
   height: 40px;
-  border-radius: 100%;
+  -ms-border-radius: 100%;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
+  border-radius: 100%;
   background-color: rgba(255, 255, 255, 0.9);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
 }
 .card-chat .send-message .send-button {
   width: 75px;
@@ -8533,10 +8535,10 @@ star {
   order: 2;
 }
 .card-chat .self {
-  justify-content: flex-end;
-  align-items: flex-end;
-  -webkit-align-items: flex-end;
   -webkit-justify-content: flex-end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 .card-chat .self .msg {
   order: 1;
@@ -8582,15 +8584,16 @@ star {
   position: relative;
   display: block;
   width: 450px;
-  border-radius: 100%;
+  -ms-border-radius: 100%;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
+  border-radius: 100%;
   cursor: default;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
 }
 .card-chat input.textarea {
   display: inline-block;
@@ -10758,11 +10761,11 @@ star {
     display: none !important;
   }
 
-  .card form {
-    /*[class*="col-"]{
+  /* .card form {
+    [class*="col-"]{
         padding: 6px;
-    }*/
-  }
+    }
+  } */
   .card form [class*="col-"]:first-child {
     padding-left: 15px;
   }
@@ -11383,6 +11386,7 @@ star {
 
   .navbar-fixed-top {
     -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   .bodyClick {

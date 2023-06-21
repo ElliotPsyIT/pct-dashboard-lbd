@@ -1,0 +1,26 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "-webkit-backface-visibility",
+          "-webkit-tap-highlight-color",
+          "user-select",
+          "-webkit-overflow-scrolling"
+        ]
+      }
+    ],
+    "meta-viewport": "off",
+    "disown-opener": "off",
+    "no-inline-styles": "off"
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not ie <= 10"
+  ]
+}

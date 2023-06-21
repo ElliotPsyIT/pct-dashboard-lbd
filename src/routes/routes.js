@@ -12,8 +12,9 @@ import Providers from 'src/components/Dashboard/Views/Providers.vue'
 import MBC from 'src/components/Dashboard/Views/MBC.vue'
 import EBP from 'src/components/Dashboard/Views/EBP.vue'
 import Explore from 'src/components/Dashboard/Views/Explore.vue'
-
+import Admin from 'src/components/Dashboard/Views/Admin.vue'
 import TLC from 'src/components/Dashboard/Views/TLC.vue'
+import AdminInfo from 'src/components/Dashboard/Views/AdminInfo.vue'
 
 // import Definitions from 'src/components/Dashboard/Views/DataDefinitions.vue'
 
@@ -76,15 +77,20 @@ const routes = [
         component: TLC
       },
       {
+        path: 'admin',
+        name: 'Admin',
+        component: Admin
+      },
+      {
         path: 'explore',
         name: 'Explore',
         component: Explore
+      },
+      {
+        path: 'info',
+        name: 'AdminInfo',
+        component: AdminInfo
       }
-      // {
-      //   path: 'definitions',
-      //   name: 'Definitions',
-      //   component: Definitions
-      // }
     ]
   },
   { path: '*', component: NotFound }

@@ -39,14 +39,22 @@
         <i class="nc-icon nc-notes"></i>
         <p>EBPs</p>
       </sidebar-link>
-        <sidebar-link to="/admin/tlc">
-          <i class="nc-icon nc-circle-09"></i>
-          <p>Time Limited Care</p>
-        </sidebar-link>
+      <sidebar-link to="/admin/tlc">
+        <i class="nc-icon nc-circle-09"></i>
+        <p>Time Limited Care</p>
+      </sidebar-link>
       <div v-if="viewPrivileges">
         <sidebar-link to="/admin/explore">
-          <i class="nc-icon nc-notes"></i>
+          <i class="nc-icon nc-single-copy-04"></i>
           <p>Explore</p>
+        </sidebar-link>
+        <sidebar-link to="/admin/info">
+          <i class="nc-icon nc-notes"></i>
+          <p>Admin Reports</p>
+        </sidebar-link>
+        <sidebar-link to="/admin/admin" class="caret-sidebar">
+          <i class="nc-icon nc-single-copy-04"></i>
+          <p>MBC</p>
         </sidebar-link>
       </div>
     </side-bar>

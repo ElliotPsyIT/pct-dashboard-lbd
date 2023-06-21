@@ -163,7 +163,8 @@ const store = new Vuex.Store({
       providers: true,
       surveys: true,
       mbc: true,
-      ebp: true
+      ebp: true,
+      admin: true
     },
     appVersion: '2.6.0',
     phipii: 0,
@@ -231,7 +232,12 @@ const store = new Vuex.Store({
 
     // time limited care data
     tlcWidgets: [],
-    tlcTables: []
+    tlcTables: [],
+
+    // MBC Report
+    mbcNational: [],
+    mbcVisn: [],
+    mbcStation: []
   },
   getters: {
     selectedSiteVISNorNATIONAL: (state) => {
@@ -770,7 +776,7 @@ const store = new Vuex.Store({
       let filteredArray = state.encounterApptCancelNoShow
         .filter((site) => site.StaPa === state.selectedSite)
         .filter((site) => site.CancelNoShow === 'NO-SHOW')
-      console.log('siteEncounterApptNoShowTotal is: ', filteredArray)
+      // console.log('siteEncounterApptNoShowTotal is: ', filteredArray)
       return filteredArray.length == 0 ? 0 : filteredArray[0].cancelNoShowCount
     },
     siteEncounterApptCancelTotal: (state) => {
@@ -895,6 +901,19 @@ const store = new Vuex.Store({
         return site.StaPa === state.selectedSite
       })
       return filteredArray.length == 0 ? 0 : filteredArray
+    },
+
+    //* ******************************************** */
+    // ADMIN -- MBC
+    //* ******************************************** */
+    adminMBCnational: (state) => {
+      return state.mbcNational
+    },
+    adminMBCvisn: (state) => {
+      return state.mbcVisn
+    },
+    adminMBCstation: (state) => {
+      return state.mbcStation
     },
 
     //* ******************************************** */
@@ -1526,6 +1545,45 @@ const store = new Vuex.Store({
         context.commit('SET_SURVEY_DETAILS', response.data)
       })
     },
+    ADMIN_MBC_NATIONAL (context) {
+      const path = 'pct.cgi'
+      const format = 'admin_page_mbc'
+      const level = 'NATIONAL'
+      const allparamsPlusLevel = setParams(format, context.state) + `&level=${level}`
+
+      axios.get(`${path}?${allparamsPlusLevel}`).then((response) => {
+        // console.log('allparamsPlusLevel is: ', `${path}?${allparamsPlusLevel}`)
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ADMIN_MBC_NATIONAL', response.data)
+      })
+    },
+    ADMIN_MBC_VISN (context) {
+      const path = 'pct.cgi'
+      const format = 'admin_page_mbc'
+      const level = 'VISN'
+      const allparamsPlusLevel = setParams(format, context.state) + `&level=${level}`
+
+      axios.get(`${path}?${allparamsPlusLevel}`).then((response) => {
+        // console.log('allparamsPlusLevel is: ', `${path}?${allparamsPlusLevel}`)
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ADMIN_MBC_VISN', response.data)
+      })
+    },
+    ADMIN_MBC_STATION (context) {
+      const path = 'pct.cgi'
+      const format = 'admin_page_mbc'
+      const level = 'STATION'
+      const allparamsPlusLevel = setParams(format, context.state) + `&level=${level}`
+
+      axios.get(`${path}?${allparamsPlusLevel}`).then((response) => {
+        // console.log('allparamsPlusLevel is: ', `${path}?${allparamsPlusLevel}`)
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ADMIN_MBC_STATION', response.data)
+      })
+    },
     SURVEY_TOTALS (context) {
       // console.log('in SURVEY_TOTALS Action, check context here', context)
 
@@ -2113,6 +2171,12 @@ const store = new Vuex.Store({
           context.dispatch('TLC_TABLES')
         }
       }
+      if (context.state.route.path == '/admin/admin') {
+        // admin page refresh all 3 MBC widgets
+        context.dispatch('ADMIN_MBC_NATIONAL')
+        context.dispatch('ADMIN_MBC_VISN')
+        context.dispatch('ADMIN_MBC_STATION')
+      }
     },
     INSTITUTIONS_FILTER_SHOWHIDE (context) {
       // TRIGGER FLAGE FOR SIDEBAR SHOW/HIDE TOGGLE
@@ -2265,6 +2329,16 @@ const store = new Vuex.Store({
     SET_EBP_DETAILS_SESSIONS_SURVEYS (state, ebpDetailsSessionsSurveys) {
       // console.log('in mutate SET_EBP_DETAILS_SESSIONS_SURVEYS and state is: ', state)
       state.ebpDetailsSessionsSurveys = ebpDetailsSessionsSurveys
+    },
+    SET_ADMIN_MBC_NATIONAL (state, national) {
+      // console.log('in SET_ADMIN_MBC_NATIONAL, data are: ', national)
+      state.mbcNational = national
+    },
+    SET_ADMIN_MBC_VISN (state, visn) {
+      state.mbcVisn = visn
+    },
+    SET_ADMIN_MBC_STATION (state, station) {
+      state.mbcStation = station
     },
     SET_SURVEY_TOTALS (state, surveyTotals) {
       // console.log('in mutate SET_SURVEY_DETAILS and state is: ', state)

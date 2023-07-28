@@ -70,7 +70,7 @@ router.afterEach((to, from) => {
 })
 
 // allow router access within vuex
-const unsync = sync(store, router)
+sync(store, router)
 
 Vue.config.productionTip = false
 
@@ -85,7 +85,7 @@ new Vue({
       // console.log('watching route as: ', this.$route)
       if (to !== 'undefined' && from !== 'undefined') {
         // console.log('calling LOC_USAGE FROM ROUTE: ', this.$route)
-        this.$store.dispatch('LOG_USAGE', {to, from})
+        // this.$store.dispatch('LOG_USAGE', {to, from})
       }
     }
   },

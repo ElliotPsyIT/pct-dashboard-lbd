@@ -58,6 +58,11 @@ export default {
       "disclaimer",
       "dataError",
     ]),
+    ...mapGetters(["canFilterBySite"]),
+    scrollPosition() {
+      // console.log('document.body.scrollHeight: ', document.body.scrollHeight)
+      console.log("window.pageYOffset: ", window.pageYOffset);
+    }
   }
 }
 

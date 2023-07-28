@@ -101,8 +101,11 @@ import { mapState, mapGetters } from 'vuex'
       togglePermissions () {
         console.log('in togglePermissions, isClosedPermissions: ', this.isClosedPermissions)
         this.isClosedPermissions = !this.isClosedPermissions
-      }
-    }
+      },
+      mounted() {
+        console.log('UserMenu was mounted')
+      },
+    },
   }
 </script>
 <style>

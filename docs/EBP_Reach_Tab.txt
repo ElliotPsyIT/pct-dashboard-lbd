@@ -1,0 +1,109 @@
+Create Admin Tab for EBP Reach
+
+Requirements
+  - Display full Reach, both template numbers and breakdown of EBP types
+  - Do not allow drill down to institutions (though explore effort needed to add that)
+    - changes needed in the backend to add institution paramenter and modify sql
+    - changes needed in the frontend to enable institution site selection and refresh page data
+
+Backend
+  design API
+    requirement:
+      data for 2 tables,
+        EBP Counts of PCT Tracking template types
+          NATIONAL
+          VISN
+          STATION
+        EBP Counts of EBP Reach from PCT Tracking template types Plus Other templates
+    routines
+      admin_page_ebp - main routine to collect all data
+        admin_page_ebp_national - compute national data
+        admin_page_ebp_visn - compute VISN data
+        admin_page_ebp_facility - compute facility data
+      or
+      admin_page_ebp - perl to run all 3 sql reports and combine into nested json
+        generate one json dataset for all three tables
+        write js to parse the nested json object
+      EBP Counts of PCT Tracking template types
+    format
+      admin_page_ebp
+    define domain and parameters
+      domain = ebp_reach
+      dtrng - fix dates to start
+    Alpha Version
+      output just one table of data (due to length of time to run the query)
+      table contains all station output -Reach and EBP Counts
+        combines reach data with individual EBP counts
+      ?? NATIONAL/VISN -- should we allow specific VISN selection or default VISN output to all VISNs
+    Issue to Address!!
+      Ask Kelly if we should include all EBPs or PTSD EBPs only
+      - EBPFlag -- are we using the ebp flag to get ebp from all templates?
+      - PTSDEBPflag -- should we use this flag
+
+Frontend
+  (use Admin MBC page as a model)
+  create page component
+  add tab link on sidebar
+  store - state, actions, getters
+
+    state - disallow site filter for admin ebp
+      siteFilterAllowed: {
+        overview: false,
+        definitions: false,
+        consults: false,
+        appointments: true,
+        encounters: true,
+        providers: true,
+        surveys: true,
+        mbc: true,
+        ebp: true,
+        admin: true,
+        info: false,
+        ebpAdmin: false <- disallow site filtering on admin EBP page
+      },
+
+    actions
+       ADMIN_EBP_ALL (context) {
+        const path = 'pct.cgi'
+        const format = 'admin_page_ebp'
+        const allparams = setParams(format, context.state)
+
+        axios.get(`${path}?${allparams}`).then((response) => {
+          // console.log('allparams is: ', `${path}?${allparams}`)
+          // console.log('response.data is: ', response.data)
+          // console.log('check context before commit: ', context)
+          context.commit('SET_ADMIN_EBP_ALL', response.data)
+        })
+       },
+
+    mutations
+      SET_ADMIN_EBP_ALL (state, station) {
+        state.ebpAll = station
+      }
+
+    getters
+      adminEBPall: (state) => {
+       return state.ebpAll
+      },
+
+  routes.json
+    add route for the admin EBP page
+    {
+      path: 'adminebp',
+      name: 'AdminEBP',
+      component: AdminEBP
+    }
+    and
+    Add an import reference to the new component
+      import AdminEBP from 'src/components/Dashboard/Views/AdminEBP.vue'
+
+  AdminEBP vue component - create the page that routes.js links to
+    AdminEBP.vue
+      initialize with a copy of the AdminInfo page that handles MBC
+
+  DashboardLayout.vue
+    add sidebar link for the admin EBP tab
+
+  RERESH_ALL_DATA -> entry for EBP Reach page
+
+

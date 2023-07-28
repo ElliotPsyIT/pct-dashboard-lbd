@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" @clickedTab="emitCapture">
     <side-bar title="PTSD Admin">
       <user-menu></user-menu>
       <mobile-menu slot="content"></mobile-menu>
@@ -50,12 +50,18 @@
         </sidebar-link>
         <sidebar-link to="/admin/info">
           <i class="nc-icon nc-notes"></i>
-          <p>Admin Reports</p>
+          <p>Reports</p>
         </sidebar-link>
-        <sidebar-link to="/admin/admin" class="caret-sidebar">
-          <i class="nc-icon nc-single-copy-04"></i>
-          <p>MBC</p>
-        </sidebar-link>
+        <div style="margin-left: 25px;">
+          <sidebar-link to="/admin/reports">
+            <i class="nc-icon nc-single-copy-04"></i>
+            <p>MBC</p>
+          </sidebar-link>
+          <sidebar-link to="/admin/adminebp">
+            <i class="nc-icon nc-single-copy-04"></i>
+            <p>EBP</p>
+          </sidebar-link>
+        </div>
       </div>
     </side-bar>
     <div class="main-panel">
@@ -66,7 +72,7 @@
         :fixed-navbar.sync="fixedNavbar"
         :sidebarMini.sync="sidebarMini"
         :image.sync="sidebarBackgroundImage"
-        >>
+        >
       </sidebar-share>
       <dashboard-content @click="toggleSidebar"> </dashboard-content>
 
@@ -107,9 +113,14 @@ export default {
   },
   computed: {
     ...mapState(["userFirstName", "userLastName"]),
+    storeDate() {
+      // console.log('DashboardLayout store is: ', localStorage.getItem('store'))
+    },
     viewPrivileges() {
       // console.log('this.userFirstName is: ', this.userFirstName)
       // console.log('this.userLastName is : ', this.userLastName)
+
+      // console.log('DashboardLayout store is: ', localStorage.getItem('store'))
 
       if (
         (this.userFirstName == "Elliot" && this.userLastName == "Fielstein0") ||
@@ -136,6 +147,13 @@ export default {
     minimizeSidebar() {
       this.$sidebar.toggleMinimize();
     },
+    emitCapture() {
+      console.log('DashboardLayout captured an emit from clickedTab')
+    },
+    // ...mapActions([
+    //   "CURRENT_USER",
+    //   "USER_PERMISSIONS"
+    // ])   
   },
 };
 </script>

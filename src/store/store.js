@@ -15,13 +15,6 @@ import dateRanges from '../../static/dateRanges.json'
 
 Vue.use(Vuex)
 
-// Access localStorage for previously stored site and daterange
-const localStorage = window.localStorage
-let storeLocal = {}
-if (localStorage.getItem('store')) {
-  storeLocal = JSON.parse(localStorage.getItem('store'))
-}
-
 // function dateRangeRestrict () {
 //   // whitelist dateRange
 //   let restrictedDateRange = ''
@@ -136,15 +129,20 @@ function selectedSiteVISNorNATIONAL (state) {
 }
 
 // set default whitelisted dateRange for limiting data request size
-// const defaultDateRange = 'threemonths'
+// const defaultDateRange = 'threemonthsG'
+
+// Access localStorage for previously stored site and daterange
+const localStorage = window.localStorage
+let storeLocal = {}
+if (localStorage.getItem('store')) {
+  storeLocal = JSON.parse(localStorage.getItem('store'))
+}
 
 const store = new Vuex.Store({
   state: {
-    // selectedSite,
-    selectedSite: storeLocal.selectedSite || '',
-    selectedRange: storeLocal.selectedRange || 'threemonths',
+    selectedSite: storeLocal.selectedSite || '402',
     selectedRangePicker: storeLocal.selectedRangePicker || {
-      shortcut: storeLocal.selectedRange
+      shortcut: storeLocal.selectedRange || 'threemonths'
     },
     userFirstName: storeLocal.userFirstName || 'No',
     userLastName: storeLocal.userLastName || 'User Name',
@@ -164,7 +162,9 @@ const store = new Vuex.Store({
       surveys: true,
       mbc: true,
       ebp: true,
-      admin: true
+      admin: true,
+      info: false,
+      ebpAdmin: false
     },
     appVersion: '2.6.0',
     phipii: 0,
@@ -237,7 +237,8 @@ const store = new Vuex.Store({
     // MBC Report
     mbcNational: [],
     mbcVisn: [],
-    mbcStation: []
+    mbcStation: [],
+    ebpAll: []
   },
   getters: {
     selectedSiteVISNorNATIONAL: (state) => {
@@ -318,13 +319,13 @@ const store = new Vuex.Store({
     },
     siteConsultPieChartSeries: (state) => {
       // build series based on selected site
-      console.log('state.selectedSite is: ', state.selectedSite)
+      // console.log('state.selectedSite is: ', state.selectedSite)
       let mappedArray = state.consultDataPie // state.consultPieChart
         .filter((site) => site.StaPa === state.selectedSite)
         .map((status) => {
           return [status.ConsultStatus, +status.Num]
         })
-      console.log('pie chart series is: ', mappedArray)
+      // console.log('pie chart series is: ', mappedArray)
       return mappedArray
     },
     siteConsultDetails: (state) => {
@@ -914,6 +915,13 @@ const store = new Vuex.Store({
     },
     adminMBCstation: (state) => {
       return state.mbcStation
+    },
+
+    //* ******************************************** */
+    // ADMIN -- MBC
+    //* ******************************************** */
+    adminEBPall: (state) => {
+      return state.ebpAll
     },
 
     //* ******************************************** */
@@ -1584,6 +1592,18 @@ const store = new Vuex.Store({
         context.commit('SET_ADMIN_MBC_STATION', response.data)
       })
     },
+    ADMIN_EBP_ALL (context) {
+      const path = 'pct.cgi'
+      const format = 'admin_page_ebp'
+      const allparams = setParams(format, context.state)
+
+      axios.get(`${path}?${allparams}`).then((response) => {
+        // console.log('allparams is: ', `${path}?${allparams}`)
+        // console.log('response.data is: ', response.data)
+        // console.log('check context before commit: ', context)
+        context.commit('SET_ADMIN_EBP_ALL', response.data)
+      })
+    },
     SURVEY_TOTALS (context) {
       // console.log('in SURVEY_TOTALS Action, check context here', context)
 
@@ -1647,7 +1667,7 @@ const store = new Vuex.Store({
       context.commit('SET_INSTITUTIONS_SELECTED', institutions)
 
       // refresh the page -> setParams should now use selectedInstitutions
-      context.dispatch('REFRESH_ALL_DATA')
+      context.dispatch('REFRESH_ALL_DATA', {message: 'INSTITUTIONS_SELECTED'})
     },
 
     /* PROVIDERS */
@@ -2061,18 +2081,18 @@ const store = new Vuex.Store({
         // console.log('just call LOG_USAGE, here is the state: ', context.state)
       })
     },
-    REFRESH_ALL_DATA (context) {
+    REFRESH_ALL_DATA (context, obj) {
+      console.log('in REFRESH_ALL_DATA and obj is: ', obj)
       // prep for VISN or NATIONAL restriction of data fetch
       let VorN = selectedSiteVISNorNATIONAL(context.state)
       // console.log('in REFRESH, VorN is: ', VorN)
-
-      // console.log('refresh all data!')
+      console.log('refresh all data!')
       // be sure provider info is updated with new site or new date range
       context.dispatch('PROVIDER_INFO')
 
       // be sure the institution info is updated with new site or new date range
       if (!VorN) {
-        context.dispatch('GET_INSTITUTIONS')
+        context.dispatch('GET_INSTITUTIONS', {message: 'REFRESH_ALL_DATA'})
       }
 
       // update the user since this page could be entered anytime
@@ -2085,7 +2105,7 @@ const store = new Vuex.Store({
 
         // NOT FOR VISN AND NATIONAL
         if (!VorN) {
-          console.log('NO VISN or NATIONAL!')
+          // console.log('NO VISN or NATIONAL!')
           context.dispatch('CONSULT_DETAILS')
         }
       }
@@ -2177,6 +2197,12 @@ const store = new Vuex.Store({
         context.dispatch('ADMIN_MBC_VISN')
         context.dispatch('ADMIN_MBC_STATION')
       }
+      if (context.state.route.path == '/admin/info') {
+        // admin page refresh all 3 MBC widgets
+        // context.dispatch('ADMIN_MBC_NATIONAL')
+        // context.dispatch('ADMIN_MBC_VISN')
+        // context.dispatch('ADMIN_MBC_STATION')
+      }
     },
     INSTITUTIONS_FILTER_SHOWHIDE (context) {
       // TRIGGER FLAGE FOR SIDEBAR SHOW/HIDE TOGGLE
@@ -2220,7 +2246,7 @@ const store = new Vuex.Store({
         .get(`${path}?${params}`)
         .then((response) => {
           // console.log('IN GET_INSTITUTIONS action, response.data is: ', response.data)
-
+          // console.log('url for institutions: ', (`${path}?${params}`))
           context.commit('SET_INSTITUTIONS', response.data)
         })
         .catch(function (error) {
@@ -2233,23 +2259,32 @@ const store = new Vuex.Store({
       // SOMEHOW CALL AN ACTION TO SET A FLAG TO SIGNAL TO
       // SIDEBARSHARE THAT IT NEEDS TO RESET THE TREESELECT
 
-      console.log('route.path is: ', context.state.route.path)
+      // console.log('route.path is: ', context.state.route.path)
       context.commit('SET_SELECTED_SITE', site)
 
-      context.dispatch('REFRESH_ALL_DATA')
+      context.dispatch('REFRESH_ALL_DATA', {message: 'setSelectedSite'})
+      // no need to refresh data is site selection being done on overview page
+      // if (!context.state.currentpage == 'overview') {
+      //  context.dispatch('REFRESH_ALL_DATA')
+      // }
     },
     setSelectedRange (context, range) {
-      // console.log('setSelectedRange triggered')
+      console.log('setSelectedRange triggered')
       // console.log('route.path is: ', context.state.route.path)
       context.commit('SET_SELECTED_RANGE', range)
 
-      context.dispatch('REFRESH_ALL_DATA')
+      context.dispatch('REFRESH_ALL_DATA', {message: 'setSelectedRange'})
+
+      // no need to refresh data is site selection being done on overview page
+    //   if (!context.state.currentpage == 'overview') {
+    //     context.dispatch('REFRESH_ALL_DATA')
+    //   }
     },
     DATEPICKER_DATES (context, dates) {
       // console.log('in DATEPICKER_DATES and got dates: ', dates)
       context.commit('SET_DATEPICKER_DATES', dates)
 
-      context.dispatch('REFRESH_ALL_DATA')
+      context.dispatch('REFRESH_ALL_DATA', {message: 'DATEPICKER_DATES'})
     },
     CURRENT_PAGE (context, page) {
       // console.log('in action CURRENT_PAGE and received this page name: ', page)
@@ -2340,6 +2375,9 @@ const store = new Vuex.Store({
     SET_ADMIN_MBC_STATION (state, station) {
       state.mbcStation = station
     },
+    SET_ADMIN_EBP_ALL (state, station) {
+      state.ebpAll = station
+    },
     SET_SURVEY_TOTALS (state, surveyTotals) {
       // console.log('in mutate SET_SURVEY_DETAILS and state is: ', state)
       state.surveyTotals = surveyTotals
@@ -2429,10 +2467,7 @@ const store = new Vuex.Store({
       state.consultDetails = consultDetails
     },
     SET_CONSULT_DATA (state, consultData) {
-      console.log(
-        'in mutate SET_CONSULT_DATA and consultData is: ',
-        consultData
-      )
+      // console.log('in mutate SET_CONSULT_DATA and consultData is: ', consultData)
       state.consultDataPie = consultData.pie
       state.consultDataLine = consultData.line
       state.consultDataCount = consultData.count
@@ -2608,23 +2643,26 @@ const store = new Vuex.Store({
   }
 })
 
-// called after mutation w/ its name, and its post mutation state
+// called after every mutation w/ its name, and its post mutation state
 store.subscribe((mutation, state) => {
   // console.log('subscribe called')
 
   // prepare updated store w/ select subset of state
   let storedState = {
     selectedSite: state.selectedSite,
-    selectedRange: state.selectedRange,
     selectedRangePicker: state.selectedRangePicker,
     userFirstName: state.userFirstName,
     userLastName: state.userLastName,
     phipii: state.phipii
   }
   // store.subscribe was called
-  // console.log('store.subscribe was called with selectedRangePicker set to: ', storedState.selectedRangePicker)
+  // console.log('store.subscribe was called, here is the store: ', JSON.stringify(storedState))
   // update localStorage with the mutated-changed store
   localStorage.setItem('store', JSON.stringify(storedState))
 })
+
+// store.subscribeAction((action, state) => {
+//   console.log('from subscribeAction: ', action.type)
+// })
 
 export default store

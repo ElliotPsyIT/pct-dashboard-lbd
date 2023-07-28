@@ -40,6 +40,8 @@
         if (this.autoClose && this.$sidebar && this.$sidebar.showSidebar === true) {
           this.$sidebar.displaySidebar(false)
         }
+        // tell the parent I was clicked
+        this.$emit('tabClicked') 
       }
     }
   }

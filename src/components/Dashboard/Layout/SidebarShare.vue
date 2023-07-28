@@ -87,7 +87,9 @@ import { mapState, mapGetters, mapActions } from 'vuex'
       
       // Retrieve the institutions for selected Station
       // console.log('IN SidebarShare MOUNTED GET_INSTITUTIONS from selectedSite: ', this.selectedSite)
-      this.GET_INSTITUTIONS()
+      //this.GET_INSTITUTIONS() //fails on fresh app since no site is selected
+      
+      // console.log('SidebarShare was mounted')
     
     },
     props: ['color', 'image'],

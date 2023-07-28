@@ -342,7 +342,7 @@ import VueHighcharts from 'vue2-highcharts'
 // import GridTable from 'src/components/UIComponents/GridTable'
 import Vue from "vue";
 import { AgGridVue } from "ag-grid-vue";
-import dateFormat from "dateformat"
+// import dateFormat from "dateformat"
 
 import VueFaqAccordion from 'vue-faq-accordion'
 import {consultsAll,

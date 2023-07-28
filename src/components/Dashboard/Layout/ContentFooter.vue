@@ -22,6 +22,9 @@ import { mapState } from 'vuex'
     ...mapState([
       'appVersion',
     ]),
+    mounted() {
+      console.log('ContentFooter was mounted')
+    },
     }
   }
 

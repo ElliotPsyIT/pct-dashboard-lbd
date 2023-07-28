@@ -40,70 +40,7 @@
 
         <hr />
 
-        <!-- <div class="row d-flex justify-content-center">
-          <h4 class="section-head">Administrative Reports and Data</h4>
-        </div>
-
-        <div
-          style="align-items: center; display: flex; justify-content: center"
-        >
-          <div style="width: 60%; margin-bottom: 10px">
-            <VueFaqAccordion :items="appointmentNoShowCancelSummary" />
-          </div>
-        </div>
-
-        <div class="row d-flex justify-content-center">
-          <div class="col-xl-3 col-md-3">
-            <stats-card>
-              <div slot="header" class="icon-danger">
-                <i class="nc-icon nc-chart-pie-36 text-danger"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">
-                  No Show/All<br />
-                  ({{ formatNumber(siteEncounterApptNoShowTotal) }}/{{
-                    siteEncounterApptTotalStr
-                  }})
-                </p>
-                <h4 class="card-title">
-                  {{ notNumber(siteEncounterAppNoShowPercent) }}%
-                </h4>
-              </div>
-            </stats-card>
-          </div>
-
-          <div class="col-xl-3 col-md-3">
-            <stats-card>
-              <div slot="header" class="icon-info">
-                <i class="nc-icon nc-simple-remove text-danger"></i>
-              </div>
-              <div slot="content">
-                <p class="card-category">
-                  Cancelled/All ({{
-                    formatNumber(siteEncounterApptCancelTotal)
-                  }}/{{ siteEncounterApptTotalStr }})
-                </p>
-                <h4 class="card-title">
-                  {{ notNumber(siteEncounterAppCancelPercent) }}%
-                </h4>
-              </div>
-            </stats-card>
-          </div>
-        </div>
-
-        <div class="row d-flex justify-content-center">
-
-          <div class="col-md-8">
-            <template>
-              <vue-highcharts :options="pieChartOptions" ref="pieChart">
-              </vue-highcharts>
-            </template>
-          </div>
-        </div> -->
-
-        <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
-          <!-- Section Header -->
-          <!-- Section Header -->
+        <!-- <div v-if="!phipii && !selectedSiteVISNorNATIONAL">
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">MBC REPORTS</h4>
           </div>
@@ -120,10 +57,10 @@
               ><u>Link to BISL PHI/PII Access Request</u></a
             >
           </div>
-        </div>
+        </div> -->
 
         <!-- Show table only with PHIPII -->
-        <div v-else-if="phipii">
+        <!-- <div v-else-if="phipii"> -->
           <!-- <div class="row d-flex justify-content-center">
             <h4 class="section-head">MBC Report: NATIONAL</h4>
           </div>
@@ -245,7 +182,7 @@
           </div>
 
 
-        </div>
+        <!-- </div> -->
         <!-- PHI -->
       </div>
     </div>
@@ -416,7 +353,7 @@ export default {
 
 
     this.CURRENT_PAGE("admin");
-    this.GET_INSTITUTIONS();
+    // this.GET_INSTITUTIONS();
   },
   methods: {
     ...mapActions([

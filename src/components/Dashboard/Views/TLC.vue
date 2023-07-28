@@ -441,7 +441,7 @@ export default {
   mounted() {
     this.CURRENT_PAGE("providers");
 
-    this.GET_INSTITUTIONS();
+    // this.GET_INSTITUTIONS();
 
     this.TLC_WIDGETS();
     this.TLC_TABLES();

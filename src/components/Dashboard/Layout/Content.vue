@@ -4,7 +4,11 @@
   </transition>
 </template>
 <script>
-  export default {}
+  export default {
+    mounted() {
+      // console.log('Content was mounted')
+    },
+  }
 </script>
 <style>
   .fade-enter-active,

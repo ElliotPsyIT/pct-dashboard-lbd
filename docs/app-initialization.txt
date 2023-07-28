@@ -1,0 +1,251 @@
+Review the Initialization Process
+
+main.js -> called on Initialization
+
+  Imports
+  - manages progress bar
+  - brings in the plugins and mixins (vmodal and vtooltip)
+  - brings in the store and the router (and configures it)
+    - sets up saved position
+    - handles hash for internal navigation
+  - brings in ag-grid and vue light bootstrap
+
+  Calls
+    mounted () {
+      this.$store.dispatch('CURRENT_USER')
+      this.$store.dispatch('USER_PERMISSIONS')
+    }
+    CURRENT_USER ->
+      gets current user from 'who'
+        const params = 'format=who'
+        const remoteUser = response.data[0]
+      sets current user  - by calling action setCurrentUser - calls SET_CURRENT_USER
+          context.dispatch('setCurrentUser', {
+            FirstName: remoteUser.GivenName,
+            LastName: remoteUser.Surname
+          })
+          SET_CURRENT_USER - mutation to set state
+            state.userFirstName = user.FirstName
+            state.userLastName = user.LastName
+
+      if no current user setCurrentUser to no user retrieved
+          context.dispatch('setCurrentUser', {
+            LastName: 'User Retrieved'
+            FirstName: 'No',
+          })
+
+    USER_PERMISSIONS -> needs selectedSite to determine if permissions are granted
+      identify the selectedSite (source of bug if new user and no site yet selected)
+        let staPa = context.state.selectedSite
+      call USER_PERMISSIONS
+        get user from backend (by calling subroutine current_user )
+        and take '$usr' and return
+          SELECT Sta3n, ADAccount, PHIPII, GivenName, Surname
+          FROM AllPermissions JOIN ActiveDirectoryAccount
+          ON ADAccount = FullSamAccountName
+          WHERE FullSamAccountName = 'VHA09\VHATVHFIELSE0' AND Sta3n NOT IN (-1,0)
+      call SET_USER_PERMISSIONS, which does a lot of work
+        grabs ADAccount from first row of permission (may be many rows, each a site with permissions)
+
+GET_INSTITUTIONS
+  ADMIN Parameter - not good API
+  - the 'admin' parameter on the data url builds the correct PCT data table name
+  - in pct.cgi and pct_dev.cgi code is flakely,
+
+REFRESH_ALL_DATA
+  - sources
+    - INSTITUTIONS_SELECTED action
+    - setSelectedSite
+    - setSelectedRange
+    - DATEPICKER_DATES
+
+Initial Route -> admin/overview
+  - -> contains these components
+
+    import TopNavbar from "./TopNavbar.vue";
+    import ContentFooter from "./ContentFooter.vue";
+    import DashboardContent from "./Content.vue";
+    import MobileMenu from "./MobileMenu.vue";
+    import UserMenu from "./UserMenu.vue";
+
+    import TopNavbar from "./TopNavbar.vue";
+      - handles listing and selecting site and date range
+      - reads from store getters selectedSite and selectedDateRange
+      - should it read from localstorage instead???
+
+      On TopNavbar initialization - new app start-up where no localstorage exists
+      - Date Picker initialization
+        - CtkDateTimePicker has 3 important props
+          - :sc for shortcut, which is a computed property
+          - @input=datePickerInput, @input listener event handler
+            - is built-in as a callback on each shortcut val
+            - datePickerInput takes an object of start, end and shortcut
+          - v-model=rangePickerSelected is its data v-model
+      - Steps in Date Picker initialization (causing double REFRESH_ALL_DATA)
+        - first the sc() computed property checks for
+           this.selectedRangePicker
+        - this.selectedRangePicker obj starts in store and has a
+           default shortcut key set to 'threemonths' in store Initialization
+        - sc() on widget is then set to the shortcut
+        - v-model=rangePickerSelected is initialized to
+          this.selectedRangePicker, which was just set to
+          the shortcut obj
+
+        REFRESH_ALL_DATA
+        - @input="datePickerInput" is CtkDateTimePicker input listener
+
+        - datePickerInput(val) method
+          - *** calls DATEPICKER_DATES,
+                  if there is a startdate and an enddate
+
+              this.DATEPICKER_DATES({
+                    start: val.start,
+                    end: val.end,
+                    shortcut: val.shortcut,
+                  });
+
+        - datePickerInput is called
+            - as a callback for every date shortcut
+
+              callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+              },
+            - if the selectedRangePicker is changed??
+              -
+
+      <template>
+          <CtkDateTimePicker
+          :id="demo.options.id"
+          v-model=
+            "rangePickerSelected"
+          @input="datePickerInput"
+
+      </template>
+      - computed: {
+        ...mapState([
+
+          "selectedRangePicker",
+        ])
+
+        rangePickerSelected: {
+          // v-model for datePicker
+          get() {
+            if (!this.value && this.selectedRangePicker) {
+              return this.selectedRangePicker;
+            }
+            // not initial state and return the value that's been set
+            return this.value;
+          },
+          set(val) {
+            console.log('rangePickerSelected triggered and sets this.value to: ', val)
+            this.value = val;
+          },
+        },
+      - data () {
+          return {
+
+            value: null,
+
+         {
+                key: "threemonths",
+                label: "3 Months",
+                value: () => {
+                  return {
+                    start: moment().subtract(3, "months"),
+                    end: moment(),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+          ****   this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  console.log('My shortcut was clicked or triggered with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+
+         }
+      - methods: {
+          **** datePickerInput(val) {
+            if (
+              (val.start != null || val.start != undefined) &&
+              (val.end != null || val.end != undefined)
+            ) {
+              console.log('I have a start and end date: ', val)
+              console.log('I am sending this to store: ', val)
+          **** this.DATEPICKER_DATES({
+                start: val.start,
+                end: val.end,
+                shortcut: val.shortcut,
+              });
+            }
+          }
+
+      - SITE SELECTOR
+        - CLICKING SITE NAME
+
+        - triggers this TopNavbar component computed
+
+          this.siteSelected
+
+        - which triggers both
+
+            get() which
+              returns store getter this.selectedSite
+
+            set(site) which
+              triggers store action which
+                triggers store setSelectedSite() AND
+                triggers REFRESH_ALL_DATA()
+            AND
+              triggers store mutation SET_SELECTED_SITE() which
+              sets store state selectedSite
+
+
+      - DATE PICKER
+        - CLICKING CALENDAR
+
+        - triggers this method
+
+          this.datePickerInput(val)
+
+        - which calls this store action
+
+            this.DATEPICKER_DATES({
+              start: val.start,
+              end: val.end,
+              shortcut: val.shortcut,
+            });
+
+        - which updates store state selectedRangePicker to the dates
+
+            SET_DATEPICKER_DATES (state, dates) {
+              // console.log('in SET_DATEPICKER_DATES and got dates: ', dates)
+              state.selectedRangePicker = dates // { start, end, shortcut }
+            },
+
+        - and original/default store state starts with a look at local storage for an object value
+
+            selectedRangePicker: storeLocal.selectedRangePicker || {
+              shortcut: storeLocal.selectedRange
+            },
+
+    import ContentFooter from "./ContentFooter.vue";
+      - pulls appversion from store and displays version in footer
+
+    import DashboardContent from "./Content.vue";
+      - just sets the main content section to view the components called from the router
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+<-
+    import MobileMenu from "./MobileMenu.vue";
+    import UserMenu from "./UserMenu.vue";
+  - TopNavbar
+    -

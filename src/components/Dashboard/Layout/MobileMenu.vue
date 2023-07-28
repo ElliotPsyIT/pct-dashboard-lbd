@@ -40,7 +40,10 @@
   export default {
     components: {
       DropDown
-    }
+    },
+    mounted() {
+      // console.log('MobileMenu was mounted')
+    },
   }
 </script>
 <style>

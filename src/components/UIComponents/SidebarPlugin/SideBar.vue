@@ -2,7 +2,9 @@
   <div class="sidebar"
        :style="sidebarStyle"
        :data-color="backgroundColor"
-       :data-image="backgroundImage">
+       :data-image="backgroundImage"
+       @click="clickedTab">
+
     <div class="sidebar-wrapper">
       <div class="logo">
         <a href="#" class="simple-text">
@@ -21,6 +23,7 @@
                         :key="link.name + index"
                         :to="link.path"
                         @click="closeNavbar"
+                        @clickedTab="childEmit"
                         :link="link">
             <i :class="link.icon"></i>
             <p>{{link.name}}</p>
@@ -36,6 +39,11 @@
   export default {
     components: {
       SidebarLink
+    },
+    data() {
+      return {
+       
+      }
     },
     props: {
       title: {
@@ -81,8 +89,26 @@
         return {
           backgroundImage: `url(${this.backgroundImage})`
         }
+      },
+      okayToRenderFlag () {
+        let store = localStorage.getItem('store')
+        console.log('store.selectedSite: ', store.selectedSite)
+        console.log('store.selectedRangePicker: ', store.selectedRangePicker)
+        if(store.selectedSite && store.selectedRangePicker) {
+          console.log('RENDER!')
+          okayToRenderFlag = true
+        } 
       }
-    }
+    },
+    methods: {
+      clickedTab() {
+        // console.log('hey tab got clicked')
+        // console.log('SideBar localstorage store is: ', localStorage.getItem('store'))
+      },
+      childEmit() {
+        this.emit('clickedTab')
+      } 
+    },
   }
 
 </script>

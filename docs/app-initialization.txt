@@ -51,6 +51,7 @@ GET_INSTITUTIONS
   ADMIN Parameter - not good API
   - the 'admin' parameter on the data url builds the correct PCT data table name
   - in pct.cgi and pct_dev.cgi code is flakely,
+  - *** consider changing the backend code to make the table naming more robust
 
 REFRESH_ALL_DATA
   - sources
@@ -71,51 +72,58 @@ Initial Route -> admin/overview
     import TopNavbar from "./TopNavbar.vue";
       - handles listing and selecting site and date range
       - reads from store getters selectedSite and selectedDateRange
-      - should it read from localstorage instead???
 
       On TopNavbar initialization - new app start-up where no localstorage exists
       - Date Picker initialization
         - CtkDateTimePicker has 3 important props
-          - :sc for shortcut, which is a computed property
-          - @input=datePickerInput, @input listener event handler
-            - is built-in as a callback on each shortcut val
-            - datePickerInput takes an object of start, end and shortcut
-          - v-model=rangePickerSelected is its data v-model
-      - Steps in Date Picker initialization (causing double REFRESH_ALL_DATA)
-        - first the sc() computed property checks for
-           this.selectedRangePicker
-        - this.selectedRangePicker obj starts in store and has a
-           default shortcut key set to 'threemonths' in store Initialization
-        - sc() on widget is then set to the shortcut
-        - v-model=rangePickerSelected is initialized to
-          this.selectedRangePicker, which was just set to
-          the shortcut obj
+          - :sc
+            - for shortcut, which is a computed property
+            - reads the selectedRangePicker.shortcut, and sets it on the widget
+          - @input=datePickerInput,
+            - @input listener event handler
+            - reacts when v-model (rangePickerSelected) changes
+          - v-model=rangePickerSelected
+            - rangePickerSelected is computed - sets(val) of the value() callback
+            - the val is an object from the widget sent by callback and contains
+              - start, end and shortcut
 
-        REFRESH_ALL_DATA
-        - @input="datePickerInput" is CtkDateTimePicker input listener
+        - CtkDateTimePicker v-model=rangePickerSelected triggers @input=datePickerInput
+            - @input="datePickerInput" is method that checks if there is a startdate and an enddate
+            - call store Action DATEPICKER_DATES, which sends the new start, end, shortcut to store
+              - @input=datePickerInput(val) method, get val from widge value callback
+                - *** calls DATEPICKER_DATES,
 
-        - datePickerInput(val) method
-          - *** calls DATEPICKER_DATES,
-                  if there is a startdate and an enddate
+                    this.DATEPICKER_DATES({
+                          start: val.start,
+                          end: val.end,
+                          shortcut: val.shortcut,
+                        });
 
-              this.DATEPICKER_DATES({
-                    start: val.start,
-                    end: val.end,
-                    shortcut: val.shortcut,
-                  });
+              - this.DATEPICKER_DATES get its data from widge value() callback
 
-        - datePickerInput is called
-            - as a callback for every date shortcut
+                    callback: ({ start, end, shortcut }) => {
+                        this.datePickerInput({
+                          start: start.format("YYYYMMDD"),
+                          end: end.format("YYYYMMDD"),
+                          shortcut: shortcut.key,
+                        });
 
-              callback: ({ start, end, shortcut }) => {
-                  this.datePickerInput({
-                    start: start.format("YYYYMMDD"),
-                    end: end.format("YYYYMMDD"),
-                    shortcut: shortcut.key,
-                  });
-              },
-            - if the selectedRangePicker is changed??
-              -
+        - *** REFRESH_ALL_DATA was double called because
+          - @input=datePickerInput triggered Action that changes selectedRangePicker
+          - since selectedRangePicker is a mapState, and is a dependence in sc() computed,
+            - a change of selectedRangePicker in store, affects sc(), which Calls
+            - @input=datePickerInput, which then sends ANOTHER store Action DATEPICKER_DATES,
+            - which call another REFRESH_ALL_DATA
+            - FIXED this problem by capturing within the datePickerInput method the old and new values
+              - and compare the old and the new values
+              - if there is no change (no new date values clicked in widget), then
+                do not call this.DATEPICKER_DATES
+
+                  let newStartEndDate = { start: val.start, end: val.end }
+                  let oldStartEndDate = this.startendDate
+
+                  let equals = deepEqual(oldStartEndDate, newStartEndDate)
+            - thus, for each widget change only one REFRESH_ALL_DATA is called
 
       <template>
           <CtkDateTimePicker

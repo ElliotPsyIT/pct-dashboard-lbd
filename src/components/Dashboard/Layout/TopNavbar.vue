@@ -311,7 +311,7 @@ export default {
 
       //  console.log('watching siteSelected: ', val)
     },
-    rangeSelected(val) {
+    rangePickerSelected(val) {
       // my new value in val. Perform your
       // select update methods here
       NProgress.start();

@@ -742,19 +742,24 @@ export default {
     datePickerInput(val) {
 
       // console.log('@datePickerInput triggered! receives val of: ', val)
-      let newStartEndDate = { start: val.start, end: val.end }  
-      let oldStartEndDate = this.startendDate
       
-      // update dataPicker in store, if both start and end defined
+      // track last and new startend dates, grab saved startendDate stored in data()
+      let oldStartEndDate = this.startendDate
+      let newStartEndDate = { start: val.start, end: val.end }  
+      
+      // check if both start and end defined
       if ( (val.start != null || val.start != undefined) && (val.end != null || val.end != undefined)) {
-        // set startendDate
+        // update the startendDate previously saved in data()
         this.startendDate = newStartEndDate
+        // has the start and end dates changed?
         let equals = deepEqual(oldStartEndDate, newStartEndDate)
 
         // console.log('@datePickerInput, check current selectedRangePicker', this.selectedRangePicker)
         // console.log('@datePickerInput, oldStartEndDate: ', oldStartEndDate) 
         // console.log('@datePickerInput, newStartEndDate: ', newStartEndDate) 
         // console.log('@datePickerInput, are they equal?', equals)
+        
+        // if start or end date changed, call the store to update
         if (!equals) {
           this.DATEPICKER_DATES({
             start: val.start,

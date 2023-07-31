@@ -52,6 +52,19 @@ GET_INSTITUTIONS
   - the 'admin' parameter on the data url builds the correct PCT data table name
   - in pct.cgi and pct_dev.cgi code is flakely,
   - *** consider changing the backend code to make the table naming more robust
+  *** Fails for pages that do not allow site level filtering (when site filter is disabled), e.g.Consult
+    - FIX
+      - in store GET_INSTITUTIONS is called during REFRESH_ALL_DATA, if !VorN (not VISN or National)
+      - add code to determine if site filtering is allowed for that page
+
+          let page = context.state.currentpage
+          let canFilterBySite = context.state.siteFilterAllowed[page]
+
+      - then, use canFilterBySite to determine if GET_INSTITUTIONS should be called
+
+          if (!VorN && canFilterBySite) {
+            context.dispatch('GET_INSTITUTIONS', {message: 'REFRESH_ALL_DATA'})
+          }
 
 REFRESH_ALL_DATA
   - sources
@@ -110,19 +123,33 @@ Initial Route -> admin/overview
 
         - *** REFRESH_ALL_DATA was double called because
           - @input=datePickerInput triggered Action that changes selectedRangePicker
-          - since selectedRangePicker is a mapState, and is a dependence in sc() computed,
-            - a change of selectedRangePicker in store, affects sc(), which Calls
-            - @input=datePickerInput, which then sends ANOTHER store Action DATEPICKER_DATES,
-            - which call another REFRESH_ALL_DATA
-            - FIXED this problem by capturing within the datePickerInput method the old and new values
-              - and compare the old and the new values
-              - if there is no change (no new date values clicked in widget), then
-                do not call this.DATEPICKER_DATES
+          - since selectedRangePicker is a mapState, and is a dependency in sc() computed,
+            - a change of selectedRangePicker in store, affects sc(),
+              which when changed calls
+            - @input=datePickerInput,
+              which then sends ANOTHER store Action DATEPICKER_DATES
+              and calls new REFRESH_ALL_DATA
 
-                  let newStartEndDate = { start: val.start, end: val.end }
+            - FIX - capture, within the datePickerInput method, the old and new values
+              - since each datePickerInput method call will REFRESH_ALL_DATA,
+                then, need to check if start and end data has changes,
+                and call the store to refreshh only if changed
+              - capture and then compare the old and the new values coming into datePickerInput
+              - if there is no change (no new date values clicked in widget), then
+                do not call this.DATEPICKER_DATES to refresh all data
+              - use startendDate from data() as old, to compare to new
+
                   let oldStartEndDate = this.startendDate
+                  let newStartEndDate = { start: val.start, end: val.end }
+
+              - now check old and new
 
                   let equals = deepEqual(oldStartEndDate, newStartEndDate)
+
+              - then save the new startendDate as old to prepare for next iteration
+
+                  this.startendDate = newStartEndDate
+
             - thus, for each widget change only one REFRESH_ALL_DATA is called
 
       <template>

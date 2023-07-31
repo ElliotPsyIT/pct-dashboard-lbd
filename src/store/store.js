@@ -2082,16 +2082,22 @@ const store = new Vuex.Store({
       })
     },
     REFRESH_ALL_DATA (context, obj) {
-      console.log('in REFRESH_ALL_DATA and obj is: ', obj)
+      // console.log('in REFRESH_ALL_DATA and obj is: ', obj)
       // prep for VISN or NATIONAL restriction of data fetch
       let VorN = selectedSiteVISNorNATIONAL(context.state)
       // console.log('in REFRESH, VorN is: ', VorN)
-      console.log('refresh all data!')
+      // console.log('refresh all data!')
       // be sure provider info is updated with new site or new date range
       context.dispatch('PROVIDER_INFO')
 
       // be sure the institution info is updated with new site or new date range
-      if (!VorN) {
+      // use siteFilterAllowed to exclude the GET_INSTITUTIONS call
+
+      let page = context.state.currentpage
+      // console.log('page: ', page)
+      let canFilterBySite = context.state.siteFilterAllowed[page]
+      // console.log('canFilterBySite: ', canFilterBySite)
+      if (!VorN && canFilterBySite) {
         context.dispatch('GET_INSTITUTIONS', {message: 'REFRESH_ALL_DATA'})
       }
 
@@ -2269,7 +2275,7 @@ const store = new Vuex.Store({
       // }
     },
     setSelectedRange (context, range) {
-      console.log('setSelectedRange triggered')
+      // console.log('setSelectedRange triggered')
       // console.log('route.path is: ', context.state.route.path)
       context.commit('SET_SELECTED_RANGE', range)
 

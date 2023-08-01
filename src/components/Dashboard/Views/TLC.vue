@@ -79,13 +79,14 @@
                   <!-- 20 Sessions<br /> in 6 months<br /> -->
                   # of unique vets seen<br/>
                   >= 6 mos AND<br/> >= 20 sessions<br/>
-                  ({{ formatNumber(tlcNumerator6_20) }}/
-                  {{ formatNumber(tlcDenominator) }})
+                  <!-- ({{ formatNumber(tlcNumerator6_20) }}/
+                  {{ formatNumber(tlcDenominator) }}) -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="tlc_6_20_Percent">
-                      {{ tlc_6_20_Percent }}%
+                      <!-- {{ tlc_6_20_Percent }} -->
+                      {{ formatNumber(tlcNumerator6_20) }}
                     </span>
                   </transition>
                 </h4>
@@ -204,13 +205,14 @@
                   <!-- 12 Sessions<br /> in 12 months<br /> -->
                   # of unique vets seen<br/>
                   >= 12 mos AND<br/> &lt;= 12 sessions<br/>
-                  ({{ formatNumber(tlcNumerator12_12) }}/
-                  {{ formatNumber(tlcDenominator) }})
+                  <!-- ({{ formatNumber(tlcNumerator12_12) }}/
+                  {{ formatNumber(tlcDenominator) }}) -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="tlc_12_12_Percent">
-                      {{ tlc_12_12_Percent }}%
+                      <!-- {{ tlc_12_12_Percent }}% -->
+                      {{ formatNumber(tlcNumerator12_12) }}
                     </span>
                   </transition>
                 </h4>

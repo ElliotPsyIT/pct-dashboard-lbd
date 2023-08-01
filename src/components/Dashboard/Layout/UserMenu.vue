@@ -20,19 +20,19 @@
             <slot>
               <li>
                 <a class="profile-dropdown" href="#pablo">
-                  <span class="sidebar-mini">Selected Site: </span>
-                  <span class="sidebar-normal">{{selectedSite}}</span>
-                </a>
-              </li>
-              <li>
-                <a class="profile-dropdown" href="#pablo">
                   <span class="sidebar-mini">User: </span>
                   <span class="sidebar-normal">{{userAccount}}</span>
                 </a>
               </li>
               <li>
                 <a class="profile-dropdown" href="#pablo">
-                  <span class="sidebar-mini">PHI/PII: </span>
+                  <span class="sidebar-mini">Selected Site: </span>
+                  <span class="sidebar-normal">{{selectedSite}}</span>
+                </a>
+              </li>
+              <li>
+                <a class="profile-dropdown" href="#pablo">
+                  <span class="sidebar-mini">PHI/PII site {{ selectedSite }}: </span>
                   <span class="sidebar-normal">{{permissions}}</span>
                 </a>
               </li>              
@@ -40,7 +40,7 @@
               <li>
                 <a data-toggle="collapse" :aria-expanded="!isClosedPermissions" @click.stop="togglePermissions" href="#">
                 <!-- <a class="profile-dropdown" href="#pablo"> -->
-                  <span class="sidebar-mini"><u>Privileges To Sites:</u> </span>
+                  <span class="sidebar-mini"><u>Privileges To These Sites:</u> </span>
                 </a>
               </li>
               <li v-show="!isClosedPermissions">

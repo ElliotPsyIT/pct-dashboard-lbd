@@ -325,7 +325,10 @@ export default {
       suppressPropertyNamesCheck: true,
       // onRowDataChanged: this.onRowDataChanged,
       overlayLoadingTemplate:
-        '<span class="ag-overlay-loading-center">MBC Report National Loading ...</span>',
+        '<span style="padding: 10px; border: 2px solid #666; background: #55AA77;">This is a custom \'no rows\' overlay</span>',
+        // '<span class="ag-overlay-loading-center">MBC Report National Loading ...</span>',
+       overlayNoRowsTemplate:
+        '<div class="loadingx" style="margin: 7em"></div> <span class="ag-overlay-loading-center " style="font-size: 18px; z-index: 100000"> Loading Rows ...</span>',
     };
     this.gridOptions2 = {
       columnDefs: this.createColDefs2(),
@@ -333,7 +336,9 @@ export default {
       suppressPropertyNamesCheck: true,
       // onRowDataChanged: this.onRowDataChanged,
       overlayLoadingTemplate:
-        '<span class="ag-overlay-loading-center">MBC Report Visn Loading ...</span>',
+        '<span class="ag-overlay-loading-center">MBC Report Station Loading ...</span>',
+      overlayNoRowsTemplate:
+       '<div class="loadingx" style="margin: 7em"></div> <span class="ag-overlay-loading-center " style="font-size: 18px; z-index: 100000"> Loading Rows ...</span>',
     };
     this.gridOptions3 = {
       columnDefs: this.createColDefs3(),
@@ -342,6 +347,8 @@ export default {
       // onRowDataChanged: this.onRowDataChanged,
       overlayLoadingTemplate:
         '<span class="ag-overlay-loading-center">MBC Report Station Loading ...</span>',
+      overlayNoRowsTemplate:
+       '<div class="loadingx" style="margin: 7em"></div> <span class="ag-overlay-loading-center " style="font-size: 18px; z-index: 100000"> Loading Rows ...</span>',
     };
 
   },
@@ -640,5 +647,62 @@ export default {
   .fade-leave-to
     /* .fade-leave-active in <2.1.8 */ {
   opacity: 0;
+}
+        
+.loadingx:before {
+  position: absolute;
+  content: '';
+  top: 0%;
+  left: 0%;
+  background: rgba(255, 255, 255, 0.8);
+  width: 100%;
+  height: 100%;
+  border-radius: 0.28571429rem;
+  z-index: 100;
+}
+
+.loadingx:after {
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 50%;
+  margin: -1.5em 0em 0em -1.5em;
+  width: 3em;
+  height: 3em;
+  -webkit-animation: segment-spin 0.6s linear;
+  animation: segment-spin 0.6s linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  border-radius: 500rem;
+  border-color: #223088 rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
+  border-style: solid;
+  border-width: 0.2em;
+  box-shadow: 0px 0px 0px 1px transparent;
+  visibility: visible;
+  z-index: 101;
+}
+
+@-webkit-keyframes segment-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes segment-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 </style>

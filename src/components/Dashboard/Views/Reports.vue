@@ -112,8 +112,7 @@
               </card>
             </div>
           </div>
-
-          <!-- Section Header -->
+                    <!-- Section Header -->
           <div class="row d-flex justify-content-center">
             <h4 class="section-head">MBC Report: VISN</h4>
           </div>
@@ -225,6 +224,7 @@ export default {
     ...mapState([
       "selectedSite",
       "selectedRange",
+      "selectedRangePicker",
       "whitelisted",
       "phipii",
       "selectedInstitutions",
@@ -325,7 +325,7 @@ export default {
       suppressPropertyNamesCheck: true,
       // onRowDataChanged: this.onRowDataChanged,
       overlayLoadingTemplate:
-        '<span style="padding: 10px; border: 2px solid #666; background: #55AA77;">This is a custom \'no rows\' overlay</span>',
+      '<div class="loadingx" style="margin: 7em"></div> <span class="ag-overlay-loading-center " style="font-size: 18px; z-index: 100000"> Loading Rows ...</span>',
         // '<span class="ag-overlay-loading-center">MBC Report National Loading ...</span>',
        overlayNoRowsTemplate:
         '<div class="loadingx" style="margin: 7em"></div> <span class="ag-overlay-loading-center " style="font-size: 18px; z-index: 100000"> Loading Rows ...</span>',
@@ -354,17 +354,44 @@ export default {
   },
   mounted() {
 
+    this.CURRENT_PAGE("admin");
+
+    console.log('on mount route is: ', this.$route.name)
+    
+    // trigger loading overlay on ag-grids and refresh MBC data
+    this.gridOptions1.api.showLoadingOverlay()
+    this.gridOptions2.api.showLoadingOverlay()
+    this.gridOptions3.api.showLoadingOverlay()
     this.ADMIN_MBC_NATIONAL();
     this.ADMIN_MBC_VISN();
     this.ADMIN_MBC_STATION();
 
-
-    this.CURRENT_PAGE("admin");
     // this.GET_INSTITUTIONS();
+
+    // console.log('reports page has been mounted')
+
+    // console.log('selectedRangePicker start ', this.selectedRangePicker.start)
+    // console.log('selectedRangePicker end', this.selectedRangePicker.end)
+
+    // // console.log('store in () hook: ', localStorage.getItem('store'))
+    // const localstore = JSON.parse(localStorage.getItem('store'))
+    // console.log('local selectedRangePicker start ', localstore.selectedRangePicker.start)
+    // console.log('local selectedRangePicker end', localstore.selectedRangePicker.end)
+
+  },
+  watch: {
+    selectedRangePicker(newValue, oldValue) {
+      console.log('selectedRangePicker has been changed')
+      console.log('oldValue: ', oldValue)
+      console.log('newValue: ', newValue)
+    // trigger loading overlay on ag-grids when date range changes
+    this.gridOptions1.api.showLoadingOverlay()
+    this.gridOptions2.api.showLoadingOverlay()
+    this.gridOptions3.api.showLoadingOverlay()
+    }
   },
   methods: {
-    ...mapActions([
-
+  ...mapActions([
       "ADMIN_MBC_NATIONAL",
       "ADMIN_MBC_VISN",
       "ADMIN_MBC_STATION",

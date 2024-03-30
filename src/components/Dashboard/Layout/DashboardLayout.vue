@@ -89,6 +89,8 @@ import DashboardContent from "./Content.vue";
 import MobileMenu from "./MobileMenu.vue";
 import UserMenu from "./UserMenu.vue";
 
+import DropDown from 'src/components/UIComponents/Dropdown.vue'
+
 import SidebarShare from "./SidebarShare.vue";
 
 import { mapState, mapGetters, mapActions } from "vuex";
@@ -128,7 +130,9 @@ export default {
         (this.userFirstName == "Samantha" && this.userLastName == "McClelland") ||
         (this.userFirstName == "Samantha" && this.userLastName == "Wright") ||
         (this.userFirstName == "Erin" && this.userLastName == "Romero") ||
-        (this.userFirstName == "Kelly" && this.userLastName == "Maieritsch")
+        (this.userFirstName == "Kelly" && this.userLastName == "Maieritsch") ||
+        (this.userFirstName == "Kristen" && this.userLastName == "Breen") ||
+        (this.userFirstName == "Lisa-Ann" && this.userLastName == "Cuccurullo")
       ) {
         // console.log('user matched, allowed to see Explore!')
         return true;
@@ -157,6 +161,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style

@@ -140,6 +140,7 @@ export default {
     }
   },
   mounted() {
+    console.log("iframe component mounted")
     this.listenForEvents();
 
     this.initIframe();

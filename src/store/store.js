@@ -164,7 +164,7 @@ const store = new Vuex.Store({
       ebp: true,
       admin: true,
       info: false,
-      ebpAdmin: false
+      ebpAdmin: true
     },
     appVersion: '2.6.0',
     phipii: 0,
@@ -234,10 +234,12 @@ const store = new Vuex.Store({
     tlcWidgets: [],
     tlcTables: [],
 
-    // MBC Report
+    // MBC Admin Report
     mbcNational: [],
     mbcVisn: [],
     mbcStation: [],
+
+    // EBP Admin Report
     ebpAll: []
   },
   getters: {
@@ -2197,17 +2199,17 @@ const store = new Vuex.Store({
           context.dispatch('TLC_TABLES')
         }
       }
-      if (context.state.route.path == '/admin/admin') {
+      if (context.state.route.path == '/admin/reports') {
         // admin page refresh all 3 MBC widgets
+        // console.log('route admin/reports')
         context.dispatch('ADMIN_MBC_NATIONAL')
         context.dispatch('ADMIN_MBC_VISN')
         context.dispatch('ADMIN_MBC_STATION')
       }
-      if (context.state.route.path == '/admin/info') {
-        // admin page refresh all 3 MBC widgets
-        // context.dispatch('ADMIN_MBC_NATIONAL')
-        // context.dispatch('ADMIN_MBC_VISN')
-        // context.dispatch('ADMIN_MBC_STATION')
+      if (context.state.route.path == '/admin/adminebp') {
+        // admin page refresh EBP all widget
+        // console.log('route admin/adminebp')
+        context.dispatch('ADMIN_EBP_ALL')
       }
     },
     INSTITUTIONS_FILTER_SHOWHIDE (context) {

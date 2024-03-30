@@ -208,6 +208,7 @@ export default {
     ...mapState([
       "selectedSite",
       "selectedRange",
+      "selectedRangePicker",
       "whitelisted",
       "phipii",
       "selectedInstitutions",
@@ -284,22 +285,38 @@ export default {
       suppressPropertyNamesCheck: true,
       // onRowDataChanged: this.onRowDataChanged,
       overlayLoadingTemplate:
-        '<span class="ag-overlay-loading-center">EBP Report Station Loading ...</span>',
-    };
+      '<div class="loadingx" style="margin: 7em"></div> <span class="ag-overlay-loading-center " style="font-size: 18px; z-index: 100000"> Loading Rows ...</span>',
+        // '<span class="ag-overlay-loading-center">MBC Report National Loading ...</span>',
+       overlayNoRowsTemplate:
+        '<div class="loadingx" style="margin: 7em"></div> <span class="ag-overlay-loading-center " style="font-size: 18px; z-index: 100000"> Loading Rows ...</span>',
+    }
 
 
   },
   mounted() {
 
-    // this.ADMIN_MBC_NATIONAL();
-    // this.ADMIN_MBC_VISN();
-    // this.ADMIN_MBC_STATION();
-    this.ADMIN_EBP_ALL();
+    // console.log('adminebp page has been mounted')
+    // console.log('selectedRangePicker is: ', this.selectedRangePicker)
 
+    // console.log('store in () hook: ', localStorage.getItem('store'))
+
+    // show ag-grid spinner and refresh data
+    this.gridOptions4.api.showLoadingOverlay()
+    this.ADMIN_EBP_ALL();
 
     // this.CURRENT_PAGE("admin");
     this.CURRENT_PAGE("adminebp");
     // this.GET_INSTITUTIONS();
+    
+  },
+  watch: {
+    selectedRangePicker(newValue, oldValue) {
+      console.log('selectedRangePicker has been changed')
+      console.log('oldValue: ', oldValue)
+      console.log('newValue: ', newValue)
+      // trigger loading overlay on ag-grids when date range changes
+      this.gridOptions4.api.showLoadingOverlay()
+    }
   },
   methods: {
     ...mapActions([
@@ -310,7 +327,7 @@ export default {
       "ADMIN_EBP_ALL",
 
       "CURRENT_PAGE",
-    //   "GET_INSTITUTIONS",
+      "GET_INSTITUTIONS",
     ]),
     asyncValue(val) {
       return val == 0 ? "Loading..." : val;
@@ -592,6 +609,14 @@ export default {
               filter: "agTextColumnFilter",
             },
             {
+              headerName: "New Reach",
+              field: "NEW REACH",
+            //   width: 35,
+              cellStyle: { "text-align": "left" },
+              filter: "agTextColumnFilter",
+            },
+
+            {
               headerName: "HF WET",
               field: "HF WET",
             //   width: 35,
@@ -699,5 +724,62 @@ export default {
   .fade-leave-to
     /* .fade-leave-active in <2.1.8 */ {
   opacity: 0;
+}
+
+.loadingx:before {
+  position: absolute;
+  content: '';
+  top: 0%;
+  left: 0%;
+  background: rgba(255, 255, 255, 0.8);
+  width: 100%;
+  height: 100%;
+  border-radius: 0.28571429rem;
+  z-index: 100;
+}
+
+.loadingx:after {
+  position: absolute;
+  content: '';
+  top: 20%;
+  left: 50%;
+  margin: -1.5em 0em 0em -1.5em;
+  width: 3em;
+  height: 3em;
+  -webkit-animation: segment-spin 0.6s linear;
+  animation: segment-spin 0.6s linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  border-radius: 500rem;
+  border-color: #223088 rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
+  border-style: solid;
+  border-width: 0.2em;
+  box-shadow: 0px 0px 0px 1px transparent;
+  visibility: visible;
+  z-index: 101;
+}
+
+@-webkit-keyframes segment-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes segment-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 </style>

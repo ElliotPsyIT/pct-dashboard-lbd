@@ -117,7 +117,6 @@ function setParams (format, state) {
 
   // DETERMINE OPTIONAL PARAMETERS (covers dateRangePicker)
   let optionalParams = setOptionalParams(state)
-
   return coreParams + optionalParams
 }
 
@@ -1317,7 +1316,7 @@ const store = new Vuex.Store({
     //     .filter(site => site.dataType === 'ebpPatientsCPT')
     //   return filteredArray.length == 0 ? 0 : filteredArray[0].totalNum
     // },
-    siteEBPClinicSummary: (state) => {
+    /* siteEBPClinicSummary: (state) => {
       let filteredArray = state.ebpDetails.filter((site) => {
         // console.log('site.StaPa is: ', site.StaPa)
         // console.log('state.selectedSite is: ', state.selectedSite)
@@ -1326,7 +1325,7 @@ const store = new Vuex.Store({
       })
       // console.log('from siteEBPClinicSummary: ', filteredArray)
       return filteredArray.length == 0 ? [] : filteredArray
-    },
+    }, */
     siteEBPDetailsSessionsSurveys: (state) => {
       let filteredArray = state.ebpDetailsSessionsSurveys.filter((site) => {
         // console.log('site.StaPa is: ', site.StaPa)
@@ -1496,7 +1495,7 @@ const store = new Vuex.Store({
         context.commit('SET_EBP_SUMMARY', response.data)
       })
     },
-    EBP_DETAILS (context) {
+    /* EBP_DETAILS (context) {
       // console.log('in EBP_DETAILS Action, check context here', context)
 
       const path = 'pct.cgi'
@@ -1510,7 +1509,7 @@ const store = new Vuex.Store({
         // console.log('check context before commit: ', context)
         context.commit('SET_EBP_DETAILS', response.data)
       })
-    },
+    }, */
     EBP_DETAILS_TYPES (context) {
       // console.log('in EBP_DETAILS_TYPES Action, check context here', context)
 
@@ -2361,10 +2360,10 @@ const store = new Vuex.Store({
       // console.log('in mutate SET_EBP_SUMMARY and ebpSummary data : ', ebpSummary)
       state.ebpSummary = ebpSummary
     },
-    SET_EBP_DETAILS (state, ebpDetails) {
+    /* SET_EBP_DETAILS (state, ebpDetails) {
       // console.log('in mutate SET_EBP_DETAILS and state is: ', state)
       state.ebpDetails = ebpDetails
-    },
+    }, */
     SET_EBP_DETAILS_TYPES (state, ebpDetailsTypes) {
       // console.log('in mutate SET_EBP_DETAILS_TYPES and state is: ', state)
       state.ebpDetailsTypes = ebpDetailsTypes

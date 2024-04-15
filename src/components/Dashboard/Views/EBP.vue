@@ -176,11 +176,11 @@
         <!-- End Row -->
 
         <!-- PEorCPT Headers -->
-        <div class="row d-flex justify-content-center">
+
+<!--         <div class="row d-flex justify-content-center">
           <h4 class="section-head">PE or CPT Only EBPs</h4>
         </div>
 
-        <!-- PEorCPT FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
         >
@@ -189,8 +189,6 @@
           </div>
         </div>
 
-        <!-- Individual & Group Tx Headers -->
-        <!-- Start Row -->
         <div class="row d-flex justify-content-center">
           <div class="col-xl-4 col-md-2">
             <stats-card>
@@ -230,7 +228,7 @@
             </stats-card>
           </div>
         </div>
-        <!-- End Row -->
+ -->
 
         <hr class="style1" />
 

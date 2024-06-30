@@ -1719,7 +1719,7 @@ const store = new Vuex.Store({
 
       axios.get(`${path}?${allparams}`).then((response) => {
         // console.log('got PROVIDER_INFO from server')
-        // console.log('PROVIDER_INFO server response.data is: ', response.data)
+        console.log('PROVIDER_INFO server response.data is: ', response.data)
         // console.log('check context before commit: ', context)
         context.commit('SET_PROVIDER_INFO', response.data)
       })

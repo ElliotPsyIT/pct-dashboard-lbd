@@ -792,14 +792,14 @@ export default {
             {
               headerName: "Staff Name",
               field: "STAFFNAME",
-              width: 40,
+              width: 28,
               cellStyle: { "text-align": "left" },
               filter: "agTextColumnFilter",
             },
             {
               headerName: "Institution",
               field: "InstitutionName",
-              width: 40,
+              width: 35,
               cellStyle: { "text-align": "left" },
               filter: "agTextColumnFilter",
             },
@@ -812,7 +812,7 @@ export default {
             {
               headerName: "Patients",
               field: "numPatients",
-              width: 23,
+              width: 17,
               cellStyle: { "text-align": "left" },
               filter: "agNumberColumnFilter", //,
               // cellRenderer: (params) => {
@@ -825,7 +825,7 @@ export default {
             {
               headerName: "Visits",
               field: "numEncounters",
-              width: 18,
+              width: 14,
               cellStyle: { "text-align": "left" },
               filter: "agNumberColumnFilter", //,
               // cellRenderer: (params) => {
@@ -837,7 +837,7 @@ export default {
             {
               headerName: "Visit EBPs (%)",
               field: "visitEBPpercent",
-              width: 30,
+              width: 23,
               cellStyle: { "text-align": "left" },
               filter: "agNumberColumnFilter",
               cellRenderer: (params) => {
@@ -853,6 +853,27 @@ export default {
                     : params.data.PercentageEncountersCPT;
 
                 return `${encountersEBP} (${encountersEBPpercent}%)`;
+              },
+            },
+            {
+              headerName: "Visit PTSD EBPs (%)",
+              field: "visitPTSDEBPpercent",
+              width: 30,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+              cellRenderer: (params) => {
+                // console.log('params.data is: ', params.data)
+                let encounters = params.data.numEncounters;
+                let encountersEBPPTSD =
+                  params.data.numEncountersEBPPTSD === null
+                    ? 0
+                    : params.data.numEncountersEBPPTSD;
+                let encountersEBPpercentPTSD =
+                  params.data.PercentageEncountersCPTPTSD === null
+                    ? 0
+                    : params.data.PercentageEncountersCPTPTSD;
+
+                return `${encountersEBPPTSD} (${encountersEBPpercentPTSD}%)`;
               },
             },
             {
@@ -876,6 +897,28 @@ export default {
                 return `${patientsEBP} (${patientsEBPpercent}%)`;
               },
             },
+            {
+              headerName: "Patient PTSD EBPs (%)",
+              field: "patientEBPpercentPTSD",
+              width: 30,
+              cellStyle: { "text-align": "left" },
+              filter: "agNumberColumnFilter",
+              cellRenderer: (params) => {
+                // console.log('params.data is: ', params.data)
+                let patients = params.data.numPatients;
+                let patientsEBPPTSD =
+                  params.data.numPatientsEBPPTSD === null
+                    ? 0
+                    : params.data.numPatientsEBPPTSD;
+                let patientsEBPpercentPTSD =
+                  params.data.PercentagePatientsCPTPTSD === null
+                    ? 0
+                    : params.data.PercentagePatientsCPTPTSD;
+
+                return `${patientsEBPPTSD} (${patientsEBPpercentPTSD}%)`;
+              },
+            },
+ 
           ],
         },
       ];

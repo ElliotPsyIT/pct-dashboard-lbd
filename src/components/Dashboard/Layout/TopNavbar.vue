@@ -584,6 +584,26 @@ export default {
                 },
               },
               {
+                key: "FY24Qtr3",
+                label: "Qtr3 FY24",
+                value: () => {
+                  return {
+                    start: moment('2024-04-01'),
+                    end: moment('2024-07-31'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
+              {
                 key: "FY24Qtr2",
                 label: "Qtr2 FY24",
                 value: () => {
@@ -690,26 +710,6 @@ export default {
                   return {
                     start: moment('2022-10-01'),
                     end: moment('2022-12-31'),
-                  };
-                },
-                callback: ({ start, end, shortcut }) => {
-                  this.datePickerInput({
-                    start: start.format("YYYYMMDD"),
-                    end: end.format("YYYYMMDD"),
-                    shortcut: shortcut.key,
-                  });
-                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
-                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  // this.setSelectedRange('threemonths')
-                },
-              },
-              {
-                key: "FY22Qtr4",
-                label: "Qtr4 FY22",
-                value: () => {
-                  return {
-                    start: moment('2022-07-01'),
-                    end: moment('2022-09-30'),
                   };
                 },
                 callback: ({ start, end, shortcut }) => {

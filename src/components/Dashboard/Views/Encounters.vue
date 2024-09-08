@@ -111,6 +111,7 @@
 
         <hr />
 
+
         <!-- Section Header -->
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Encounters and Patients</h4>
@@ -153,7 +154,7 @@
                 <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
               <div slot="content">
-                <p class="card-category">Patient Uniques</p>
+                <p class="card-category">Total Patients</p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
                     <span :key="siteEncounterPatientTotal">
@@ -178,6 +179,240 @@
             </template>
           </div>
         </div>
+
+        <hr />
+        <!-- Section 2 new view -->
+        <div class="row d-flex justify-content-center">
+          <h4 class="section-head">New Section 2</h4>
+        </div>
+
+        <!-- OtherServices FAQ -->
+        <div
+          style="align-items: center; display: flex; justify-content: center"
+        >
+          <div style="width: 60%; margin-bottom: 10px">
+            <VueFaqAccordion :items="otherServices" />
+          </div>
+        </div>
+
+        <!-- Section 2 new view -->
+        <div class="d-flex flex-row justify-content-center">
+
+        <!-- EncountersPsychotherapy FAQ -->
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-01 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Individual<br />
+                  <!-- <transition name="fade" mode="out-in">  -->
+                  ({{ formatNumber(siteEncounterCPTIndividual) }}/
+                  {{ formatNumber(siteEncounterTotal) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTIndividualPercent">
+                      {{ siteEncounterCPTIndividualPercent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Group<br />
+                  <!-- <transition name="fade" mode="out-in">  -->
+                  ({{ formatNumber(siteEncounterCPTGroup) }}/
+                  {{ formatNumber(siteEncounterTotal) }})
+                  <!-- </transition> -->
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTGroupPercent">
+                      {{ siteEncounterCPTGroupPercent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+ 
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i
+                  class="nc-icon-outline nc-single-folded-content text-warning"
+                ></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Assessment<br />({{
+                    formatNumber(siteEncounterCPTAssessment.total)
+                  }}/{{ formatNumber(siteEncounterTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTAssessment.percent">
+                      {{ siteEncounterCPTAssessment.percent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-briefcase-24 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  E&amp;M Only<br/> Sessions <br />({{
+                    formatNumber(siteEncounterCPTEMOnly.total)
+                  }}/{{ formatNumber(siteEncounterTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTEMOnly.percent">
+                      {{ siteEncounterCPTEMOnly.percent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-phone-2 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Telephone<br/> Encounters<br />({{
+                    formatNumber(siteEncounterCPTTelephone.total)
+                  }}/{{ formatNumber(siteEncounterTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTTelephone.percent">
+                      {{ siteEncounterCPTTelephone.percent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-circle text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Peer<br/> Support <br />({{
+                    formatNumber( siteEncounterCPTPeerSupport.total )
+                  }}/{{ formatNumber(siteEncounterTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTPeerSupport.percent">
+                      {{ siteEncounterCPTPeerSupport.percent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+       </div>
+
+
+        <div class="d-flex flex-row justify-content-center">
+          
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-single-folded-content text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Case<br/> Management <br />({{
+                    formatNumber(siteEncounterCPTCaseManagement.total)
+                  }}/{{ formatNumber(siteEncounterTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTCaseManagement.percent">
+                      {{ siteEncounterCPTCaseManagement.percent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon-outline nc-multiple-11 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Group<br/> Education<br />({{
+                    formatNumber(siteEncounterCPTGroupEducation.total)
+                  }}/{{ formatNumber(siteEncounterTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTGroupEducation.percent">
+                      {{ siteEncounterCPTGroupEducation.percent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+          <div class="col-xl-3 col-md-3">
+            <stats-card>
+              <div slot="header" class="icon-warning">
+                <i class="nc-icon nc-attach-87 text-warning"></i>
+              </div>
+              <div slot="content">
+                <p class="card-category">
+                  Other <br /> Encounters <br/> ({{
+                    formatNumber(siteEncounterCPTOther.total)
+                  }}/{{ formatNumber(siteEncounterTotal) }})
+                </p>
+                <h4 class="card-title">
+                  <transition name="fade" mode="out-in">
+                    <span :key="siteEncounterCPTOther.percent">
+                      {{ siteEncounterCPTOther.percent }}%
+                    </span>
+                  </transition>
+                </h4>
+              </div>
+            </stats-card>
+          </div>
+
+        </div>
+
 
         <hr />
 
@@ -1188,6 +1423,14 @@ export default {
     this.ENCOUNTER_TELEHEALTH_ALL();
     this.ENCOUNTER_FACE_TO_FACE();
     this.ENCOUNTER_PHONE_THERAPY();
+
+    /* // Section 2 actions on mounted
+    this.ENCOUNTER_CPT_EM_ONLY();
+    this.ENCOUNTER_CPT_PEER_SUPPORT();
+    this.ENCOUNTER_CPT_CASE_MANAGEMENT();
+    this.ENCOUNTER_CPT_OTHER();
+    */
+
     // call action to signal the active page
     this.CURRENT_PAGE("encounters");
     // might be needed to assure institutions are available
@@ -1238,7 +1481,7 @@ export default {
       "siteEncounterTelehealthSameStationIndEM",
       "siteEncounterTelehealthDiffStationIndEM",
 
-      // telehealth-relaed group therapy
+      // telehealth-related group therapy
       "siteEncounterGroupFaceToFace",
       "siteEncounterGroupPhoneTherapy",
       "siteEncounterTelehealthHomeGrp",
@@ -1249,7 +1492,13 @@ export default {
       "siteEncounterTelehealthHomeAll",
       "siteEncounterTelehealthSameStationAll",
       "siteEncounterTelehealthDiffStationAll",
-
+      
+      // section 2 new widgets 9/24
+      "siteEncounterCPTEMOnly",
+      "siteEncounterCPTPeerSupport",
+      "siteEncounterCPTCaseManagement",
+      "siteEncounterCPTOther",
+     
       "siteProviderSelected",
       "warningCurrentDate",
     ]),
@@ -1384,6 +1633,31 @@ export default {
         (+this.siteEncounterCPTGroup / +this.siteEncounterTotal) * 100;
       return precise_round(percent, 1);
     },
+    
+  
+   // Section 2 Percent Computed
+   siteEncounterCPTEMOnlyPercent() {
+      let percent =
+        (+this.siteEncounterCPTEMOnly / +this.siteEncounterTotal) * 100;
+      return precise_round(percent, 1);
+    },
+    siteEncounterCPTPeerSupportPercent() {
+      let percent =
+        (+this.siteEncounterCPTPeerSupport/ +this.siteEncounterTotal) * 100;
+      return precise_round(percent, 1);
+    },
+    siteEncounterCPTCaseManagementPercent() {
+      let percent =
+        (+this.siteEncounterCPTCaseManagement/ +this.siteEncounterTotal) * 100;
+      return precise_round(percent, 1);
+    },
+    siteEncounterCPTOtherPercent() {
+      let percent =
+        (+this.siteEncounterCPTOther / +this.siteEncounterTotal) * 100;
+      return precise_round(percent, 1);
+    },
+
+    //////////////////////////////////////////////////////
 
     // Telehealth Individual Therapy Percent
     siteEncounterTelehealthFaceToFaceIndPercent() {
@@ -1537,7 +1811,7 @@ export default {
     lineChartOptions() {
       return {
         chart: { type: "spline" },
-        title: { text: "Encounters and Unique Patients" },
+        title: { text: "Encounters and Total Patients" },
         subtitle: { text: "Monthly Counts" },
         xAxis: {
           categories: this.siteEncounterLineChartSeries.months,
@@ -1613,6 +1887,14 @@ export default {
       "ENCOUNTER_TELEHEALTH_ALL",
       "ENCOUNTER_FACE_TO_FACE",
       "ENCOUNTER_PHONE_THERAPY",
+
+      /* // new Section 2 actions
+      "ENCOUNTER_CPT_EM_ONLY",
+      "ENCOUNTER_CPT_PEER_SUPPORT",
+      "ENCOUNTER_CPT_CASE_MANAGEMENT",
+      "ENCOUNTER_CPT_OTER",
+      */
+
       "CURRENT_PAGE",
       "GET_INSTITUTIONS",
     ]),

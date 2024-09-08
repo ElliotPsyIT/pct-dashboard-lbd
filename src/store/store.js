@@ -201,6 +201,11 @@ const store = new Vuex.Store({
     encounterTelehealthAll: [],
     encounterPhoneTherapy: [],
 
+    encounterCPTEMOnly: [],
+ /*    encounterCPTPeerSupport: [],
+    encounterCPTCaseManagement: [],
+    encounterCPTOther: [],
+ */
     encounterApptCancelNoShow: [],
     encounterApptCount: [],
     encounterApptClinicCancelNoShow: [],
@@ -451,19 +456,7 @@ const store = new Vuex.Store({
       // console.log('in ENCOUNTER_CPT_CATEGORIES, filteredArray is: ', filteredArray)
       return filteredArray
     },
-    // total for Tele CPT Category (large set of CPTs)
-    siteEncounterCPTTelephone: (state) => {
-      let filteredArray = state.encounterCPTCategories
-        .filter((site) => site.StaPa === state.selectedSite)
-        .filter((site) => {
-          // regex matches multiple CPT types including where Group Ed is combined w/ other CPTs
-          return /Telephone/.test(site.CPTCategory)
-        })
-      // try new totalAndPercent2(filteredArray)
-      return totalAndPercent2(filteredArray)
-    },
-
-    // totals for face to face - individual and group telehealth
+   // totals for face to face - individual and group telehealth
     siteEncounterIndividualFaceToFace: (state) => {
       let filteredArray = state.encounterFaceToFace
         .filter((site) => site.StaPa === state.selectedSite)
@@ -681,7 +674,19 @@ const store = new Vuex.Store({
       return filteredArray.length == 0 ? 0 : filteredArray[0].NUMSESSIONS
     },
     //  OTHER SERVICES SESSIONS
-    // total for Prolonged Service CPT Category (large set of CPTs)
+    // total for Tele CPT Category (large set of CPTs)
+    siteEncounterCPTTelephone: (state) => {
+      let filteredArray = state.encounterCPTCategories
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => {
+          // regex matches multiple CPT types including where Group Ed is combined w/ other CPTs
+          // return /Telephone/.test(site.CPTCategory)
+          return /TELEPHONE/.test(site.CPTCategory)
+        })
+      // try new totalAndPercent2(filteredArray)
+      return totalAndPercent2(filteredArray)
+    },
+    // total for Prolonged Service CPTdf Category (large set of CPTs)
     siteEncounterCPTProlongedService: (state) => {
       let filteredArray = state.encounterCPTCategories
         .filter((site) => site.StaPa === state.selectedSite)
@@ -698,12 +703,65 @@ const store = new Vuex.Store({
       let filteredArray = state.encounterCPTCategories
         .filter((site) => site.StaPa === state.selectedSite)
         .filter((site) => {
+          // console.log('site.CPTCategory is: ', site.CPTCategory)
           // regex matches multiple CPT types including where this CPT is combined w/ other CPTs
-          return /Assessment/.test(site.CPTCategory)
+          // return /Assessment/.test(site.CPTCategory)
+          return /ASSESSMENT/.test(site.CPTCategory)
         })
 
       return totalAndPercent2(filteredArray)
     },
+    // total for Specific CPT Category (large set of CPTs)
+    siteEncounterCPTEMOnly: (state) => {
+      let filteredArray = state.encounterCPTCategories
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => {
+          // console.log('site.CPTCategory is: ', site.CPTCategory)
+          // regex matches multiple CPT types including where this CPT is combined w/ other CPTs
+          // return /Assessment/.test(site.CPTCategory)
+          return /E[&]M SERVICES/.test(site.CPTCategory)
+        })
+
+      return totalAndPercent2(filteredArray)
+    },
+    // total for Specific CPT Category (large set of CPTs)
+    siteEncounterCPTPeerSupport: (state) => {
+      let filteredArray = state.encounterCPTCategories
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => {
+          // console.log('site.CPTCategory is: ', site.CPTCategory)
+          // regex matches multiple CPT types including where this CPT is combined w/ other CPTs
+          // return /Assessment/.test(site.CPTCategory)
+          return /PEER SUPPORT/.test(site.CPTCategory)
+        })
+
+      return totalAndPercent2(filteredArray)
+    },
+    siteEncounterCPTCaseManagement: (state) => {
+      let filteredArray = state.encounterCPTCategories
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => {
+          // console.log('site.CPTCategory is: ', /CASE MANAGEMENT/.test(site.CPTCategory))
+          // regex matches multiple CPT types including where this CPT is combined w/ other CPTs
+          // return /Assessment/.test(site.CPTCategory)
+          return /CASE MANAGEMENT/.test(site.CPTCategory)
+        })
+      // console.log('totalAndPercent2(filteredArray) is: ', totalAndPercent2(filteredArray))
+      return totalAndPercent2(filteredArray)
+    },
+    siteEncounterCPTOther: (state) => {
+      let filteredArray = state.encounterCPTCategories
+        .filter((site) => site.StaPa === state.selectedSite)
+        .filter((site) => {
+          // console.log('site.CPTCategory is: ', site.CPTCategory)
+          // regex matches multiple CPT types including where this CPT is combined w/ other CPTs
+          // return /Assessment/.test(site.CPTCategory)
+          return /OTHER/.test(site.CPTCategory)
+        })
+
+      return totalAndPercent2(filteredArray)
+    },
+
     // total for Specific CPT Category (large set of CPTs)
     siteEncounterCPTGroupEducation: (state) => {
       // matches both Group Education string exactly, and if in string with other CPTs
@@ -711,16 +769,17 @@ const store = new Vuex.Store({
         .filter((site) => site.StaPa === state.selectedSite)
         .filter((site) => {
           // regex matches multiple CPT types including where this CPT is combined w/ other CPTs
-          return /Health and Behavior \(Group\)/.test(site.CPTCategory)
+          // return /Health and Behavior \(Group\)/.test(site.CPTCategory)
+          return /GROUP EDUCATION/.test(site.CPTCategory)
         })
 
       return totalAndPercent2(filteredArray)
     },
 
     // like siteEncounterCPTIndividual's large CPTs - but Ind Therapy Category and no Grp Therapy
+    // Special case - transition to CPTGroup
     siteEncounterCPTPatientsIndOnly: (state) => {
-      // encounterPatientCPTCategories
-      // console.log('state.encounterPatientCPTCategories', state.encounterPatientCPTCategories)
+      // Needs to be modified to derive from state.encounterCPTCategores
       let filteredArray = state.encounterPatientCPTCategories
         .filter((site) => site.StaPa === state.selectedSite)
         .filter((site) => site.TherapyType === 'IndividualOnly')
@@ -758,7 +817,6 @@ const store = new Vuex.Store({
         ? 0
         : filteredArray[0].NumPsychotherapyByType
     },
-
     //* **********************************************
     // APPOINTMENTS
     //* ********************************************** //
@@ -1909,6 +1967,7 @@ const store = new Vuex.Store({
       const format = 'encounter_patient_cpt_categories'
       const allparams = setParams(format, context.state)
 
+      // console.log('allparams is: ', allparams)
       // const params = 'format=encounter_patient_cpt_categories&staPa=' + context.state.selectedSite + '&dateRange=' + context.state.selectedRange
       axios.get(`${path}?${allparams}`).then((response) => {
         // console.log('got ENCOUNTER_PATIENT_CPT_CATEGORIES details from server')
@@ -1917,7 +1976,6 @@ const store = new Vuex.Store({
         context.commit('SET_ENCOUNTER_PATIENT_CPT_CATEGORIES', response.data)
       })
     },
-
     /** **************** APPOINTMENTS ******************* */
     APPOINTMENT_COUNT (context) {
       // console.log('in APP_COUNTS Action, check context here', context)

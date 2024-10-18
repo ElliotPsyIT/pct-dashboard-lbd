@@ -417,11 +417,10 @@
         <hr />
 
         <!-- Psychotherapy Section -->
-        <div class="row d-flex justify-content-center">
+<!--         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Individual Psychotherapy Sessions</h4>
         </div>
 
-        <!-- EncountersPsychotherapy FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
         >
@@ -439,10 +438,8 @@
               <div slot="content">
                 <p class="card-category">
                   Individual<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(siteEncounterCPTIndividual) }}/
                   {{ formatNumber(siteEncounterTotal) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -460,7 +457,6 @@
           <h4 class="section-head">Group Psychotherapy Sessions</h4>
         </div>
 
-        <!-- EncountersPsychotherapy FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
         >
@@ -478,10 +474,8 @@
               <div slot="content">
                 <p class="card-category">
                   Group<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(siteEncounterCPTGroup) }}/
                   {{ formatNumber(siteEncounterTotal) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -494,7 +488,7 @@
             </stats-card>
           </div>
         </div>
-
+ -->
         <!-- Telehealth All -->
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Telehealth All</h4>
@@ -1143,11 +1137,10 @@
         <hr />
 
         <!-- Other Services Section -->
-        <div class="row d-flex justify-content-center">
+<!--         <div class="row d-flex justify-content-center">
           <h4 class="section-head">Other Services Sessions</h4>
         </div>
 
-        <!-- OtherServices FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
         >
@@ -1247,7 +1240,7 @@
             </stats-card>
           </div>
         </div>
-
+  -->
         <!-- Encounter Categories Section -->
         <!-- <div class="row d-flex justify-content-center">
           <h4 class="section-head">Encounters Categories Summary</h4>
@@ -1927,12 +1920,13 @@ export default {
               cellStyle: { "text-align": "left" },
               filter: "agTextColumnFilter",
             },
-            // { headerName: "CPT Description",
-            //   field: "CPTDescription",
-            //   width: 150,
-            //   cellStyle: { 'text-align': "left" } ,
-            //   filter: "agTextColumnFilter"
-            // },
+            { 
+              headerName: "CPT Group",
+              field: "CPTGroup",
+              width: 50,
+              cellStyle: { 'text-align': "left" } ,
+              filter: "agTextColumnFilter"
+            },
             {
               headerName: "Encounters",
               field: "encountersPerCPT",

@@ -590,13 +590,12 @@
 
 
         <!-- Psychotherapy Patients Section -->
-        <div class="row d-flex justify-content-center">
+<!--         <div class="row d-flex justify-content-center">
           <h4 class="section-head">
             Individual Psychotherapy Format (with E&M)
           </h4>
         </div>
 
-        <!-- encounterTelehealthInd FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
         >
@@ -614,10 +613,8 @@
               <div slot="content">
                 <p class="card-category">
                   Face To Face<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(telehealthFaceToFaceIndEM) }}/
                   {{ formatNumber(siteEncounterCPTIndividual) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -639,10 +636,8 @@
               <div slot="content">
                 <p class="card-category">
                   <b>Video</b><br />To Home<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(telehealthHomeIndEM) }}/
                   {{ formatNumber(siteEncounterCPTIndividual) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -663,10 +658,8 @@
               <div slot="content">
                 <p class="card-category">
                   <b>Video</b><br />To Associate Facility<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(telehealthSameStationIndEM) }}/
                   {{ formatNumber(siteEncounterCPTIndividual) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -689,10 +682,8 @@
               <div slot="content">
                 <p class="card-category">
                   <b>Video</b><br />To Different Station<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(telehealthDiffStationIndEM) }}/
                   {{ formatNumber(siteEncounterCPTIndividual) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -715,10 +706,8 @@
               <div slot="content">
                 <p class="card-category">
                   By Phone<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(telehealthPhoneIndTherapyEM) }}/
                   {{ formatNumber(siteEncounterCPTIndividual) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -731,7 +720,7 @@
             </stats-card>
           </div>
         </div>
-
+ -->
         <!-- <div class="d-flex flex-row justify-content-center">
 
           <div class="col-xl-3 col-md-3">

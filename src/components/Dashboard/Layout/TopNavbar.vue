@@ -584,12 +584,32 @@ export default {
                 },
               },
               {
+                key: "FY24Qtr4",
+                label: "Qtr4 FY24",
+                value: () => {
+                  return {
+                    start: moment('2024-07-01'),
+                    end: moment('2024-10-30'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
+             {
                 key: "FY24Qtr3",
                 label: "Qtr3 FY24",
                 value: () => {
                   return {
                     start: moment('2024-04-01'),
-                    end: moment('2024-07-31'),
+                    end: moment('2024-06-30'),
                   };
                 },
                 callback: ({ start, end, shortcut }) => {

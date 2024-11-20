@@ -609,7 +609,7 @@ export default {
                 value: () => {
                   return {
                     start: moment('2024-04-01'),
-                    end: moment('2023-06-30'),
+                    end: moment('2024-06-30'),
                   };
                 },
                 callback: ({ start, end, shortcut }) => {

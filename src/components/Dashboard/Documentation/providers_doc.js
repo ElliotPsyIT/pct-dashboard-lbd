@@ -12,7 +12,7 @@ export const ProviderActivitySummary = [
     title: 'Provider Activity Summary',
     value: '<u><b>Description</b></u>: The Provider Activity Summary table lists the counts of unique patients and visits from PCT encounters (see Encounter page for encounter definitions). ' +
       'Providers listed here are primary providers for each PCT encounter.' +
-      '<br/><br/>In addition, the table displays the number of visits (encounters) and percent of visits that are documented as EBP visits.',
+      '<br/><br/>In addition, the table displays the number of visits (encounters) and percent of visits that are documented as EBP visits. This includes EBPS for PTSD, as well as EBPS for other conditions and couples (e.g., CBT-I, IPT-D, CBCT-PTSD).',
     category: 'Provider Activity Summary Defined...'
   }
 ]
@@ -29,8 +29,7 @@ export const ProviderEncounterTotals = [
 export const ProviderPatientSessions = [
   {
     title: 'Provider Patient Sessions',
-    value: '<u><b>Description</b></u>: The Provider Patient Sessions multi-level table is similar to the Provider Encounter table above, except that here patients sessions and session CPT codes (session types) are displayed. ' +
-      "Here, each provider's number of encounter sessions and session types are shown for each PCT clinic at each site where the provider practices. ",
+    value: '<u><b>Description</b></u>: The Provider Patient Sessions multi-level table is similar to the Provider Encounter table above, except that here patient information is displayed for those seen in each PCT clinic grid for the selected time period, including the CPT codes used for the encounter.',
     category: 'Provider Patient Sessions Defined...'
   }
 ]

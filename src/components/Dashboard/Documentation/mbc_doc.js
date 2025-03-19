@@ -2,12 +2,10 @@ export const PCL5Administrations = [
   {
     title: 'PCL5 Administrations',
     value:
-      'All PCL-5 Listings Include Both PCL5 Weekly and PCL5 Monthly<br/><br/> ' +
-      '<u><b>Description</b></u>: PCL-5s administered in all defined PCT Clinics are displayed for the selected date range and from the selected site. PCT Clinics at the medical center are set up within VistA configured using one more stop codes.<br/><br/> ' +
-      '<u><b>Stop Codes</b></u>: To identify PCL-5 Administrations from PCT Clinics, we use the following PTSD stop codes when they are in the PRIMARY position only.<br/><br/>' +
-      '<u><b>516 PTSD - Group</b></u>: Records consultation and/or treatment follow-up provided to more than one individual. Treatment is provided to those patients with PTSD. Includes provider and support services. <br/><br/> ' +
-      "<u><b>542 PTSD Telephone PTSD</b></u>: Records patient consultation or medical care management, advice, and/or referral provided by telephone contact between patient or patient's next-of-kin and/or the person(s) with whom the patient has a meaningful relationship, and clinical and/or professional staff assigned to the PCT.<br/><br/> " +
-      '<u><b>562 PTSD - Individual</b></u>: Records patient visit for consultation, evaluation, follow-up, and/or treatment provided to an individual with PTSD. Includes provider and support services. ',
+      'All PCL-5 listings include Weekly and Monthly versions of the PCL-5<br/><br/> ' +
+      '<u><b>Description</b></u>: PCL-5s administered in a defined PCT clinic are displayed for the selected date range and from the selected site. <br/><br/> ' +
+      'To identify PCL-5 administrations from PCT clinics we use the following stop codes in the primary position only: 562, 516, & 542.<br/><br/>' +
+      '<u><b>NOTE</b></u>: Providers need to ensure the PCL is pushed into MHA (e.g., BHL upload to CPRS) to be displayed on dashboard and “count” toward MBC implementation. ',
     category: 'PCL5 Administrations Defined...'
   }
 ]
@@ -89,7 +87,7 @@ export const SurveyTypesGiven = [
   {
     title: 'SurveyTypesGiven',
     value:
-      '<u><b>Description</b></u>: Theses are counts of the number of surveys (measures) administered within PCT clinics at this site. ',
+      '<u><b>Description</b></u>: These are the counts of the different surveys (measures) administered within PCT clinics at this location. ',
     category: 'Survey Types Given Defined...'
   }
 ]
@@ -98,9 +96,8 @@ export const SurveysToPatientsByProvider = [
   {
     title: 'Surveys To Patients By Provider',
     value:
-      '<u><b>Description</b></u>: The Surveys To Patients By Provider table lists the surveys and survey scores administered to each patient by each provider in each PCT Clinic. ' +
-      "<br/><br/><font color='red'><b>NOTE:</b> While most PCT administered surveys are listed in the table with a total score on one table row (e.g. PCL-5, PHQ9), several of the FY19 screening measures are listed by individual item score - one row per item (e.g. PHQ2-I9, CSSRS). " +
-      'As a result, at first glance it may appear that a screening measure is incorrectly duplicated, but a closer look will reveal the multiple rows are correctly listing item level scores. ',
+      '<u><b>Description</b></u>: The Surveys to Patients by Provider table lists all of the surveys and survey scores administered to each patient seen in the PCT clinic associated with the survey administration.  The provider associated with that clinic is displayed. ' +
+      "<br/><br/><font color='red'><b>NOTE:</b></font> While most survey are listed in the table with a total score on one table row, screening measures (e.g., PHQ2-I9; CSSRS) are listed by individual item score (one item per row). As a result, at first glance it may appear that a screening measure is incorrectly duplicated, but a closer look will reveal the multiple rows are correctly listing item level scores. ",
     category: 'Surveys To Patients By Provider Defined...'
   }
 ]

@@ -14,7 +14,9 @@ export const TimeLimitedCare6and20Table = [
     title: 'TLC >= 20 Sessions in >= 6 Months Activity Summary',
     value: '<u><b>Description</b></u>: Lists veterans who have been seen by a provider for for greater than or equal to 20 sessions AND for greater than or equal to 6 months. The provider is listed as the primary provider in the encounter. The most recent session with the provider must be within 3 months of the current date.<br/><br/> ' +
     '<u><b>NOTE</b></u>: Some Veterans may make sense to be on this list. For example, if your PCT provides full DBT care, then DBT patients will likely appear on this list. If a veteran has been seen for multiple courses of an EBP in your clinic (e.g. PE and CBT-I or CBT-D) they will likely appear on this list. Veterans on this list should represent complex cases and are cases that would benefit from team-based care.<br/><br/> ' +
-    'If a Veteran meets the above definition for more than one provider than a Veteran would be listed under each provider and be listed twice.',
+    'If a Veteran meets the above definition for more than one provider than a Veteran would be listed under each provider and be listed twice.<br/><br/>' +
+    'The summary table lists all patients meeting the criteria for each provider.  For each patient the table included the first session and most recent session dates, total months in treatment, breakdown of how many sessions were individual, group, and EBP, and total number of PCLs for the patient.<br/><br/>' +
+    'The PTSD Dashboard only holds 2 years’ worth of data at any given time, so Veterans on this list could have been seen for more than 24 months but that won’t be captured.  We recommend cases with 24 months should be discussed with the provider to gain accurate information about the duration of care.',
     category: 'Long-term, high frequency psychotherapy Cohort Defined...'
   }
 ]
@@ -37,7 +39,9 @@ export const TimeLimitedCare12and12Table = [
     value: '<u><b>Description</b></u>: Lists Veterans who have been seen by a provider for less than or equal to 12 sessions AND greater than or equal to 12 months. The provider is listed as the primary provider in the encounter. The most recent session with the provider must be within 3 months of the current date.<br/><br/>' +
     'If a Veteran meets the above definition for more than one provider than a Veteran would be listed under each provider and be listed twice.<br/><br/>' +
     '<u><b>NOTE</b></u>: Some Veterans may make sense to be on this list. ' +
-    'For example, If a veteran stops care and then re-engages in care they may appear on this list.',
+    'For example, If a veteran stops care and then re-engages in care they may appear on this list.<br/><br/>' +
+    'The summary table lists all patients meeting the criteria for each provider.  For each patient the table included the first session and most recent session dates, total months in treatment, breakdown of how many sessions were individual, group, and EBP, and total number of PCLs for the patient.<br/><br/>' +
+    'The PTSD Dashboard only holds 2 years’ worth of data at any given time, so Veterans on this list could have been seen for more than 24 months but that won’t be captured.  We recommend cases with 24 months should be discussed with the provider to gain accurate information about the duration of care.',
     category: 'Lengthy Treatment Activity Summary Defined...'
   }
 ]

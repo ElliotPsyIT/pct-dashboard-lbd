@@ -584,6 +584,46 @@ export default {
                 },
               },
               {
+                key: "FY25Qtr2",
+                label: "Qtr2 FY25",
+                value: () => {
+                  return {
+                    start: moment('2025-01-01'),
+                    end: moment('2025-03-31'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
+              {
+                key: "FY25Qtr1",
+                label: "Qtr1 FY25",
+                value: () => {
+                  return {
+                    start: moment('2024-10-01'),
+                    end: moment('2024-12-31'),
+                  };
+                },
+                callback: ({ start, end, shortcut }) => {
+                  this.datePickerInput({
+                    start: start.format("YYYYMMDD"),
+                    end: end.format("YYYYMMDD"),
+                    shortcut: shortcut.key,
+                  });
+                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
+                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
+                  // this.setSelectedRange('threemonths')
+                },
+              },
+              {
                 key: "FY24Qtr4",
                 label: "Qtr4 FY24",
                 value: () => {
@@ -690,46 +730,6 @@ export default {
                   return {
                     start: moment('2023-04-01'),
                     end: moment('2023-06-30'),
-                  };
-                },
-                callback: ({ start, end, shortcut }) => {
-                  this.datePickerInput({
-                    start: start.format("YYYYMMDD"),
-                    end: end.format("YYYYMMDD"),
-                    shortcut: shortcut.key,
-                  });
-                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
-                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  // this.setSelectedRange('threemonths')
-                },
-              },
-              {
-                key: "FY23Qtr2",
-                label: "Qtr2 FY23",
-                value: () => {
-                  return {
-                    start: moment('2023-01-01'),
-                    end: moment('2023-03-31'),
-                  };
-                },
-                callback: ({ start, end, shortcut }) => {
-                  this.datePickerInput({
-                    start: start.format("YYYYMMDD"),
-                    end: end.format("YYYYMMDD"),
-                    shortcut: shortcut.key,
-                  });
-                  // this.datePickerInput({ start: start.format('YYYYMMDD'), end: end.format('YYYYMMDD') }, 'shortcut')
-                  // console.log('My shortcut was clicked with values: ', start.format('YYYYMMDD'), end.format('YYYYMMDD'))
-                  // this.setSelectedRange('threemonths')
-                },
-              },
-              {
-                key: "FY23Qtr1",
-                label: "Qtr1 FY23",
-                value: () => {
-                  return {
-                    start: moment('2022-10-01'),
-                    end: moment('2022-12-31'),
                   };
                 },
                 callback: ({ start, end, shortcut }) => {

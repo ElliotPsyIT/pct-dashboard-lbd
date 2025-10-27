@@ -119,8 +119,8 @@ export default {
       // console.log('DashboardLayout store is: ', localStorage.getItem('store'))
     },
     viewPrivileges() {
-      // console.log('this.userFirstName is: ', this.userFirstName)
-      // console.log('this.userLastName is : ', this.userLastName)
+      console.log('this.userFirstName is: ', this.userFirstName)
+      console.log('this.userLastName is : ', this.userLastName)
 
       // console.log('DashboardLayout store is: ', localStorage.getItem('store'))
 
@@ -132,12 +132,14 @@ export default {
         (this.userFirstName == "Erin" && this.userLastName == "Romero") ||
         (this.userFirstName == "Kelly" && this.userLastName == "Maieritsch") ||
         (this.userFirstName == "Kristen" && this.userLastName == "Breen") ||
-        (this.userFirstName == "Lisa-Ann" && this.userLastName == "Cuccurullo")
+        (this.userFirstName == "Ana" && this.userLastName == "Maldonado") ||
+        (this.userFirstName == "Lisa-ann" && this.userLastName == "Cuccurullo")
+
       ) {
-        // console.log('user matched, allowed to see Explore!')
+        console.log('user matched, allowed to see Explore!')
         return true;
       } else {
-        // console.log('user did not match, NOT allowed to see Explore!')
+        console.log('user did not match, NOT allowed to see Explore!')
         return false;
       }
     },

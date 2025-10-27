@@ -5,11 +5,11 @@ export const ebps = [
       'All EBPs Sessions Numerator<br/><br/>' +
       '<b>Numerator</b>: The EBPs Session numerator is a count of psychotherapy encounters in a PCT clinic (stop codes 562, 516 & 542) documented using either the national EBP templates or the national PTSD psychotherapy template. <br/>' +
       '<br/>All EBPs include PE, CPT, WET, EMDR, COPE, CBCT-PTSD, CBT-D, CBT-I, IPT-D, PCT ' + '[' + 'This does not include encounters from the <i>Other</i> category on the national PTSD Psychotherapy and MBC template' + ']' + '<br/><br/>' +
-      'Only encounters of the following with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
-      '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-      '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-      '<b>GROUP SESSIONS</b>: 90853<br/>' +
-      '<b>FAMILY SESSIONS</b>: 90847, 90849',
+      'Only encounters with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
     category: 'EBPs Defined ...'
   },
   {
@@ -17,11 +17,11 @@ export const ebps = [
     value:
       'All EBPs Sessions Denominator<br/><br/>' +
       '<b>Denominator</b>: The EBPs session denominator is a count of all psychotherapy PCT encounters, this is based only on CPT codes from the encounter in a PCT coded clinic (stop codes 562, 516 & 542), and not template health factors. <br/><br/>' +
-      'Only encounters of the following with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
-      '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-      '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-      '<b>GROUP SESSIONS</b>: 90853<br/>' +
-      '<b>FAMILY SESSIONS</b>: 90847, 90849',
+      'Only encounters with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
     category: 'EBPs Defined ...'
   },
   {
@@ -30,11 +30,11 @@ export const ebps = [
       'All EBPs Patients Numerator<br/><br/>' +
       '<b>Numerator</b>: The EBPs Patients numerator is a count of patients seen in a PCT clinic (stop codes 562, 516 & 542) for psychotherapy documented using either the national EBP templates or the national PTSD psychotherapy template.  <br/>' +
       '<br/>All EBPs include PE, CPT, WET, EMDR, COPE, CBCT-PTSD, CBT-D, CBT-I, IPT-D, PCT ' + '[' + 'This does not include encounters from the <i>Other</i> category on the national PTSD Psychotherapy and MBC template' + ']' + '<br/><br/>' +
-      'Only encounters of the following with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
-      '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-      '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-      '<b>GROUP SESSIONS</b>: 90853<br/>' +
-      '<b>FAMILY SESSIONS</b>: 90847, 90849',
+      'Only encounters with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
     category: 'EBPs Defined ...'
   },
   {
@@ -42,11 +42,11 @@ export const ebps = [
     value:
       'All EBPs Patients Denominator<br/><br/>' +
       '<b>Denominator</b>: The EBPs Patients denominator is a count of all psychotherapy PCT encounters, this is based only on CPT codes from the encounter in a PCT coded clinic (stop codes 562, 516 & 542), and not template health factors. <br/>' +
-      'Only encounters of the following with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
-      '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-      '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-      '<b>GROUP SESSIONS</b>: 90853<br/>' +
-      '<b>FAMILY SESSIONS</b>: 90847, 90849',
+      'Only encounters with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
     category: 'EBPs Defined ...'
   }
 ]
@@ -58,11 +58,11 @@ export const PTSD = [
       'PTSD Only EBPs Sessions Numerator<br/><br/>' +
       '<b>Numerator</b>: The PTSD EBP Session numerator is a count of psychotherapy encounters in a PCT clinic (stop codes 562, 516 & 542) documented using either the national EBP templates or the national PTSD psychotherapy template.' + '<br/><br/>' +
       '<br/>PTSD EBPs include PE, CPT, WET, EMDR, COPE ' + '[' + 'This does not include encounters from the <i>Other</i> category on the national PTSD Psychotherapy and MBC template' + ']' + '<br/><br/>' +
-      'Only encounters of the following with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
-      '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-      '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-      '<b>GROUP SESSIONS</b>: 90853<br/>' +
-      '<b>FAMILY SESSIONS</b>: 90847, 90849',
+      'Only encounters with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
     category: 'PTSD EBPs Defined ...'
   },
   {
@@ -70,11 +70,11 @@ export const PTSD = [
     value:
       'PTSD Only EBP Session Denominator<br/><br/>' +
       '<b>Denominator</b>: The EBPs session denominator is a count of all psychotherapy PCT encounters, this is based only on CPT codes from the encounter in a PCT coded clinic (stop codes 562, 516 & 542), and not template health factors.  ' + '<br/><br/>' +
-      'Only encounters of the following with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
-      '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-      '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-      '<b>GROUP SESSIONS</b>: 90853<br/>' +
-      '<b>FAMILY SESSIONS</b>: 90847, 90849',
+      'Only encounters with the following CPT procedure codes in the encounter are used in counting EPB sessions:<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
     category: 'PTSD EBPs Defined ...'
   },
   {
@@ -83,11 +83,11 @@ export const PTSD = [
       'PTSD Only EBPs Patients Numerator<br/><br/>' +
       '<b>Numerator</b>: The PTSD Only EPBs numerator is a count of patients seen for psychotherapy in a PCT clinic (stop codes 562, 516 & 542) documented using either the national EBP templates or the national PTSD psychotherapy template. ' + '<br/><<br/>' +
       '<br/>PTSD EBPs include PE, CPT, WET, EMDR, COPE ' + '[' + 'This does not include encounters from the <i>Other</i> category on the national PTSD Psychotherapy and MBC template' + ']' + '<br/><br/>' +
-      'Only encounters of the following with the following CPT procedure codes in the encounter are used in counting PTSD EBP sessions:<br/><br/>' +
-      '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-      '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-      '<b>GROUP SESSIONS</b>: 90853<br/>' +
-      '<b>FAMILY SESSIONS</b>: 90847, 90849',
+      'Only encounters with the following CPT procedure codes in the encounter are used in counting PTSD EBP sessions:<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
     category: 'PTSD EBPs Defined ...'
   },
   {
@@ -95,65 +95,65 @@ export const PTSD = [
     value:
       'PTSD Only EBPs Patients Denominator<br/><br/>' +
       '<b>Denominator</b>: The PTSD Only EBP Patients denominator is a count of all psychotherapy PCT encounters, this is based only on CPT codes from the encounter in a PCT coded clinic (stop codes 562, 516 & 542), and not template health factors.  ' + '<br/><br/>' +
-      'Only encounters of the following with the following CPT procedure codes in the encounter are used in counting PTSD EBP sessions:<br/><br/>' +
-      '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-      '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-      '<b>GROUP SESSIONS</b>: 90853<br/>' +
-      '<b>FAMILY SESSIONS</b>: 90847, 90849',
+      'Only encounters with the following CPT procedure codes in the encounter are used in counting PTSD EBP sessions:<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
     category: 'PTSD EBPs Defined ...'
   }
 ]
-// Depracated
-// export const PEorCPT = [
-//   {
-//     title: 'Session Counts: Numerator',
-//     value:
-//       'PE or CPT Session Counts<br/><br/>' +
-//       '<u>Numerator</u>: The PE or CPT Session numerator reflects a count of PCT encounters documented using Prolonged Exposure (PE) or Cognitive Processing Therapy (CPT) templates.' +
-//       'Only encounters of the following encounter types are used in counting EBP PE/CPT sessions:<br/><br/>' +
-//       '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-//       '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-//       '<b>GROUP SESSIONS</b>: 90853<br/>' +
-//       '<b>FAMILY SESSIONS</b>: 90847, 90849',
-//     category: 'PE or CPT EBPs Defined ...'
-//   },
-//   {
-//     title: 'Session Counts: Denominator',
-//     value:
-//       'PE or CPT Session Counts<br/><br/>' +
-//       '<u>Denominator</u>: The PE or CPT Session denominator reflects a count of total PCT encounters whether documented as EBP sessions or not.  ' +
-//       'Only encounters of the following encounter types are used in counting total denominator sessions (same Procedural Codes as numerator)<br/><br/>' +
-//       '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-//       '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-//       '<b>GROUP SESSIONS</b>: 90853<br/>' +
-//       '<b>FAMILY SESSIONS</b>: 90847, 90849',
-//     category: 'PE or CPT EBPs Defined ...'
-//   },
-//   {
-//     title: 'Patient Counts: Numerator',
-//     value:
-//       'PE or CPT Patient Counts<br/><br/>' +
-//       '<u>Numerator</u>: The PE or CPT Patients numerator reflects a count of unique PCT patients with encounters using Prolonged Exposure (PE) or Cognitive Processing Therapy (CPT) templates. <br/>' +
-//       'Only encounters of the following encounter types are used in counting EBP PE/CPT patients:<br/><br/>' +
-//       '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-//       '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-//       '<b>GROUP SESSIONS</b>: 90853<br/>' +
-//       '<b>FAMILY SESSIONS</b>: 90847, 90849',
-//     category: 'PE or CPT EBPs Defined ...'
-//   },
-//   {
-//     title: 'Patients Denominator',
-//     value:
-//       'EBPs Patients Total Counts<br/><br/>' +
-//       '<u>Denominator</u>: The PE or CPT Patients denominator reflects a count of total unique PCT patients whether their sessions were documented as EBP sessions or not.  ' +
-//       'Patients are counted only if their encounter was from any of the following encounter types used in counting the total denominator sessions (same Procedural Codes as numerator):<br/><br/>' +
-//       '<b>INDIVIDUAL SESSIONS</b>: 90832, 90834,90837<br/>' +
-//       '<b>CRISIS SESSIONS</b>: 90839<br/>' +
-//       '<b>GROUP SESSIONS</b>: 90853<br/>' +
-//       '<b>FAMILY SESSIONS</b>: 90847, 90849',
-//     category: 'PE or CPT EBPs Defined ...'
-//   }
-// ]
+
+export const PEorCPT = [
+  {
+    title: 'Session Counts: Numerator',
+    value:
+      'PE or CPT Session Counts<br/><br/>' +
+      '<u>Numerator</u>: The PE or CPT Session numerator reflects a count of PCT encounters documented using Prolonged Exposure (PE) or Cognitive Processing Therapy (CPT) templates.' +
+      'Only encounters of the following encounter types are used in counting EBP PE/CPT sessions:<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
+    category: 'PE or CPT EBPs Defined ...'
+  },
+  {
+    title: 'Session Counts: Denominator',
+    value:
+      'PE or CPT Session Counts<br/><br/>' +
+      '<u>Denominator</u>: The PE or CPT Session denominator reflects a count of total PCT encounters whether documented as EBP sessions or not.  ' +
+      'Only encounters of the following encounter types are used in counting total denominator sessions (same Procedural Codes as numerator)<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
+    category: 'PE or CPT EBPs Defined ...'
+  },
+  {
+    title: 'Patient Counts: Numerator',
+    value:
+      'PE or CPT Patient Counts<br/><br/>' +
+      '<u>Numerator</u>: The PE or CPT Patients numerator reflects a count of unique PCT patients with encounters using Prolonged Exposure (PE) or Cognitive Processing Therapy (CPT) templates. <br/>' +
+      'Only encounters of the following encounter types are used in counting EBP PE/CPT patients:<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
+    category: 'PE or CPT EBPs Defined ...'
+  },
+  {
+    title: 'Patients Denominator',
+    value:
+      'EBPs Patients Total Counts<br/><br/>' +
+      '<u>Denominator</u>: The PE or CPT Patients denominator reflects a count of total unique PCT patients whether their sessions were documented as EBP sessions or not.  ' +
+      'Patients are counted only if their encounter was from any of the following encounter types used in counting the total denominator sessions (same Procedural Codes as numerator):<br/><br/>' +
+      '<b>Individual Sessions</b>: 90832, 90834, 90837<br/>' +
+      '<b>Crisis Sessions</b>: 90839<br/>' +
+      '<b>Group Sessions</b>: 90853<br/>' +
+      '<b>Family Sessions</b>: 90847, 90849',
+    category: 'PE or CPT EBPs Defined ...'
+  }
+]
 
 export const IndividualAndGroupTxEBPs = [
   {
@@ -161,13 +161,13 @@ export const IndividualAndGroupTxEBPs = [
     value:
       'Individual Tx EBP Sessions<br/><br/>' +
       '<b>Numerator</b>: The Individual Tx Session numerator reflects a count of PCT encounters documented as EBP sessions. A documented EBP session is identified as any EBP template (not just PTSD EBP) that was used in documentation. Only encounters of the following encounter types are used in counting EBP Individual Tx Sessions: <br/><br/>' +
-      'INDIVIDUAL SESSIONS: 90832, 90834, 90837<br/>' +
-      'CRISIS SESSIONS: 90839<br/><br/>' +
-      'FAMILY SESSIONS: 90847, 90849<br/><br/>' +
+      'Individual Sessions: 90832, 90834,  90837<br/>' +
+      'Crisis Sessions: 90839<br/><br/>' +
+      'Family Sessions: 90847, 90849<br/><br/>' +
       '<b>Denominator</b>: The Individual Tx Session denominator reflects a count of total PCT encounters whether they were documented as EBP sessions or not. Only encounters of the following encounter types are used in counting total number of Individual Tx Sessions (these are the same encounter types as in the numerator): <br/><br/>' +
-      'INDIVIDUAL SESSIONS: 90832, 90834, 90837<br/>' +
-      'CRISIS SESSIONS: 90839<br/><br/>' +
-      'FAMILY SESSIONS: 90847, 90849<br/><br/>',
+      'Individual Sessions: 90832, 90834,  90837<br/>' +
+      'Crisis Sessions: 90839<br/><br/>' +
+      'Family Sessions: 90847, 90849<br/><br/>',
     category: 'Individual & Group Tx EBPs Defined ...'
   },
   {
@@ -175,13 +175,13 @@ export const IndividualAndGroupTxEBPs = [
     value:
       'Individual Tx EBP Patients<br/><br/>' +
       '<b>Numerator</b>: The Individual Tx EBP Patients numerator reflects a count of unique PCT patients who completed individual encounters documented as EBP sessions. A documented EBP session is identified if any EBP template (not just PTSD EBP) was used in documentation. Patients are counted only if their encounter was from any of the following encounter types: <br/><br/>' +
-      'INDIVIDUAL SESSIONS: 90832, 90834, 90837<br/>' +
-      'CRISIS SESSIONS: 90839<br/><br/>' +
-      'FAMILY SESSIONS: 90847, 90849<br/><br/>' +
+      'Individual Sessions: 90832, 90834,  90837<br/>' +
+      'Crisis Sessions: 90839<br/><br/>' +
+      'Family Sessions: 90847, 90849<br/><br/>' +
       '<b>Denominator</b>: The Individual Tx EBP Patients denominator reflects a count of total unique PCT patients who completed individual encounters, whether these encounters were documented as EBP sessions or not. Patients are counted only if their encounter was from any of the following encounter types (these are the same encounter types as the numerator): <br/><br/>' +
-      'INDIVIDUAL SESSIONS: 90832, 90834, 90837<br/>' +
-      'CRISIS SESSIONS: 90839<br/><br/>' +
-      'FAMILY SESSIONS: 90847, 90849<br/><br/>',
+      'Individual Sessions: 90832, 90834,  90837<br/>' +
+      'Crisis Sessions: 90839<br/><br/>' +
+      'Family Sessions: 90847, 90849<br/><br/>',
     category: 'Individual & Group Tx EBPs Defined ...'
   },
   {
@@ -191,9 +191,9 @@ export const IndividualAndGroupTxEBPs = [
       '<b>Note</b>: This section provides a count of EBP sessions provided as group interventions. It does not reflect current VA/DOD Clinical Practice Guideline recommendations regarding PTSD treatment, which can be found here:  <br/>' +
       'https://www.healthquality.va.gov/guidelines/MH/ptsd/' + '<br/><br/>' +
       '<b>Numerator</b>: The Group Tx EBP sessions numerator reflects a count of PCT group encounters documented as EBP sessions. A documented EBP session is identified if any EBP template (not just PTSD EBP) was used in documentation.  Only encounters of the following encounter types are used in counting Group EBP Tx sessions:<br/><br/>' +
-      'GROUP SESSIONS: 90853<br/><br/>' +
+      'Group Sessions: 90853<br/><br/>' +
       '<b>Denominator</b>: The Group Tx EBP Sessions denominator reflects a count of total group therapy PCT encounters, whether documented as EBP sessions or not. Only encounters of the following encounter types are used (these are the same encounter types as the numerator):' + '<br/><br/>' +
-      'GROUP SESSIONS: 90853<br/><br/>',
+      'Group Sessions: 90853<br/><br/>',
     category: 'Individual & Group Tx EBPs Defined ...'
   },
   {
@@ -203,10 +203,10 @@ export const IndividualAndGroupTxEBPs = [
       '<b>Note</b>: This section provides a count of unique patients who received EBPs provided as group interventions. It does not reflect current VA/DOD Clinical Practice Guideline recommendations regarding PTSD treatment, which can be found here: <br/>' +
       'https://www.healthquality.va.gov/guidelines/MH/ptsd/' + '<br/><br/>' +
       '<b>Numerator</b>: The Group Tx EBP patient count numerator reflects a count of unique PCT patients who completed group encounters documented as EBP sessions. A documented EBP session is identified if any EBP template (not just PTSD EBP) was used in documentation. Patients are counted only if their encounter was from any of the following encounter code types: <br/><br/>' +
-      'GROUP SESSIONS: 90853<br/><br/>' +
+      'Group Sessions: 90853<br/><br/>' +
       '<b>Denominator</b>: The Group Tx EBP Patient denominator reflects a count of total unique PCT patients whether their sessions were documented as EBP sessions or not. Only encounters of the following encounter types are used (these are the same encounter types as the numerator): <br/><br/>' +
       'Patients are counted only if their encounter was from any the following encounter types are used in counting total denominator sessions (same CPT Codes are numerator):<br/><br/>' +
-      'GROUP SESSIONS: 90853<br/>',
+      'Group Sessions: 90853<br/>',
     category: 'Individual & Group Tx EBPs Defined ...'
   }
 ]

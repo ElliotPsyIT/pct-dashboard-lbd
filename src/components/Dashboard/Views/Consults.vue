@@ -156,7 +156,7 @@
             <h3 class="phipii-warning">Privileges Required to View Patient Level Data for Station <b>{{ selectedSite }}</b> - Request Link Below</h3>
           </div>
           <div class="row d-flex justify-content-center ">
-            <a href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
+            <a href="https://dvagov.sharepoint.com/sites/OITBISL/SitePages/CDW-Data-Access.aspx" target="_blank"><u>Link to BISL PHI/PII Access Request</u></a>
           </div>
 
         </div>

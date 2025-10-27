@@ -278,7 +278,7 @@
           </div>
           <div class="row d-flex justify-content-center">
             <a
-              href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx"
+              href="https://dvagov.sharepoint.com/sites/OITBISL/SitePages/CDW-Data-Access.aspx"
               target="_blank"
               ><u>Link to BISL PHI/PII Access Request</u></a
             >
@@ -524,7 +524,7 @@
           </div>
           <div class="row d-flex justify-content-center">
             <a
-              href="https://vaww.cdw.va.gov/sites/security/request/Pages/register.aspx"
+              href="https://dvagov.sharepoint.com/sites/OITBISL/SitePages/CDW-Data-Access.aspx"
               target="_blank"
               ><u>Link to BISL PHI/PII Access Request</u></a
             >

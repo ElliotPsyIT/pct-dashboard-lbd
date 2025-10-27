@@ -181,9 +181,9 @@
         </div>
 
         <hr />
-        <!-- Section 2 new view -->
+        <!-- Program Encounters Summary new view -->
         <div class="row d-flex justify-content-center">
-          <h4 class="section-head">New Section 2</h4>
+          <h4 class="section-head">Program Encounters Summary</h4>
         </div>
 
         <!-- OtherServices FAQ -->
@@ -191,7 +191,7 @@
           style="align-items: center; display: flex; justify-content: center"
         >
           <div style="width: 60%; margin-bottom: 10px">
-            <VueFaqAccordion :items="otherServices" />
+            <VueFaqAccordion :items="programEncounters" />
           </div>
         </div>
 
@@ -616,6 +616,16 @@
           <h4 class="section-head">Psychotherapy Patients by Session Types</h4>
         </div>
 
+        <!-- encounterTelehealthAll FAQ -->
+        <div
+          style="align-items: center; display: flex; justify-content: center"
+        >
+          <div style="width: 60%; margin-bottom: 10px">
+            <VueFaqAccordion :items="therapyBySessionType" />
+          </div>
+        </div>
+
+ 
         <div class="d-flex flex-row justify-content-center">
           <div class="col-xl-3 col-md-4">
             <stats-card>
@@ -818,14 +828,13 @@
         </div>
 
 
-        <!-- Psychotherapy Patients Section -->
+        <!-- 
         <div class="row d-flex justify-content-center">
           <h4 class="section-head">
             Individual Psychotherapy Format (with E&M)
           </h4>
         </div>
 
-        <!-- encounterTelehealthInd FAQ -->
         <div
           style="align-items: center; display: flex; justify-content: center"
         >
@@ -843,10 +852,8 @@
               <div slot="content">
                 <p class="card-category">
                   Face To Face<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(telehealthFaceToFaceIndEM) }}/
                   {{ formatNumber(siteEncounterCPTIndividual) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -868,10 +875,8 @@
               <div slot="content">
                 <p class="card-category">
                   <b>Video</b><br />To Home<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(telehealthHomeIndEM) }}/
                   {{ formatNumber(siteEncounterCPTIndividual) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -892,10 +897,8 @@
               <div slot="content">
                 <p class="card-category">
                   <b>Video</b><br />To Associate Facility<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(telehealthSameStationIndEM) }}/
                   {{ formatNumber(siteEncounterCPTIndividual) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -918,10 +921,8 @@
               <div slot="content">
                 <p class="card-category">
                   <b>Video</b><br />To Different Station<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(telehealthDiffStationIndEM) }}/
                   {{ formatNumber(siteEncounterCPTIndividual) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -944,10 +945,8 @@
               <div slot="content">
                 <p class="card-category">
                   By Phone<br />
-                  <!-- <transition name="fade" mode="out-in">  -->
                   ({{ formatNumber(telehealthPhoneIndTherapyEM) }}/
                   {{ formatNumber(siteEncounterCPTIndividual) }})
-                  <!-- </transition> -->
                 </p>
                 <h4 class="card-title">
                   <transition name="fade" mode="out-in">
@@ -959,7 +958,7 @@
               </div>
             </stats-card>
           </div>
-        </div>
+        </div> -->
 
         <!-- <div class="d-flex flex-row justify-content-center">
 
@@ -1145,7 +1144,7 @@
           style="align-items: center; display: flex; justify-content: center"
         >
           <div style="width: 60%; margin-bottom: 10px">
-            <VueFaqAccordion :items="otherServices" />
+            <VueFaqAccordion :items="programEncounters" />
           </div>
         </div>
 
@@ -1363,14 +1362,16 @@ import { AgGridVue } from "ag-grid-vue";
 import VueFaqAccordion from "vue-faq-accordion";
 import {
   encountersAndPatients,
-  individualPsychotherapy,
-  otherServices,
+  // individualPsychotherapy,
+  // otherServices,
+  programEncounters,
   encounterCategories,
   encounterCPTDetails,
   encounterTelehealthInd,
-  encounterTelehealthIndEM,
+  // encounterTelehealthIndEM,
   groupPsychotherapy,
   encounterTelehealthAll,
+  therapyBySessionType,
 } from "../Documentation/encounter_doc.js";
 
 import { addCommas, totalAndPercent, precise_round } from "src/utils";
@@ -1857,14 +1858,16 @@ export default {
 
       // Encounters FAQ
       encountersAndPatients: encountersAndPatients,
-      individualPsychotherapy: individualPsychotherapy,
+      // individualPsychotherapy: individualPsychotherapy,
       groupPsychotherapy: groupPsychotherapy,
-      otherServices: otherServices,
+      // otherServices: otherServices,
+      programEncounters: programEncounters,
       encounterCategories: encounterCategories,
       encounterCPTDetails: encounterCPTDetails,
       encounterTelehealthInd: encounterTelehealthInd,
-      encounterTelehealthIndEM: encounterTelehealthIndEM,
+      // encounterTelehealthIndEM: encounterTelehealthIndEM,
       encounterTelehealthAll: encounterTelehealthAll,
+      therapyBySessionType: therapyBySessionType,
     };
   },
   methods: {
